@@ -7,8 +7,24 @@ pub mod arguments;
 pub mod relocations;
 pub mod sandbox;
 pub mod tracer;
+pub mod printf;
 
-use crate::core::models::bof::BofFile;
+use std::sync::atomic::{AtomicBool, Ordering};
+
+/// Global debug mode flag
+static DEBUG_MODE: AtomicBool = AtomicBool::new(false);
+
+/// Set debug mode for executor output
+pub fn set_debug_mode(enabled: bool) {
+    DEBUG_MODE.store(enabled, Ordering::SeqCst);
+}
+
+/// Check if debug mode is enabled
+pub fn is_debug_mode() -> bool {
+    DEBUG_MODE.load(Ordering::SeqCst)
+}
+
+use crate::core::models::bof::{BofFile, Import};
 use crate::core::models::report::{ExecutionResult, OutputMessage, OutputType};
 use crate::core::parser;
 use anyhow::{Result, Context};
@@ -18,6 +34,40 @@ use symbols::SymbolResolver;
 use beacon_api::{BeaconApi, global_output, clear_global_output};
 use sandbox::init_sandbox;
 use tracer::{init_tracer, get_api_calls, clear_tracer};
+
+#[cfg(windows)]
+use windows::Win32::System::Diagnostics::Debug::FlushInstructionCache;
+#[cfg(windows)]
+use windows::Win32::System::Threading::GetCurrentProcess;
+#[cfg(windows)]
+use windows::Win32::System::Diagnostics::Debug::{AddVectoredExceptionHandler, RemoveVectoredExceptionHandler, EXCEPTION_POINTERS};
+#[cfg(windows)]
+use windows::Win32::Foundation::EXCEPTION_ACCESS_VIOLATION;
+
+#[cfg(windows)]
+static mut CRASH_INFO: Option<(u64, u64)> = None; // (crash_address, instruction_pointer)
+
+#[cfg(windows)]
+unsafe extern "system" fn exception_handler(exception_info: *mut EXCEPTION_POINTERS) -> i32 {
+    const EXCEPTION_CONTINUE_SEARCH: i32 = 0;
+    
+    if let Some(info) = exception_info.as_ref() {
+        if let Some(record) = info.ExceptionRecord.as_ref() {
+            if record.ExceptionCode == EXCEPTION_ACCESS_VIOLATION {
+                let access_addr = if record.NumberParameters >= 2 {
+                    record.ExceptionInformation[1] as u64
+                } else {
+                    0
+                };
+                let instruction_addr = record.ExceptionAddress as u64;
+                CRASH_INFO = Some((access_addr, instruction_addr));
+                eprintln!("[BOF] ACCESS VIOLATION at instruction 0x{:x}, accessing address 0x{:x}", 
+                    instruction_addr, access_addr);
+            }
+        }
+    }
+    EXCEPTION_CONTINUE_SEARCH
+}
 
 /// Execute a BOF
 pub fn execute(
@@ -90,30 +140,160 @@ pub fn execute(
         resolver.set_beacon_api("BeaconVirtualAlloc", BeaconApi::beacon_virtual_alloc as usize);
         resolver.set_beacon_api("BeaconVirtualFree", BeaconApi::beacon_virtual_free as usize);
     
-    // Resolve all imports and build symbol map
+    // Resolve all symbols and build symbol map
+    // Key: COFF symbol table index, Value: resolved address
     let mut resolved_symbols: std::collections::HashMap<usize, usize> = std::collections::HashMap::new();
     
-    for (idx, import) in bof.imports.iter().enumerate() {
-        let addr = resolver.resolve(import)
-            .with_context(|| format!("Failed to resolve symbol: {}", import.symbol_name))?;
-        resolved_symbols.insert(idx, addr);
+    // For __imp_ symbols, we need to store the function address in memory
+    // and use the memory address as the symbol value (indirect addressing)
+    // Allocate space for import address table (IAT)
+    let import_count = bof.imports.len();
+    let iat_size = import_count * std::mem::size_of::<usize>();
+    let iat_memory = if iat_size > 0 {
+        Some(loader::MemoryRegion::allocate(iat_size)
+            .context("Failed to allocate IAT memory")?)
+    } else {
+        None
+    };
+    
+    // Track which IAT slot we're using
+    let mut iat_index = 0usize;
+    
+    if is_debug_mode() {
+        eprintln!("[BOF] Resolving {} symbols (IAT size: {} bytes for {} imports)...", 
+            bof.symbols.len(), iat_size, import_count);
     }
     
-    // Also resolve internal symbols
-    for (idx, symbol) in bof.symbols.iter().enumerate() {
-        if !symbol.is_external {
-            // Find section for symbol
+    // Build a map of symbol names to their imports for quick lookup
+    let import_map: std::collections::HashMap<String, &Import> = bof.imports.iter()
+        .map(|imp| (imp.symbol_name.clone(), imp))
+        .collect();
+    
+    // Resolve all symbols by their COFF symbol table index
+    for symbol in &bof.symbols {
+        let coff_idx = symbol.coff_index;
+        
+        if symbol.is_external {
+            // External symbol - look up in imports and resolve
+            if let Some(import) = import_map.get(&symbol.name) {
+                match resolver.resolve(import) {
+                    Ok(func_addr) => {
+                        // For __imp_ symbols, we need indirect addressing:
+                        // Store the function address in the IAT and return the IAT slot address
+                        if symbol.name.starts_with("__imp_") {
+                            if let Some(ref iat) = iat_memory {
+                                let iat_slot_offset = iat_index * std::mem::size_of::<usize>();
+                                let iat_slot_addr = iat.base() as usize + iat_slot_offset;
+                                
+                                // Write the function address to the IAT slot
+                                let addr_bytes = (func_addr as u64).to_le_bytes();
+                                iat.write_at(iat_slot_offset, &addr_bytes)?;
+                                
+                                log::debug!("Resolved import '{}' (coff_idx={}): func=0x{:x} -> IAT[{}]=0x{:x}",
+                                    symbol.name, coff_idx, func_addr, iat_index, iat_slot_addr);
+                                
+                                resolved_symbols.insert(coff_idx, iat_slot_addr);
+                                iat_index += 1;
+                            }
+                        } else {
+                            // Direct symbol - use function address directly
+                            log::debug!("Resolved external symbol '{}' (coff_idx={}) -> 0x{:x}",
+                                symbol.name, coff_idx, func_addr);
+                            resolved_symbols.insert(coff_idx, func_addr);
+                        }
+                    }
+                    Err(e) => {
+                        // Log warning but continue - some symbols may not be used
+                        log::warn!("Could not resolve symbol {}: {}", symbol.name, e);
+                    }
+                }
+            } else {
+                // Try to resolve as a Beacon API or Win32 API directly by name
+                // Some symbols may be referenced differently
+                let fake_import = Import {
+                    library: String::new(),
+                    function: symbol.name.clone(),
+                    symbol_name: symbol.name.clone(),
+                };
+                if let Ok(func_addr) = resolver.resolve(&fake_import) {
+                    if symbol.name.starts_with("__imp_") {
+                        if let Some(ref iat) = iat_memory {
+                            let iat_slot_offset = iat_index * std::mem::size_of::<usize>();
+                            let iat_slot_addr = iat.base() as usize + iat_slot_offset;
+                            
+                            let addr_bytes = (func_addr as u64).to_le_bytes();
+                            iat.write_at(iat_slot_offset, &addr_bytes)?;
+                            
+                            log::debug!("Resolved import '{}' (coff_idx={}) via fallback: func=0x{:x} -> IAT[{}]=0x{:x}",
+                                symbol.name, coff_idx, func_addr, iat_index, iat_slot_addr);
+                            
+                            resolved_symbols.insert(coff_idx, iat_slot_addr);
+                            iat_index += 1;
+                        }
+                    } else {
+                        log::debug!("Resolved external symbol '{}' (coff_idx={}) via fallback -> 0x{:x}",
+                            symbol.name, coff_idx, func_addr);
+                        resolved_symbols.insert(coff_idx, func_addr);
+                    }
+                } else {
+                    log::warn!("Unresolved external symbol '{}' (coff_idx={}) - not in imports",
+                        symbol.name, coff_idx);
+                }
+            }
+        } else {
+            // Internal symbol - calculate address from section
             if let Some(section_idx) = symbol.section {
+                // Note: section_idx from object crate's SectionIndex should be 0-based
+                // and match our section_mappings array indexing
                 if let Some(section_mapping) = section_mappings.get(section_idx) {
                     let addr = section_mapping.virtual_address + symbol.value as usize;
-                    resolved_symbols.insert(idx, addr);
+                    log::debug!("Resolved internal symbol '{}' (coff_idx={}) in section {} ({}) at 0x{:x}",
+                        symbol.name, coff_idx, section_idx, section_mapping.name, addr);
+                    resolved_symbols.insert(coff_idx, addr);
+                } else {
+                    log::warn!("Internal symbol '{}' references section {} but only {} sections exist",
+                        symbol.name, section_idx, section_mappings.len());
                 }
             }
         }
     }
     
+    if is_debug_mode() {
+        eprintln!("[BOF] Resolved {} symbols (used {} IAT slots)", resolved_symbols.len(), iat_index);
+        
+        // Print resolved symbols for debugging
+        for (coff_idx, addr) in resolved_symbols.iter() {
+            // Find the symbol name
+            if let Some(sym) = bof.symbols.iter().find(|s| s.coff_index == *coff_idx) {
+                eprintln!("[BOF]   Symbol {}: {} -> 0x{:x}", coff_idx, sym.name, addr);
+            }
+        }
+        
+        // Keep reference to IAT to prevent it from being dropped during execution
+        if let Some(ref iat) = iat_memory {
+            eprintln!("[BOF] IAT at 0x{:x}, dumping first {} slots:", iat.base() as usize, iat_index.min(5));
+            for i in 0..iat_index.min(5) {
+                let slot_offset = i * 8;
+                let slot_addr = iat.base() as usize + slot_offset;
+                unsafe {
+                    let func_ptr = *(slot_addr as *const u64);
+                    eprintln!("[BOF]   IAT[{}] at 0x{:x} = 0x{:x}", i, slot_addr, func_ptr);
+                }
+            }
+        }
+    }
+    let _iat_guard = iat_memory;
+    
     // Apply relocations (if any)
     if !bof.relocations.is_empty() {
+        if is_debug_mode() {
+            eprintln!("[BOF] Applying {} relocations across {} section mappings", 
+                bof.relocations.len(), section_mappings.len());
+            for (i, mapping) in section_mappings.iter().enumerate() {
+                eprintln!("[BOF]   Section {}: {} at 0x{:x} (offset 0x{:x}, size {})", 
+                    i, mapping.name, mapping.virtual_address, mapping.offset, mapping.size);
+            }
+        }
         relocations::apply_relocations(
             &bof.relocations,
             &memory,
@@ -121,18 +301,78 @@ pub fn execute(
             &resolved_symbols,
             memory.base() as usize,
         )?;
+        
+        if is_debug_mode() {
+            eprintln!("[BOF] Relocations applied successfully");
+            
+            // Dump bytes in internal_printf (0x86-0x1F4) to see the code
+            unsafe {
+                let area = memory.base().add(0x180);
+                let mut bytes = Vec::new();
+                for i in 0..48 {
+                    bytes.push(*area.add(i));
+                }
+                eprintln!("[BOF] Bytes at 0x180-0x1B0: {:02x?}", bytes);
+            }
+        }
+        
+        // Flush instruction cache after modifying code
+        #[cfg(windows)]
+        unsafe {
+            let _ = FlushInstructionCache(GetCurrentProcess(), Some(memory.base() as *const _), total_size);
+            if is_debug_mode() {
+                eprintln!("[BOF] Instruction cache flushed");
+            }
+        }
+    } else if is_debug_mode() {
+        eprintln!("[BOF] No relocations to apply");
     }
     
     // Find entry point
     let entry_point = bof.entry_point.as_ref()
         .ok_or_else(|| anyhow::anyhow!("No entry point found"))?;
     
-    // Find .text section for entry point
-    let text_section = section_mappings.iter()
-        .find(|m| m.name == ".text")
-        .ok_or_else(|| anyhow::anyhow!("No .text section found"))?;
+    log::info!("Entry point '{}' found with value 0x{:x}, section {:?}", 
+        entry_point.name, entry_point.value, entry_point.section);
     
-    let entry_addr = text_section.virtual_address + entry_point.value as usize;
+    // Find the section containing the entry point
+    let entry_section = if let Some(section_idx) = entry_point.section {
+        section_mappings.get(section_idx)
+            .ok_or_else(|| anyhow::anyhow!("Entry point section {} not found", section_idx))?
+    } else {
+        // Fallback to .text if no section specified
+        section_mappings.iter()
+            .find(|m| m.name == ".text")
+            .ok_or_else(|| anyhow::anyhow!("No .text section found"))?
+    };
+    
+    let entry_addr = entry_section.virtual_address + entry_point.value as usize;
+    
+    if is_debug_mode() {
+        eprintln!("[BOF] Entry point in section '{}' at 0x{:x}", entry_section.name, entry_addr);
+    }
+    
+    log::info!("Calling entry point at 0x{:x} (section {} base 0x{:x} + offset 0x{:x})", 
+        entry_addr, entry_section.name, entry_section.virtual_address, entry_point.value);
+    log::info!("Args: {} bytes at {:p}", args.len(), args.as_ptr());
+    
+    if is_debug_mode() {
+        if args.is_empty() {
+            eprintln!("[BOF] No arguments provided to entry point");
+        } else {
+            eprintln!("[BOF] Passing {} bytes of argument data to entry point", args.len());
+            eprintln!("[BOF] Argument buffer preview (first 64 bytes): {}", 
+                args.iter().take(64).map(|b| format!("{:02x}", b)).collect::<Vec<_>>().join(" "));
+        }
+    }
+    
+    // Verify the entry point is within our allocated memory
+    let memory_base = memory.base() as usize;
+    let memory_end = memory_base + total_size;
+    if entry_addr < memory_base || entry_addr >= memory_end {
+        anyhow::bail!("Entry point 0x{:x} is outside allocated memory region 0x{:x}-0x{:x}", 
+            entry_addr, memory_base, memory_end);
+    }
     
     // Call entry point
     // Signature: void go(char* args, int len)
@@ -143,11 +383,58 @@ pub fn execute(
     // Note: Actual timeout termination would require more complex threading,
     // so we check execution time against timeout limit instead
     let execution_start = Instant::now();
+    
+    // For BOFs, pass null pointer when no args, otherwise a valid pointer
+    let (args_ptr, args_len) = if args.is_empty() {
+        (std::ptr::null(), 0i32)
+    } else {
+        (args.as_ptr(), args.len() as i32)
+    };
+    
+    if is_debug_mode() {
+        eprintln!("[BOF] Executing at 0x{:x}...", entry_addr);
+        
+        // Dump first 32 bytes at entry point for debugging
+        unsafe {
+            let code_ptr = entry_addr as *const u8;
+            let mut bytes = Vec::new();
+            for i in 0..32 {
+                bytes.push(*code_ptr.add(i));
+            }
+            eprintln!("[BOF] Entry point bytes: {:02x?}", bytes);
+        }
+        
+        eprintln!("[BOF] Calling go({:p}, {})", args_ptr, args_len);
+    }
+    
+    // Install exception handler to catch access violations
+    #[cfg(windows)]
+    let exception_handler_handle = unsafe {
+        CRASH_INFO = None;
+        AddVectoredExceptionHandler(1, Some(exception_handler))
+    };
+    
     let execution_result = std::panic::catch_unwind(|| {
         unsafe {
-            go_func(args.as_ptr(), args.len() as i32);
+            go_func(args_ptr, args_len);
         }
     });
+    
+    // Remove exception handler
+    #[cfg(windows)]
+    unsafe {
+        if !exception_handler_handle.is_null() {
+            RemoveVectoredExceptionHandler(exception_handler_handle);
+        }
+        // Always show crash details - this is important diagnostic info
+        if let Some((access_addr, instr_addr)) = CRASH_INFO {
+            eprintln!("[BOF] Crash details - Instruction: 0x{:x}, Access: 0x{:x}", instr_addr, access_addr);
+            let code_base = memory.base() as u64;
+            if instr_addr >= code_base && instr_addr < code_base + total_size as u64 {
+                eprintln!("[BOF]   Crash at code offset: 0x{:x}", instr_addr - code_base);
+            }
+        }
+    }
     let execution_duration = execution_start.elapsed();
     
     // Check if execution exceeded timeout
@@ -198,4 +485,5 @@ pub fn test_bof(path: &std::path::PathBuf, _continue_on_error: bool) -> Result<E
     // Execute without arguments
     execute(&bof, &[], false, false, Duration::from_secs(30))
 }
+
 

@@ -27,6 +27,10 @@ struct Args {
     #[arg(long, short, global = true)]
     quiet: bool,
 
+    /// Debug mode - show detailed executor output
+    #[arg(long, global = true)]
+    debug: bool,
+
     /// Output format
     #[arg(long, global = true, value_enum, default_value = "text")]
     format: cli::OutputFormat,
@@ -57,6 +61,9 @@ enum Command {
         /// Show lint findings
         #[arg(long)]
         lints: bool,
+        /// Show relocation information
+        #[arg(long)]
+        relocs: bool,
         /// Write report to file
         #[arg(long, short)]
         output: Option<PathBuf>,
@@ -106,6 +113,7 @@ fn main() -> anyhow::Result<()> {
     let args = Args::parse();
 
     // Initialize logging
+    // Respect RUST_LOG if set, otherwise use command-line flags
     if args.quiet {
         env_logger::Builder::from_default_env()
             .filter_level(log::LevelFilter::Error)
@@ -115,9 +123,10 @@ fn main() -> anyhow::Result<()> {
             .filter_level(log::LevelFilter::Debug)
             .init();
     } else {
-        env_logger::Builder::from_default_env()
-            .filter_level(log::LevelFilter::Info)
-            .init();
+        // Use RUST_LOG if set, otherwise default to Info
+        env_logger::Builder::from_env(
+            env_logger::Env::default().default_filter_or("info")
+        ).init();
     }
 
     info!("RedBofAnalizer v{}", env!("CARGO_PKG_VERSION"));
@@ -125,9 +134,14 @@ fn main() -> anyhow::Result<()> {
     // Check if GUI mode is requested or no command provided
     if args.gui || args.command.is_none() {
         info!("Launching GUI mode");
+        // Set debug mode globally for executor
+        core::executor::set_debug_mode(args.debug);
         gui::run()?;
         return Ok(());
     }
+    
+    // Set debug mode for CLI commands too
+    core::executor::set_debug_mode(args.debug);
 
     // Execute CLI command
     match args.command.unwrap() {
@@ -138,9 +152,10 @@ fn main() -> anyhow::Result<()> {
             apis,
             dependencies,
             lints,
+            relocs,
             output,
         } => {
-            cli::commands::analyze(file, security, disasm, apis, dependencies, lints, output, args.format)?;
+            cli::commands::analyze(file, security, disasm, apis, dependencies, lints, relocs, output, args.format)?;
         }
         Command::Execute {
             file,

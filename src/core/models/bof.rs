@@ -62,6 +62,8 @@ pub struct Symbol {
     pub symbol_type: SymbolType,
     pub storage_class: u8,
     pub is_external: bool,
+    /// Original index in COFF symbol table (for relocation lookups)
+    pub coff_index: usize,
 }
 
 /// Symbol type
@@ -72,11 +74,24 @@ pub enum SymbolType {
     Unknown,
 }
 
+/// Relocation target type
+#[derive(Debug, Clone, serde::Serialize)]
+pub enum RelocationTarget {
+    /// Target is a symbol (by COFF symbol index)
+    Symbol(u32),
+    /// Target is a section (by section index, 0-based)
+    Section(usize),
+}
+
 /// Relocation information
 #[derive(Debug, Clone, serde::Serialize)]
 pub struct Relocation {
+    /// Section index where this relocation applies
+    pub section_index: usize,
+    /// Offset within the section
     pub virtual_address: u32,
-    pub symbol_index: u32,
+    /// What this relocation targets
+    pub target: RelocationTarget,
     pub relocation_type: RelocationType,
 }
 

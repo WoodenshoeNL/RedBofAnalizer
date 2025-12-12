@@ -1,6 +1,9 @@
 //! Argument parsing and packing
 
+#![allow(dead_code)]
+
 use anyhow::{Result, Context};
+use super::is_debug_mode;
 
 /// Argument type
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -58,7 +61,8 @@ pub fn validate_arguments(signature: &[ArgumentType], arg_str: &str) -> Result<(
     }
     
     for (i, (sig_type, part)) in signature.iter().zip(parts.iter()).enumerate() {
-        if part.len() < 3 || !part.contains(':') {
+        // Allow empty strings: "z:" or "Z:" (type prefix + colon with no value)
+        if part.len() < 2 || !part.contains(':') {
             anyhow::bail!("Invalid argument format at position {}: {}", i + 1, part);
         }
         
@@ -89,14 +93,22 @@ pub fn validate_arguments(signature: &[ArgumentType], arg_str: &str) -> Result<(
 /// - b: binary data (hex encoded)
 pub fn parse_arguments(arg_str: &str) -> Result<Vec<u8>> {
     if arg_str.is_empty() {
+        if is_debug_mode() {
+            eprintln!("[ARGS] No arguments provided");
+        }
         return Ok(Vec::new());
+    }
+    
+    if is_debug_mode() {
+        eprintln!("[ARGS] Parsing arguments: {}", arg_str);
     }
     
     let mut buffer = Vec::new();
     let parts: Vec<&str> = arg_str.split_whitespace().collect();
     
-    for part in parts {
-        if part.len() < 3 || !part.contains(':') {
+    for (idx, part) in parts.iter().enumerate() {
+        // Allow empty strings: "z:" or "Z:" (type prefix + colon with no value)
+        if part.len() < 2 || !part.contains(':') {
             anyhow::bail!("Invalid argument format: {}", part);
         }
         
@@ -106,34 +118,59 @@ pub fn parse_arguments(arg_str: &str) -> Result<Vec<u8>> {
         
         let arg_type_char = part.chars().next()
             .ok_or_else(|| anyhow::anyhow!("Empty argument type in {}", part))?;
-        let value = &part[2..]; // Skip type char and colon
+        let value = if part.len() > 2 {
+            &part[2..] // Skip type char and colon
+        } else {
+            "" // Empty string when just "z:" or "Z:"
+        };
         
         match arg_type_char {
             'z' => {
-                // Null-terminated string
+                // Null-terminated string with length prefix
+                // BeaconDataExtract expects length-prefixed data
                 let bytes = value.as_bytes();
+                let len = bytes.len() + 1; // Length includes null terminator
+                buffer.extend_from_slice(&(len as u32).to_le_bytes());
                 buffer.extend_from_slice(bytes);
                 buffer.push(0); // Null terminator
+                if is_debug_mode() {
+                    eprintln!("[ARGS]   [{}] String (z): \"{}\" -> {} bytes (len={})", 
+                        idx, value, len, len);
+                }
             }
             'Z' => {
-                // Null-terminated wide string
+                // Null-terminated wide string with length prefix
+                // BeaconDataExtract expects length-prefixed data
                 let utf16: Vec<u16> = value.encode_utf16().collect();
-                for &wchar in &utf16 {
-                    buffer.extend_from_slice(&wchar.to_le_bytes());
-                }
+                let wide_bytes: Vec<u8> = utf16.iter().flat_map(|&c| c.to_le_bytes()).collect();
+                let len = wide_bytes.len() + 2; // Length includes null terminator (2 bytes for wide char)
+                buffer.extend_from_slice(&(len as u32).to_le_bytes());
+                buffer.extend_from_slice(&wide_bytes);
                 buffer.extend_from_slice(&[0u8, 0u8]); // Null terminator
+                if is_debug_mode() {
+                    eprintln!("[ARGS]   [{}] Wide String (Z): \"{}\" -> {} bytes (len={})", 
+                        idx, value, len + 2, len);
+                }
             }
             'i' => {
                 // 32-bit integer
                 let num: i32 = value.parse()
                     .context(format!("Invalid integer '{}' in argument: {}", value, part))?;
                 buffer.extend_from_slice(&num.to_le_bytes());
+                if is_debug_mode() {
+                    eprintln!("[ARGS]   [{}] Int32 (i): {} -> 0x{:08x} (4 bytes)", 
+                        idx, num, num as u32);
+                }
             }
             's' => {
                 // 16-bit integer
                 let num: i16 = value.parse()
                     .context(format!("Invalid short '{}' in argument: {}", value, part))?;
                 buffer.extend_from_slice(&num.to_le_bytes());
+                if is_debug_mode() {
+                    eprintln!("[ARGS]   [{}] Int16 (s): {} -> 0x{:04x} (2 bytes)", 
+                        idx, num, num as u16);
+                }
             }
             'b' => {
                 // Binary data (hex encoded)
@@ -142,11 +179,22 @@ pub fn parse_arguments(arg_str: &str) -> Result<Vec<u8>> {
                 // Prepend length (4 bytes)
                 buffer.extend_from_slice(&(hex_bytes.len() as u32).to_le_bytes());
                 buffer.extend_from_slice(&hex_bytes);
+                if is_debug_mode() {
+                    eprintln!("[ARGS]   [{}] Binary (b): {} -> {} bytes (hex: {})", 
+                        idx, value, hex_bytes.len() + 4, 
+                        hex_bytes.iter().take(32).map(|b| format!("{:02x}", b)).collect::<Vec<_>>().join(" "));
+                }
             }
             _ => {
                 anyhow::bail!("Unknown argument type '{}' in argument: {}", arg_type_char, part);
             }
         }
+    }
+    
+    if is_debug_mode() {
+        eprintln!("[ARGS] Packed {} arguments into {} bytes total", parts.len(), buffer.len());
+        eprintln!("[ARGS] Buffer hex (first 64 bytes): {}", 
+            buffer.iter().take(64).map(|b| format!("{:02x}", b)).collect::<Vec<_>>().join(" "));
     }
     
     Ok(buffer)

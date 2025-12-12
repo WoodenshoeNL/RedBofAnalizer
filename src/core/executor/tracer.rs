@@ -1,5 +1,7 @@
 //! Execution tracing
 
+#![allow(dead_code)]
+
 use crate::core::models::report::ApiCall;
 use std::sync::Mutex;
 use std::time::{SystemTime, UNIX_EPOCH};

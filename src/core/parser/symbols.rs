@@ -11,7 +11,14 @@ pub fn parse_symbols(obj: &object::File) -> Result<Vec<Symbol>> {
     for symbol in obj.symbols() {
         let name = symbol.name().unwrap_or("<unknown>").to_string();
         let value = symbol.address();
-        let section_index = symbol.section().index().map(|idx| idx.0);
+        // COFF section numbers are 1-based (1 = first section, 0 = undefined)
+        // Convert to 0-based index for our section_mappings array
+        let section_index = symbol.section().index().map(|idx| {
+            if idx.0 > 0 { idx.0 - 1 } else { idx.0 }
+        });
+        
+        // Get the original COFF symbol index
+        let coff_index = symbol.index().0;
         
         // Determine symbol type
         let symbol_type = if symbol.is_definition() {
@@ -51,6 +58,7 @@ pub fn parse_symbols(obj: &object::File) -> Result<Vec<Symbol>> {
             symbol_type,
             storage_class,
             is_external,
+            coff_index,
         });
     }
 

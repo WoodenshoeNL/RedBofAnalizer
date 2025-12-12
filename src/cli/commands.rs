@@ -15,6 +15,7 @@ pub fn analyze(
     apis: bool,
     dependencies: bool,
     lints: bool,
+    relocs: bool,
     output_file: Option<PathBuf>,
     format: OutputFormat,
 ) -> Result<()> {
@@ -24,7 +25,7 @@ pub fn analyze(
     let bof = core::parser::load_bof(&file)?;
     
     // Perform analysis
-    let report = core::analyzer::analyze(&bof, security, disasm, apis, dependencies, lints)?;
+    let report = core::analyzer::analyze(&bof, security, disasm, apis, dependencies, lints, relocs)?;
 
     // Format and output report
     let formatted = match format {

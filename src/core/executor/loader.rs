@@ -47,6 +47,7 @@ impl MemoryRegion {
     }
     
     /// Get size
+    #[allow(dead_code)]
     pub fn size(&self) -> usize {
         self.size
     }
@@ -140,6 +141,7 @@ pub fn load_sections(
 
 /// Section mapping information
 #[derive(Debug, Clone)]
+#[allow(dead_code)]
 pub struct SectionMapping {
     pub name: String,
     pub offset: usize,

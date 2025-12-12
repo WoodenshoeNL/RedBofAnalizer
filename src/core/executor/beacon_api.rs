@@ -164,6 +164,7 @@ impl DataParser {
 }
 
 /// Beacon API function implementations
+#[allow(dead_code)]
 pub struct BeaconApi {
     output: OutputCapture,
 }
@@ -177,24 +178,57 @@ impl BeaconApi {
     }
     
     /// Get output capture
+    #[allow(dead_code)]
     pub fn output(&self) -> &OutputCapture {
         &self.output
     }
     
     /// BeaconPrintf implementation
-    /// Note: This is a simplified version. Full printf with variadic args
-    /// would require using libc::va_list or a C wrapper
+    /// 
+    /// Note: Full variadic argument support requires C interop. This implementation
+    /// captures the format string and records it. For actual printf formatting with
+    /// arguments, a C wrapper library would be needed to properly extract va_list args.
+    /// 
+    /// Common format specifiers that BOFs use:
+    /// - %s - string
+    /// - %d, %i - signed decimal
+    /// - %u - unsigned decimal  
+    /// - %x, %X - hexadecimal
+    /// - %p - pointer
+    /// - %c - character
     pub unsafe extern "C" fn beacon_printf(
         callback_type: c_int,
         format: *const c_char,
+        // Note: Variadic arguments follow but Rust can't directly access them
+        // The BOF calling convention passes additional args on stack/registers
     ) {
-        // For now, just capture the format string
-        // TODO: Implement full printf with variadic arguments using a C wrapper
-        if !format.is_null() {
-            if let Ok(s) = CStr::from_ptr(format).to_str() {
-                let output = format!("[BeaconPrintf] {}", s);
-                GLOBAL_OUTPUT.add(callback_type as u32, output.into_bytes());
-            }
+        // Record API call for tracing
+        crate::core::executor::tracer::record_api_call(
+            "BeaconPrintf".to_string(),
+            vec![format!("type={}", callback_type)],
+        );
+        
+        if format.is_null() {
+            return;
+        }
+        
+        if let Ok(fmt_str) = CStr::from_ptr(format).to_str() {
+            // Parse the format string to understand what arguments are expected
+            let parts = crate::core::executor::printf::parse_format_string(fmt_str);
+            
+            // Count format specifiers to inform user about expected arguments
+            let specifier_count = parts.iter()
+                .filter(|p| matches!(p, crate::core::executor::printf::FormatPart::Specifier(_)))
+                .count();
+            
+            // Output the format string with annotation about expected arguments
+            let output = if specifier_count > 0 {
+                format!("{} [expects {} args]", fmt_str, specifier_count)
+            } else {
+                fmt_str.to_string()
+            };
+            
+            GLOBAL_OUTPUT.add(callback_type as u32, output.into_bytes());
         }
     }
     
@@ -235,11 +269,32 @@ impl BeaconApi {
     }
     
     /// BeaconDataExtract implementation
+    /// 
+    /// Returns a pointer to extracted data, or a pointer to an empty buffer
+    /// (instead of NULL) to prevent crashes when BOFs dereference the pointer
+    /// to check for empty strings.
     pub unsafe extern "C" fn beacon_data_extract(
         parser: *mut DataParser,
         size: *mut i32,
     ) -> *mut u8 {
-        DataParser::extract(parser, size)
+        // Static empty buffer for when there's no data
+        // This prevents crashes when BOFs dereference the pointer to check for empty strings
+        static EMPTY_BUFFER: [u8; 1] = [0];
+        
+        let result = DataParser::extract(parser, size);
+        
+        // If extract returns NULL (no more data), return empty buffer instead
+        // to prevent crashes when BOFs check *ptr == 0
+        if result.is_null() {
+            if !size.is_null() {
+                *size = 0;
+            }
+            // Return a pointer to the static empty buffer
+            // Note: This is safe because the buffer is static and will live for the program lifetime
+            EMPTY_BUFFER.as_ptr() as *mut u8
+        } else {
+            result
+        }
     }
 }
 
@@ -396,20 +451,32 @@ impl BeaconApi {
     }
     
     /// BeaconFormatPrintf implementation
-    /// Note: Simplified version - full printf would need va_list handling
+    /// 
+    /// Appends formatted output to the format buffer. Like BeaconPrintf,
+    /// full variadic support requires C interop. This implementation appends
+    /// the format string directly.
     pub unsafe extern "C" fn beacon_format_printf(
         format: *mut FormatParser,
         fmt: *const c_char,
+        // Variadic args follow
     ) {
         if format.is_null() || fmt.is_null() {
             return;
         }
         
-        // For now, just append the format string
-        // A full implementation would need to handle variadic arguments
+        // Record API call for tracing
+        crate::core::executor::tracer::record_api_call(
+            "BeaconFormatPrintf".to_string(),
+            vec![],
+        );
+        
         if let Ok(s) = CStr::from_ptr(fmt).to_str() {
+            // For format buffer, we append the raw format string
+            // In a real implementation with variadic args, we'd format first
             let bytes = s.as_bytes();
-            let len = bytes.len().min((*format).length as usize);
+            let available = (*format).length as usize;
+            let len = bytes.len().min(available);
+            
             if len > 0 {
                 std::ptr::copy_nonoverlapping(bytes.as_ptr(), (*format).buffer, len);
                 (*format).buffer = (*format).buffer.add(len);

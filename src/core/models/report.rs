@@ -2,6 +2,8 @@
 
 use crate::core::models::bof::BofFile;
 use crate::core::models::lint::LintFinding;
+use crate::core::utils::disasm::DisassemblyResult;
+use crate::core::parser::relocations::{RelocationInfo, RelocationStats};
 use std::path::PathBuf;
 use std::time::Duration;
 
@@ -16,6 +18,21 @@ pub struct AnalysisReport {
     pub security: SecurityAssessment,
     pub lints: Vec<LintFinding>,
     pub dependencies: Dependencies,
+    /// Disassembly results (if --disasm was specified)
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub disassembly: Vec<DisassemblyResult>,
+    /// Extended relocation information
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub relocations: Option<RelocationReport>,
+}
+
+/// Relocation report
+#[derive(Debug, Clone, serde::Serialize)]
+pub struct RelocationReport {
+    /// Statistics
+    pub stats: RelocationStats,
+    /// Detailed relocation entries
+    pub entries: Vec<RelocationInfo>,
 }
 
 /// Overview information
@@ -76,7 +93,7 @@ pub enum RiskLevel {
 }
 
 /// Capability
-#[derive(Debug, Clone, serde::Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
 pub enum Capability {
     ProcessOperations,
     TokenManipulation,

@@ -1,22 +1,27 @@
 //! Static analysis module
 
+pub mod linter;
+
 use crate::core::models::bof::BofFile;
 use crate::core::models::report::{
     AnalysisReport, ValidationResult, Overview, SectionInfo, SymbolInfo,
     ApiUsage, Win32Api, SecurityAssessment, RiskLevel, OpsecAnalysis,
-    Dependencies, FunctionDependency,
+    Dependencies, FunctionDependency, RelocationReport,
 };
 use anyhow::Result;
 use std::fs;
+
+pub use linter::get_lint_summary;
 
 /// Analyze a BOF file
 pub fn analyze(
     bof: &BofFile,
     _security: bool,
-    _disasm: bool,
+    disasm: bool,
     apis: bool,
     dependencies: bool,
-    _lints: bool,
+    lints: bool,
+    relocations: bool,
 ) -> Result<AnalysisReport> {
     // Get file size
     let file_size = fs::metadata(&bof.path)?.len();
@@ -67,16 +72,39 @@ pub fn analyze(
         }
     };
     
-    // Basic security assessment
-    let security = SecurityAssessment {
-        risk_level: assess_risk_level(&bof),
-        capabilities: vec![], // TODO: Phase 2.1.4
-        opsec_score: 100, // TODO: Phase 6.1
-        opsec_analysis: OpsecAnalysis {
-            risky_apis: vec![],
-            suspicious_patterns: vec![],
-            direct_syscalls: false,
-        },
+    // Run lint checks
+    let lint_findings = if lints {
+        linter::run_lints(bof)
+    } else {
+        vec![]
+    };
+    
+    // Build security assessment with lint-derived info
+    let security = build_security_assessment(bof, &lint_findings);
+    
+    // Perform disassembly if requested
+    let disassembly = if disasm {
+        crate::core::utils::disasm::disassemble_bof(bof)
+    } else {
+        vec![]
+    };
+    
+    // Parse relocations if requested
+    let relocation_report = if relocations {
+        // Re-parse the file to get extended relocation info
+        let data = std::fs::read(&bof.path)?;
+        if let Ok(obj) = object::File::parse(&*data) {
+            let reloc_entries = crate::core::parser::relocations::parse_relocations_extended(&obj)?;
+            let stats = crate::core::parser::relocations::get_relocation_stats(&reloc_entries);
+            Some(RelocationReport {
+                stats,
+                entries: reloc_entries,
+            })
+        } else {
+            None
+        }
+    } else {
+        None
     };
     
     Ok(AnalysisReport {
@@ -89,9 +117,124 @@ pub fn analyze(
             win32_apis,
         },
         security,
-        lints: vec![], // TODO: Phase 2.2
+        lints: lint_findings,
         dependencies: deps,
+        disassembly,
+        relocations: relocation_report,
     })
+}
+
+/// Build security assessment, incorporating lint findings
+fn build_security_assessment(bof: &BofFile, lint_findings: &[crate::core::models::lint::LintFinding]) -> SecurityAssessment {
+    use crate::core::models::lint::Severity;
+    use crate::core::models::report::Capability;
+    
+    // Detect capabilities from imports
+    let mut capabilities = Vec::new();
+    
+    for import in &bof.imports {
+        let func = &import.function;
+        
+        // Process operations
+        if func.contains("Process") || func.contains("CreateThread") || 
+           func.contains("Inject") || func.contains("Spawn") {
+            if !capabilities.contains(&Capability::ProcessOperations) {
+                capabilities.push(Capability::ProcessOperations);
+            }
+        }
+        
+        // Token manipulation
+        if func.contains("Token") || func.contains("Impersonate") || 
+           func.contains("Privilege") || func.contains("LogonUser") {
+            if !capabilities.contains(&Capability::TokenManipulation) {
+                capabilities.push(Capability::TokenManipulation);
+            }
+        }
+        
+        // Memory operations
+        if func.contains("VirtualAlloc") || func.contains("VirtualProtect") ||
+           func.contains("WriteProcessMemory") || func.contains("ReadProcessMemory") {
+            if !capabilities.contains(&Capability::MemoryOperations) {
+                capabilities.push(Capability::MemoryOperations);
+            }
+        }
+        
+        // Network operations
+        if func.contains("Internet") || func.contains("Http") || 
+           func.contains("socket") || func.contains("WSA") ||
+           func.contains("connect") || func.contains("send") || func.contains("recv") {
+            if !capabilities.contains(&Capability::NetworkOperations) {
+                capabilities.push(Capability::NetworkOperations);
+            }
+        }
+        
+        // File operations
+        if func.contains("CreateFile") || func.contains("ReadFile") ||
+           func.contains("WriteFile") || func.contains("DeleteFile") ||
+           func.contains("FindFirstFile") {
+            if !capabilities.contains(&Capability::FileOperations) {
+                capabilities.push(Capability::FileOperations);
+            }
+        }
+        
+        // Registry operations
+        if func.contains("Reg") && (func.contains("Open") || func.contains("Create") ||
+           func.contains("Set") || func.contains("Query") || func.contains("Delete")) {
+            if !capabilities.contains(&Capability::RegistryOperations) {
+                capabilities.push(Capability::RegistryOperations);
+            }
+        }
+    }
+    
+    // Build risky APIs list from lint findings
+    let risky_apis: Vec<String> = lint_findings.iter()
+        .filter(|f| f.code == "BOF004")
+        .filter_map(|f| f.location.symbol.clone())
+        .collect();
+    
+    // Check for direct syscalls from lint findings
+    let direct_syscalls = lint_findings.iter()
+        .any(|f| f.code == "BOF005" && f.severity == Severity::Warning);
+    
+    // Build suspicious patterns list
+    let suspicious_patterns: Vec<String> = lint_findings.iter()
+        .filter(|f| f.severity == Severity::Warning || f.severity == Severity::Error)
+        .map(|f| format!("[{}] {}", f.code, f.message))
+        .collect();
+    
+    // Calculate OPSEC score (0-100, 100 is best)
+    let mut opsec_score: i32 = 100;
+    
+    // Deduct points for lint findings
+    for finding in lint_findings {
+        match finding.severity {
+            Severity::Error => opsec_score -= 15,
+            Severity::Warning => opsec_score -= 10,
+            Severity::Info => opsec_score -= 2,
+        }
+    }
+    
+    // Deduct points for high-risk capabilities
+    if capabilities.contains(&Capability::ProcessOperations) {
+        opsec_score -= 10;
+    }
+    if capabilities.contains(&Capability::TokenManipulation) {
+        opsec_score -= 5;
+    }
+    
+    // Ensure score is within bounds
+    let opsec_score = opsec_score.max(0).min(100) as u8;
+    
+    SecurityAssessment {
+        risk_level: assess_risk_level(bof),
+        capabilities,
+        opsec_score,
+        opsec_analysis: OpsecAnalysis {
+            risky_apis,
+            suspicious_patterns,
+            direct_syscalls,
+        },
+    }
 }
 
 /// Format section flags as string

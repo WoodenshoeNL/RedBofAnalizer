@@ -1,5 +1,7 @@
 //! Sandbox mode for safe execution
 
+#![allow(dead_code)]
+
 use std::collections::HashSet;
 
 /// Sandbox configuration
