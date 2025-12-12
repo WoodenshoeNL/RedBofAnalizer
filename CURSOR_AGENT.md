@@ -112,6 +112,11 @@ This file defines the **official Cobalt Strike BOF interface** - your implementa
 - `C2-Tool-Collection/` - Various C2 tool BOFs
 - `unhook-bof/` - Unhooking BOFs
 - `bof_template/` - Template and specifications
+  - **`bof_template/examples/`** - Official Cobalt Strike example BOFs
+    - **CRITICAL**: These are official BOF examples from the Cobalt Strike repository
+    - **DO NOT MODIFY** these example BOF files - they must remain unchanged
+    - The tool must work with these BOFs as-is, even if they have parameter detection issues
+    - If a BOF has issues, fix the tool's implementation, not the BOF
 
 **Troubleshooting BOFs** are in `RedBof/`:
 - These BOFs cause issues in RedLoader
@@ -369,6 +374,7 @@ docs\api.md
 
 - ❌ Don't copy RedLoader bugs or flawed patterns
 - ❌ Don't modify files in `RedBofAnalizerG/` (off limits)
+- ❌ **Don't modify example BOF files in `src/bof_template/examples/`** - These are official Cobalt Strike BOF examples and must remain unchanged. The tool should work with these BOFs as-is.
 - ❌ Don't assume RedLoader is correct - verify against `beacon.h`
 - ❌ Don't ignore error cases
 - ❌ Don't hardcode paths - use proper path handling

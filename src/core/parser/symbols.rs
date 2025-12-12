@@ -26,9 +26,10 @@ pub fn parse_symbols(obj: &object::File) -> Result<Vec<Symbol>> {
             match symbol.section() {
                 object::SymbolSection::Section(section_index) => {
                     // Check if symbol is in .text section (typically functions)
+                    // Handle both ".text" and ".text$*" variants
                     if let Ok(section) = obj.section_by_index(section_index) {
                         if let Ok(section_name) = section.name() {
-                            if section_name == ".text" {
+                            if section_name == ".text" || section_name.starts_with(".text") {
                                 SymbolType::Function
                             } else {
                                 SymbolType::Data
@@ -66,6 +67,26 @@ pub fn parse_symbols(obj: &object::File) -> Result<Vec<Symbol>> {
 }
 
 /// Extract import symbols
+/// Known Windows API functions that should default to kernel32.dll
+const WINDOWS_API_FUNCTIONS: &[&str] = &[
+    "GetModuleHandleA", "GetModuleHandleW", "GetModuleHandle",
+    "GetProcAddress",
+    "LoadLibraryA", "LoadLibraryW", "LoadLibrary",
+    "FreeLibrary",
+    "VirtualAlloc", "VirtualFree", "VirtualProtect",
+    "CreateFileA", "CreateFileW", "ReadFile", "WriteFile", "CloseHandle",
+    "GetLastError", "SetLastError",
+    "ExitProcess", "TerminateProcess",
+    "CreateProcessA", "CreateProcessW",
+    "OpenProcess", "OpenThread",
+    "ReadProcessMemory", "WriteProcessMemory",
+    "GetCurrentProcess", "GetCurrentThread",
+    "Sleep", "GetTickCount",
+    "GetSystemTime", "GetLocalTime",
+    "GetEnvironmentVariableA", "GetEnvironmentVariableW",
+    "SetEnvironmentVariableA", "SetEnvironmentVariableW",
+];
+
 pub fn extract_imports(symbols: &[Symbol]) -> Result<Vec<Import>> {
     let mut imports = Vec::new();
 
@@ -81,12 +102,22 @@ pub fn extract_imports(symbols: &[Symbol]) -> Result<Vec<Import>> {
                     symbol_name: symbol.name.clone(),
                 });
             } else {
-                // Beacon API (no library prefix)
-                imports.push(Import {
-                    library: "Beacon".to_string(),
-                    function: import_name.to_string(),
-                    symbol_name: symbol.name.clone(),
-                });
+                // Check if it's a known Windows API function
+                if WINDOWS_API_FUNCTIONS.contains(&import_name) {
+                    // Default to kernel32.dll for known Windows APIs
+                    imports.push(Import {
+                        library: "KERNEL32".to_string(),
+                        function: import_name.to_string(),
+                        symbol_name: symbol.name.clone(),
+                    });
+                } else {
+                    // Assume Beacon API (no library prefix and not a known Windows API)
+                    imports.push(Import {
+                        library: "Beacon".to_string(),
+                        function: import_name.to_string(),
+                        symbol_name: symbol.name.clone(),
+                    });
+                }
             }
         }
     }

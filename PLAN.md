@@ -187,16 +187,17 @@ This document outlines the development plan for **RedBofAnalizer**, a comprehens
 **Goal**: Complete Beacon API emulation and execution features
 
 #### 3.1 Complete Beacon API Implementation
-- [ ] Token APIs
+- [x] Token APIs
   - `BeaconUseToken(token)` - Use impersonation token
   - `BeaconRevertToken()` - Revert to original token
   - `BeaconIsAdmin()` - Check admin privileges
-- [ ] Process APIs
+- [x] Process APIs
   - `BeaconSpawnTemporaryProcess(...)` - Spawn temporary process
   - `BeaconInjectProcess(...)` - Inject into process
   - `BeaconInjectTemporaryProcess(...)` - Inject into temp process
   - `BeaconCleanupProcess(...)` - Cleanup process handles
-- [ ] Format APIs
+  - `BeaconGetSpawnTo(...)` - Get spawn-to process name
+- [x] Format APIs
   - `BeaconFormatAlloc(format, maxsz)` - Allocate format buffer
   - `BeaconFormatReset(format)` - Reset format buffer
   - `BeaconFormatFree(format)` - Free format buffer
@@ -204,9 +205,44 @@ This document outlines the development plan for **RedBofAnalizer**, a comprehens
   - `BeaconFormatPrintf(format, fmt, ...)` - Format string
   - `BeaconFormatToString(format, size)` - Convert to string
   - `BeaconFormatInt(format, val)` - Append integer
-- [ ] Memory APIs
+- [x] Memory APIs
   - `BeaconVirtualAlloc(size)` - Allocate memory
+  - `BeaconVirtualAllocEx(...)` - Allocate memory in remote process
   - `BeaconVirtualFree(ptr)` - Free memory
+  - `BeaconVirtualProtect(...)` - Change memory protection
+  - `BeaconVirtualProtectEx(...)` - Change memory protection in remote process
+- [x] Additional Data APIs
+  - `BeaconDataPtr(parser, size)` - Get pointer to data without extracting
+- [x] Additional Output APIs
+  - `BeaconDownload(filename, buffer, length)` - Download file
+- [x] Utility APIs
+  - `toWideChar(src, dst, max)` - Convert ANSI to wide string
+- [x] Information APIs
+  - `BeaconInformation(info)` - Get beacon information (stub)
+  - `BeaconGetSyscallInformation(...)` - Get syscall information (stub)
+- [x] Key/Value Store APIs
+  - `BeaconAddValue(key, ptr)` - Add key/value pair
+  - `BeaconGetValue(key)` - Get value by key
+  - `BeaconRemoveValue(key)` - Remove key/value pair
+- [x] Data Store APIs
+  - `BeaconDataStoreGetItem(index)` - Get data store item (stub)
+  - `BeaconDataStoreProtectItem(index)` - Protect data store item (stub)
+  - `BeaconDataStoreUnprotectItem(index)` - Unprotect data store item (stub)
+  - `BeaconDataStoreMaxEntries()` - Get max entries (stub)
+- [x] User Data APIs
+  - `BeaconGetCustomUserData()` - Get custom user data (stub)
+- [x] Thread/Process APIs
+  - `BeaconGetThreadContext(...)` - Get thread context
+  - `BeaconSetThreadContext(...)` - Set thread context
+  - `BeaconResumeThread(...)` - Resume thread
+  - `BeaconOpenProcess(...)` - Open process
+  - `BeaconOpenThread(...)` - Open thread
+  - `BeaconCloseHandle(...)` - Close handle
+  - `BeaconUnmapViewOfFile(...)` - Unmap view of file (stub)
+  - `BeaconVirtualQuery(...)` - Query virtual memory
+  - `BeaconDuplicateHandle(...)` - Duplicate handle
+  - `BeaconReadProcessMemory(...)` - Read process memory
+  - `BeaconWriteProcessMemory(...)` - Write process memory
 - [ ] System Call APIs (if needed)
   - Implement syscall stubs
   - Handle direct syscall patterns

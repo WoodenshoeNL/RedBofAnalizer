@@ -24,8 +24,15 @@ pub fn parse_coff(data: &[u8], path: PathBuf) -> Result<BofFile> {
     let relocations = relocations::parse_relocations(&obj)?;
 
     // Find entry point
+    // Look for a symbol named "go" that is defined (has a section)
+    // This is more lenient than requiring Function type, as the symbol type detection
+    // might not always correctly identify functions, especially in COFF object files
     let entry_point = symbols.iter()
-        .find(|s| s.name == "go" && matches!(s.symbol_type, crate::core::models::bof::SymbolType::Function))
+        .find(|s| {
+            s.name == "go" && 
+            s.section.is_some() &&  // Must be defined (have a section)
+            !s.is_external           // Must not be an external/undefined symbol
+        })
         .cloned();
 
     // Extract imports

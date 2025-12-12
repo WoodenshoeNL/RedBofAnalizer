@@ -1,6 +1,7 @@
 //! Static analysis module
 
 pub mod linter;
+pub mod signatures;
 
 use crate::core::models::bof::BofFile;
 use crate::core::models::report::{
@@ -12,6 +13,7 @@ use anyhow::Result;
 use std::fs;
 
 pub use linter::get_lint_summary;
+pub use signatures::{detect_argument_signature, ArgumentSignature};
 
 /// Analyze a BOF file
 pub fn analyze(
@@ -107,6 +109,9 @@ pub fn analyze(
         None
     };
     
+    // Detect argument signature
+    let argument_signature = signatures::detect_argument_signature(bof);
+    
     Ok(AnalysisReport {
         bof: bof.clone(),
         overview,
@@ -121,6 +126,7 @@ pub fn analyze(
         dependencies: deps,
         disassembly,
         relocations: relocation_report,
+        argument_signature,
     })
 }
 

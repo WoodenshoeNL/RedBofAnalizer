@@ -31,6 +31,39 @@ pub fn format_text(report: &AnalysisReport) -> String {
         output.push_str("Entry Point: NOT FOUND\n");
     }
     
+    // Argument Signature
+    if !report.argument_signature.signature.is_empty() {
+        output.push_str("\n=== Argument Signature ===\n");
+        output.push_str(&format!("Signature: {}\n", report.argument_signature.signature));
+        output.push_str(&format!("Confidence: {:.0}%\n", report.argument_signature.confidence * 100.0));
+        output.push_str(&format!("Method: {:?}\n", report.argument_signature.method));
+        
+        if !report.argument_signature.argument_types.is_empty() {
+            output.push_str("\nArguments:\n");
+            for arg_info in &report.argument_signature.argument_types {
+                let type_char = match arg_info.arg_type {
+                    crate::core::executor::arguments::ArgumentType::String => "z",
+                    crate::core::executor::arguments::ArgumentType::WideString => "Z",
+                    crate::core::executor::arguments::ArgumentType::Int32 => "i",
+                    crate::core::executor::arguments::ArgumentType::Int16 => "s",
+                    crate::core::executor::arguments::ArgumentType::Binary => "b",
+                };
+                output.push_str(&format!("  [{}] {} ({})\n", 
+                    arg_info.position, type_char, arg_info.description));
+            }
+        }
+        
+        if !report.argument_signature.notes.is_empty() {
+            output.push_str("\nNotes:\n");
+            for note in &report.argument_signature.notes {
+                output.push_str(&format!("  - {}\n", note));
+            }
+        }
+    } else {
+        output.push_str("\n=== Argument Signature ===\n");
+        output.push_str("No signature detected\n");
+    }
+    
     // Sections
     if !report.sections.is_empty() {
         output.push_str("\n=== Sections ===\n");
@@ -190,6 +223,41 @@ pub fn format_markdown(report: &AnalysisReport) -> String {
         }
     } else {
         output.push_str("- **Entry Point:** ✗ NOT FOUND\n");
+    }
+    
+    // Argument Signature
+    if !report.argument_signature.signature.is_empty() {
+        output.push_str("\n## Argument Signature\n\n");
+        output.push_str(&format!("- **Signature:** `{}`\n", report.argument_signature.signature));
+        output.push_str(&format!("- **Confidence:** {:.0}%\n", report.argument_signature.confidence * 100.0));
+        output.push_str(&format!("- **Method:** `{:?}`\n", report.argument_signature.method));
+        
+        if !report.argument_signature.argument_types.is_empty() {
+            output.push_str("\n### Arguments\n\n");
+            output.push_str("| Position | Type | Description |\n");
+            output.push_str("|----------|------|-------------|\n");
+            for arg_info in &report.argument_signature.argument_types {
+                let type_char = match arg_info.arg_type {
+                    crate::core::executor::arguments::ArgumentType::String => "z",
+                    crate::core::executor::arguments::ArgumentType::WideString => "Z",
+                    crate::core::executor::arguments::ArgumentType::Int32 => "i",
+                    crate::core::executor::arguments::ArgumentType::Int16 => "s",
+                    crate::core::executor::arguments::ArgumentType::Binary => "b",
+                };
+                output.push_str(&format!("| {} | `{}` | {} |\n", 
+                    arg_info.position, type_char, arg_info.description));
+            }
+        }
+        
+        if !report.argument_signature.notes.is_empty() {
+            output.push_str("\n### Notes\n\n");
+            for note in &report.argument_signature.notes {
+                output.push_str(&format!("- {}\n", note));
+            }
+        }
+    } else {
+        output.push_str("\n## Argument Signature\n\n");
+        output.push_str("*No signature detected*\n");
     }
     
     // Sections

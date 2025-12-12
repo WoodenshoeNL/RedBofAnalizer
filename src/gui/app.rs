@@ -49,6 +49,8 @@ pub struct RedBofApp {
     execution_sandbox: bool,
     /// Trace API calls during execution
     execution_trace: bool,
+    /// Cobalt Strike compatible argument mode
+    execution_cs_compat: bool,
     /// Timeout for execution (seconds)
     execution_timeout: u64,
     /// Search filter for symbols
@@ -62,6 +64,8 @@ pub struct RedBofApp {
     show_disassembly: bool,
     /// Selected section for disassembly
     selected_section: Option<String>,
+    /// Selected entry point name (None means use default)
+    selected_entry_point: Option<String>,
 }
 
 impl RedBofApp {
@@ -81,6 +85,7 @@ impl RedBofApp {
             execution_args: String::new(),
             execution_sandbox: false,
             execution_trace: false,
+            execution_cs_compat: false,
             execution_timeout: 30,
             symbol_filter: String::new(),
             section_filter: String::new(),
@@ -88,6 +93,7 @@ impl RedBofApp {
             message_tx: tx,
             show_disassembly: false,
             selected_section: None,
+            selected_entry_point: None,
         }
     }
 
@@ -96,6 +102,8 @@ impl RedBofApp {
         while let Ok(msg) = self.message_rx.try_recv() {
             match msg {
                 AppMessage::BofLoaded(bof) => {
+                    // Reset selected entry point when loading a new BOF
+                    self.selected_entry_point = None;
                     self.bof_file = Some(*bof);
                     self.is_loading = false;
                     self.status_message = format!(
@@ -396,6 +404,86 @@ impl RedBofApp {
                                 ui.label(RichText::new(format!("{}/100", score)).color(color));
                                 ui.end_row();
                             });
+                    });
+                    
+                    ui.add_space(10.0);
+                    
+                    // Argument Signature
+                    ui.group(|ui| {
+                        ui.heading("Argument Signature");
+                        ui.separator();
+                        
+                        if !report.argument_signature.signature.is_empty() {
+                            egui::Grid::new("signature_grid")
+                                .num_columns(2)
+                                .spacing([40.0, 6.0])
+                                .show(ui, |ui| {
+                                    ui.label(RichText::new("Signature:").color(Colors::TEXT_SECONDARY));
+                                    ui.label(RichText::new(&report.argument_signature.signature)
+                                        .monospace()
+                                        .color(Colors::RED_ACCENT)
+                                        .size(16.0));
+                                    ui.end_row();
+                                    
+                                    ui.label(RichText::new("Confidence:").color(Colors::TEXT_SECONDARY));
+                                    let conf_percent = (report.argument_signature.confidence * 100.0) as u8;
+                                    let conf_color = if conf_percent >= 70 { Colors::GREEN_SUCCESS }
+                                        else if conf_percent >= 40 { Colors::YELLOW_WARNING }
+                                        else { Colors::TEXT_SECONDARY };
+                                    ui.label(RichText::new(format!("{}%", conf_percent)).color(conf_color));
+                                    ui.end_row();
+                                    
+                                    ui.label(RichText::new("Method:").color(Colors::TEXT_SECONDARY));
+                                    let method_text = match report.argument_signature.method {
+                                        crate::core::analyzer::signatures::DetectionMethod::Disassembly => "Disassembly Analysis",
+                                        crate::core::analyzer::signatures::DetectionMethod::ApiPattern => "API Pattern",
+                                        crate::core::analyzer::signatures::DetectionMethod::Unknown => "Unknown",
+                                    };
+                                    ui.label(method_text);
+                                    ui.end_row();
+                                });
+                            
+                            if !report.argument_signature.argument_types.is_empty() {
+                                ui.separator();
+                                ui.label(RichText::new("Arguments:").strong());
+                                ui.indent("args_indent", |ui| {
+                                    for arg_info in &report.argument_signature.argument_types {
+                                        let type_char = match arg_info.arg_type {
+                                            crate::core::executor::arguments::ArgumentType::String => "z",
+                                            crate::core::executor::arguments::ArgumentType::WideString => "Z",
+                                            crate::core::executor::arguments::ArgumentType::Int32 => "i",
+                                            crate::core::executor::arguments::ArgumentType::Int16 => "s",
+                                            crate::core::executor::arguments::ArgumentType::Binary => "b",
+                                        };
+                                        ui.horizontal(|ui| {
+                                            ui.label(RichText::new(format!("[{}]", arg_info.position))
+                                                .color(Colors::TEXT_SECONDARY)
+                                                .monospace());
+                                            ui.label(RichText::new(type_char)
+                                                .monospace()
+                                                .color(Colors::RED_ACCENT)
+                                                .strong());
+                                            ui.label(RichText::new(":").color(Colors::TEXT_SECONDARY));
+                                            ui.label(RichText::new(&arg_info.description)
+                                                .color(Colors::TEXT_SECONDARY)
+                                                .small());
+                                        });
+                                    }
+                                });
+                            }
+                            
+                            if !report.argument_signature.notes.is_empty() {
+                                ui.separator();
+                                ui.label(RichText::new("Notes:").strong().small());
+                                ui.indent("notes_indent", |ui| {
+                                    for note in &report.argument_signature.notes {
+                                        ui.label(RichText::new(note).small().color(Colors::TEXT_SECONDARY));
+                                    }
+                                });
+                            }
+                        } else {
+                            ui.label(RichText::new("No signature detected").color(Colors::TEXT_SECONDARY).italics());
+                        }
                     });
                     
                     ui.add_space(10.0);
@@ -710,6 +798,48 @@ impl RedBofApp {
         if let Some(bof) = &self.bof_file {
             let bof_clone = bof.clone();
             
+            // Show detected argument signature if available
+            if let Some(report) = &self.analysis_report {
+                if !report.argument_signature.signature.is_empty() {
+                    ui.group(|ui| {
+                        ui.horizontal(|ui| {
+                            ui.label(RichText::new("📋 Expected Signature:").strong());
+                            ui.label(RichText::new(&report.argument_signature.signature)
+                                .monospace()
+                                .color(Colors::RED_ACCENT)
+                                .size(16.0));
+                            
+                            let conf_percent = (report.argument_signature.confidence * 100.0) as u8;
+                            let conf_color = if conf_percent >= 70 { Colors::GREEN_SUCCESS }
+                                else if conf_percent >= 40 { Colors::YELLOW_WARNING }
+                                else { Colors::TEXT_SECONDARY };
+                            ui.label(RichText::new(format!("({}% confidence)", conf_percent))
+                                .small()
+                                .color(conf_color));
+                        });
+                        
+                        if !report.argument_signature.argument_types.is_empty() {
+                            ui.horizontal_wrapped(|ui| {
+                                for arg_info in &report.argument_signature.argument_types {
+                                    let type_char = match arg_info.arg_type {
+                                        crate::core::executor::arguments::ArgumentType::String => "z",
+                                        crate::core::executor::arguments::ArgumentType::WideString => "Z",
+                                        crate::core::executor::arguments::ArgumentType::Int32 => "i",
+                                        crate::core::executor::arguments::ArgumentType::Int16 => "s",
+                                        crate::core::executor::arguments::ArgumentType::Binary => "b",
+                                    };
+                                    ui.label(RichText::new(format!("[{}] {}", arg_info.position, type_char))
+                                        .monospace()
+                                        .background_color(Colors::BG_LIGHT)
+                                        .color(Colors::RED_ACCENT));
+                                }
+                            });
+                        }
+                    });
+                    ui.add_space(10.0);
+                }
+            }
+            
             // Execution options panel
             ui.group(|ui| {
                 ui.heading("Execution Options");
@@ -731,19 +861,97 @@ impl RedBofApp {
                             .speed(1.0));
                         ui.end_row();
                         
+                        // Entry point selection
+                        ui.label(RichText::new("Entry Point:").color(Colors::TEXT_SECONDARY));
+                        let potential_entry_points = bof_clone.find_potential_entry_points();
+                        if !potential_entry_points.is_empty() {
+                            let entry_point_names: Vec<String> = potential_entry_points.iter()
+                                .map(|ep| ep.name.clone())
+                                .collect();
+                            
+                            let current_selection = self.selected_entry_point.as_ref()
+                                .map(|s| s.as_str())
+                                .or_else(|| {
+                                    // Default to "go" if available, otherwise first entry point
+                                    potential_entry_points.iter()
+                                        .find(|ep| ep.name == "go")
+                                        .or_else(|| potential_entry_points.first())
+                                        .map(|ep| ep.name.as_str())
+                                });
+                            
+                            egui::ComboBox::new("entry_point_selector", "")
+                                .selected_text(current_selection.unwrap_or("Default"))
+                                .show_ui(ui, |ui| {
+                                    // Add "Default" option (uses bof.entry_point or first available)
+                                    ui.selectable_value(
+                                        &mut self.selected_entry_point,
+                                        None,
+                                        "Default (auto-detect)"
+                                    );
+                                    
+                                    // Add each potential entry point
+                                    for ep_name in &entry_point_names {
+                                        ui.selectable_value(
+                                            &mut self.selected_entry_point,
+                                            Some(ep_name.clone()),
+                                            ep_name.clone()
+                                        );
+                                    }
+                                });
+                        } else {
+                            ui.label(RichText::new("No entry points found").color(Colors::YELLOW_WARNING));
+                        }
+                        ui.end_row();
+                        
                         ui.label("Options:");
                         ui.horizontal(|ui| {
                             ui.checkbox(&mut self.execution_sandbox, "Sandbox");
                             ui.checkbox(&mut self.execution_trace, "Trace API calls");
+                            ui.checkbox(&mut self.execution_cs_compat, "Cobalt Strike Compatible");
                         });
                         ui.end_row();
                     });
                 
                 ui.add_space(5.0);
                 
+                // CS Compatible mode help text
+                if self.execution_cs_compat {
+                    let ep_name = self.selected_entry_point.as_ref()
+                        .map(|s| s.as_str())
+                        .unwrap_or("go");
+                    if ep_name == "go" {
+                        ui.label(RichText::new("ℹ️ CS Compatible: Simple string arguments will be passed as null-terminated strings (like Cobalt Strike)")
+                            .small()
+                            .color(Colors::TEXT_MUTED));
+                    } else {
+                        ui.label(RichText::new("ℹ️ Note: CS Compatible mode only applies to 'go' entry point. Using standard format for this entry point.")
+                            .small()
+                            .color(Colors::TEXT_MUTED));
+                    }
+                    ui.add_space(4.0);
+                } else {
+                    // Show hint for standard format
+                    let ep_name = self.selected_entry_point.as_ref()
+                        .map(|s| s.as_str())
+                        .unwrap_or("go");
+                    if ep_name != "go" {
+                        ui.label(RichText::new("ℹ️ Tip: Use format like 'z:string' for string arguments (e.g., 'z:test')")
+                            .small()
+                            .color(Colors::TEXT_MUTED));
+                        ui.add_space(4.0);
+                    }
+                }
+                
                 // Argument format help
                 ui.collapsing("Argument Format Help", |ui| {
                     ui.label(RichText::new("Format: TYPE:VALUE separated by spaces").small());
+                    if self.execution_cs_compat {
+                        ui.add_space(4.0);
+                        ui.label(RichText::new("Note: In CS Compatible mode, simple string arguments are passed as null-terminated strings (not packed).")
+                            .small()
+                            .color(Colors::TEXT_MUTED));
+                        ui.add_space(4.0);
+                    }
                     ui.add_space(4.0);
                     egui::Grid::new("arg_help_grid")
                         .num_columns(3)
@@ -786,7 +994,10 @@ impl RedBofApp {
             
             // Execute and Clear buttons
             ui.horizontal(|ui| {
-                let can_execute = !self.is_executing && bof_clone.entry_point.is_some();
+                // Check if we have any entry point available (default or selected)
+                let has_entry_point = bof_clone.entry_point.is_some() 
+                    || !bof_clone.find_potential_entry_points().is_empty();
+                let can_execute = !self.is_executing && has_entry_point;
                 
                 ui.add_enabled_ui(can_execute, |ui| {
                     if ui.button(RichText::new("Execute BOF").size(16.0)).clicked() {
@@ -806,9 +1017,14 @@ impl RedBofApp {
                 });
             });
             
-            if bof_clone.entry_point.is_none() {
-                ui.label(RichText::new("Warning: No entry point (go function) found in BOF")
+            // Show warning if no entry points found at all
+            let potential_entry_points = bof_clone.find_potential_entry_points();
+            if potential_entry_points.is_empty() {
+                ui.label(RichText::new("Warning: No entry point found in BOF")
                     .color(Colors::YELLOW_WARNING));
+            } else if bof_clone.entry_point.is_none() {
+                ui.label(RichText::new("Info: No 'go' entry point found, but alternative entry points are available")
+                    .color(Colors::TEXT_MUTED));
             }
             
             ui.separator();
@@ -845,11 +1061,45 @@ impl RedBofApp {
         }
         
         if let Some(bof) = &self.bof_file {
-            // Parse arguments
+            // Parse arguments with selected mode
+            // CS Compatible mode only applies to the default "go" entry point
+            // Alternative entry points typically use standard Beacon API format
+            let use_cs_compat = self.execution_cs_compat && 
+                (self.selected_entry_point.is_none() || 
+                 self.selected_entry_point.as_ref().map(|s| s == "go").unwrap_or(false));
+            
+            // Check if we have a detected signature and use it for parsing
             let args_result = if self.execution_args.is_empty() {
                 Ok(Vec::new())
+            } else if let Some(ref report) = self.analysis_report {
+                // Use detected signature if available and confidence is reasonable
+                if !report.argument_signature.signature.is_empty() 
+                    && report.argument_signature.confidence >= 0.5 {
+                    if executor::is_debug_mode() {
+                        eprintln!("[GUI] Using detected signature '{}' to parse arguments", 
+                            report.argument_signature.signature);
+                    }
+                    executor::arguments::parse_arguments_with_signature(
+                        &self.execution_args, 
+                        &report.argument_signature.signature
+                    )
+                } else {
+                    // Fall back to standard parsing
+                    let mode = if use_cs_compat {
+                        executor::arguments::ArgumentMode::CobaltStrike
+                    } else {
+                        executor::arguments::ArgumentMode::Standard
+                    };
+                    executor::arguments::parse_arguments_with_mode(&self.execution_args, mode)
+                }
             } else {
-                executor::arguments::parse_arguments(&self.execution_args)
+                // No analysis report, use standard parsing
+                let mode = if use_cs_compat {
+                    executor::arguments::ArgumentMode::CobaltStrike
+                } else {
+                    executor::arguments::ArgumentMode::Standard
+                };
+                executor::arguments::parse_arguments_with_mode(&self.execution_args, mode)
             };
             
             let packed_args = match args_result {
@@ -876,11 +1126,19 @@ impl RedBofApp {
             let trace = self.execution_trace;
             let timeout = Duration::from_secs(self.execution_timeout);
             let tx = self.message_tx.clone();
+            let entry_point_name = self.selected_entry_point.clone();
             
             thread::spawn(move || {
                 // Use catch_unwind to handle any panics in the execution
                 let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
-                    executor::execute(&bof_clone, &packed_args, sandbox, trace, timeout)
+                    executor::execute_with_entry_point(
+                        &bof_clone, 
+                        &packed_args, 
+                        sandbox, 
+                        trace, 
+                        timeout,
+                        entry_point_name.as_deref()
+                    )
                 }));
                 
                 match result {

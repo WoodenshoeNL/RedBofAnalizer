@@ -4,6 +4,7 @@ use crate::core::models::bof::BofFile;
 use crate::core::models::lint::LintFinding;
 use crate::core::utils::disasm::DisassemblyResult;
 use crate::core::parser::relocations::{RelocationInfo, RelocationStats};
+use crate::core::analyzer::signatures::ArgumentSignature;
 use std::path::PathBuf;
 use std::time::Duration;
 
@@ -24,6 +25,8 @@ pub struct AnalysisReport {
     /// Extended relocation information
     #[serde(skip_serializing_if = "Option::is_none")]
     pub relocations: Option<RelocationReport>,
+    /// Detected argument signature
+    pub argument_signature: ArgumentSignature,
 }
 
 /// Relocation report

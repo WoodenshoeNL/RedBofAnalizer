@@ -77,6 +77,18 @@ pub fn execute(
     trace: bool,
     timeout: Duration,
 ) -> Result<ExecutionResult> {
+    execute_with_entry_point(bof, args, sandbox, trace, timeout, None)
+}
+
+/// Execute a BOF with a specific entry point
+pub fn execute_with_entry_point(
+    bof: &BofFile,
+    args: &[u8],
+    sandbox: bool,
+    trace: bool,
+    timeout: Duration,
+    entry_point_name: Option<&str>,
+) -> Result<ExecutionResult> {
     let start = Instant::now();
     clear_global_output();
     clear_tracer();
@@ -104,41 +116,81 @@ pub fn execute(
     // Register Beacon API functions
     let _beacon_api = BeaconApi::new();
     // Note: Function pointer casts are safe, but the functions themselves will be called from unsafe code
+    
     // Output APIs
     resolver.set_beacon_api("BeaconPrintf", BeaconApi::beacon_printf as usize);
-        resolver.set_beacon_api("BeaconOutput", BeaconApi::beacon_output as usize);
-        
-        // Data parsing APIs
-        resolver.set_beacon_api("BeaconDataParse", BeaconApi::beacon_data_parse as usize);
-        resolver.set_beacon_api("BeaconDataInt", BeaconApi::beacon_data_int as usize);
-        resolver.set_beacon_api("BeaconDataShort", BeaconApi::beacon_data_short as usize);
-        resolver.set_beacon_api("BeaconDataLength", BeaconApi::beacon_data_length as usize);
-        resolver.set_beacon_api("BeaconDataExtract", BeaconApi::beacon_data_extract as usize);
-        
-        // Token APIs
-        resolver.set_beacon_api("BeaconUseToken", BeaconApi::beacon_use_token as usize);
-        resolver.set_beacon_api("BeaconRevertToken", BeaconApi::beacon_revert_token as usize);
-        resolver.set_beacon_api("BeaconIsAdmin", BeaconApi::beacon_is_admin as usize);
-        
-        // Process APIs
-        resolver.set_beacon_api("BeaconGetSpawnTo", BeaconApi::beacon_get_spawn_to as usize);
-        resolver.set_beacon_api("BeaconSpawnTemporaryProcess", BeaconApi::beacon_spawn_temporary_process as usize);
-        resolver.set_beacon_api("BeaconInjectProcess", BeaconApi::beacon_inject_process as usize);
-        resolver.set_beacon_api("BeaconInjectTemporaryProcess", BeaconApi::beacon_inject_temporary_process as usize);
-        resolver.set_beacon_api("BeaconCleanupProcess", BeaconApi::beacon_cleanup_process as usize);
-        
-        // Format APIs
-        resolver.set_beacon_api("BeaconFormatAlloc", BeaconApi::beacon_format_alloc as usize);
-        resolver.set_beacon_api("BeaconFormatReset", BeaconApi::beacon_format_reset as usize);
-        resolver.set_beacon_api("BeaconFormatFree", BeaconApi::beacon_format_free as usize);
-        resolver.set_beacon_api("BeaconFormatAppend", BeaconApi::beacon_format_append as usize);
-        resolver.set_beacon_api("BeaconFormatPrintf", BeaconApi::beacon_format_printf as usize);
-        resolver.set_beacon_api("BeaconFormatToString", BeaconApi::beacon_format_to_string as usize);
-        resolver.set_beacon_api("BeaconFormatInt", BeaconApi::beacon_format_int as usize);
-        
-        // Memory APIs
-        resolver.set_beacon_api("BeaconVirtualAlloc", BeaconApi::beacon_virtual_alloc as usize);
-        resolver.set_beacon_api("BeaconVirtualFree", BeaconApi::beacon_virtual_free as usize);
+    resolver.set_beacon_api("BeaconOutput", BeaconApi::beacon_output as usize);
+    resolver.set_beacon_api("BeaconDownload", BeaconApi::beacon_download as usize);
+    
+    // Data parsing APIs
+    resolver.set_beacon_api("BeaconDataParse", BeaconApi::beacon_data_parse as usize);
+    resolver.set_beacon_api("BeaconDataPtr", BeaconApi::beacon_data_ptr as usize);
+    resolver.set_beacon_api("BeaconDataInt", BeaconApi::beacon_data_int as usize);
+    resolver.set_beacon_api("BeaconDataShort", BeaconApi::beacon_data_short as usize);
+    resolver.set_beacon_api("BeaconDataLength", BeaconApi::beacon_data_length as usize);
+    resolver.set_beacon_api("BeaconDataExtract", BeaconApi::beacon_data_extract as usize);
+    
+    // Token APIs
+    resolver.set_beacon_api("BeaconUseToken", BeaconApi::beacon_use_token as usize);
+    resolver.set_beacon_api("BeaconRevertToken", BeaconApi::beacon_revert_token as usize);
+    resolver.set_beacon_api("BeaconIsAdmin", BeaconApi::beacon_is_admin as usize);
+    
+    // Process APIs
+    resolver.set_beacon_api("BeaconGetSpawnTo", BeaconApi::beacon_get_spawn_to as usize);
+    resolver.set_beacon_api("BeaconSpawnTemporaryProcess", BeaconApi::beacon_spawn_temporary_process as usize);
+    resolver.set_beacon_api("BeaconInjectProcess", BeaconApi::beacon_inject_process as usize);
+    resolver.set_beacon_api("BeaconInjectTemporaryProcess", BeaconApi::beacon_inject_temporary_process as usize);
+    resolver.set_beacon_api("BeaconCleanupProcess", BeaconApi::beacon_cleanup_process as usize);
+    
+    // Format APIs
+    resolver.set_beacon_api("BeaconFormatAlloc", BeaconApi::beacon_format_alloc as usize);
+    resolver.set_beacon_api("BeaconFormatReset", BeaconApi::beacon_format_reset as usize);
+    resolver.set_beacon_api("BeaconFormatFree", BeaconApi::beacon_format_free as usize);
+    resolver.set_beacon_api("BeaconFormatAppend", BeaconApi::beacon_format_append as usize);
+    resolver.set_beacon_api("BeaconFormatPrintf", BeaconApi::beacon_format_printf as usize);
+    resolver.set_beacon_api("BeaconFormatToString", BeaconApi::beacon_format_to_string as usize);
+    resolver.set_beacon_api("BeaconFormatInt", BeaconApi::beacon_format_int as usize);
+    
+    // Memory APIs
+    resolver.set_beacon_api("BeaconVirtualAlloc", BeaconApi::beacon_virtual_alloc as usize);
+    resolver.set_beacon_api("BeaconVirtualAllocEx", BeaconApi::beacon_virtual_alloc_ex as usize);
+    resolver.set_beacon_api("BeaconVirtualFree", BeaconApi::beacon_virtual_free as usize);
+    resolver.set_beacon_api("BeaconVirtualProtect", BeaconApi::beacon_virtual_protect as usize);
+    resolver.set_beacon_api("BeaconVirtualProtectEx", BeaconApi::beacon_virtual_protect_ex as usize);
+    
+    // Utility APIs
+    resolver.set_beacon_api("toWideChar", BeaconApi::to_wide_char as usize);
+    
+    // Information APIs
+    resolver.set_beacon_api("BeaconInformation", BeaconApi::beacon_information as usize);
+    resolver.set_beacon_api("BeaconGetSyscallInformation", BeaconApi::beacon_get_syscall_information as usize);
+    
+    // Key/Value Store APIs
+    resolver.set_beacon_api("BeaconAddValue", BeaconApi::beacon_add_value as usize);
+    resolver.set_beacon_api("BeaconGetValue", BeaconApi::beacon_get_value as usize);
+    resolver.set_beacon_api("BeaconRemoveValue", BeaconApi::beacon_remove_value as usize);
+    
+    // Data Store APIs
+    resolver.set_beacon_api("BeaconDataStoreGetItem", BeaconApi::beacon_data_store_get_item as usize);
+    resolver.set_beacon_api("BeaconDataStoreProtectItem", BeaconApi::beacon_data_store_protect_item as usize);
+    resolver.set_beacon_api("BeaconDataStoreUnprotectItem", BeaconApi::beacon_data_store_unprotect_item as usize);
+    resolver.set_beacon_api("BeaconDataStoreMaxEntries", BeaconApi::beacon_data_store_max_entries as usize);
+    
+    // User Data APIs
+    resolver.set_beacon_api("BeaconGetCustomUserData", BeaconApi::beacon_get_custom_user_data as usize);
+    
+    // Thread/Process APIs
+    resolver.set_beacon_api("BeaconGetThreadContext", BeaconApi::beacon_get_thread_context as usize);
+    resolver.set_beacon_api("BeaconSetThreadContext", BeaconApi::beacon_set_thread_context as usize);
+    resolver.set_beacon_api("BeaconResumeThread", BeaconApi::beacon_resume_thread as usize);
+    resolver.set_beacon_api("BeaconOpenProcess", BeaconApi::beacon_open_process as usize);
+    resolver.set_beacon_api("BeaconOpenThread", BeaconApi::beacon_open_thread as usize);
+    resolver.set_beacon_api("BeaconCloseHandle", BeaconApi::beacon_close_handle as usize);
+    resolver.set_beacon_api("BeaconUnmapViewOfFile", BeaconApi::beacon_unmap_view_of_file as usize);
+    resolver.set_beacon_api("BeaconVirtualQuery", BeaconApi::beacon_virtual_query as usize);
+    resolver.set_beacon_api("BeaconDuplicateHandle", BeaconApi::beacon_duplicate_handle as usize);
+    resolver.set_beacon_api("BeaconReadProcessMemory", BeaconApi::beacon_read_process_memory as usize);
+    resolver.set_beacon_api("BeaconWriteProcessMemory", BeaconApi::beacon_write_process_memory as usize);
     
     // Resolve all symbols and build symbol map
     // Key: COFF symbol table index, Value: resolved address
@@ -329,8 +381,44 @@ pub fn execute(
     }
     
     // Find entry point
-    let entry_point = bof.entry_point.as_ref()
-        .ok_or_else(|| anyhow::anyhow!("No entry point found"))?;
+    let entry_point = if let Some(ep_name) = entry_point_name {
+        // Use specified entry point name
+        bof.symbols.iter()
+            .find(|s| s.name == ep_name && s.section.is_some() && !s.is_external)
+            .ok_or_else(|| anyhow::anyhow!("Entry point '{}' not found", ep_name))?
+    } else {
+        // Use default entry point (go) or fallback to first available function
+        bof.entry_point.as_ref()
+            .or_else(|| {
+                // Fallback: find any symbol in an executable section
+                // Use the same logic as find_potential_entry_points but just get the first one
+                for symbol in &bof.symbols {
+                    if symbol.section.is_some() && !symbol.is_external {
+                        if let Some(section_idx) = symbol.section {
+                            if let Some(section) = bof.sections.get(section_idx) {
+                                let is_executable = (section.characteristics & 0x20000000) != 0;
+                                let is_code = (section.characteristics & 0x00000020) != 0;
+                                let is_text_section = section.name == ".text" || section.name.starts_with(".text");
+                                
+                                if is_executable || is_code || is_text_section {
+                                    let name = &symbol.name;
+                                    if !name.starts_with('$') 
+                                        && !name.starts_with('.')
+                                        && name != "main"
+                                        && !name.starts_with("__")
+                                        && !name.contains("$unwind$")
+                                        && !name.contains("$pdata$") {
+                                        return Some(symbol);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                None
+            })
+            .ok_or_else(|| anyhow::anyhow!("No entry point found"))?
+    };
     
     log::info!("Entry point '{}' found with value 0x{:x}, section {:?}", 
         entry_point.name, entry_point.value, entry_point.section);

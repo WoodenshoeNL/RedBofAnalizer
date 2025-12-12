@@ -1,6 +1,7 @@
 //! Beacon API emulation
 
 use std::sync::Mutex;
+use std::collections::HashMap;
 use std::ffi::CStr;
 use std::os::raw::{c_char, c_int};
 #[cfg(windows)]
@@ -185,9 +186,15 @@ impl BeaconApi {
     
     /// BeaconPrintf implementation
     /// 
-    /// Note: Full variadic argument support requires C interop. This implementation
-    /// captures the format string and records it. For actual printf formatting with
-    /// arguments, a C wrapper library would be needed to properly extract va_list args.
+    /// On x64 Windows, the calling convention passes:
+    /// - RCX = callback_type
+    /// - RDX = format
+    /// - R8 = arg0 (first variadic)
+    /// - R9 = arg1 (second variadic)
+    /// - Stack = arg2, arg3, ... (additional variadic args)
+    /// 
+    /// We declare extra parameters to capture up to 6 variadic arguments, which
+    /// covers most BOF usage of BeaconPrintf.
     /// 
     /// Common format specifiers that BOFs use:
     /// - %s - string
@@ -199,8 +206,13 @@ impl BeaconApi {
     pub unsafe extern "C" fn beacon_printf(
         callback_type: c_int,
         format: *const c_char,
-        // Note: Variadic arguments follow but Rust can't directly access them
-        // The BOF calling convention passes additional args on stack/registers
+        // Capture variadic arguments - on x64 Windows these come from R8, R9, then stack
+        arg0: usize,
+        arg1: usize,
+        arg2: usize,
+        arg3: usize,
+        arg4: usize,
+        arg5: usize,
     ) {
         // Record API call for tracing
         crate::core::executor::tracer::record_api_call(
@@ -216,21 +228,129 @@ impl BeaconApi {
             // Parse the format string to understand what arguments are expected
             let parts = crate::core::executor::printf::parse_format_string(fmt_str);
             
-            // Count format specifiers to inform user about expected arguments
+            // Count format specifiers
             let specifier_count = parts.iter()
                 .filter(|p| matches!(p, crate::core::executor::printf::FormatPart::Specifier(_)))
                 .count();
             
-            // Output the format string with annotation about expected arguments
-            let output = if specifier_count > 0 {
-                format!("{} [expects {} args]", fmt_str, specifier_count)
-            } else {
-                fmt_str.to_string()
-            };
+            // Collect variadic arguments
+            let args = [arg0, arg1, arg2, arg3, arg4, arg5];
+            
+            // Format the string using variadic arguments
+            let output = format_printf_string(fmt_str, &parts, &args, specifier_count);
             
             GLOBAL_OUTPUT.add(callback_type as u32, output.into_bytes());
         }
     }
+}
+
+/// Format a printf-style string with captured variadic arguments
+fn format_printf_string(
+    _format: &str,
+    parts: &[crate::core::executor::printf::FormatPart],
+    args: &[usize],
+    specifier_count: usize,
+) -> String {
+    use crate::core::executor::printf::FormatPart;
+    use std::ffi::CStr;
+    
+    let mut result = String::new();
+    let mut arg_idx = 0;
+    
+    for part in parts {
+        match part {
+            FormatPart::Literal(s) => {
+                result.push_str(s);
+            }
+            FormatPart::Specifier(spec) => {
+                if spec.specifier == 'n' {
+                    // %n writes count - skip for safety
+                    continue;
+                }
+                
+                if arg_idx >= args.len() || arg_idx >= specifier_count {
+                    // Not enough arguments - output specifier as-is
+                    result.push_str(&spec.raw);
+                    continue;
+                }
+                
+                let arg = args[arg_idx];
+                arg_idx += 1;
+                
+                match spec.specifier {
+                    's' => {
+                        // String argument
+                        if arg == 0 {
+                            result.push_str("(null)");
+                        } else {
+                            let ptr = arg as *const c_char;
+                            match std::panic::catch_unwind(|| unsafe { CStr::from_ptr(ptr) }) {
+                                Ok(cstr) => {
+                                    result.push_str(&cstr.to_string_lossy());
+                                }
+                                Err(_) => {
+                                    result.push_str("(invalid string)");
+                                }
+                            }
+                        }
+                    }
+                    'd' | 'i' => {
+                        // Signed integer
+                        let has_long = spec.raw.contains('l');
+                        if has_long {
+                            result.push_str(&format!("{}", arg as i64));
+                        } else {
+                            result.push_str(&format!("{}", arg as i32));
+                        }
+                    }
+                    'u' => {
+                        // Unsigned integer
+                        let has_long = spec.raw.contains('l');
+                        if has_long {
+                            result.push_str(&format!("{}", arg as u64));
+                        } else {
+                            result.push_str(&format!("{}", arg as u32));
+                        }
+                    }
+                    'x' | 'X' => {
+                        // Hexadecimal
+                        let has_long = spec.raw.contains('l');
+                        let uppercase = spec.specifier == 'X';
+                        if has_long {
+                            if uppercase {
+                                result.push_str(&format!("{:X}", arg as u64));
+                            } else {
+                                result.push_str(&format!("{:x}", arg as u64));
+                            }
+                        } else {
+                            if uppercase {
+                                result.push_str(&format!("{:X}", arg as u32));
+                            } else {
+                                result.push_str(&format!("{:x}", arg as u32));
+                            }
+                        }
+                    }
+                    'p' => {
+                        // Pointer
+                        result.push_str(&format!("{:#x}", arg));
+                    }
+                    'c' => {
+                        // Character
+                        result.push((arg as u8) as char);
+                    }
+                    _ => {
+                        // Unknown specifier - output as-is
+                        result.push_str(&spec.raw);
+                    }
+                }
+            }
+        }
+    }
+    
+    result
+}
+
+impl BeaconApi {
     
     /// BeaconOutput implementation
     pub unsafe extern "C" fn beacon_output(
@@ -296,6 +416,19 @@ impl BeaconApi {
             result
         }
     }
+    
+    /// BeaconDataPtr implementation
+    /// Returns a pointer to data without extracting it (advances parser)
+    pub unsafe extern "C" fn beacon_data_ptr(parser: *mut DataParser, size: i32) -> *const u8 {
+        if parser.is_null() || (*parser).length < size {
+            return std::ptr::null();
+        }
+        
+        let ptr = (*parser).buffer;
+        (*parser).buffer = (*parser).buffer.add(size as usize);
+        (*parser).length -= size;
+        ptr
+    }
 }
 
 /// Format parser structure (matches Cobalt Strike's formatp)
@@ -305,6 +438,148 @@ pub struct FormatParser {
     pub buffer: *mut u8,
     pub length: i32,
     pub size: i32,
+}
+
+/// Data store structure (simplified for emulation)
+#[repr(C)]
+pub struct DataStoreObject {
+    pub type_: c_int,
+    pub hash: u64,
+    pub masked: BOOL,
+    pub buffer: *mut c_char,
+    pub length: usize,
+}
+
+/// Heap record structure (matches Cobalt Strike's HEAP_RECORD)
+#[repr(C)]
+pub struct HeapRecord {
+    pub ptr: *mut c_char,
+    pub size: usize,
+}
+
+/// Allocated memory section structure (matches Cobalt Strike's ALLOCATED_MEMORY_SECTION)
+#[repr(C)]
+pub struct AllocatedMemorySection {
+    pub label: u32,              // ALLOCATED_MEMORY_LABEL
+    pub base_address: *mut std::ffi::c_void,
+    pub virtual_size: usize,
+    pub current_protect: u32,
+    pub previous_protect: u32,
+    pub mask_section: u32,        // BOOL
+    pub dripload_page_size: u32,
+}
+
+/// Allocated memory cleanup information (matches Cobalt Strike's ALLOCATED_MEMORY_CLEANUP_INFORMATION)
+#[repr(C)]
+pub struct AllocatedMemoryCleanupInformation {
+    pub cleanup: u32,            // BOOL
+    pub allocation_method: u32,   // ALLOCATED_MEMORY_ALLOCATION_METHOD
+    pub additional_cleanup_info: [u8; 16], // Union of HEAPALLOC_INFO, MODULESTOMP_INFO, or PVOID
+}
+
+/// Allocated memory region structure (matches Cobalt Strike's ALLOCATED_MEMORY_REGION)
+#[repr(C)]
+pub struct AllocatedMemoryRegion {
+    pub purpose: u32,             // ALLOCATED_MEMORY_PURPOSE
+    pub allocation_base: *mut std::ffi::c_void,
+    pub region_size: usize,
+    pub type_: u32,
+    pub dripload_allocation_granularity: u32,
+    pub sections: [AllocatedMemorySection; 8],
+    pub cleanup_information: AllocatedMemoryCleanupInformation,
+}
+
+/// Allocated memory structure (matches Cobalt Strike's ALLOCATED_MEMORY)
+#[repr(C)]
+pub struct AllocatedMemory {
+    pub allocated_memory_regions: [AllocatedMemoryRegion; 6],
+}
+
+/// Beacon information structure (matches Cobalt Strike's BEACON_INFO)
+#[repr(C)]
+pub struct BeaconInfo {
+    pub version: u32,
+    pub sleep_mask_ptr: *mut c_char,
+    pub sleep_mask_text_size: u32,
+    pub sleep_mask_total_size: u32,
+    pub beacon_ptr: *mut c_char,
+    pub heap_records: *mut HeapRecord,
+    pub mask: [u8; 13],           // MASK_SIZE = 13
+    pub allocated_memory: AllocatedMemory,
+}
+
+/// System call API entry structure (matches Cobalt Strike's SYSCALL_API_ENTRY)
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct SyscallApiEntry {
+    pub fn_addr: *mut std::ffi::c_void,
+    pub jmp_addr: *mut std::ffi::c_void,
+    pub sysnum: u32,
+}
+
+/// System call API structure (matches Cobalt Strike's SYSCALL_API)
+#[repr(C)]
+pub struct SyscallApi {
+    pub nt_allocate_virtual_memory: SyscallApiEntry,
+    pub nt_protect_virtual_memory: SyscallApiEntry,
+    pub nt_free_virtual_memory: SyscallApiEntry,
+    pub nt_get_context_thread: SyscallApiEntry,
+    pub nt_set_context_thread: SyscallApiEntry,
+    pub nt_resume_thread: SyscallApiEntry,
+    pub nt_create_thread_ex: SyscallApiEntry,
+    pub nt_open_process: SyscallApiEntry,
+    pub nt_open_thread: SyscallApiEntry,
+    pub nt_close: SyscallApiEntry,
+    pub nt_create_section: SyscallApiEntry,
+    pub nt_map_view_of_section: SyscallApiEntry,
+    pub nt_unmap_view_of_section: SyscallApiEntry,
+    pub nt_query_virtual_memory: SyscallApiEntry,
+    pub nt_duplicate_object: SyscallApiEntry,
+    pub nt_read_virtual_memory: SyscallApiEntry,
+    pub nt_write_virtual_memory: SyscallApiEntry,
+    pub nt_read_file: SyscallApiEntry,
+    pub nt_write_file: SyscallApiEntry,
+    pub nt_create_file: SyscallApiEntry,
+    pub nt_queue_apc_thread: SyscallApiEntry,
+    pub nt_create_process: SyscallApiEntry,
+    pub nt_open_process_token: SyscallApiEntry,
+    pub nt_test_alert: SyscallApiEntry,
+    pub nt_suspend_process: SyscallApiEntry,
+    pub nt_resume_process: SyscallApiEntry,
+    pub nt_query_system_information: SyscallApiEntry,
+    pub nt_query_directory_file: SyscallApiEntry,
+    pub nt_set_information_process: SyscallApiEntry,
+    pub nt_set_information_thread: SyscallApiEntry,
+    pub nt_query_information_process: SyscallApiEntry,
+    pub nt_query_information_thread: SyscallApiEntry,
+    pub nt_open_section: SyscallApiEntry,
+    pub nt_adjust_privileges_token: SyscallApiEntry,
+    pub nt_device_io_control_file: SyscallApiEntry,
+    pub nt_wait_for_multiple_objects: SyscallApiEntry,
+}
+
+/// RTL API structure (matches Cobalt Strike's RTL_API)
+#[repr(C)]
+pub struct RtlApi {
+    pub rtl_dos_path_name_to_nt_path_name_u_with_status_addr: *mut std::ffi::c_void,
+    pub rtl_free_heap_addr: *mut std::ffi::c_void,
+    pub rtl_get_process_heap_addr: *mut std::ffi::c_void,
+}
+
+/// Beacon syscalls structure (matches Cobalt Strike's BEACON_SYSCALLS)
+#[repr(C)]
+pub struct BeaconSyscalls {
+    pub syscalls: SyscallApi,
+    pub rtls: RtlApi,
+}
+
+/// Key/Value store for BOFs to persist data across executions
+use std::sync::OnceLock;
+// Use usize instead of *mut c_void to avoid Send/Sync issues
+static KEY_VALUE_STORE: OnceLock<Mutex<HashMap<String, usize>>> = OnceLock::new();
+
+fn get_key_value_store() -> &'static Mutex<HashMap<String, usize>> {
+    KEY_VALUE_STORE.get_or_init(|| Mutex::new(HashMap::new()))
 }
 
 impl BeaconApi {
@@ -453,12 +728,22 @@ impl BeaconApi {
     /// BeaconFormatPrintf implementation
     /// 
     /// Appends formatted output to the format buffer. Like BeaconPrintf,
-    /// full variadic support requires C interop. This implementation appends
-    /// the format string directly.
+    /// full variadic support requires C interop. On x64 Windows, the calling convention passes:
+    /// - RCX = format
+    /// - RDX = fmt
+    /// - R8 = arg0 (first variadic)
+    /// - R9 = arg1 (second variadic)
+    /// - Stack = arg2, arg3, ... (additional variadic args)
     pub unsafe extern "C" fn beacon_format_printf(
         format: *mut FormatParser,
         fmt: *const c_char,
-        // Variadic args follow
+        // Capture variadic arguments - on x64 Windows these come from R8, R9, then stack
+        arg0: usize,
+        arg1: usize,
+        arg2: usize,
+        arg3: usize,
+        arg4: usize,
+        arg5: usize,
     ) {
         if format.is_null() || fmt.is_null() {
             return;
@@ -470,10 +755,23 @@ impl BeaconApi {
             vec![],
         );
         
-        if let Ok(s) = CStr::from_ptr(fmt).to_str() {
-            // For format buffer, we append the raw format string
-            // In a real implementation with variadic args, we'd format first
-            let bytes = s.as_bytes();
+        if let Ok(fmt_str) = CStr::from_ptr(fmt).to_str() {
+            // Parse the format string to understand what arguments are expected
+            let parts = crate::core::executor::printf::parse_format_string(fmt_str);
+            
+            // Count format specifiers
+            let specifier_count = parts.iter()
+                .filter(|p| matches!(p, crate::core::executor::printf::FormatPart::Specifier(_)))
+                .count();
+            
+            // Collect variadic arguments
+            let args = [arg0, arg1, arg2, arg3, arg4, arg5];
+            
+            // Format the string using variadic arguments
+            let output = format_printf_string(fmt_str, &parts, &args, specifier_count);
+            
+            // Append the formatted string to the buffer
+            let bytes = output.as_bytes();
             let available = (*format).length as usize;
             let len = bytes.len().min(available);
             
@@ -822,6 +1120,822 @@ impl BeaconApi {
     #[cfg(not(windows))]
     pub unsafe extern "C" fn beacon_cleanup_process(_pi: *mut std::ffi::c_void) {
         // No-op on non-Windows
+    }
+    
+    // ===== Additional Output APIs =====
+    
+    /// BeaconDownload implementation
+    /// Downloads a file to the beacon
+    pub unsafe extern "C" fn beacon_download(
+        filename: *const c_char,
+        buffer: *const u8,
+        length: u32,
+    ) -> BOOL {
+        if filename.is_null() || buffer.is_null() || length == 0 {
+            return BOOL::from(false);
+        }
+        
+        // Record API call
+        crate::core::executor::tracer::record_api_call(
+            "BeaconDownload".to_string(),
+            vec![
+                format!("length={}", length),
+            ],
+        );
+        
+        // In a real implementation, this would download the file
+        // For now, we just log it
+        if let Ok(fname) = CStr::from_ptr(filename).to_str() {
+            GLOBAL_OUTPUT.add(
+                0x1000, // CALLBACK_CUSTOM
+                format!("[DOWNLOAD] {} ({} bytes)\n", fname, length).into_bytes(),
+            );
+        }
+        
+        BOOL::from(true)
+    }
+    
+    // ===== Utility APIs =====
+    
+    /// toWideChar implementation
+    /// Converts an ANSI string to a wide string
+    #[cfg(windows)]
+    pub unsafe extern "C" fn to_wide_char(
+        src: *const c_char,
+        dst: *mut u16,
+        max: c_int,
+    ) -> BOOL {
+        if src.is_null() || dst.is_null() || max <= 0 {
+            return BOOL::from(false);
+        }
+        
+        if let Ok(src_str) = CStr::from_ptr(src).to_str() {
+            let wide_str: Vec<u16> = src_str.encode_utf16().chain(std::iter::once(0)).collect();
+            let copy_len = (max as usize - 1).min(wide_str.len() - 1);
+            
+            std::ptr::copy_nonoverlapping(wide_str.as_ptr(), dst, copy_len);
+            *dst.add(copy_len) = 0;
+            BOOL::from(true)
+        } else {
+            BOOL::from(false)
+        }
+    }
+    
+    /// toWideChar implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn to_wide_char(
+        _src: *const c_char,
+        _dst: *mut u16,
+        _max: c_int,
+    ) -> i32 {
+        0
+    }
+    
+    // ===== Information APIs =====
+    
+    /// BeaconInformation implementation
+    /// Gets information about the beacon
+    /// Supports versions: 0x040900 (4.9), 0x041000 (4.10), 0x041100 (4.11), 0x041200 (4.12)
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_information(
+        info: *mut std::ffi::c_void,
+    ) -> BOOL {
+        if info.is_null() {
+            return BOOL::from(false);
+        }
+        
+        // Record API call
+        crate::core::executor::tracer::record_api_call(
+            "BeaconInformation".to_string(),
+            vec![],
+        );
+        
+        // Cast to BeaconInfo structure
+        let info_ptr = info as *mut BeaconInfo;
+        let info_ref = &mut *info_ptr;
+        
+        // Check if the requested version is supported
+        // Supported versions: 4.9 (0x040900), 4.10 (0x041000), 4.11 (0x041100), 4.12 (0x041200)
+        let requested_version = info_ref.version;
+        let supported_versions = [0x040900, 0x041000, 0x041100, 0x041200];
+        
+        if !supported_versions.contains(&requested_version) {
+            return BOOL::from(false);
+        }
+        
+        // Fill in the structure with emulated values
+        // Set version (already set by caller, but we keep it)
+        info_ref.version = requested_version;
+        
+        // Set pointers to NULL (safe for emulation - BOF code only prints these, doesn't dereference)
+        info_ref.sleep_mask_ptr = std::ptr::null_mut();
+        info_ref.sleep_mask_text_size = 0;
+        info_ref.sleep_mask_total_size = 0;
+        
+        info_ref.beacon_ptr = std::ptr::null_mut();
+        
+        // Heap records - set to NULL (no heap records in emulation)
+        info_ref.heap_records = std::ptr::null_mut();
+        
+        // Initialize mask with zeros (in real beacon, this would be random)
+        info_ref.mask = [0u8; 13];
+        
+        // Initialize allocated memory regions (all empty in emulation)
+        for region in info_ref.allocated_memory.allocated_memory_regions.iter_mut() {
+            region.purpose = 0; // PURPOSE_EMPTY
+            region.allocation_base = std::ptr::null_mut();
+            region.region_size = 0;
+            region.type_ = 0;
+            region.dripload_allocation_granularity = 0;
+            
+            // Initialize sections
+            for section in region.sections.iter_mut() {
+                section.label = 0; // LABEL_EMPTY
+                section.base_address = std::ptr::null_mut();
+                section.virtual_size = 0;
+                section.current_protect = 0;
+                section.previous_protect = 0;
+                section.mask_section = 0; // FALSE
+                section.dripload_page_size = 0;
+            }
+            
+            // Initialize cleanup information
+            region.cleanup_information.cleanup = 0; // FALSE
+            region.cleanup_information.allocation_method = 0; // METHOD_UNKNOWN
+            region.cleanup_information.additional_cleanup_info = [0u8; 16];
+        }
+        
+        BOOL::from(true)
+    }
+    
+    /// BeaconInformation implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_information(_info: *mut std::ffi::c_void) -> i32 {
+        0
+    }
+    
+    // ===== Key/Value Store APIs =====
+    
+    /// BeaconAddValue implementation
+    pub unsafe extern "C" fn beacon_add_value(
+        key: *const c_char,
+        ptr: *mut std::ffi::c_void,
+    ) -> BOOL {
+        if key.is_null() {
+            return BOOL::from(false);
+        }
+        
+        if let Ok(key_str) = CStr::from_ptr(key).to_str() {
+            if let Ok(mut store) = get_key_value_store().lock() {
+                store.insert(key_str.to_string(), ptr as usize);
+                BOOL::from(true)
+            } else {
+                BOOL::from(false)
+            }
+        } else {
+            BOOL::from(false)
+        }
+    }
+    
+    /// BeaconGetValue implementation
+    pub unsafe extern "C" fn beacon_get_value(key: *const c_char) -> *mut std::ffi::c_void {
+        if key.is_null() {
+            return std::ptr::null_mut();
+        }
+        
+        if let Ok(key_str) = CStr::from_ptr(key).to_str() {
+            if let Ok(store) = get_key_value_store().lock() {
+                store.get(key_str).map(|&addr| addr as *mut std::ffi::c_void).unwrap_or(std::ptr::null_mut())
+            } else {
+                std::ptr::null_mut()
+            }
+        } else {
+            std::ptr::null_mut()
+        }
+    }
+    
+    /// BeaconRemoveValue implementation
+    pub unsafe extern "C" fn beacon_remove_value(key: *const c_char) -> BOOL {
+        if key.is_null() {
+            return BOOL::from(false);
+        }
+        
+        if let Ok(key_str) = CStr::from_ptr(key).to_str() {
+            if let Ok(mut store) = get_key_value_store().lock() {
+                store.remove(key_str);
+                BOOL::from(true)
+            } else {
+                BOOL::from(false)
+            }
+        } else {
+            BOOL::from(false)
+        }
+    }
+    
+    // ===== Data Store APIs =====
+    
+    /// BeaconDataStoreGetItem implementation
+    pub unsafe extern "C" fn beacon_data_store_get_item(
+        _index: usize,
+    ) -> *mut DataStoreObject {
+        // In a real implementation, this would return items from beacon's data store
+        // For emulation, we return NULL
+        std::ptr::null_mut()
+    }
+    
+    /// BeaconDataStoreProtectItem implementation
+    pub unsafe extern "C" fn beacon_data_store_protect_item(_index: usize) {
+        // No-op in emulation
+    }
+    
+    /// BeaconDataStoreUnprotectItem implementation
+    pub unsafe extern "C" fn beacon_data_store_unprotect_item(_index: usize) {
+        // No-op in emulation
+    }
+    
+    /// BeaconDataStoreMaxEntries implementation
+    pub unsafe extern "C" fn beacon_data_store_max_entries() -> usize {
+        0 // No entries in emulation
+    }
+    
+    // ===== User Data APIs =====
+    
+    /// BeaconGetCustomUserData implementation
+    pub unsafe extern "C" fn beacon_get_custom_user_data() -> *const c_char {
+        // In a real implementation, this would return custom user data
+        // For emulation, we return NULL
+        std::ptr::null()
+    }
+    
+    // ===== Syscall Information APIs =====
+    
+    /// BeaconGetSyscallInformation implementation
+    /// Gets system call information from beacon
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_get_syscall_information(
+        info: *mut std::ffi::c_void,
+        info_size: usize,
+        _resolve_if_not_initialized: BOOL,
+    ) -> BOOL {
+        if info.is_null() {
+            return BOOL::from(false);
+        }
+        
+        // Record API call
+        crate::core::executor::tracer::record_api_call(
+            "BeaconGetSyscallInformation".to_string(),
+            vec![
+                format!("info_size={}", info_size),
+            ],
+        );
+        
+        // Verify the size matches BEACON_SYSCALLS
+        let expected_size = std::mem::size_of::<BeaconSyscalls>();
+        if info_size < expected_size {
+            return BOOL::from(false);
+        }
+        
+        // Cast to BeaconSyscalls structure
+        let info_ptr = info as *mut BeaconSyscalls;
+        let info_ref = &mut *info_ptr;
+        
+        // Initialize all syscall entries with NULL pointers and zero sysnums
+        // This is safe for emulation - BOFs can still display the information
+        let zero_entry = SyscallApiEntry {
+            fn_addr: std::ptr::null_mut(),
+            jmp_addr: std::ptr::null_mut(),
+            sysnum: 0,
+        };
+        
+        // Fill in all syscall entries
+        info_ref.syscalls.nt_allocate_virtual_memory = zero_entry;
+        info_ref.syscalls.nt_protect_virtual_memory = zero_entry;
+        info_ref.syscalls.nt_free_virtual_memory = zero_entry;
+        info_ref.syscalls.nt_get_context_thread = zero_entry;
+        info_ref.syscalls.nt_set_context_thread = zero_entry;
+        info_ref.syscalls.nt_resume_thread = zero_entry;
+        info_ref.syscalls.nt_create_thread_ex = zero_entry;
+        info_ref.syscalls.nt_open_process = zero_entry;
+        info_ref.syscalls.nt_open_thread = zero_entry;
+        info_ref.syscalls.nt_close = zero_entry;
+        info_ref.syscalls.nt_create_section = zero_entry;
+        info_ref.syscalls.nt_map_view_of_section = zero_entry;
+        info_ref.syscalls.nt_unmap_view_of_section = zero_entry;
+        info_ref.syscalls.nt_query_virtual_memory = zero_entry;
+        info_ref.syscalls.nt_duplicate_object = zero_entry;
+        info_ref.syscalls.nt_read_virtual_memory = zero_entry;
+        info_ref.syscalls.nt_write_virtual_memory = zero_entry;
+        info_ref.syscalls.nt_read_file = zero_entry;
+        info_ref.syscalls.nt_write_file = zero_entry;
+        info_ref.syscalls.nt_create_file = zero_entry;
+        info_ref.syscalls.nt_queue_apc_thread = zero_entry;
+        info_ref.syscalls.nt_create_process = zero_entry;
+        info_ref.syscalls.nt_open_process_token = zero_entry;
+        info_ref.syscalls.nt_test_alert = zero_entry;
+        info_ref.syscalls.nt_suspend_process = zero_entry;
+        info_ref.syscalls.nt_resume_process = zero_entry;
+        info_ref.syscalls.nt_query_system_information = zero_entry;
+        info_ref.syscalls.nt_query_directory_file = zero_entry;
+        info_ref.syscalls.nt_set_information_process = zero_entry;
+        info_ref.syscalls.nt_set_information_thread = zero_entry;
+        info_ref.syscalls.nt_query_information_process = zero_entry;
+        info_ref.syscalls.nt_query_information_thread = zero_entry;
+        info_ref.syscalls.nt_open_section = zero_entry;
+        info_ref.syscalls.nt_adjust_privileges_token = zero_entry;
+        info_ref.syscalls.nt_device_io_control_file = zero_entry;
+        info_ref.syscalls.nt_wait_for_multiple_objects = zero_entry;
+        
+        // Initialize RTL API entries
+        info_ref.rtls.rtl_dos_path_name_to_nt_path_name_u_with_status_addr = std::ptr::null_mut();
+        info_ref.rtls.rtl_free_heap_addr = std::ptr::null_mut();
+        info_ref.rtls.rtl_get_process_heap_addr = std::ptr::null_mut();
+        
+        BOOL::from(true)
+    }
+    
+    /// BeaconGetSyscallInformation implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_get_syscall_information(
+        _info: *mut std::ffi::c_void,
+        _info_size: usize,
+        _resolve_if_not_initialized: i32,
+    ) -> i32 {
+        0
+    }
+    
+    // ===== Additional Memory APIs =====
+    
+    /// BeaconVirtualAllocEx implementation (Windows)
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_virtual_alloc_ex(
+        process_handle: HANDLE,
+        lp_address: *mut std::ffi::c_void,
+        dw_size: usize,
+        fl_allocation_type: u32,
+        fl_protect: u32,
+    ) -> *mut std::ffi::c_void {
+        if dw_size == 0 || process_handle.is_invalid() {
+            return std::ptr::null_mut();
+        }
+        
+        use windows::Win32::System::Memory::VirtualAllocEx;
+        
+        let address = if lp_address.is_null() {
+            None
+        } else {
+            Some(lp_address as *const _)
+        };
+        
+        let ptr = VirtualAllocEx(
+            process_handle,
+            address,
+            dw_size,
+            VIRTUAL_ALLOCATION_TYPE(fl_allocation_type),
+            PAGE_PROTECTION_FLAGS(fl_protect),
+        );
+        
+        if ptr.is_null() {
+            std::ptr::null_mut()
+        } else {
+            ptr as *mut std::ffi::c_void
+        }
+    }
+    
+    /// BeaconVirtualAllocEx implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_virtual_alloc_ex(
+        _process_handle: *mut std::ffi::c_void,
+        _lp_address: *mut std::ffi::c_void,
+        dw_size: usize,
+        _fl_allocation_type: u32,
+        _fl_protect: u32,
+    ) -> *mut std::ffi::c_void {
+        if dw_size == 0 {
+            return std::ptr::null_mut();
+        }
+        libc::malloc(dw_size) as *mut std::ffi::c_void
+    }
+    
+    /// BeaconVirtualProtect implementation (Windows)
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_virtual_protect(
+        lp_address: *mut std::ffi::c_void,
+        dw_size: usize,
+        fl_new_protect: u32,
+        lpfl_old_protect: *mut u32,
+    ) -> BOOL {
+        if lp_address.is_null() || dw_size == 0 {
+            return BOOL::from(false);
+        }
+        
+        use windows::Win32::System::Memory::VirtualProtect;
+        
+        let mut old_protect = PAGE_PROTECTION_FLAGS::default();
+        let result = VirtualProtect(
+            lp_address as *mut _,
+            dw_size,
+            PAGE_PROTECTION_FLAGS(fl_new_protect),
+            &mut old_protect,
+        );
+        
+        if result.is_ok() {
+            if !lpfl_old_protect.is_null() {
+                *lpfl_old_protect = old_protect.0;
+            }
+            BOOL::from(true)
+        } else {
+            BOOL::from(false)
+        }
+    }
+    
+    /// BeaconVirtualProtect implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_virtual_protect(
+        _lp_address: *mut std::ffi::c_void,
+        _dw_size: usize,
+        _fl_new_protect: u32,
+        _lpfl_old_protect: *mut u32,
+    ) -> i32 {
+        1
+    }
+    
+    /// BeaconVirtualProtectEx implementation (Windows)
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_virtual_protect_ex(
+        process_handle: HANDLE,
+        lp_address: *mut std::ffi::c_void,
+        dw_size: usize,
+        fl_new_protect: u32,
+        lpfl_old_protect: *mut u32,
+    ) -> BOOL {
+        if lp_address.is_null() || dw_size == 0 || process_handle.is_invalid() {
+            return BOOL::from(false);
+        }
+        
+        use windows::Win32::System::Memory::VirtualProtectEx;
+        
+        let mut old_protect = PAGE_PROTECTION_FLAGS::default();
+        let result = VirtualProtectEx(
+            process_handle,
+            lp_address as *mut _,
+            dw_size,
+            PAGE_PROTECTION_FLAGS(fl_new_protect),
+            &mut old_protect,
+        );
+        
+        if result.is_ok() {
+            if !lpfl_old_protect.is_null() {
+                *lpfl_old_protect = old_protect.0;
+            }
+            BOOL::from(true)
+        } else {
+            BOOL::from(false)
+        }
+    }
+    
+    /// BeaconVirtualProtectEx implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_virtual_protect_ex(
+        _process_handle: *mut std::ffi::c_void,
+        _lp_address: *mut std::ffi::c_void,
+        _dw_size: usize,
+        _fl_new_protect: u32,
+        _lpfl_old_protect: *mut u32,
+    ) -> i32 {
+        1
+    }
+    
+    // ===== Thread/Process APIs =====
+    
+    /// BeaconGetThreadContext implementation (Windows)
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_get_thread_context(
+        thread_handle: HANDLE,
+        thread_context: *mut windows::Win32::System::Diagnostics::Debug::CONTEXT,
+    ) -> BOOL {
+        if thread_context.is_null() || thread_handle.is_invalid() {
+            return BOOL::from(false);
+        }
+        
+        use windows::Win32::System::Diagnostics::Debug::GetThreadContext;
+        
+        match GetThreadContext(thread_handle, thread_context) {
+            Ok(_) => BOOL::from(true),
+            Err(_) => BOOL::from(false),
+        }
+    }
+    
+    /// BeaconGetThreadContext implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_get_thread_context(
+        _thread_handle: *mut std::ffi::c_void,
+        _thread_context: *mut std::ffi::c_void,
+    ) -> i32 {
+        0
+    }
+    
+    /// BeaconSetThreadContext implementation (Windows)
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_set_thread_context(
+        thread_handle: HANDLE,
+        thread_context: *const windows::Win32::System::Diagnostics::Debug::CONTEXT,
+    ) -> BOOL {
+        if thread_context.is_null() || thread_handle.is_invalid() {
+            return BOOL::from(false);
+        }
+        
+        use windows::Win32::System::Diagnostics::Debug::SetThreadContext;
+        
+        match SetThreadContext(thread_handle, thread_context) {
+            Ok(_) => BOOL::from(true),
+            Err(_) => BOOL::from(false),
+        }
+    }
+    
+    /// BeaconSetThreadContext implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_set_thread_context(
+        _thread_handle: *mut std::ffi::c_void,
+        _thread_context: *const std::ffi::c_void,
+    ) -> i32 {
+        0
+    }
+    
+    /// BeaconResumeThread implementation (Windows)
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_resume_thread(thread_handle: HANDLE) -> u32 {
+        if thread_handle.is_invalid() {
+            return 0;
+        }
+        
+        use windows::Win32::System::Threading::ResumeThread;
+        
+        ResumeThread(thread_handle)
+    }
+    
+    /// BeaconResumeThread implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_resume_thread(_thread_handle: *mut std::ffi::c_void) -> u32 {
+        0
+    }
+    
+    /// BeaconOpenProcess implementation (Windows)
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_open_process(
+        desired_access: u32,
+        inherit_handle: BOOL,
+        process_id: u32,
+    ) -> HANDLE {
+        use windows::Win32::System::Threading::{OpenProcess, PROCESS_ACCESS_RIGHTS};
+        
+        match OpenProcess(
+            PROCESS_ACCESS_RIGHTS(desired_access),
+            inherit_handle.as_bool(),
+            process_id,
+        ) {
+            Ok(handle) => handle,
+            Err(_) => HANDLE::default(),
+        }
+    }
+    
+    /// BeaconOpenProcess implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_open_process(
+        _desired_access: u32,
+        _inherit_handle: i32,
+        _process_id: u32,
+    ) -> *mut std::ffi::c_void {
+        std::ptr::null_mut()
+    }
+    
+    /// BeaconOpenThread implementation (Windows)
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_open_thread(
+        desired_access: u32,
+        inherit_handle: BOOL,
+        thread_id: u32,
+    ) -> HANDLE {
+        use windows::Win32::System::Threading::{OpenThread, THREAD_ACCESS_RIGHTS};
+        
+        match OpenThread(
+            THREAD_ACCESS_RIGHTS(desired_access),
+            inherit_handle.as_bool(),
+            thread_id,
+        ) {
+            Ok(handle) => handle,
+            Err(_) => HANDLE::default(),
+        }
+    }
+    
+    /// BeaconOpenThread implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_open_thread(
+        _desired_access: u32,
+        _inherit_handle: i32,
+        _thread_id: u32,
+    ) -> *mut std::ffi::c_void {
+        std::ptr::null_mut()
+    }
+    
+    /// BeaconCloseHandle implementation (Windows)
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_close_handle(object: HANDLE) -> BOOL {
+        if object.is_invalid() {
+            return BOOL::from(false);
+        }
+        
+        match CloseHandle(object) {
+            Ok(_) => BOOL::from(true),
+            Err(_) => BOOL::from(false),
+        }
+    }
+    
+    /// BeaconCloseHandle implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_close_handle(_object: *mut std::ffi::c_void) -> i32 {
+        1
+    }
+    
+    /// BeaconUnmapViewOfFile implementation (Windows)
+    /// Note: This is a stub implementation. Full implementation would require tracking
+    /// mapped file views. For BOF execution, this is typically not needed.
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_unmap_view_of_file(
+        _base_address: *const std::ffi::c_void,
+    ) -> BOOL {
+        // Stub implementation - UnmapViewOfFile requires tracking mapped views
+        // which is complex. For BOF execution, this is rarely used.
+        BOOL::from(false)
+    }
+    
+    /// BeaconUnmapViewOfFile implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_unmap_view_of_file(
+        _base_address: *const std::ffi::c_void,
+    ) -> i32 {
+        1
+    }
+    
+    /// BeaconVirtualQuery implementation (Windows)
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_virtual_query(
+        address: *const std::ffi::c_void,
+        buffer: *mut windows::Win32::System::Memory::MEMORY_BASIC_INFORMATION,
+        length: usize,
+    ) -> usize {
+        if address.is_null() || buffer.is_null() || length == 0 {
+            return 0;
+        }
+        
+        use windows::Win32::System::Memory::VirtualQuery;
+        
+        VirtualQuery(Some(address), buffer, length)
+    }
+    
+    /// BeaconVirtualQuery implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_virtual_query(
+        _address: *const std::ffi::c_void,
+        _buffer: *mut std::ffi::c_void,
+        _length: usize,
+    ) -> usize {
+        0
+    }
+    
+    /// BeaconDuplicateHandle implementation (Windows)
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_duplicate_handle(
+        h_source_process: HANDLE,
+        h_source_handle: HANDLE,
+        h_target_process: HANDLE,
+        lp_target_handle: *mut HANDLE,
+        dw_desired_access: u32,
+        b_inherit_handle: BOOL,
+        dw_options: u32,
+    ) -> BOOL {
+        if lp_target_handle.is_null() {
+            return BOOL::from(false);
+        }
+        
+        use windows::Win32::Foundation::DuplicateHandle;
+        use windows::Win32::Foundation::DUPLICATE_HANDLE_OPTIONS;
+        
+        match DuplicateHandle(
+            h_source_process,
+            h_source_handle,
+            h_target_process,
+            lp_target_handle,
+            dw_desired_access,
+            b_inherit_handle.as_bool(),
+            DUPLICATE_HANDLE_OPTIONS(dw_options),
+        ) {
+            Ok(_) => BOOL::from(true),
+            Err(_) => BOOL::from(false),
+        }
+    }
+    
+    /// BeaconDuplicateHandle implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_duplicate_handle(
+        _h_source_process: *mut std::ffi::c_void,
+        _h_source_handle: *mut std::ffi::c_void,
+        _h_target_process: *mut std::ffi::c_void,
+        _lp_target_handle: *mut *mut std::ffi::c_void,
+        _dw_desired_access: u32,
+        _b_inherit_handle: i32,
+        _dw_options: u32,
+    ) -> i32 {
+        0
+    }
+    
+    /// BeaconReadProcessMemory implementation (Windows)
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_read_process_memory(
+        h_process: HANDLE,
+        lp_base_address: *const std::ffi::c_void,
+        lp_buffer: *mut std::ffi::c_void,
+        n_size: usize,
+        lp_number_of_bytes_read: *mut usize,
+    ) -> BOOL {
+        if lp_base_address.is_null() || lp_buffer.is_null() || n_size == 0 || h_process.is_invalid() {
+            return BOOL::from(false);
+        }
+        
+        use windows::Win32::System::Diagnostics::Debug::ReadProcessMemory;
+        
+        let mut bytes_read = 0;
+        match ReadProcessMemory(
+            h_process,
+            lp_base_address,
+            lp_buffer,
+            n_size,
+            Some(&mut bytes_read),
+        ) {
+            Ok(_) => {
+                if !lp_number_of_bytes_read.is_null() {
+                    *lp_number_of_bytes_read = bytes_read;
+                }
+                BOOL::from(true)
+            }
+            Err(_) => BOOL::from(false),
+        }
+    }
+    
+    /// BeaconReadProcessMemory implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_read_process_memory(
+        _h_process: *mut std::ffi::c_void,
+        _lp_base_address: *const std::ffi::c_void,
+        _lp_buffer: *mut std::ffi::c_void,
+        _n_size: usize,
+        _lp_number_of_bytes_read: *mut usize,
+    ) -> i32 {
+        0
+    }
+    
+    /// BeaconWriteProcessMemory implementation (Windows)
+    #[cfg(windows)]
+    pub unsafe extern "C" fn beacon_write_process_memory(
+        h_process: HANDLE,
+        lp_base_address: *mut std::ffi::c_void,
+        lp_buffer: *const std::ffi::c_void,
+        n_size: usize,
+        lp_number_of_bytes_written: *mut usize,
+    ) -> BOOL {
+        if lp_base_address.is_null() || lp_buffer.is_null() || n_size == 0 || h_process.is_invalid() {
+            return BOOL::from(false);
+        }
+        
+        use windows::Win32::System::Diagnostics::Debug::WriteProcessMemory;
+        
+        let mut bytes_written = 0;
+        match WriteProcessMemory(
+            h_process,
+            lp_base_address,
+            lp_buffer,
+            n_size,
+            Some(&mut bytes_written),
+        ) {
+            Ok(_) => {
+                if !lp_number_of_bytes_written.is_null() {
+                    *lp_number_of_bytes_written = bytes_written;
+                }
+                BOOL::from(true)
+            }
+            Err(_) => BOOL::from(false),
+        }
+    }
+    
+    /// BeaconWriteProcessMemory implementation (non-Windows stub)
+    #[cfg(not(windows))]
+    pub unsafe extern "C" fn beacon_write_process_memory(
+        _h_process: *mut std::ffi::c_void,
+        _lp_base_address: *mut std::ffi::c_void,
+        _lp_buffer: *const std::ffi::c_void,
+        _n_size: usize,
+        _lp_number_of_bytes_written: *mut usize,
+    ) -> i32 {
+        0
     }
 }
 

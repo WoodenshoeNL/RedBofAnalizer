@@ -47,38 +47,31 @@ fn determine_section_characteristics(name: &str) -> u32 {
     const IMAGE_SCN_MEM_WRITE: u32 = 0x80000000;
     
     // Determine characteristics based on section name
-    match name {
-        ".text" => {
-            characteristics |= IMAGE_SCN_CNT_CODE;
-            characteristics |= IMAGE_SCN_MEM_EXECUTE;
-            characteristics |= IMAGE_SCN_MEM_READ;
-        }
-        ".data" => {
-            characteristics |= IMAGE_SCN_CNT_INITIALIZED_DATA;
-            characteristics |= IMAGE_SCN_MEM_READ;
-            characteristics |= IMAGE_SCN_MEM_WRITE;
-        }
-        ".rdata" => {
-            characteristics |= IMAGE_SCN_CNT_INITIALIZED_DATA;
-            characteristics |= IMAGE_SCN_MEM_READ;
-        }
-        ".bss" => {
-            characteristics |= IMAGE_SCN_CNT_UNINITIALIZED_DATA;
-            characteristics |= IMAGE_SCN_MEM_READ;
-            characteristics |= IMAGE_SCN_MEM_WRITE;
-        }
-        ".pdata" => {
-            characteristics |= IMAGE_SCN_CNT_INITIALIZED_DATA;
-            characteristics |= IMAGE_SCN_MEM_READ;
-        }
-        ".reloc" => {
-            characteristics |= IMAGE_SCN_CNT_INITIALIZED_DATA;
-            characteristics |= IMAGE_SCN_MEM_READ;
-        }
-        _ => {
-            // Default: readable
-            characteristics |= IMAGE_SCN_MEM_READ;
-        }
+    // Handle both exact matches and patterns (e.g., ".text$mn")
+    if name == ".text" || name.starts_with(".text") {
+        characteristics |= IMAGE_SCN_CNT_CODE;
+        characteristics |= IMAGE_SCN_MEM_EXECUTE;
+        characteristics |= IMAGE_SCN_MEM_READ;
+    } else if name == ".data" || name.starts_with(".data") {
+        characteristics |= IMAGE_SCN_CNT_INITIALIZED_DATA;
+        characteristics |= IMAGE_SCN_MEM_READ;
+        characteristics |= IMAGE_SCN_MEM_WRITE;
+    } else if name == ".rdata" || name.starts_with(".rdata") {
+        characteristics |= IMAGE_SCN_CNT_INITIALIZED_DATA;
+        characteristics |= IMAGE_SCN_MEM_READ;
+    } else if name == ".bss" || name.starts_with(".bss") {
+        characteristics |= IMAGE_SCN_CNT_UNINITIALIZED_DATA;
+        characteristics |= IMAGE_SCN_MEM_READ;
+        characteristics |= IMAGE_SCN_MEM_WRITE;
+    } else if name == ".pdata" || name.starts_with(".pdata") {
+        characteristics |= IMAGE_SCN_CNT_INITIALIZED_DATA;
+        characteristics |= IMAGE_SCN_MEM_READ;
+    } else if name == ".reloc" || name.starts_with(".reloc") {
+        characteristics |= IMAGE_SCN_CNT_INITIALIZED_DATA;
+        characteristics |= IMAGE_SCN_MEM_READ;
+    } else {
+        // Default: readable
+        characteristics |= IMAGE_SCN_MEM_READ;
     }
     
     characteristics

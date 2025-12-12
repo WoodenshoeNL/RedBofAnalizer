@@ -116,3 +116,57 @@ pub struct Import {
     pub symbol_name: String,
 }
 
+impl BofFile {
+    /// Find all potential entry points (functions that could serve as entry points)
+    /// This includes the default "go" entry point and any other functions in code sections
+    pub fn find_potential_entry_points(&self) -> Vec<&Symbol> {
+        let mut entry_points = Vec::new();
+        
+        // Add the default entry point if it exists
+        if let Some(ref ep) = self.entry_point {
+            entry_points.push(ep);
+        }
+        
+        // Find all function symbols in code sections that aren't already included
+        // We look for symbols that:
+        // 1. Are defined (have a section) and not external
+        // 2. Are in an executable section
+        // 3. Are either marked as Function type OR are in .text section (common for functions)
+        for symbol in &self.symbols {
+            // Skip if already included (the default entry point)
+            if self.entry_point.as_ref().map(|ep| ep.name == symbol.name).unwrap_or(false) {
+                continue;
+            }
+            
+            // Must be defined (has section) and not external
+            if symbol.section.is_some() && !symbol.is_external {
+                // Check if it's in a code section (executable)
+                if let Some(section_idx) = symbol.section {
+                    if let Some(section) = self.sections.get(section_idx) {
+                        // Check if section is executable (IMAGE_SCN_MEM_EXECUTE = 0x20000000)
+                        // or contains code (IMAGE_SCN_CNT_CODE = 0x00000020)
+                        let is_executable = (section.characteristics & 0x20000000) != 0;
+                        let is_code = (section.characteristics & 0x00000020) != 0;
+                        let is_text_section = section.name == ".text" || section.name.starts_with(".text");
+                        
+                        if is_executable || is_code || is_text_section {
+                            // Skip compiler-generated symbols and common non-function symbols
+                            let name = &symbol.name;
+                            if !name.starts_with('$') 
+                                && !name.starts_with('.')
+                                && name != "main"
+                                && !name.starts_with("__")
+                                && !name.contains("$unwind$")
+                                && !name.contains("$pdata$") {
+                                entry_points.push(symbol);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        entry_points
+    }
+}
+
