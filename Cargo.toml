@@ -1,0 +1,74 @@
+[package]
+name = "redbofanalyzer"
+version = "0.1.0"
+edition = "2021"
+description = "A comprehensive Beacon Object File (BOF) analyzer and execution tool"
+license = "MIT"
+authors = ["RedBofAnalizer Contributors"]
+
+[dependencies]
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# CLI argument parsing
+clap = { version = "4.5", features = ["derive"] }
+
+# Logging
+log = "0.4"
+env_logger = "0.11"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# COFF/PE parsing
+object = "0.36"
+
+# C library bindings
+libc = "0.2"
+
+# Date/time for timestamps
+chrono = "0.4"
+
+# Directory traversal
+walkdir = "2.5"
+
+# Colored terminal output (optional)
+colored = "2.1"
+
+# Hex encoding/decoding
+hex = "0.4"
+
+# Disassembly (optional, for Phase 2.3)
+# capstone = "0.3"  # Uncomment when needed
+
+# GUI dependencies (optional, for Phase 5)
+# egui = "0.27"
+# eframe = "0.27"
+# rfd = "0.14"
+
+# Platform-specific dependencies
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.58", features = [
+    "Win32_Foundation",
+    "Win32_System_Memory",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Diagnostics_Debug",
+    "Win32_System_Kernel",
+    "Win32_System_Threading",
+    "Win32_Security",
+] }
+
+[dev-dependencies]
+# Testing utilities
+tempfile = "3.0"
+
+[[bin]]
+name = "redbofanalyzer"
+path = "src/main.rs"
+
+[lib]
+name = "redbofanalyzer"
+path = "src/lib.rs"
+
