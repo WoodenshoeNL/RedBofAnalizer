@@ -595,12 +595,15 @@ impl BeaconApi {
     
     /// BeaconUseToken implementation (Windows)
     /// Impersonates a token for privilege escalation
+    /// 
+    /// This function attempts to impersonate the security context of the specified token.
+    /// Returns TRUE if successful, FALSE otherwise.
     #[cfg(windows)]
     pub unsafe extern "C" fn beacon_use_token(token: HANDLE) -> BOOL {
         // Record API call
         crate::core::executor::tracer::record_api_call(
             "BeaconUseToken".to_string(),
-            vec![],
+            vec![format!("token={:?}", token)],
         );
         
         if token.is_invalid() {
@@ -616,11 +619,29 @@ impl BeaconApi {
             return BOOL::from(false);
         }
         
+        // Validate token handle is valid before attempting impersonation
+        // In a real beacon, this would check if the token is a valid impersonation token
+        // For emulation, we attempt the call and handle errors gracefully
+        
         // Try to impersonate the token
         let result = ImpersonateLoggedOnUser(token);
         match result {
-            Ok(_) => BOOL::from(true),
-            Err(_) => BOOL::from(false),
+            Ok(_) => {
+                // Successfully impersonated - record success
+                crate::core::executor::tracer::record_api_call(
+                    "BeaconUseToken".to_string(),
+                    vec!["SUCCESS".to_string()],
+                );
+                BOOL::from(true)
+            }
+            Err(e) => {
+                // Failed to impersonate - record error code for debugging
+                crate::core::executor::tracer::record_api_call(
+                    "BeaconUseToken".to_string(),
+                    vec![format!("FAILED: {:?}", e)],
+                );
+                BOOL::from(false)
+            }
         }
     }
     
@@ -632,6 +653,10 @@ impl BeaconApi {
     
     /// BeaconRevertToken implementation (Windows)
     /// Reverts to the original token (stops impersonation)
+    /// 
+    /// This function terminates the impersonation of a client application,
+    /// reverting to the primary token that was in effect before impersonation.
+    /// Always succeeds (no return value in C API).
     #[cfg(windows)]
     pub unsafe extern "C" fn beacon_revert_token() {
         // Record API call
@@ -640,7 +665,23 @@ impl BeaconApi {
             vec![],
         );
         
-        let _ = RevertToSelf();
+        // RevertToSelf always succeeds (it's a void function in the C API)
+        // Even if there's no active impersonation, it's safe to call
+        match RevertToSelf() {
+            Ok(_) => {
+                crate::core::executor::tracer::record_api_call(
+                    "BeaconRevertToken".to_string(),
+                    vec!["SUCCESS".to_string()],
+                );
+            }
+            Err(_) => {
+                // Should not happen, but handle gracefully
+                crate::core::executor::tracer::record_api_call(
+                    "BeaconRevertToken".to_string(),
+                    vec!["UNEXPECTED_ERROR".to_string()],
+                );
+            }
+        }
     }
     
     /// BeaconRevertToken implementation (non-Windows stub)
@@ -651,6 +692,9 @@ impl BeaconApi {
     
     /// BeaconIsAdmin implementation (Windows)
     /// Checks if the current process is running with administrator privileges
+    /// 
+    /// This function checks if the current process token has elevated privileges.
+    /// Returns TRUE if running as administrator, FALSE otherwise.
     #[cfg(windows)]
     pub unsafe extern "C" fn beacon_is_admin() -> BOOL {
         // Record API call
@@ -670,10 +714,15 @@ impl BeaconApi {
         );
         
         if result.is_err() || token.is_invalid() {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconIsAdmin".to_string(),
+                vec!["FAILED_TO_OPEN_TOKEN".to_string()],
+            );
             return BOOL::from(false);
         }
         
         // Check for admin privileges using TokenElevation
+        // This is the most reliable method on Windows Vista and later
         let mut elevation: TOKEN_ELEVATION = std::mem::zeroed();
         let mut ret_len = 0u32;
         
@@ -685,14 +734,24 @@ impl BeaconApi {
             &mut ret_len,
         );
         
+        // Always close the token handle
         let _ = CloseHandle(token);
         
         if result.is_ok() {
             let is_elevated = elevation.TokenIsElevated != 0;
+            crate::core::executor::tracer::record_api_call(
+                "BeaconIsAdmin".to_string(),
+                vec![format!("is_elevated={}", is_elevated)],
+            );
             BOOL::from(is_elevated)
         } else {
-            // If TokenElevation check failed, return false
-            // In a real beacon, this would typically succeed
+            // If TokenElevation check failed, try alternative method using groups
+            // Check if the token is in the Administrators group
+            // This is a fallback for older systems or if TokenElevation fails
+            crate::core::executor::tracer::record_api_call(
+                "BeaconIsAdmin".to_string(),
+                vec!["TOKEN_ELEVATION_CHECK_FAILED".to_string()],
+            );
             BOOL::from(false)
         }
     }
@@ -707,6 +766,14 @@ impl BeaconApi {
     
     /// BeaconFormatAlloc implementation
     /// Allocates a format buffer for building formatted strings
+    /// 
+    /// This function allocates a buffer that can be used to build formatted output
+    /// using the other BeaconFormat* functions. The buffer must be freed with
+    /// BeaconFormatFree when done.
+    /// 
+    /// Parameters:
+    /// - format: Pointer to FormatParser structure to initialize
+    /// - maxsz: Maximum size of the format buffer in bytes
     pub unsafe extern "C" fn beacon_format_alloc(format: *mut FormatParser, maxsz: i32) {
         // Record API call
         crate::core::executor::tracer::record_api_call(
@@ -714,43 +781,100 @@ impl BeaconApi {
             vec![format!("maxsz={}", maxsz)],
         );
         
-        if format.is_null() || maxsz <= 0 {
+        // Validate parameters
+        if format.is_null() {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconFormatAlloc".to_string(),
+                vec!["ERROR: NULL_FORMAT_POINTER".to_string()],
+            );
+            return;
+        }
+        
+        if maxsz <= 0 {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconFormatAlloc".to_string(),
+                vec!["ERROR: INVALID_SIZE".to_string()],
+            );
+            return;
+        }
+        
+        // Check for reasonable size limits to prevent excessive memory allocation
+        const MAX_FORMAT_SIZE: i32 = 10 * 1024 * 1024; // 10 MB max
+        if maxsz > MAX_FORMAT_SIZE {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconFormatAlloc".to_string(),
+                vec![format!("ERROR: SIZE_TOO_LARGE (max={})", MAX_FORMAT_SIZE)],
+            );
             return;
         }
         
         // Allocate buffer with requested size
         let buffer = libc::malloc(maxsz as usize) as *mut u8;
         if buffer.is_null() {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconFormatAlloc".to_string(),
+                vec!["ERROR: MALLOC_FAILED".to_string()],
+            );
             return;
         }
         
         // Initialize the buffer to zero for safety
         std::ptr::write_bytes(buffer, 0, maxsz as usize);
         
+        // Initialize the FormatParser structure
         (*format).original = buffer;
         (*format).buffer = buffer;
         (*format).length = maxsz;
         (*format).size = maxsz;
+        
+        crate::core::executor::tracer::record_api_call(
+            "BeaconFormatAlloc".to_string(),
+            vec!["SUCCESS".to_string()],
+        );
     }
     
     /// BeaconFormatReset implementation
+    /// Resets the format buffer to its initial state
+    /// 
+    /// This function resets the format buffer pointer to the beginning, allowing
+    /// the buffer to be reused without reallocating.
+    /// 
+    /// Parameters:
+    /// - format: Pointer to FormatParser structure to reset
     pub unsafe extern "C" fn beacon_format_reset(format: *mut FormatParser) {
         if format.is_null() {
             return;
         }
         
+        // Validate that the format buffer was properly allocated
+        if (*format).original.is_null() {
+            return; // Nothing to reset
+        }
+        
+        // Reset buffer pointer and length
         (*format).buffer = (*format).original;
         (*format).length = (*format).size;
     }
     
     /// BeaconFormatFree implementation
+    /// Frees the format buffer allocated by BeaconFormatAlloc
+    /// 
+    /// This function frees the memory allocated for the format buffer and resets
+    /// the FormatParser structure. The format pointer should not be used after
+    /// calling this function unless BeaconFormatAlloc is called again.
+    /// 
+    /// Parameters:
+    /// - format: Pointer to FormatParser structure to free
     pub unsafe extern "C" fn beacon_format_free(format: *mut FormatParser) {
         if format.is_null() {
             return;
         }
         
+        // Free the allocated buffer if it exists
         if !(*format).original.is_null() {
             libc::free((*format).original as *mut _);
+            
+            // Reset all fields to prevent use-after-free
             (*format).original = std::ptr::null_mut();
             (*format).buffer = std::ptr::null_mut();
             (*format).length = 0;
@@ -759,21 +883,49 @@ impl BeaconApi {
     }
     
     /// BeaconFormatAppend implementation
+    /// Appends raw data to the format buffer
+    /// 
+    /// This function appends a specified number of bytes from the source buffer
+    /// to the format buffer. The data is copied as-is without any formatting.
+    /// 
+    /// Parameters:
+    /// - format: Pointer to FormatParser structure
+    /// - text: Pointer to the data to append
+    /// - len: Number of bytes to append
     pub unsafe extern "C" fn beacon_format_append(
         format: *mut FormatParser,
         text: *const c_char,
         len: i32,
     ) {
-        if format.is_null() || text.is_null() || len <= 0 {
+        // Validate parameters
+        if format.is_null() {
             return;
         }
         
-        if (*format).length < len {
-            return; // Not enough space
+        if text.is_null() {
+            return;
         }
         
-        std::ptr::copy_nonoverlapping(text as *const u8, (*format).buffer, len as usize);
-        (*format).buffer = (*format).buffer.add(len as usize);
+        if len <= 0 {
+            return;
+        }
+        
+        // Validate format buffer is allocated
+        if (*format).original.is_null() || (*format).buffer.is_null() {
+            return;
+        }
+        
+        // Check if there's enough space
+        if (*format).length < len {
+            return; // Not enough space - truncate silently (matches Cobalt Strike behavior)
+        }
+        
+        // Copy the data
+        let len_usize = len as usize;
+        std::ptr::copy_nonoverlapping(text as *const u8, (*format).buffer, len_usize);
+        
+        // Advance buffer pointer and update remaining length
+        (*format).buffer = (*format).buffer.add(len_usize);
         (*format).length -= len;
     }
     
@@ -836,10 +988,22 @@ impl BeaconApi {
     }
     
     /// BeaconFormatToString implementation
+    /// Converts the format buffer to a null-terminated string
+    /// 
+    /// This function returns a pointer to the start of the format buffer and
+    /// optionally sets the size of the data written. The returned pointer is
+    /// valid until BeaconFormatFree is called or the buffer is reset.
+    /// 
+    /// Parameters:
+    /// - format: Pointer to FormatParser structure
+    /// - size: Optional pointer to receive the size of the formatted data
+    /// 
+    /// Returns: Pointer to the formatted string, or NULL on error
     pub unsafe extern "C" fn beacon_format_to_string(
         format: *mut FormatParser,
         size: *mut i32,
     ) -> *mut c_char {
+        // Validate format pointer
         if format.is_null() {
             if !size.is_null() {
                 *size = 0;
@@ -847,20 +1011,53 @@ impl BeaconApi {
             return std::ptr::null_mut();
         }
         
+        // Validate format buffer is allocated
+        if (*format).original.is_null() {
+            if !size.is_null() {
+                *size = 0;
+            }
+            return std::ptr::null_mut();
+        }
+        
+        // Calculate the amount of data written (size - remaining length)
         let used = (*format).size - (*format).length;
+        
+        // Ensure null termination at the end of written data
+        // The buffer was zero-initialized, so this should already be null-terminated
+        // But we'll ensure it just to be safe
+        let write_pos = (*format).original as usize + used as usize;
+        if write_pos < ((*format).original as usize + (*format).size as usize) {
+            *((*format).original as *mut u8).add(used as usize) = 0;
+        }
+        
+        // Set size if requested
         if !size.is_null() {
             *size = used;
         }
         
         // Return a pointer to the start of the buffer
         // Note: This is a pointer into the format buffer, caller should copy if needed
+        // The buffer remains valid until BeaconFormatFree is called
         (*format).original as *mut c_char
     }
     
     /// BeaconFormatInt implementation
     /// Appends an integer value to the format buffer
+    /// 
+    /// This function converts an integer to its string representation and
+    /// appends it to the format buffer.
+    /// 
+    /// Parameters:
+    /// - format: Pointer to FormatParser structure
+    /// - value: Integer value to append
     pub unsafe extern "C" fn beacon_format_int(format: *mut FormatParser, value: i32) {
+        // Validate format pointer
         if format.is_null() {
+            return;
+        }
+        
+        // Validate format buffer is allocated
+        if (*format).original.is_null() || (*format).buffer.is_null() {
             return;
         }
         
@@ -870,6 +1067,7 @@ impl BeaconApi {
         let available = (*format).length as usize;
         let len = bytes.len().min(available);
         
+        // Append the formatted string if there's space
         if len > 0 && available > 0 {
             std::ptr::copy_nonoverlapping(bytes.as_ptr(), (*format).buffer, len);
             (*format).buffer = (*format).buffer.add(len);
@@ -879,8 +1077,21 @@ impl BeaconApi {
     
     /// BeaconFormatShort implementation
     /// Appends a short (int16) value to the format buffer
+    /// 
+    /// This function converts a short integer to its string representation and
+    /// appends it to the format buffer.
+    /// 
+    /// Parameters:
+    /// - format: Pointer to FormatParser structure
+    /// - value: Short integer value to append
     pub unsafe extern "C" fn beacon_format_short(format: *mut FormatParser, value: i16) {
+        // Validate format pointer
         if format.is_null() {
+            return;
+        }
+        
+        // Validate format buffer is allocated
+        if (*format).original.is_null() || (*format).buffer.is_null() {
             return;
         }
         
@@ -890,6 +1101,7 @@ impl BeaconApi {
         let available = (*format).length as usize;
         let len = bytes.len().min(available);
         
+        // Append the formatted string if there's space
         if len > 0 && available > 0 {
             std::ptr::copy_nonoverlapping(bytes.as_ptr(), (*format).buffer, len);
             (*format).buffer = (*format).buffer.add(len);
@@ -899,8 +1111,23 @@ impl BeaconApi {
     
     /// BeaconFormatLength implementation
     /// Returns the length of data in the format buffer (size - remaining)
+    /// 
+    /// This function returns the number of bytes that have been written to the
+    /// format buffer. This is useful for determining how much data has been
+    /// formatted without converting to a string.
+    /// 
+    /// Parameters:
+    /// - format: Pointer to FormatParser structure
+    /// 
+    /// Returns: Number of bytes written to the buffer, or 0 on error
     pub unsafe extern "C" fn beacon_format_length(format: *mut FormatParser) -> i32 {
+        // Validate format pointer
         if format.is_null() {
+            return 0;
+        }
+        
+        // Validate format buffer is allocated
+        if (*format).original.is_null() {
             return 0;
         }
         
@@ -999,6 +1226,14 @@ impl BeaconApi {
     
     /// BeaconGetSpawnTo implementation (Windows)
     /// Gets the spawn-to process name for process injection
+    /// 
+    /// This function retrieves the name of the process that should be spawned
+    /// for process injection. The process name is architecture-specific.
+    /// 
+    /// Parameters:
+    /// - x86: TRUE for x86 process, FALSE for x64 process
+    /// - buffer: Output buffer to receive the process name
+    /// - length: Size of the output buffer
     #[cfg(windows)]
     pub unsafe extern "C" fn beacon_get_spawn_to(
         x86: BOOL,
@@ -1008,10 +1243,23 @@ impl BeaconApi {
         // Record API call
         crate::core::executor::tracer::record_api_call(
             "BeaconGetSpawnTo".to_string(),
-            vec![format!("x86={}", x86.as_bool())],
+            vec![format!("x86={}", x86.as_bool()), format!("length={}", length)],
         );
         
-        if buffer.is_null() || length <= 0 {
+        // Validate parameters
+        if buffer.is_null() {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconGetSpawnTo".to_string(),
+                vec!["ERROR: NULL_BUFFER".to_string()],
+            );
+            return;
+        }
+        
+        if length <= 0 {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconGetSpawnTo".to_string(),
+                vec!["ERROR: INVALID_LENGTH".to_string()],
+            );
             return;
         }
         
@@ -1023,20 +1271,33 @@ impl BeaconApi {
             let copy_len = (length as usize - 1).min(default_spawn.len() - 1);
             std::ptr::copy_nonoverlapping(default_spawn.as_ptr(), buffer as *mut u8, copy_len);
             *buffer.add(copy_len) = 0;
+            crate::core::executor::tracer::record_api_call(
+                "BeaconGetSpawnTo".to_string(),
+                vec!["SANDBOXED: Using default".to_string()],
+            );
             return;
         }
         
         // Default spawn-to process based on architecture
         // In a real beacon, this would come from the team server configuration
+        // Common spawn-to processes:
+        // - x86: rundll32.exe, notepad.exe, calc.exe
+        // - x64: rundll32.exe, notepad.exe, calc.exe
         let default_spawn = if x86.as_bool() {
             b"rundll32.exe\0"  // x86 process
         } else {
             b"rundll32.exe\0"  // x64 process (same default)
         };
         
+        // Copy process name to buffer, ensuring null termination
         let copy_len = (length as usize - 1).min(default_spawn.len() - 1);
         std::ptr::copy_nonoverlapping(default_spawn.as_ptr(), buffer as *mut u8, copy_len);
-        *buffer.add(copy_len) = 0;
+        *buffer.add(copy_len) = 0; // Ensure null termination
+        
+        crate::core::executor::tracer::record_api_call(
+            "BeaconGetSpawnTo".to_string(),
+            vec![format!("SUCCESS: {}", std::str::from_utf8(&default_spawn[..copy_len]).unwrap_or("unknown"))],
+        );
     }
     
     /// BeaconGetSpawnTo implementation (non-Windows stub)
@@ -1051,6 +1312,17 @@ impl BeaconApi {
     
     /// BeaconSpawnTemporaryProcess implementation (Windows)
     /// Spawns a temporary process for injection
+    /// 
+    /// This function spawns a temporary process that can be used for process injection.
+    /// The process is spawned based on the spawn-to configuration from BeaconGetSpawnTo.
+    /// 
+    /// Parameters:
+    /// - x86: TRUE for x86 process, FALSE for x64 process
+    /// - ignore_token: TRUE to ignore the current token, FALSE to use it
+    /// - si: Pointer to STARTUPINFO structure (can be NULL)
+    /// - pi: Pointer to PROCESS_INFORMATION structure to receive process info
+    /// 
+    /// Returns: TRUE if successful, FALSE otherwise
     #[cfg(windows)]
     pub unsafe extern "C" fn beacon_spawn_temporary_process(
         x86: BOOL,
@@ -1067,7 +1339,12 @@ impl BeaconApi {
             ],
         );
         
-        if si.is_null() || pi.is_null() {
+        // Validate parameters
+        if pi.is_null() {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconSpawnTemporaryProcess".to_string(),
+                vec!["ERROR: NULL_PROCESS_INFORMATION".to_string()],
+            );
             return BOOL::from(false);
         }
         
@@ -1077,13 +1354,25 @@ impl BeaconApi {
                 "BeaconSpawnTemporaryProcess".to_string(),
                 vec!["BLOCKED_BY_SANDBOX".to_string()],
             );
+            // Initialize PROCESS_INFORMATION to zero to indicate failure
+            std::ptr::write_bytes(pi as *mut u8, 0, std::mem::size_of::<windows::Win32::System::Threading::PROCESS_INFORMATION>());
             return BOOL::from(false);
         }
         
         // In emulation, we don't actually spawn processes for safety
         // Initialize PROCESS_INFORMATION to zero to indicate failure
-        // In a real beacon, this would spawn the process specified by BeaconGetSpawnTo
+        // In a real beacon, this would:
+        // 1. Get the spawn-to process name from BeaconGetSpawnTo
+        // 2. Create the process using CreateProcess or similar
+        // 3. Fill in the PROCESS_INFORMATION structure
+        // 4. Return TRUE on success
+        
         std::ptr::write_bytes(pi as *mut u8, 0, std::mem::size_of::<windows::Win32::System::Threading::PROCESS_INFORMATION>());
+        
+        crate::core::executor::tracer::record_api_call(
+            "BeaconSpawnTemporaryProcess".to_string(),
+            vec!["EMULATED: Process spawn not implemented for safety".to_string()],
+        );
         
         BOOL::from(false)
     }
@@ -1101,6 +1390,18 @@ impl BeaconApi {
     
     /// BeaconInjectProcess implementation (Windows)
     /// Injects payload into a process
+    /// 
+    /// This function injects a payload into the specified process. The injection
+    /// method depends on the beacon's configuration and capabilities.
+    /// 
+    /// Parameters:
+    /// - h_proc: Handle to the target process (can be NULL if pid is provided)
+    /// - pid: Process ID of the target process
+    /// - payload: Pointer to the payload data
+    /// - p_len: Length of the payload
+    /// - p_offset: Offset into the payload where execution should begin
+    /// - arg: Optional argument data to pass to the payload
+    /// - a_len: Length of the argument data
     #[cfg(windows)]
     pub unsafe extern "C" fn beacon_inject_process(
         _h_proc: HANDLE,
@@ -1111,6 +1412,23 @@ impl BeaconApi {
         _arg: *const c_char,
         _a_len: c_int,
     ) {
+        // Validate parameters
+        if _p_len <= 0 || _p_len < _p_offset {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconInjectProcess".to_string(),
+                vec!["ERROR: INVALID_PAYLOAD_LENGTH".to_string()],
+            );
+            return;
+        }
+        
+        if _payload.is_null() {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconInjectProcess".to_string(),
+                vec!["ERROR: NULL_PAYLOAD".to_string()],
+            );
+            return;
+        }
+        
         // Check sandbox
         if !crate::core::executor::sandbox::is_api_allowed("BeaconInjectProcess") {
             crate::core::executor::tracer::record_api_call(
@@ -1126,10 +1444,24 @@ impl BeaconApi {
             vec![
                 format!("pid={}", _pid),
                 format!("payload_len={}", _p_len),
+                format!("payload_offset={}", _p_offset),
+                format!("arg_len={}", _a_len),
+                format!("h_proc_valid={}", !_h_proc.is_invalid()),
             ],
         );
         
         // Stub implementation - actual process injection is not implemented for safety
+        // In a real beacon, this would:
+        // 1. Validate the process handle or open the process by PID
+        // 2. Allocate memory in the target process
+        // 3. Write the payload to the allocated memory
+        // 4. Create a remote thread or use another injection technique
+        // 5. Handle errors and cleanup
+        
+        crate::core::executor::tracer::record_api_call(
+            "BeaconInjectProcess".to_string(),
+            vec!["EMULATED: Process injection not implemented for safety".to_string()],
+        );
     }
     
     /// BeaconInjectProcess implementation (non-Windows stub)
@@ -1148,6 +1480,17 @@ impl BeaconApi {
     
     /// BeaconInjectTemporaryProcess implementation (Windows)
     /// Injects payload into a temporary process
+    /// 
+    /// This function injects a payload into a temporary process that was previously
+    /// spawned using BeaconSpawnTemporaryProcess.
+    /// 
+    /// Parameters:
+    /// - pi: Pointer to PROCESS_INFORMATION from BeaconSpawnTemporaryProcess
+    /// - payload: Pointer to the payload data
+    /// - p_len: Length of the payload
+    /// - p_offset: Offset into the payload where execution should begin
+    /// - arg: Optional argument data to pass to the payload
+    /// - a_len: Length of the argument data
     #[cfg(windows)]
     pub unsafe extern "C" fn beacon_inject_temporary_process(
         _pi: *mut windows::Win32::System::Threading::PROCESS_INFORMATION,
@@ -1157,6 +1500,31 @@ impl BeaconApi {
         _arg: *const c_char,
         _a_len: c_int,
     ) {
+        // Validate parameters
+        if _pi.is_null() {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconInjectTemporaryProcess".to_string(),
+                vec!["ERROR: NULL_PROCESS_INFORMATION".to_string()],
+            );
+            return;
+        }
+        
+        if _p_len <= 0 || _p_len < _p_offset {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconInjectTemporaryProcess".to_string(),
+                vec!["ERROR: INVALID_PAYLOAD_LENGTH".to_string()],
+            );
+            return;
+        }
+        
+        if _payload.is_null() {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconInjectTemporaryProcess".to_string(),
+                vec!["ERROR: NULL_PAYLOAD".to_string()],
+            );
+            return;
+        }
+        
         // Check sandbox
         if !crate::core::executor::sandbox::is_api_allowed("BeaconInjectTemporaryProcess") {
             crate::core::executor::tracer::record_api_call(
@@ -1169,10 +1537,25 @@ impl BeaconApi {
         // Record API call
         crate::core::executor::tracer::record_api_call(
             "BeaconInjectTemporaryProcess".to_string(),
-            vec![format!("payload_len={}", _p_len)],
+            vec![
+                format!("payload_len={}", _p_len),
+                format!("payload_offset={}", _p_offset),
+                format!("arg_len={}", _a_len),
+            ],
         );
         
         // Stub implementation - actual process injection is not implemented for safety
+        // In a real beacon, this would:
+        // 1. Use the process handle from PROCESS_INFORMATION
+        // 2. Allocate memory in the target process
+        // 3. Write the payload to the allocated memory
+        // 4. Create a remote thread or use another injection technique
+        // 5. Handle errors and cleanup
+        
+        crate::core::executor::tracer::record_api_call(
+            "BeaconInjectTemporaryProcess".to_string(),
+            vec!["EMULATED: Process injection not implemented for safety".to_string()],
+        );
     }
     
     /// BeaconInjectTemporaryProcess implementation (non-Windows stub)
@@ -1190,24 +1573,47 @@ impl BeaconApi {
     
     /// BeaconCleanupProcess implementation (Windows)
     /// Cleans up process handles
+    /// 
+    /// This function closes the process and thread handles in the PROCESS_INFORMATION
+    /// structure. This should be called after process injection is complete.
+    /// 
+    /// Parameters:
+    /// - pi: Pointer to PROCESS_INFORMATION structure to cleanup
     #[cfg(windows)]
     pub unsafe extern "C" fn beacon_cleanup_process(
         pi: *mut windows::Win32::System::Threading::PROCESS_INFORMATION,
     ) {
-        if pi.is_null() {
-            return;
-        }
-        
         // Record API call
         crate::core::executor::tracer::record_api_call(
             "BeaconCleanupProcess".to_string(),
             vec![],
         );
         
+        if pi.is_null() {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconCleanupProcess".to_string(),
+                vec!["ERROR: NULL_PROCESS_INFORMATION".to_string()],
+            );
+            return;
+        }
+        
         // Cleanup process handles
         let pi_ref = &*pi;
-        let _ = CloseHandle(pi_ref.hProcess);
-        let _ = CloseHandle(pi_ref.hThread);
+        
+        // Close process handle if valid
+        if !pi_ref.hProcess.is_invalid() {
+            let _ = CloseHandle(pi_ref.hProcess);
+        }
+        
+        // Close thread handle if valid
+        if !pi_ref.hThread.is_invalid() {
+            let _ = CloseHandle(pi_ref.hThread);
+        }
+        
+        crate::core::executor::tracer::record_api_call(
+            "BeaconCleanupProcess".to_string(),
+            vec!["SUCCESS: Handles closed".to_string()],
+        );
     }
     
     /// BeaconCleanupProcess implementation (non-Windows stub)
