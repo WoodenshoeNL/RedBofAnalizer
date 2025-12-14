@@ -11,6 +11,7 @@ use super::tabs::ActiveTab;
 use super::theme::Colors;
 
 use egui::{Align, Layout, RichText};
+use std::collections::HashSet;
 use std::path::PathBuf;
 use std::sync::mpsc::{self, Receiver, Sender};
 use std::thread;
@@ -51,6 +52,10 @@ pub struct RedBofApp {
     execution_trace: bool,
     /// Cobalt Strike compatible argument mode
     execution_cs_compat: bool,
+    /// Override automatic signature detection
+    override_signature_detection: bool,
+    /// Manual signature override (e.g., "zi", "zzi", etc.)
+    manual_signature: String,
     /// Timeout for execution (seconds)
     execution_timeout: u64,
     /// Search filter for symbols
@@ -66,12 +71,74 @@ pub struct RedBofApp {
     selected_section: Option<String>,
     /// Selected entry point name (None means use default)
     selected_entry_point: Option<String>,
+    /// Enhanced OpSec analysis result
+    opsec_analysis: Option<crate::core::analyzer::opsec::EnhancedOpsecAnalysis>,
+    /// Compatibility analysis result
+    compatibility_analysis: Option<crate::core::analyzer::compatibility::CompatibilityAnalysis>,
+    /// Calling convention analysis result
+    calling_convention_analysis: Option<crate::core::analyzer::calling_convention::CallingConventionAnalysis>,
+    /// OpSec tab filter state
+    opsec_api_filter: String,
+    opsec_risk_filter: crate::core::analyzer::opsec::OpsecCategory,
+    opsec_compat_severity_filter: crate::core::analyzer::compatibility::CompatibilitySeverity,
+    opsec_show_all_severities: bool,
+    /// YARA rule paths (files or directories)
+    yara_rule_paths: Vec<PathBuf>,
+    /// Persistent YARA rules folder (automatically loaded on startup)
+    yara_persistent_folder: Option<PathBuf>,
+    /// Use default YARA rules together with custom rules
+    yara_use_default_rules: bool,
+    /// YARA rule manager for individual rule management
+    yara_rule_manager: crate::core::analyzer::yara_rules::RuleManager,
+    /// Rule management UI state
+    rule_mgmt_search_filter: String,
+    rule_mgmt_selected_category: Option<String>,
+    rule_mgmt_selected_tags: HashSet<String>,
+    rule_mgmt_show_disabled: bool,
+    rule_mgmt_show_metrics: bool,
+    rule_mgmt_selected_rule: Option<String>,
 }
 
 impl RedBofApp {
     /// Create a new application instance
-    pub fn new(_cc: &eframe::CreationContext<'_>) -> Self {
+    pub fn new(cc: &eframe::CreationContext<'_>) -> Self {
         let (tx, rx) = mpsc::channel();
+        
+        // Load persisted YARA rule paths
+        let yara_rule_paths = if let Some(storage) = cc.storage {
+            let key = format!("{}.yara_rule_paths", eframe::APP_KEY);
+            if let Some(paths_json) = storage.get_string(&key) {
+                if let Ok(paths) = serde_json::from_str::<Vec<String>>(&paths_json) {
+                    paths.into_iter().map(PathBuf::from).collect()
+                } else {
+                    Vec::new()
+                }
+            } else {
+                Vec::new()
+            }
+        } else {
+            Vec::new()
+        };
+        
+        // Load persisted YARA use default rules setting
+        let yara_use_default_rules = if let Some(storage) = cc.storage {
+            let key = format!("{}.yara_use_default_rules", eframe::APP_KEY);
+            storage.get_string(&key)
+                .and_then(|s| s.parse::<bool>().ok())
+                .unwrap_or(true) // Default to true
+        } else {
+            true
+        };
+        
+        // Load persisted YARA rules folder
+        let yara_persistent_folder = if let Some(storage) = cc.storage {
+            let key = format!("{}.yara_persistent_folder", eframe::APP_KEY);
+            storage.get_string(&key)
+                .map(|s| PathBuf::from(s))
+                .filter(|p| p.exists() && p.is_dir())
+        } else {
+            None
+        };
         
         Self {
             bof_file: None,
@@ -86,6 +153,8 @@ impl RedBofApp {
             execution_sandbox: false,
             execution_trace: false,
             execution_cs_compat: false,
+            override_signature_detection: false,
+            manual_signature: String::new(),
             execution_timeout: 30,
             symbol_filter: String::new(),
             section_filter: String::new(),
@@ -94,7 +163,51 @@ impl RedBofApp {
             show_disassembly: false,
             selected_section: None,
             selected_entry_point: None,
+            opsec_analysis: None,
+            compatibility_analysis: None,
+            calling_convention_analysis: None,
+            opsec_api_filter: String::new(),
+            opsec_risk_filter: crate::core::analyzer::opsec::OpsecCategory::LowRisk,
+            opsec_compat_severity_filter: crate::core::analyzer::compatibility::CompatibilitySeverity::Warning,
+            opsec_show_all_severities: true,
+            yara_rule_paths,
+            yara_persistent_folder,
+            yara_use_default_rules,
+            yara_rule_manager: crate::core::analyzer::yara_rules::RuleManager::new(),
+            rule_mgmt_search_filter: String::new(),
+            rule_mgmt_selected_category: None,
+            rule_mgmt_selected_tags: HashSet::new(),
+            rule_mgmt_show_disabled: true,
+            rule_mgmt_show_metrics: false,
+            rule_mgmt_selected_rule: None,
         }
+    }
+    
+    /// Save YARA rule paths and settings to persistent storage
+    fn save_yara_rule_paths(&self, ctx: &egui::Context) {
+        // Use egui's memory persistence which is automatically saved by eframe
+        let paths: Vec<String> = self.yara_rule_paths.iter()
+            .map(|p| p.to_string_lossy().to_string())
+            .collect();
+        if let Ok(paths_json) = serde_json::to_string(&paths) {
+            ctx.data_mut(|d| {
+                let key = format!("{}.yara_rule_paths", eframe::APP_KEY);
+                d.insert_persisted(egui::Id::new(&key), paths_json);
+            });
+        }
+        // Save use default rules setting
+        ctx.data_mut(|d| {
+            let key = format!("{}.yara_use_default_rules", eframe::APP_KEY);
+            d.insert_persisted(egui::Id::new(&key), self.yara_use_default_rules.to_string());
+        });
+        // Save persistent folder
+        ctx.data_mut(|d| {
+            let key = format!("{}.yara_persistent_folder", eframe::APP_KEY);
+            let folder_str = self.yara_persistent_folder.as_ref()
+                .map(|p| p.to_string_lossy().to_string())
+                .unwrap_or_default();
+            d.insert_persisted(egui::Id::new(&key), folder_str);
+        });
     }
 
     /// Process async messages
@@ -117,6 +230,13 @@ impl RedBofApp {
                     self.analysis_report = Some(*report);
                     self.is_loading = false;
                     self.status_message = "Analysis complete".into();
+                    
+                    // Perform advanced analysis
+                    if let Some(bof) = &self.bof_file {
+                        self.opsec_analysis = Some(analyzer::analyze_api_opsec(&bof.imports));
+                        self.compatibility_analysis = Some(analyzer::analyze_compatibility(bof));
+                        self.calling_convention_analysis = Some(analyzer::analyze_calling_conventions(bof));
+                    }
                 }
                 AppMessage::ExecutionComplete(result) => {
                     self.is_executing = false;
@@ -213,9 +333,29 @@ impl RedBofApp {
             self.is_loading = true;
             self.status_message = "Analyzing...".into();
             
+            let yara_rules = self.yara_rule_paths.clone();
+            let persistent_folder = self.yara_persistent_folder.clone();
+            let use_default_rules = self.yara_use_default_rules;
             thread::spawn(move || {
+                // Convert YARA rule paths to YaraRuleSource
+                use crate::core::analyzer::YaraRuleSource;
+                let mut yara_rule_sources: Vec<YaraRuleSource> = yara_rules.into_iter().map(|path| {
+                    if path.is_dir() {
+                        YaraRuleSource::Directory(path)
+                    } else {
+                        YaraRuleSource::File(path)
+                    }
+                }).collect();
+                
+                // Add persistent folder if set
+                if let Some(folder) = persistent_folder {
+                    if folder.exists() && folder.is_dir() {
+                        yara_rule_sources.push(YaraRuleSource::Directory(folder));
+                    }
+                }
+                
                 // Enable all analysis options
-                match analyzer::analyze(&bof_clone, true, true, true, true, true, true) {
+                match analyzer::analyze(&bof_clone, true, true, true, true, true, true, &yara_rule_sources, use_default_rules) {
                     Ok(report) => {
                         let _ = tx.send(AppMessage::AnalysisComplete(Box::new(report)));
                     }
@@ -294,20 +434,28 @@ impl RedBofApp {
                 ActiveTab::Symbols,
                 ActiveTab::Imports,
                 ActiveTab::Lints,
+                ActiveTab::OpSec,
                 ActiveTab::Disassembly,
+                ActiveTab::StackAnalysis,
+                ActiveTab::Yara,
                 ActiveTab::Execute,
             ] {
                 let is_selected = self.active_tab == tab;
+                // Use short names for tabs to fit better
                 let text = match tab {
                     ActiveTab::Overview => "Overview",
                     ActiveTab::Sections => "Sections",
                     ActiveTab::Symbols => "Symbols",
                     ActiveTab::Imports => "Imports",
                     ActiveTab::Lints => "Lints",
+                    ActiveTab::OpSec => "OpSec",
                     ActiveTab::Disassembly => "Disasm",
+                    ActiveTab::StackAnalysis => "Stack",
+                    ActiveTab::Yara => "YARA",
                     ActiveTab::Execute => "Execute",
                 };
                 
+                // Use selectable_label for standard tab appearance
                 let response = ui.selectable_label(is_selected, text);
                 if response.clicked() {
                     self.active_tab = tab;
@@ -325,7 +473,13 @@ impl RedBofApp {
             ActiveTab::Symbols => self.render_symbols_tab(ui),
             ActiveTab::Imports => self.render_imports_tab(ui),
             ActiveTab::Lints => self.render_lints_tab(ui),
+            ActiveTab::OpSec => self.render_opsec_tab(ui),
             ActiveTab::Disassembly => self.render_disassembly_tab(ui),
+            ActiveTab::StackAnalysis => self.render_stack_analysis_tab(ui),
+            ActiveTab::Yara => {
+                let ctx = ui.ctx().clone();
+                self.render_yara_tab(ui, &ctx);
+            },
             ActiveTab::Execute => self.render_execute_tab(ui),
         }
     }
@@ -690,6 +844,21 @@ impl RedBofApp {
         }
     }
 
+    /// Render OpSec tab
+    fn render_opsec_tab(&mut self, ui: &mut egui::Ui) {
+        use super::app_opsec::render_opsec_tab;
+        render_opsec_tab(
+            ui,
+            self.opsec_analysis.as_ref(),
+            self.compatibility_analysis.as_ref(),
+            self.calling_convention_analysis.as_ref(),
+            &mut self.opsec_api_filter,
+            &mut self.opsec_risk_filter,
+            &mut self.opsec_compat_severity_filter,
+            &mut self.opsec_show_all_severities,
+        );
+    }
+
     /// Render lints tab
     fn render_lints_tab(&self, ui: &mut egui::Ui) {
         if let Some(report) = &self.analysis_report {
@@ -793,22 +962,974 @@ impl RedBofApp {
         }
     }
 
+    /// Render stack analysis tab
+    fn render_stack_analysis_tab(&self, ui: &mut egui::Ui) {
+        if let Some(report) = &self.analysis_report {
+            if let Some(stack_analysis) = &report.stack_analysis {
+                egui::ScrollArea::vertical().show(ui, |ui| {
+                    // Statistics summary
+                    ui.group(|ui| {
+                        ui.heading("Stack Usage Statistics");
+                        ui.separator();
+                        
+                        egui::Grid::new("stack_stats")
+                            .num_columns(2)
+                            .striped(true)
+                            .show(ui, |ui| {
+                                ui.label(RichText::new("Functions Analyzed:").strong());
+                                ui.label(format!("{}", stack_analysis.stats.functions_analyzed));
+                                ui.end_row();
+                                
+                                ui.label(RichText::new("Average Stack Usage:").strong());
+                                ui.label(format!("{:.2} bytes", stack_analysis.stats.average_stack_usage));
+                                ui.end_row();
+                                
+                                ui.label(RichText::new("Maximum Stack Usage:").strong());
+                                ui.label(format!("{} bytes", stack_analysis.stats.max_stack_usage));
+                                ui.end_row();
+                                
+                                ui.label(RichText::new("High Usage Functions (>1KB):").strong());
+                                ui.label(format!("{}", stack_analysis.stats.high_usage_functions));
+                                ui.end_row();
+                                
+                                ui.label(RichText::new("Very High Usage (>4KB):").strong());
+                                let color = if stack_analysis.stats.very_high_usage_functions > 0 {
+                                    Colors::RED_LIGHT
+                                } else {
+                                    Colors::GREEN_SUCCESS
+                                };
+                                ui.label(RichText::new(format!("{}", stack_analysis.stats.very_high_usage_functions))
+                                    .color(color));
+                                ui.end_row();
+                                
+                                ui.label(RichText::new("Overflow Risk Functions:").strong());
+                                let risk_color = if stack_analysis.stats.overflow_risk_functions > 0 {
+                                    Colors::RED_LIGHT
+                                } else {
+                                    Colors::GREEN_SUCCESS
+                                };
+                                ui.label(RichText::new(format!("{}", stack_analysis.stats.overflow_risk_functions))
+                                    .color(risk_color));
+                                ui.end_row();
+                            });
+                    });
+                    
+                    ui.add_space(10.0);
+                    
+                    // Warnings section
+                    if !stack_analysis.warnings.is_empty() {
+                        ui.group(|ui| {
+                            ui.heading(RichText::new("Stack Usage Warnings").color(Colors::YELLOW_WARNING));
+                            ui.separator();
+                            
+                            for warning in &stack_analysis.warnings {
+                                let (icon, color) = match warning.severity {
+                                    crate::core::analyzer::stack_analysis::StackWarningSeverity::Error => 
+                                        ("[!]", Colors::RED_LIGHT),
+                                    crate::core::analyzer::stack_analysis::StackWarningSeverity::Warning => 
+                                        ("[*]", Colors::YELLOW_WARNING),
+                                    crate::core::analyzer::stack_analysis::StackWarningSeverity::Info => 
+                                        ("[i]", Colors::BLUE_INFO),
+                                };
+                                
+                                ui.horizontal(|ui| {
+                                    ui.label(RichText::new(icon).color(color));
+                                    if let Some(ref func_name) = warning.function_name {
+                                        ui.label(RichText::new(func_name).strong().monospace());
+                                    }
+                                    ui.label(RichText::new(format!("({} bytes)", warning.stack_usage))
+                                        .color(color));
+                                });
+                                ui.label(&warning.message);
+                                ui.label(RichText::new(format!("Address: 0x{:08X}", warning.address))
+                                    .monospace()
+                                    .color(Colors::TEXT_SECONDARY));
+                                ui.add_space(5.0);
+                            }
+                        });
+                        ui.add_space(10.0);
+                    }
+                    
+                    // Function stack usage table
+                    if !stack_analysis.function_stack_usage.is_empty() {
+                        ui.group(|ui| {
+                            ui.heading("Function Stack Usage");
+                            ui.separator();
+                            
+                            egui::Grid::new("stack_usage_table")
+                                .num_columns(5)
+                                .striped(true)
+                                .min_col_width(100.0)
+                                .show(ui, |ui| {
+                                    ui.label(RichText::new("Function").strong());
+                                    ui.label(RichText::new("Address").strong());
+                                    ui.label(RichText::new("Stack Size").strong());
+                                    ui.label(RichText::new("Max Usage").strong());
+                                    ui.label(RichText::new("Risk").strong());
+                                    ui.end_row();
+                                    
+                                    for func in &stack_analysis.function_stack_usage {
+                                        let func_name = func.function_name.as_deref()
+                                            .unwrap_or("<unknown>");
+                                        ui.label(RichText::new(func_name).monospace());
+                                        ui.label(RichText::new(format!("0x{:08X}", func.start_address))
+                                            .monospace()
+                                            .color(Colors::TEXT_SECONDARY));
+                                        
+                                        // Stack size with color coding
+                                        let size_color = if func.estimated_stack_size > 4096 {
+                                            Colors::RED_LIGHT
+                                        } else if func.estimated_stack_size > 1024 {
+                                            Colors::YELLOW_WARNING
+                                        } else {
+                                            Colors::GREEN_SUCCESS
+                                        };
+                                        ui.label(RichText::new(format!("{} bytes", func.estimated_stack_size))
+                                            .color(size_color));
+                                        
+                                        ui.label(format!("{} bytes", func.max_stack_usage));
+                                        
+                                        // Risk level
+                                        let (risk_text, risk_color) = match func.risk_level {
+                                            crate::core::analyzer::stack_analysis::StackRiskLevel::Critical => 
+                                                ("CRITICAL", Colors::RED_LIGHT),
+                                            crate::core::analyzer::stack_analysis::StackRiskLevel::High => 
+                                                ("HIGH", Colors::YELLOW_WARNING),
+                                            crate::core::analyzer::stack_analysis::StackRiskLevel::Medium => 
+                                                ("MEDIUM", Colors::YELLOW_WARNING),
+                                            crate::core::analyzer::stack_analysis::StackRiskLevel::Low => 
+                                                ("LOW", Colors::GREEN_SUCCESS),
+                                        };
+                                        ui.label(RichText::new(risk_text).color(risk_color));
+                                        ui.end_row();
+                                    }
+                                });
+                        });
+                        
+                        ui.add_space(10.0);
+                        
+                        // Stack operations detail (collapsible)
+                        for func in &stack_analysis.function_stack_usage {
+                            let func_name = func.function_name.as_deref()
+                                .unwrap_or("<unknown>");
+                            
+                            ui.collapsing(format!("{} - Stack Operations", func_name), |ui| {
+                                if func.stack_operations.is_empty() {
+                                    ui.label(RichText::new("No stack operations detected")
+                                        .color(Colors::TEXT_SECONDARY));
+                                } else {
+                                    egui::Grid::new(format!("stack_ops_{}", func.start_address))
+                                        .num_columns(4)
+                                        .striped(true)
+                                        .show(ui, |ui| {
+                                            ui.label(RichText::new("Address").strong());
+                                            ui.label(RichText::new("Instruction").strong());
+                                            ui.label(RichText::new("Delta").strong());
+                                            ui.label(RichText::new("Stack Usage").strong());
+                                            ui.end_row();
+                                            
+                                            for op in &func.stack_operations {
+                                                ui.label(RichText::new(format!("0x{:08X}", op.address))
+                                                    .monospace()
+                                                    .color(Colors::TEXT_SECONDARY));
+                                                ui.label(RichText::new(&op.instruction).monospace());
+                                                
+                                                let delta_color = if op.stack_delta > 0 {
+                                                    Colors::YELLOW_WARNING
+                                                } else {
+                                                    Colors::GREEN_SUCCESS
+                                                };
+                                                ui.label(RichText::new(format!("{:+}", op.stack_delta))
+                                                    .color(delta_color));
+                                                
+                                                ui.label(format!("{} bytes", op.current_stack_usage));
+                                                ui.end_row();
+                                            }
+                                        });
+                                }
+                            });
+                        }
+                    }
+                });
+            } else {
+                ui.vertical_centered(|ui| {
+                    ui.add_space(50.0);
+                    ui.label(RichText::new("Stack analysis requires disassembly to be enabled")
+                        .size(16.0)
+                        .color(Colors::TEXT_SECONDARY));
+                    ui.label(RichText::new("Enable disassembly in analysis options to see stack usage information")
+                        .color(Colors::TEXT_SECONDARY));
+                });
+            }
+        } else {
+            ui.label("No analysis report available");
+        }
+    }
+    
+    /// Render YARA analysis tab
+    fn render_yara_tab(&mut self, ui: &mut egui::Ui, ctx: &egui::Context) {
+        // YARA Rule Loading Section
+        ui.group(|ui| {
+            ui.heading("YARA Rule Management");
+            ui.separator();
+            
+            ui.horizontal(|ui| {
+                if ui.button("Load Rule File").clicked() {
+                    if let Some(path) = rfd::FileDialog::new()
+                        .add_filter("YARA Rules", &["yar", "yara"])
+                        .pick_file()
+                    {
+                        if !self.yara_rule_paths.contains(&path) {
+                            self.yara_rule_paths.push(path);
+                            self.save_yara_rule_paths(ctx);
+                            // Trigger re-analysis if BOF is loaded
+                            if self.bof_file.is_some() {
+                                self.run_analysis();
+                            }
+                        }
+                    }
+                }
+                
+                if ui.button("Load Rule Directory").clicked() {
+                    if let Some(path) = rfd::FileDialog::new().pick_folder() {
+                        if !self.yara_rule_paths.contains(&path) {
+                            self.yara_rule_paths.push(path);
+                            self.save_yara_rule_paths(ctx);
+                            // Trigger re-analysis if BOF is loaded
+                            if self.bof_file.is_some() {
+                                self.run_analysis();
+                            }
+                        }
+                    }
+                }
+                
+                if !self.yara_rule_paths.is_empty() {
+                    if ui.button("Clear All Rules").clicked() {
+                        self.yara_rule_paths.clear();
+                        self.save_yara_rule_paths(ctx);
+                        // Trigger re-analysis if BOF is loaded
+                        if self.bof_file.is_some() {
+                            self.run_analysis();
+                        }
+                    }
+                }
+            });
+            
+            if !self.yara_rule_paths.is_empty() {
+                ui.add_space(5.0);
+                ui.label(RichText::new("Loaded Rules:").strong());
+                let mut to_remove = None;
+                for (idx, path) in self.yara_rule_paths.iter().enumerate() {
+                    ui.horizontal(|ui| {
+                        let is_dir = path.is_dir();
+                        let prefix = if is_dir { 
+                            RichText::new("[DIR]").color(Colors::BLUE_INFO).monospace()
+                        } else { 
+                            RichText::new("[FILE]").color(Colors::TEXT_SECONDARY).monospace()
+                        };
+                        ui.label(prefix);
+                        ui.label(path.display().to_string());
+                        if ui.small_button("×").clicked() {
+                            to_remove = Some(idx);
+                        }
+                    });
+                }
+                if let Some(idx) = to_remove {
+                    self.yara_rule_paths.remove(idx);
+                    self.save_yara_rule_paths(ctx);
+                    // Trigger re-analysis if BOF is loaded
+                    if self.bof_file.is_some() {
+                        self.run_analysis();
+                    }
+                }
+            } else {
+                ui.label(RichText::new("No custom rules loaded (using default rules)")
+                    .color(Colors::TEXT_SECONDARY)
+                    .italics());
+            }
+            
+            // Persistent YARA Rules Folder
+            ui.add_space(5.0);
+            ui.separator();
+            ui.add_space(5.0);
+            ui.label(RichText::new("Persistent Rules Folder:").strong());
+            ui.horizontal(|ui| {
+                if let Some(ref folder) = self.yara_persistent_folder {
+                    ui.label(RichText::new("[DIR]").color(Colors::BLUE_INFO).monospace());
+                    ui.label(folder.display().to_string());
+                    if ui.small_button("×").clicked() {
+                        self.yara_persistent_folder = None;
+                        self.save_yara_rule_paths(ctx);
+                        // Trigger re-analysis if BOF is loaded
+                        if self.bof_file.is_some() {
+                            self.run_analysis();
+                        }
+                    }
+                } else {
+                    ui.label(RichText::new("No persistent folder set")
+                        .color(Colors::TEXT_SECONDARY)
+                        .italics());
+                }
+                if ui.button("Select Folder").clicked() {
+                    if let Some(path) = rfd::FileDialog::new().pick_folder() {
+                        self.yara_persistent_folder = Some(path);
+                        self.save_yara_rule_paths(ctx);
+                        // Trigger re-analysis if BOF is loaded
+                        if self.bof_file.is_some() {
+                            self.run_analysis();
+                        }
+                    }
+                }
+            });
+            if self.yara_persistent_folder.is_some() {
+                ui.label(RichText::new("Rules from this folder are automatically loaded on startup")
+                    .color(Colors::TEXT_SECONDARY)
+                    .italics()
+                    .small());
+            }
+            
+            // Checkbox to use default rules with custom rules
+            if !self.yara_rule_paths.is_empty() || self.yara_persistent_folder.is_some() {
+                ui.add_space(5.0);
+                ui.separator();
+                ui.add_space(5.0);
+                if ui.checkbox(&mut self.yara_use_default_rules, "Use default BOF rules together with custom rules").changed() {
+                    self.save_yara_rule_paths(ctx);
+                    // Trigger re-analysis if BOF is loaded
+                    if self.bof_file.is_some() {
+                        self.run_analysis();
+                    }
+                }
+            }
+        });
+        
+        ui.add_space(10.0);
+        
+        // Rule Management UI
+        self.render_rule_management_ui(ui, ctx);
+        
+        ui.add_space(10.0);
+        
+        if let Some(report) = &self.analysis_report {
+            if let Some(yara_analysis) = &report.yara_analysis {
+                egui::ScrollArea::vertical().show(ui, |ui| {
+                    // Engine availability status
+                    if !yara_analysis.engine_available {
+                        ui.group(|ui| {
+                            ui.heading(RichText::new("YARA Engine Status").color(Colors::YELLOW_WARNING));
+                            ui.separator();
+                            ui.label("YARA engine is not available.");
+                            ui.label("This may be because:");
+                            ui.label("• YARA feature is not enabled (build with --features yara)");
+                            ui.label("• YARA library failed to initialize");
+                            ui.label("• YARA dependencies are not installed");
+                            ui.add_space(10.0);
+                            ui.label(RichText::new("To enable YARA scanning:").strong());
+                            ui.label("1. Build with YARA feature: cargo build --features yara");
+                            ui.label("2. The vendored feature will automatically build YARA from source");
+                            ui.label("3. YARA rules will be automatically loaded and scanned");
+                        });
+                        ui.add_space(10.0);
+                    } else {
+                        // Show success message if engine is available
+                        ui.group(|ui| {
+                            ui.heading(RichText::new("YARA Engine Status").color(Colors::GREEN_SUCCESS));
+                            ui.separator();
+                            ui.horizontal(|ui| {
+                                ui.label(RichText::new("YARA engine is active and ready").color(Colors::GREEN_SUCCESS));
+                            });
+                            ui.label(format!("{} rules loaded, {} sections scanned", 
+                                yara_analysis.stats.rules_loaded,
+                                yara_analysis.stats.sections_scanned));
+                        });
+                        ui.add_space(10.0);
+                        
+                        // Show compilation errors if any
+                        if let Some(ref errors) = yara_analysis.compilation_errors {
+                            if !errors.is_empty() {
+                                ui.group(|ui| {
+                                    ui.heading(RichText::new("YARA Compilation Errors").color(Colors::RED_LIGHT));
+                                    ui.separator();
+                                    for error in errors {
+                                        ui.label(RichText::new(error).color(Colors::RED_LIGHT).monospace());
+                                    }
+                                });
+                                ui.add_space(10.0);
+                            }
+                        }
+                    }
+                    
+                    // Statistics
+                    ui.group(|ui| {
+                        ui.heading("YARA Analysis Statistics");
+                        ui.separator();
+                        
+                        egui::Grid::new("yara_stats")
+                            .num_columns(2)
+                            .striped(true)
+                            .show(ui, |ui| {
+                                ui.label(RichText::new("Rules Loaded:").strong());
+                                ui.label(format!("{}", yara_analysis.stats.rules_loaded));
+                                ui.end_row();
+                                
+                                ui.label(RichText::new("Total Matches:").strong());
+                                let match_color = if yara_analysis.stats.total_matches > 0 {
+                                    Colors::YELLOW_WARNING
+                                } else {
+                                    Colors::GREEN_SUCCESS
+                                };
+                                ui.label(RichText::new(format!("{}", yara_analysis.stats.total_matches))
+                                    .color(match_color));
+                                ui.end_row();
+                                
+                                ui.label(RichText::new("Unique Rules Matched:").strong());
+                                ui.label(format!("{}", yara_analysis.stats.unique_rules_matched));
+                                ui.end_row();
+                                
+                                ui.label(RichText::new("Sections Scanned:").strong());
+                                ui.label(format!("{}", yara_analysis.stats.sections_scanned));
+                                ui.end_row();
+                            });
+                    });
+                    
+                    ui.add_space(10.0);
+                    
+                    // Matches section
+                    if !yara_analysis.matches.is_empty() {
+                        ui.group(|ui| {
+                            ui.heading(RichText::new("YARA Rule Matches").color(Colors::YELLOW_WARNING));
+                            ui.separator();
+                            
+                            for (idx, match_item) in yara_analysis.matches.iter().enumerate() {
+                                ui.collapsing(format!("{} - {}", match_item.rule_name, 
+                                    match_item.namespace.as_deref().unwrap_or("default")), |ui| {
+                                    egui::Grid::new(format!("yara_match_{}", idx))
+                                        .num_columns(2)
+                                        .striped(true)
+                                        .show(ui, |ui| {
+                                            ui.label(RichText::new("Rule Name:").strong());
+                                            ui.label(RichText::new(&match_item.rule_name).monospace());
+                                            ui.end_row();
+                                            
+                                            if let Some(ref ns) = match_item.namespace {
+                                                ui.label(RichText::new("Namespace:").strong());
+                                                ui.label(ns);
+                                                ui.end_row();
+                                            }
+                                            
+                                            ui.label(RichText::new("Section:").strong());
+                                            ui.label(&match_item.section);
+                                            ui.end_row();
+                                            
+                                            ui.label(RichText::new("Offset:").strong());
+                                            ui.label(RichText::new(format!("0x{:08X}", match_item.offset))
+                                                .monospace());
+                                            ui.end_row();
+                                            
+                                            ui.label(RichText::new("Length:").strong());
+                                            ui.label(format!("{} bytes", match_item.length));
+                                            ui.end_row();
+                                            
+                                            if let Some(ref severity) = match_item.severity {
+                                                ui.label(RichText::new("Severity:").strong());
+                                                let severity_color = match severity.as_str() {
+                                                    "critical" | "high" => Colors::RED_LIGHT,
+                                                    "medium" => Colors::YELLOW_WARNING,
+                                                    _ => Colors::BLUE_INFO,
+                                                };
+                                                ui.label(RichText::new(severity.to_uppercase())
+                                                    .color(severity_color));
+                                                ui.end_row();
+                                            }
+                                        });
+                                    
+                                    // Matched strings
+                                    if !match_item.matched_strings.is_empty() {
+                                        ui.add_space(5.0);
+                                        ui.label(RichText::new("Matched Strings:").strong());
+                                        for matched_str in &match_item.matched_strings {
+                                            ui.horizontal(|ui| {
+                                                ui.label(RichText::new(&matched_str.identifier)
+                                                    .monospace()
+                                                    .color(Colors::BLUE_INFO));
+                                                ui.label("->");
+                                                ui.label(RichText::new(format!("0x{:08X}", matched_str.offset))
+                                                    .monospace());
+                                                ui.label(RichText::new(&matched_str.data)
+                                                    .monospace()
+                                                    .color(Colors::TEXT_SECONDARY));
+                                            });
+                                        }
+                                    }
+                                    
+                                    // Metadata
+                                    if !match_item.metadata.is_empty() {
+                                        ui.add_space(5.0);
+                                        ui.label(RichText::new("Rule Metadata:").strong());
+                                        for (key, value) in &match_item.metadata {
+                                            ui.horizontal(|ui| {
+                                                ui.label(RichText::new(key).strong());
+                                                ui.label(value);
+                                            });
+                                        }
+                                    }
+                                });
+                                ui.add_space(5.0);
+                            }
+                        });
+                    } else if yara_analysis.engine_available {
+                        ui.vertical_centered(|ui| {
+                            ui.add_space(50.0);
+                            ui.label(RichText::new("No YARA rule matches found").size(18.0)
+                                .color(Colors::GREEN_SUCCESS));
+                        });
+                    }
+                    
+                    // Default rules info - only show if default rules are being used
+                    if self.yara_use_default_rules || self.yara_rule_paths.is_empty() {
+                        ui.add_space(10.0);
+                        ui.collapsing("Default BOF YARA Rules", |ui| {
+                            ui.label("The following default YARA rules are available:");
+                            ui.label("• BOF_BeaconAPI - Detects Beacon API usage");
+                            ui.label("• BOF_ProcessInjection - Detects process injection patterns");
+                            ui.label("• BOF_TokenManipulation - Detects token manipulation APIs");
+                            ui.label("• BOF_NetworkActivity - Detects network-related APIs");
+                            ui.label("• BOF_AntiDebug - Detects anti-debugging techniques");
+                            ui.label("• BOF_StringObfuscation - Detects potential string obfuscation");
+                            ui.add_space(5.0);
+                            ui.label(RichText::new("Note: Use create_default_bof_rules() to generate rule file")
+                                .color(Colors::TEXT_SECONDARY)
+                                .italics());
+                        });
+                    }
+                });
+            } else {
+                ui.vertical_centered(|ui| {
+                    ui.add_space(50.0);
+                    ui.label(RichText::new("YARA analysis requires disassembly to be enabled")
+                        .size(16.0)
+                        .color(Colors::TEXT_SECONDARY));
+                    ui.label(RichText::new("Enable disassembly in analysis options to see YARA matches")
+                        .color(Colors::TEXT_SECONDARY));
+                });
+            }
+        } else {
+            ui.label("No analysis report available");
+        }
+    }
+
+    /// Render rule management UI
+    fn render_rule_management_ui(&mut self, ui: &mut egui::Ui, _ctx: &egui::Context) {
+        // Update rule manager from YARA analysis if available (before UI to avoid borrow issues)
+        #[cfg(feature = "yara")]
+        {
+            if let Some(report) = &self.analysis_report {
+                if let Some(yara_analysis) = &report.yara_analysis {
+                    if yara_analysis.engine_available {
+                        // Extract rule info from compiled rules
+                        // This would need access to the compiled Rules object
+                        // For now, we'll extract from matches
+                        for match_item in &yara_analysis.matches {
+                            if self.yara_rule_manager.get_rule(&match_item.rule_name).is_none() {
+                                let rule_info = crate::core::analyzer::yara_rules::RuleInfo {
+                                    name: match_item.rule_name.clone(),
+                                    namespace: match_item.namespace.clone(),
+                                    category: match_item.metadata.get("category").cloned(),
+                                    tags: match_item.metadata.get("tags")
+                                        .map(|t| t.split(',').map(|s| s.trim().to_string()).collect())
+                                        .unwrap_or_default(),
+                                    description: match_item.metadata.get("description").cloned(),
+                                    severity: match_item.severity.clone(),
+                                    source_file: None,
+                                    enabled: true,
+                                    metrics: crate::core::analyzer::yara_rules::RuleMetrics::new(),
+                                    content: None,
+                                };
+                                self.yara_rule_manager.add_rule(rule_info);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Extract rule data before closures to avoid borrow issues
+        let selected_rule_data = if let Some(ref selected_rule_name) = self.rule_mgmt_selected_rule {
+            self.yara_rule_manager.get_rule(selected_rule_name).cloned()
+        } else {
+            None
+        };
+        
+        ui.group(|ui| {
+            ui.heading("Rule Browser & Management");
+            ui.separator();
+            
+            // Filter controls
+            ui.horizontal(|ui| {
+                ui.label("Search:");
+                ui.text_edit_singleline(&mut self.rule_mgmt_search_filter);
+                self.yara_rule_manager.set_search_filter(self.rule_mgmt_search_filter.clone());
+                
+                ui.separator();
+                
+                ui.label("Category:");
+                let categories = self.yara_rule_manager.get_all_categories();
+                egui::ComboBox::new(egui::Id::new("rule_category_filter"), "Category")
+                    .selected_text(self.rule_mgmt_selected_category.as_ref().map(|s| s.as_str()).unwrap_or("All"))
+                    .show_ui(ui, |ui| {
+                        if ui.selectable_label(self.rule_mgmt_selected_category.is_none(), "All").clicked() {
+                            self.rule_mgmt_selected_category = None;
+                            self.yara_rule_manager.set_category_filter(None);
+                        }
+                        for cat in &categories {
+                            if ui.selectable_label(
+                                self.rule_mgmt_selected_category.as_ref().map(|s| s == cat).unwrap_or(false),
+                                cat
+                            ).clicked() {
+                                self.rule_mgmt_selected_category = Some(cat.clone());
+                                self.yara_rule_manager.set_category_filter(Some(cat.clone()));
+                            }
+                        }
+                    });
+                
+                ui.separator();
+                
+                ui.checkbox(&mut self.rule_mgmt_show_disabled, "Show Disabled");
+                ui.checkbox(&mut self.rule_mgmt_show_metrics, "Show Metrics");
+            });
+            
+            // Tag filters
+            let all_tags = self.yara_rule_manager.get_all_tags();
+            if !all_tags.is_empty() {
+                ui.horizontal(|ui| {
+                    ui.label("Filter by tags:");
+                    for tag in &all_tags {
+                        let is_selected = self.rule_mgmt_selected_tags.contains(tag);
+                        if ui.selectable_label(is_selected, tag).clicked() {
+                            if is_selected {
+                                self.rule_mgmt_selected_tags.remove(tag);
+                                self.yara_rule_manager.remove_tag_filter(tag);
+                            } else {
+                                self.rule_mgmt_selected_tags.insert(tag.clone());
+                                self.yara_rule_manager.add_tag_filter(tag.clone());
+                            }
+                        }
+                    }
+                    if !self.rule_mgmt_selected_tags.is_empty() {
+                        if ui.small_button("Clear Tags").clicked() {
+                            self.rule_mgmt_selected_tags.clear();
+                            self.yara_rule_manager.clear_tag_filters();
+                        }
+                    }
+                });
+            }
+            
+            ui.separator();
+            ui.add_space(5.0);
+            
+            // Rule list - collect rules first to avoid borrow checker issues
+            let filtered_rules: Vec<String> = self.yara_rule_manager.get_filtered_rules()
+                .iter()
+                .filter(|r| self.rule_mgmt_show_disabled || r.enabled)
+                .map(|r| r.name.clone())
+                .collect();
+            
+            if filtered_rules.is_empty() {
+                ui.label(RichText::new("No rules found").color(Colors::TEXT_SECONDARY).italics());
+            } else {
+                ui.label(RichText::new(format!("{} rule(s)", filtered_rules.len())).strong());
+                ui.add_space(5.0);
+                
+                egui::ScrollArea::vertical()
+                    .max_height(400.0)
+                    .show(ui, |ui| {
+                        egui::Grid::new("rule_list")
+                            .num_columns(6)
+                            .striped(true)
+                            .min_col_width(100.0)
+                            .show(ui, |ui| {
+                                // Header
+                                ui.strong("Enabled");
+                                ui.strong("Rule Name");
+                                ui.strong("Category");
+                                ui.strong("Severity");
+                                ui.strong("Tags");
+                                ui.strong("Actions");
+                                ui.end_row();
+                                
+                                // Rules
+                                for rule_name in &filtered_rules {
+                                    let rule_enabled = self.yara_rule_manager.get_rule(rule_name)
+                                        .map(|r| r.enabled)
+                                        .unwrap_or(false);
+                                    
+                                    // Enable/disable toggle
+                                    let mut enabled = rule_enabled;
+                                    if ui.checkbox(&mut enabled, "").changed() {
+                                        if enabled {
+                                            self.yara_rule_manager.enable_rule(rule_name);
+                                        } else {
+                                            self.yara_rule_manager.disable_rule(rule_name);
+                                        }
+                                        // Trigger re-analysis if BOF is loaded
+                                        if self.bof_file.is_some() {
+                                            self.run_analysis();
+                                        }
+                                    }
+                                    
+                                    if let Some(rule) = self.yara_rule_manager.get_rule(rule_name) {
+                                        
+                                        // Rule name (clickable to view details)
+                                        let name_color = if rule.enabled {
+                                            Colors::TEXT_PRIMARY
+                                        } else {
+                                            Colors::TEXT_SECONDARY
+                                        };
+                                        if ui.selectable_label(
+                                            self.rule_mgmt_selected_rule.as_ref().map(|s| s == rule_name).unwrap_or(false),
+                                            RichText::new(rule_name).color(name_color).monospace()
+                                        ).clicked() {
+                                            if self.rule_mgmt_selected_rule.as_ref().map(|s| s == rule_name).unwrap_or(false) {
+                                                self.rule_mgmt_selected_rule = None;
+                                            } else {
+                                                self.rule_mgmt_selected_rule = Some(rule_name.clone());
+                                            }
+                                        }
+                                        
+                                        // Category
+                                        if let Some(ref cat) = rule.category {
+                                            ui.label(cat);
+                                        } else {
+                                            ui.label(RichText::new("-").color(Colors::TEXT_SECONDARY));
+                                        }
+                                        
+                                        // Severity
+                                        if let Some(ref sev) = rule.severity {
+                                            let sev_color = match sev.as_str() {
+                                                "critical" | "high" => Colors::RED_LIGHT,
+                                                "medium" => Colors::YELLOW_WARNING,
+                                                _ => Colors::BLUE_INFO,
+                                            };
+                                            ui.label(RichText::new(sev.to_uppercase()).color(sev_color));
+                                        } else {
+                                            ui.label(RichText::new("-").color(Colors::TEXT_SECONDARY));
+                                        }
+                                        
+                                        // Tags
+                                        if !rule.tags.is_empty() {
+                                            let tags_str = rule.tags.join(", ");
+                                            ui.label(RichText::new(tags_str).small());
+                                        } else {
+                                            ui.label(RichText::new("-").color(Colors::TEXT_SECONDARY));
+                                        }
+                                        
+                                        // Actions
+                                        ui.horizontal(|ui| {
+                                            if ui.small_button("View").clicked() {
+                                                self.rule_mgmt_selected_rule = Some(rule_name.clone());
+                                            }
+                                        });
+                                        
+                                        ui.end_row();
+                                        
+                                        // Performance metrics (if enabled)
+                                        if self.rule_mgmt_show_metrics && rule.metrics.evaluation_count > 0 {
+                                            ui.label(""); // Skip enabled column
+                                            ui.label(RichText::new("Metrics:").small().strong());
+                                            ui.label(format!("Matches: {}", rule.metrics.match_count));
+                                            ui.label(format!("Rate: {:.1}%", rule.metrics.match_rate() * 100.0));
+                                            ui.label(format!("Avg: {:.2}μs", rule.metrics.avg_evaluation_time_us));
+                                            ui.label(""); // Skip actions column
+                                            ui.end_row();
+                                        }
+                                    }
+                                }
+                            });
+                    });
+            }
+            
+            // Rule details panel
+            if let Some(rule) = selected_rule_data {
+                    ui.add_space(10.0);
+                    ui.separator();
+                    ui.add_space(5.0);
+                    
+                    ui.group(|ui| {
+                        ui.heading(format!("Rule Details: {}", rule.name));
+                        ui.separator();
+                        
+                        egui::Grid::new("rule_details")
+                            .num_columns(2)
+                            .striped(true)
+                            .show(ui, |ui| {
+                                ui.label(RichText::new("Name:").strong());
+                                ui.label(RichText::new(&rule.name).monospace());
+                                ui.end_row();
+                                
+                                if let Some(ref ns) = rule.namespace {
+                                    ui.label(RichText::new("Namespace:").strong());
+                                    ui.label(ns);
+                                    ui.end_row();
+                                }
+                                
+                                if let Some(ref cat) = rule.category {
+                                    ui.label(RichText::new("Category:").strong());
+                                    ui.label(cat);
+                                    ui.end_row();
+                                }
+                                
+                                if let Some(ref desc) = rule.description {
+                                    ui.label(RichText::new("Description:").strong());
+                                    ui.label(desc);
+                                    ui.end_row();
+                                }
+                                
+                                if let Some(ref sev) = rule.severity {
+                                    ui.label(RichText::new("Severity:").strong());
+                                    let sev_color = match sev.as_str() {
+                                        "critical" | "high" => Colors::RED_LIGHT,
+                                        "medium" => Colors::YELLOW_WARNING,
+                                        _ => Colors::BLUE_INFO,
+                                    };
+                                    ui.label(RichText::new(sev.to_uppercase()).color(sev_color));
+                                    ui.end_row();
+                                }
+                                
+                                if !rule.tags.is_empty() {
+                                    ui.label(RichText::new("Tags:").strong());
+                                    ui.label(rule.tags.join(", "));
+                                    ui.end_row();
+                                }
+                                
+                                ui.label(RichText::new("Status:").strong());
+                                if rule.enabled {
+                                    ui.label(RichText::new("Enabled").color(Colors::GREEN_SUCCESS));
+                                } else {
+                                    ui.label(RichText::new("Disabled").color(Colors::TEXT_SECONDARY));
+                                }
+                                ui.end_row();
+                                
+                                if let Some(ref source) = rule.source_file {
+                                    ui.label(RichText::new("Source:").strong());
+                                    ui.label(source.display().to_string());
+                                    ui.end_row();
+                                }
+                            });
+                        
+                        // Performance metrics
+                        if rule.metrics.evaluation_count > 0 {
+                            ui.add_space(10.0);
+                            ui.separator();
+                            ui.heading("Performance Metrics");
+                            
+                            egui::Grid::new("rule_metrics")
+                                .num_columns(2)
+                                .striped(true)
+                                .show(ui, |ui| {
+                                    ui.label(RichText::new("Evaluations:").strong());
+                                    ui.label(format!("{}", rule.metrics.evaluation_count));
+                                    ui.end_row();
+                                    
+                                    ui.label(RichText::new("Matches:").strong());
+                                    ui.label(format!("{}", rule.metrics.match_count));
+                                    ui.end_row();
+                                    
+                                    ui.label(RichText::new("Match Rate:").strong());
+                                    ui.label(format!("{:.2}%", rule.metrics.match_rate() * 100.0));
+                                    ui.end_row();
+                                    
+                                    ui.label(RichText::new("Avg Evaluation Time:").strong());
+                                    ui.label(format!("{:.2} μs", rule.metrics.avg_evaluation_time_us));
+                                    ui.end_row();
+                                    
+                                    if let Some(last_match) = rule.metrics.last_match_time {
+                                        ui.label(RichText::new("Last Match:").strong());
+                                        let elapsed = last_match.elapsed();
+                                        let elapsed_str = if elapsed.as_secs() < 60 {
+                                            format!("{}s ago", elapsed.as_secs())
+                                        } else if elapsed.as_secs() < 3600 {
+                                            format!("{}m ago", elapsed.as_secs() / 60)
+                                        } else {
+                                            format!("{}h ago", elapsed.as_secs() / 3600)
+                                        };
+                                        ui.label(elapsed_str);
+                                        ui.end_row();
+                                    }
+                                });
+                        }
+                        
+                        // Rule content (if available)
+                        if let Some(ref content) = rule.content {
+                            ui.add_space(10.0);
+                            ui.separator();
+                            ui.heading("Rule Content");
+                            ui.add_space(5.0);
+                            
+                            egui::ScrollArea::vertical()
+                                .max_height(200.0)
+                                .show(ui, |ui| {
+                                    let mut content_display = content.clone();
+                                    ui.add(egui::TextEdit::multiline(&mut content_display)
+                                        .font(egui::TextStyle::Monospace)
+                                        .desired_width(f32::INFINITY)
+                                        .interactive(false));
+                                });
+                        }
+                        
+                        // Rule validation and testing
+                        ui.add_space(10.0);
+                        ui.separator();
+                        ui.heading("Rule Testing");
+                        ui.add_space(5.0);
+                        
+                        ui.horizontal(|ui| {
+                            if ui.button("Validate Rule").clicked() {
+                                self.validate_rule(&rule.name);
+                            }
+                            if ui.button("Test Rule").clicked() {
+                                self.test_rule(&rule.name);
+                            }
+                        });
+                        
+                        // Show validation/test results if available
+                        // (This would be stored in app state and displayed here)
+                    });
+                }
+        });
+    }
+
     /// Render execute tab
     fn render_execute_tab(&mut self, ui: &mut egui::Ui) {
         if let Some(bof) = &self.bof_file {
             let bof_clone = bof.clone();
             
-            // Show detected argument signature if available
-            if let Some(report) = &self.analysis_report {
+            // Show detected argument signature if available (or manual override)
+            let display_signature = if self.override_signature_detection && !self.manual_signature.is_empty() {
+                Some((self.manual_signature.clone(), true))
+            } else if let Some(report) = &self.analysis_report {
                 if !report.argument_signature.signature.is_empty() {
-                    ui.group(|ui| {
-                        ui.horizontal(|ui| {
-                            ui.label(RichText::new("📋 Expected Signature:").strong());
-                            ui.label(RichText::new(&report.argument_signature.signature)
-                                .monospace()
-                                .color(Colors::RED_ACCENT)
-                                .size(16.0));
-                            
+                    Some((report.argument_signature.signature.clone(), false))
+                } else {
+                    None
+                }
+            } else {
+                None
+            };
+            
+            if let Some((sig, is_override)) = display_signature {
+                ui.group(|ui| {
+                    ui.horizontal(|ui| {
+                        ui.label(RichText::new("📋 Expected Signature:").strong());
+                        ui.label(RichText::new(&sig)
+                            .monospace()
+                            .color(Colors::RED_ACCENT)
+                            .size(16.0));
+                        
+                        if is_override {
+                            ui.label(RichText::new("(manual override)")
+                                .small()
+                                .color(Colors::GREEN_SUCCESS));
+                        } else if let Some(report) = &self.analysis_report {
                             let conf_percent = (report.argument_signature.confidence * 100.0) as u8;
                             let conf_color = if conf_percent >= 70 { Colors::GREEN_SUCCESS }
                                 else if conf_percent >= 40 { Colors::YELLOW_WARNING }
@@ -816,29 +1937,74 @@ impl RedBofApp {
                             ui.label(RichText::new(format!("({}% confidence)", conf_percent))
                                 .small()
                                 .color(conf_color));
-                        });
-                        
-                        if !report.argument_signature.argument_types.is_empty() {
-                            ui.horizontal_wrapped(|ui| {
-                                for arg_info in &report.argument_signature.argument_types {
-                                    let type_char = match arg_info.arg_type {
-                                        crate::core::executor::arguments::ArgumentType::String => "z",
-                                        crate::core::executor::arguments::ArgumentType::WideString => "Z",
-                                        crate::core::executor::arguments::ArgumentType::Int32 => "i",
-                                        crate::core::executor::arguments::ArgumentType::Int16 => "s",
-                                        crate::core::executor::arguments::ArgumentType::Binary => "b",
-                                    };
-                                    ui.label(RichText::new(format!("[{}] {}", arg_info.position, type_char))
-                                        .monospace()
-                                        .background_color(Colors::BG_LIGHT)
-                                        .color(Colors::RED_ACCENT));
-                                }
-                            });
                         }
                     });
-                    ui.add_space(10.0);
-                }
+                    
+                    // Show argument breakdown
+                    if !is_override {
+                        if let Some(report) = &self.analysis_report {
+                            if !report.argument_signature.argument_types.is_empty() {
+                                ui.horizontal_wrapped(|ui| {
+                                    for arg_info in &report.argument_signature.argument_types {
+                                        let type_char = match arg_info.arg_type {
+                                            crate::core::executor::arguments::ArgumentType::String => "z",
+                                            crate::core::executor::arguments::ArgumentType::WideString => "Z",
+                                            crate::core::executor::arguments::ArgumentType::Int32 => "i",
+                                            crate::core::executor::arguments::ArgumentType::Int16 => "s",
+                                            crate::core::executor::arguments::ArgumentType::Binary => "b",
+                                        };
+                                        ui.label(RichText::new(format!("[{}] {}", arg_info.position, type_char))
+                                            .monospace()
+                                            .background_color(Colors::BG_LIGHT)
+                                            .color(Colors::RED_ACCENT));
+                                    }
+                                });
+                            }
+                        }
+                    } else {
+                        // Show manual signature breakdown
+                        ui.horizontal_wrapped(|ui| {
+                            for (i, ch) in sig.chars().enumerate() {
+                                ui.label(RichText::new(format!("[{}] {}", i, ch))
+                                    .monospace()
+                                    .background_color(Colors::BG_LIGHT)
+                                    .color(Colors::RED_ACCENT));
+                            }
+                        });
+                    }
+                });
+                ui.add_space(10.0);
             }
+            
+            // Signature override option
+            ui.group(|ui| {
+                ui.horizontal(|ui| {
+                    ui.checkbox(&mut self.override_signature_detection, "Override Signature Detection");
+                    if self.override_signature_detection {
+                        ui.label(RichText::new("Manual Signature:").small());
+                        ui.add(egui::TextEdit::singleline(&mut self.manual_signature)
+                            .hint_text("e.g., zi, zzi, iiz")
+                            .desired_width(100.0)
+                            .font(egui::TextStyle::Monospace));
+                        ui.label(RichText::new("(z=string, Z=wide, i=int32, s=int16, b=binary)")
+                            .small()
+                            .color(Colors::TEXT_MUTED));
+                    }
+                });
+                if self.override_signature_detection {
+                    ui.add_space(4.0);
+                    if self.manual_signature.trim().is_empty() {
+                        ui.label(RichText::new("⚠️ Warning: Override is enabled but manual signature is empty. Please enter a signature (e.g., 'zi', 'zzi') or disable override.")
+                            .small()
+                            .color(Colors::YELLOW_WARNING));
+                    } else {
+                        ui.label(RichText::new("ℹ️ When enabled, the manual signature will be used instead of auto-detected signature")
+                            .small()
+                            .color(Colors::TEXT_MUTED));
+                    }
+                }
+            });
+            ui.add_space(10.0);
             
             // Execution options panel
             ui.group(|ui| {
@@ -1071,13 +2237,30 @@ impl RedBofApp {
             // Check if we have a detected signature and use it for parsing
             let args_result = if self.execution_args.is_empty() {
                 Ok(Vec::new())
+            } else if self.override_signature_detection {
+                // Override mode: require manual signature
+                let manual_sig = self.manual_signature.trim();
+                if manual_sig.is_empty() {
+                    self.execution_output.push("Error: Override Signature Detection is enabled but manual signature is empty. Please enter a signature (e.g., 'zi', 'zzi') or disable override.".to_string());
+                    return;
+                }
+                // Use manual signature override
+                if executor::is_debug_mode() {
+                    eprintln!("[GUI] Using manual signature override '{}' to parse arguments", 
+                        manual_sig);
+                }
+                executor::arguments::parse_arguments_with_signature(
+                    &self.execution_args, 
+                    manual_sig
+                )
             } else if let Some(ref report) = self.analysis_report {
-                // Use detected signature if available and confidence is reasonable
-                if !report.argument_signature.signature.is_empty() 
-                    && report.argument_signature.confidence >= 0.5 {
+                // Use detected signature if available (even with low confidence)
+                // If signature is shown in GUI, user expects it to work
+                if !report.argument_signature.signature.is_empty() {
                     if executor::is_debug_mode() {
-                        eprintln!("[GUI] Using detected signature '{}' to parse arguments", 
-                            report.argument_signature.signature);
+                        eprintln!("[GUI] Using detected signature '{}' (confidence: {:.0}%) to parse arguments", 
+                            report.argument_signature.signature,
+                            report.argument_signature.confidence * 100.0);
                     }
                     executor::arguments::parse_arguments_with_signature(
                         &self.execution_args, 
@@ -1163,9 +2346,148 @@ impl RedBofApp {
             });
         }
     }
+    /// Validate a YARA rule
+    fn validate_rule(&mut self, rule_name: &str) {
+        #[cfg(feature = "yara")]
+        {
+            use yara::Compiler;
+            
+            if let Some(rule) = self.yara_rule_manager.get_rule(rule_name) {
+                if let Some(ref content) = rule.content {
+                    match Compiler::new() {
+                        Ok(compiler) => {
+                            match compiler.add_rules_str(content) {
+                                Ok(compiler) => {
+                                    match compiler.compile_rules() {
+                                        Ok(_) => {
+                                            self.status_message = format!("Rule '{}' is valid", rule_name);
+                                        }
+                                        Err(e) => {
+                                            self.status_message = format!("Rule '{}' compilation error: {}", rule_name, e);
+                                        }
+                                    }
+                                }
+                                Err(e) => {
+                                    self.status_message = format!("Rule '{}' syntax error: {}", rule_name, e);
+                                }
+                            }
+                        }
+                        Err(e) => {
+                            self.status_message = format!("YARA compiler initialization failed: {}", e);
+                        }
+                    }
+                } else {
+                    self.status_message = format!("Rule '{}' has no content to validate", rule_name);
+                }
+            } else {
+                self.status_message = format!("Rule '{}' not found", rule_name);
+            }
+        }
+        #[cfg(not(feature = "yara"))]
+        {
+            self.status_message = "YARA feature not enabled".to_string();
+        }
+    }
+    
+    /// Test a YARA rule against sample data
+    fn test_rule(&mut self, rule_name: &str) {
+        #[cfg(feature = "yara")]
+        {
+            use yara::Compiler;
+            
+            if let Some(rule) = self.yara_rule_manager.get_rule(rule_name) {
+                if let Some(ref content) = rule.content {
+                    // Compile the rule
+                    match Compiler::new() {
+                        Ok(compiler) => {
+                            match compiler.add_rules_str(content) {
+                                Ok(compiler) => {
+                                    match compiler.compile_rules() {
+                                        Ok(rules) => {
+                                            // Test against current BOF if available
+                                            if let Some(ref bof) = self.bof_file {
+                                                let start = std::time::Instant::now();
+                                                let mut matches = 0;
+                                                
+                                                // Test against all sections
+                                                for section in &bof.sections {
+                                                    if !section.data.is_empty() {
+                                                        if let Ok(scan_results) = rules.scan_mem(&section.data, 0) {
+                                                            if !scan_results.is_empty() {
+                                                                matches += scan_results.len();
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                
+                                                let duration = start.elapsed();
+                                                self.yara_rule_manager.update_metrics(rule_name, duration, matches > 0);
+                                                
+                                                if matches > 0 {
+                                                    self.status_message = format!("Rule '{}' matched {} time(s) in {:.2}ms", 
+                                                        rule_name, matches, duration.as_secs_f64() * 1000.0);
+                                                } else {
+                                                    self.status_message = format!("Rule '{}' did not match (tested in {:.2}ms)", 
+                                                        rule_name, duration.as_secs_f64() * 1000.0);
+                                                }
+                                                
+                                                // Trigger re-analysis to update metrics
+                                                if self.bof_file.is_some() {
+                                                    self.run_analysis();
+                                                }
+                                            } else {
+                                                self.status_message = "No BOF loaded - cannot test rule".to_string();
+                                            }
+                                        }
+                                        Err(e) => {
+                                            self.status_message = format!("Rule '{}' compilation error: {}", rule_name, e);
+                                        }
+                                    }
+                                }
+                                Err(e) => {
+                                    self.status_message = format!("Rule '{}' syntax error: {}", rule_name, e);
+                                }
+                            }
+                        }
+                        Err(e) => {
+                            self.status_message = format!("YARA compiler initialization failed: {}", e);
+                        }
+                    }
+                } else {
+                    self.status_message = format!("Rule '{}' has no content to test", rule_name);
+                }
+            } else {
+                self.status_message = format!("Rule '{}' not found", rule_name);
+            }
+        }
+        #[cfg(not(feature = "yara"))]
+        {
+            self.status_message = "YARA feature not enabled".to_string();
+        }
+    }
 }
 
 impl eframe::App for RedBofApp {
+    fn save(&mut self, storage: &mut dyn eframe::Storage) {
+        // Save YARA settings to eframe storage
+        let paths: Vec<String> = self.yara_rule_paths.iter()
+            .map(|p| p.to_string_lossy().to_string())
+            .collect();
+        if let Ok(paths_json) = serde_json::to_string(&paths) {
+            let key = format!("{}.yara_rule_paths", eframe::APP_KEY);
+            storage.set_string(&key, paths_json);
+        }
+        
+        let key_use_default = format!("{}.yara_use_default_rules", eframe::APP_KEY);
+        storage.set_string(&key_use_default, self.yara_use_default_rules.to_string());
+        
+        let key_folder = format!("{}.yara_persistent_folder", eframe::APP_KEY);
+        let folder_str = self.yara_persistent_folder.as_ref()
+            .map(|p| p.to_string_lossy().to_string())
+            .unwrap_or_default();
+        storage.set_string(&key_folder, folder_str);
+    }
+    
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         // Process async messages
         self.process_messages();

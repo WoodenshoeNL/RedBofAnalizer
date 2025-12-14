@@ -441,12 +441,13 @@ pub struct FormatParser {
 }
 
 /// Data store structure (simplified for emulation)
+/// Note: We use usize for buffer to avoid Send/Sync issues with raw pointers
 #[repr(C)]
 pub struct DataStoreObject {
     pub type_: c_int,
     pub hash: u64,
     pub masked: BOOL,
-    pub buffer: *mut c_char,
+    pub buffer: usize, // Store as usize to avoid Send/Sync issues, convert to *mut c_char when needed
     pub length: usize,
 }
 
@@ -582,13 +583,36 @@ fn get_key_value_store() -> &'static Mutex<HashMap<String, usize>> {
     KEY_VALUE_STORE.get_or_init(|| Mutex::new(HashMap::new()))
 }
 
+/// Data store for tracking allocated DataStoreObject items
+static DATA_STORE: OnceLock<Mutex<Vec<DataStoreObject>>> = OnceLock::new();
+
+fn get_data_store() -> &'static Mutex<Vec<DataStoreObject>> {
+    DATA_STORE.get_or_init(|| Mutex::new(Vec::new()))
+}
+
 impl BeaconApi {
     // ===== Token APIs =====
     
     /// BeaconUseToken implementation (Windows)
+    /// Impersonates a token for privilege escalation
     #[cfg(windows)]
     pub unsafe extern "C" fn beacon_use_token(token: HANDLE) -> BOOL {
+        // Record API call
+        crate::core::executor::tracer::record_api_call(
+            "BeaconUseToken".to_string(),
+            vec![],
+        );
+        
         if token.is_invalid() {
+            return BOOL::from(false);
+        }
+        
+        // Check sandbox
+        if !crate::core::executor::sandbox::is_api_allowed("BeaconUseToken") {
+            crate::core::executor::tracer::record_api_call(
+                "BeaconUseToken".to_string(),
+                vec!["BLOCKED_BY_SANDBOX".to_string()],
+            );
             return BOOL::from(false);
         }
         
@@ -607,8 +631,15 @@ impl BeaconApi {
     }
     
     /// BeaconRevertToken implementation (Windows)
+    /// Reverts to the original token (stops impersonation)
     #[cfg(windows)]
     pub unsafe extern "C" fn beacon_revert_token() {
+        // Record API call
+        crate::core::executor::tracer::record_api_call(
+            "BeaconRevertToken".to_string(),
+            vec![],
+        );
+        
         let _ = RevertToSelf();
     }
     
@@ -619,8 +650,15 @@ impl BeaconApi {
     }
     
     /// BeaconIsAdmin implementation (Windows)
+    /// Checks if the current process is running with administrator privileges
     #[cfg(windows)]
     pub unsafe extern "C" fn beacon_is_admin() -> BOOL {
+        // Record API call
+        crate::core::executor::tracer::record_api_call(
+            "BeaconIsAdmin".to_string(),
+            vec![],
+        );
+        
         // Open the process token
         let mut token = HANDLE::default();
         let process = GetCurrentProcess();
@@ -635,7 +673,7 @@ impl BeaconApi {
             return BOOL::from(false);
         }
         
-        // Check for admin privileges
+        // Check for admin privileges using TokenElevation
         let mut elevation: TOKEN_ELEVATION = std::mem::zeroed();
         let mut ret_len = 0u32;
         
@@ -650,8 +688,11 @@ impl BeaconApi {
         let _ = CloseHandle(token);
         
         if result.is_ok() {
-            BOOL::from(elevation.TokenIsElevated != 0)
+            let is_elevated = elevation.TokenIsElevated != 0;
+            BOOL::from(is_elevated)
         } else {
+            // If TokenElevation check failed, return false
+            // In a real beacon, this would typically succeed
             BOOL::from(false)
         }
     }
@@ -665,15 +706,26 @@ impl BeaconApi {
     // ===== Format APIs =====
     
     /// BeaconFormatAlloc implementation
+    /// Allocates a format buffer for building formatted strings
     pub unsafe extern "C" fn beacon_format_alloc(format: *mut FormatParser, maxsz: i32) {
+        // Record API call
+        crate::core::executor::tracer::record_api_call(
+            "BeaconFormatAlloc".to_string(),
+            vec![format!("maxsz={}", maxsz)],
+        );
+        
         if format.is_null() || maxsz <= 0 {
             return;
         }
         
+        // Allocate buffer with requested size
         let buffer = libc::malloc(maxsz as usize) as *mut u8;
         if buffer.is_null() {
             return;
         }
+        
+        // Initialize the buffer to zero for safety
+        std::ptr::write_bytes(buffer, 0, maxsz as usize);
         
         (*format).original = buffer;
         (*format).buffer = buffer;
@@ -806,22 +858,54 @@ impl BeaconApi {
     }
     
     /// BeaconFormatInt implementation
+    /// Appends an integer value to the format buffer
     pub unsafe extern "C" fn beacon_format_int(format: *mut FormatParser, value: i32) {
         if format.is_null() {
             return;
         }
         
         // Convert integer to string
-        let buffer = [0u8; 32];
         let formatted = format!("{}", value);
         let bytes = formatted.as_bytes();
-        let len = bytes.len().min((*format).length as usize).min(buffer.len());
+        let available = (*format).length as usize;
+        let len = bytes.len().min(available);
         
-        if len > 0 {
+        if len > 0 && available > 0 {
             std::ptr::copy_nonoverlapping(bytes.as_ptr(), (*format).buffer, len);
             (*format).buffer = (*format).buffer.add(len);
             (*format).length -= len as i32;
         }
+    }
+    
+    /// BeaconFormatShort implementation
+    /// Appends a short (int16) value to the format buffer
+    pub unsafe extern "C" fn beacon_format_short(format: *mut FormatParser, value: i16) {
+        if format.is_null() {
+            return;
+        }
+        
+        // Convert short to string
+        let formatted = format!("{}", value);
+        let bytes = formatted.as_bytes();
+        let available = (*format).length as usize;
+        let len = bytes.len().min(available);
+        
+        if len > 0 && available > 0 {
+            std::ptr::copy_nonoverlapping(bytes.as_ptr(), (*format).buffer, len);
+            (*format).buffer = (*format).buffer.add(len);
+            (*format).length -= len as i32;
+        }
+    }
+    
+    /// BeaconFormatLength implementation
+    /// Returns the length of data in the format buffer (size - remaining)
+    pub unsafe extern "C" fn beacon_format_length(format: *mut FormatParser) -> i32 {
+        if format.is_null() {
+            return 0;
+        }
+        
+        // Return the amount of data written (size - remaining length)
+        (*format).size - (*format).length
     }
     
     // ===== Memory APIs =====
@@ -917,17 +1001,24 @@ impl BeaconApi {
     /// Gets the spawn-to process name for process injection
     #[cfg(windows)]
     pub unsafe extern "C" fn beacon_get_spawn_to(
-        _x86: BOOL,
+        x86: BOOL,
         buffer: *mut c_char,
         length: c_int,
     ) {
+        // Record API call
+        crate::core::executor::tracer::record_api_call(
+            "BeaconGetSpawnTo".to_string(),
+            vec![format!("x86={}", x86.as_bool())],
+        );
+        
         if buffer.is_null() || length <= 0 {
             return;
         }
         
         // Check sandbox
         if !crate::core::executor::sandbox::is_api_allowed("BeaconGetSpawnTo") {
-            // Fill with default spawn-to process
+            // Fill with default spawn-to process even if sandboxed
+            // This allows BOFs to continue execution
             let default_spawn = b"rundll32.exe\0";
             let copy_len = (length as usize - 1).min(default_spawn.len() - 1);
             std::ptr::copy_nonoverlapping(default_spawn.as_ptr(), buffer as *mut u8, copy_len);
@@ -935,17 +1026,17 @@ impl BeaconApi {
             return;
         }
         
-        // Default spawn-to process
-        let default_spawn = b"rundll32.exe\0";
+        // Default spawn-to process based on architecture
+        // In a real beacon, this would come from the team server configuration
+        let default_spawn = if x86.as_bool() {
+            b"rundll32.exe\0"  // x86 process
+        } else {
+            b"rundll32.exe\0"  // x64 process (same default)
+        };
+        
         let copy_len = (length as usize - 1).min(default_spawn.len() - 1);
         std::ptr::copy_nonoverlapping(default_spawn.as_ptr(), buffer as *mut u8, copy_len);
         *buffer.add(copy_len) = 0;
-        
-        // Record API call
-        crate::core::executor::tracer::record_api_call(
-            "BeaconGetSpawnTo".to_string(),
-            vec![format!("x86={}", _x86.as_bool())],
-        );
     }
     
     /// BeaconGetSpawnTo implementation (non-Windows stub)
@@ -962,11 +1053,20 @@ impl BeaconApi {
     /// Spawns a temporary process for injection
     #[cfg(windows)]
     pub unsafe extern "C" fn beacon_spawn_temporary_process(
-        _x86: BOOL,
-        _ignore_token: BOOL,
+        x86: BOOL,
+        ignore_token: BOOL,
         si: *mut windows::Win32::System::Threading::STARTUPINFOW,
         pi: *mut windows::Win32::System::Threading::PROCESS_INFORMATION,
     ) -> BOOL {
+        // Record API call
+        crate::core::executor::tracer::record_api_call(
+            "BeaconSpawnTemporaryProcess".to_string(),
+            vec![
+                format!("x86={}", x86.as_bool()),
+                format!("ignore_token={}", ignore_token.as_bool()),
+            ],
+        );
+        
         if si.is_null() || pi.is_null() {
             return BOOL::from(false);
         }
@@ -980,17 +1080,11 @@ impl BeaconApi {
             return BOOL::from(false);
         }
         
-        // Record API call
-        crate::core::executor::tracer::record_api_call(
-            "BeaconSpawnTemporaryProcess".to_string(),
-            vec![
-                format!("x86={}", _x86.as_bool()),
-                format!("ignore_token={}", _ignore_token.as_bool()),
-            ],
-        );
+        // In emulation, we don't actually spawn processes for safety
+        // Initialize PROCESS_INFORMATION to zero to indicate failure
+        // In a real beacon, this would spawn the process specified by BeaconGetSpawnTo
+        std::ptr::write_bytes(pi as *mut u8, 0, std::mem::size_of::<windows::Win32::System::Threading::PROCESS_INFORMATION>());
         
-        // Stub implementation - in a real scenario, this would spawn a process
-        // For safety, we return FALSE to indicate failure
         BOOL::from(false)
     }
     
@@ -1332,15 +1426,309 @@ impl BeaconApi {
         }
     }
     
+    /// BeaconGetIntValue implementation
+    /// Gets an integer value from the key/value store
+    pub unsafe extern "C" fn beacon_get_int_value(key: *const c_char) -> i32 {
+        if key.is_null() {
+            return 0;
+        }
+        
+        if let Ok(key_str) = CStr::from_ptr(key).to_str() {
+            if let Ok(store) = get_key_value_store().lock() {
+                store.get(key_str)
+                    .map(|&addr| addr as i32)
+                    .unwrap_or(0)
+            } else {
+                0
+            }
+        } else {
+            0
+        }
+    }
+    
+    /// BeaconGetShortValue implementation
+    /// Gets a short (int16) value from the key/value store
+    pub unsafe extern "C" fn beacon_get_short_value(key: *const c_char) -> i16 {
+        if key.is_null() {
+            return 0;
+        }
+        
+        if let Ok(key_str) = CStr::from_ptr(key).to_str() {
+            if let Ok(store) = get_key_value_store().lock() {
+                store.get(key_str)
+                    .map(|&addr| addr as i16)
+                    .unwrap_or(0)
+            } else {
+                0
+            }
+        } else {
+            0
+        }
+    }
+    
+    /// BeaconGetCharValue implementation
+    /// Gets a char value from the key/value store
+    pub unsafe extern "C" fn beacon_get_char_value(key: *const c_char) -> c_char {
+        if key.is_null() {
+            return 0;
+        }
+        
+        if let Ok(key_str) = CStr::from_ptr(key).to_str() {
+            if let Ok(store) = get_key_value_store().lock() {
+                store.get(key_str)
+                    .map(|&addr| addr as u8 as c_char)
+                    .unwrap_or(0)
+            } else {
+                0
+            }
+        } else {
+            0
+        }
+    }
+    
+    /// BeaconGetPtrValue implementation
+    /// Gets a pointer value from the key/value store (alias for BeaconGetValue)
+    pub unsafe extern "C" fn beacon_get_ptr_value(key: *const c_char) -> *mut std::ffi::c_void {
+        Self::beacon_get_value(key)
+    }
+    
+    /// BeaconGetSizeValue implementation
+    /// Gets a size_t value from the key/value store
+    pub unsafe extern "C" fn beacon_get_size_value(key: *const c_char) -> usize {
+        if key.is_null() {
+            return 0;
+        }
+        
+        if let Ok(key_str) = CStr::from_ptr(key).to_str() {
+            if let Ok(store) = get_key_value_store().lock() {
+                store.get(key_str)
+                    .copied()
+                    .unwrap_or(0)
+            } else {
+                0
+            }
+        } else {
+            0
+        }
+    }
+    
+    /// BeaconGetDataValue implementation
+    /// Gets a data buffer value from the key/value store
+    /// Returns pointer to data and sets size if provided
+    pub unsafe extern "C" fn beacon_get_data_value(
+        key: *const c_char,
+        size: *mut usize,
+    ) -> *const u8 {
+        if key.is_null() {
+            if !size.is_null() {
+                *size = 0;
+            }
+            return std::ptr::null();
+        }
+        
+        if let Ok(key_str) = CStr::from_ptr(key).to_str() {
+            if let Ok(store) = get_key_value_store().lock() {
+                if store.get(key_str).is_some() {
+                    // In a real implementation, this would return a pointer to stored data
+                    // For emulation, we return NULL as we only store pointers, not data buffers
+                    if !size.is_null() {
+                        *size = 0;
+                    }
+                    std::ptr::null()
+                } else {
+                    if !size.is_null() {
+                        *size = 0;
+                    }
+                    std::ptr::null()
+                }
+            } else {
+                if !size.is_null() {
+                    *size = 0;
+                }
+                std::ptr::null()
+            }
+        } else {
+            if !size.is_null() {
+                *size = 0;
+            }
+            std::ptr::null()
+        }
+    }
+    
     // ===== Data Store APIs =====
+    
+    /// BeaconDataStoreAlloc implementation
+    /// Allocates a new data store object
+    pub unsafe extern "C" fn beacon_data_store_alloc(
+        type_: c_int,
+        size: usize,
+    ) -> *mut DataStoreObject {
+        if size == 0 {
+            return std::ptr::null_mut();
+        }
+        
+        // Allocate buffer for the data
+        let buffer = libc::malloc(size) as *mut c_char;
+        if buffer.is_null() {
+            return std::ptr::null_mut();
+        }
+        
+        // Initialize buffer to zero
+        std::ptr::write_bytes(buffer, 0, size);
+        
+        // Create data store object
+        let obj = DataStoreObject {
+            type_,
+            hash: 0, // Will be set when protected
+            masked: BOOL::from(false),
+            buffer: buffer as usize, // Store as usize
+            length: size,
+        };
+        
+        // Add to data store
+        if let Ok(mut store) = get_data_store().lock() {
+            store.push(obj);
+            // Return pointer to the last item (the one we just added)
+            if let Some(last) = store.last_mut() {
+                last as *mut DataStoreObject
+            } else {
+                libc::free(buffer as *mut _);
+                std::ptr::null_mut()
+            }
+        } else {
+            libc::free(buffer as *mut _);
+            std::ptr::null_mut()
+        }
+    }
+    
+    /// BeaconDataStoreReset implementation
+    /// Resets the data store (clears all items)
+    pub unsafe extern "C" fn beacon_data_store_reset() {
+        if let Ok(mut store) = get_data_store().lock() {
+            // Free all allocated buffers
+            for obj in store.iter() {
+                if obj.buffer != 0 {
+                    libc::free(obj.buffer as *mut _);
+                }
+            }
+            store.clear();
+        }
+    }
+    
+    /// BeaconDataStoreFree implementation
+    /// Frees a specific data store object
+    pub unsafe extern "C" fn beacon_data_store_free(obj: *mut DataStoreObject) -> BOOL {
+        if obj.is_null() {
+            return BOOL::from(false);
+        }
+        
+        if let Ok(mut store) = get_data_store().lock() {
+            // Find and remove the object
+            if let Some(pos) = store.iter().position(|o| o as *const _ == obj as *const _) {
+                let removed = store.remove(pos);
+                if removed.buffer != 0 {
+                    libc::free(removed.buffer as *mut _);
+                }
+                BOOL::from(true)
+            } else {
+                BOOL::from(false)
+            }
+        } else {
+            BOOL::from(false)
+        }
+    }
+    
+    /// BeaconDataStoreAdd implementation
+    /// Adds data to the data store (creates new object)
+    pub unsafe extern "C" fn beacon_data_store_add(
+        type_: c_int,
+        data: *const u8,
+        size: usize,
+    ) -> *mut DataStoreObject {
+        if data.is_null() || size == 0 {
+            return std::ptr::null_mut();
+        }
+        
+        // Allocate buffer
+        let buffer = libc::malloc(size) as *mut c_char;
+        if buffer.is_null() {
+            return std::ptr::null_mut();
+        }
+        
+        // Copy data
+        std::ptr::copy_nonoverlapping(data, buffer as *mut u8, size);
+        
+        // Create object
+        let obj = DataStoreObject {
+            type_,
+            hash: 0,
+            masked: BOOL::from(false),
+            buffer: buffer as usize, // Store as usize
+            length: size,
+        };
+        
+        // Add to store
+        if let Ok(mut store) = get_data_store().lock() {
+            store.push(obj);
+            if let Some(last) = store.last_mut() {
+                last as *mut DataStoreObject
+            } else {
+                libc::free(buffer as *mut _);
+                std::ptr::null_mut()
+            }
+        } else {
+            libc::free(buffer as *mut _);
+            std::ptr::null_mut()
+        }
+    }
+    
+    /// BeaconDataStoreGet implementation
+    /// Gets a data store object by index
+    pub unsafe extern "C" fn beacon_data_store_get(
+        index: usize,
+    ) -> *mut DataStoreObject {
+        if let Ok(store) = get_data_store().lock() {
+            store.get(index)
+                .map(|obj| obj as *const _ as *mut DataStoreObject)
+                .unwrap_or(std::ptr::null_mut())
+        } else {
+            std::ptr::null_mut()
+        }
+    }
+    
+    /// BeaconDataStoreRemove implementation
+    /// Removes a data store object by index
+    pub unsafe extern "C" fn beacon_data_store_remove(index: usize) -> BOOL {
+        if let Ok(mut store) = get_data_store().lock() {
+            if index < store.len() {
+                let removed = store.remove(index);
+                if removed.buffer != 0 {
+                    libc::free(removed.buffer as *mut _);
+                }
+                BOOL::from(true)
+            } else {
+                BOOL::from(false)
+            }
+        } else {
+            BOOL::from(false)
+        }
+    }
+    
+    /// BeaconDataStoreSize implementation
+    /// Returns the number of items in the data store
+    pub unsafe extern "C" fn beacon_data_store_size() -> usize {
+        if let Ok(store) = get_data_store().lock() {
+            store.len()
+        } else {
+            0
+        }
+    }
     
     /// BeaconDataStoreGetItem implementation
     pub unsafe extern "C" fn beacon_data_store_get_item(
-        _index: usize,
+        index: usize,
     ) -> *mut DataStoreObject {
-        // In a real implementation, this would return items from beacon's data store
-        // For emulation, we return NULL
-        std::ptr::null_mut()
+        Self::beacon_data_store_get(index)
     }
     
     /// BeaconDataStoreProtectItem implementation
@@ -1365,6 +1753,11 @@ impl BeaconApi {
         // In a real implementation, this would return custom user data
         // For emulation, we return NULL
         std::ptr::null()
+    }
+    
+    /// BeaconGetUserData implementation (alias for BeaconGetCustomUserData)
+    pub unsafe extern "C" fn beacon_get_user_data() -> *const c_char {
+        Self::beacon_get_custom_user_data()
     }
     
     // ===== Syscall Information APIs =====
@@ -1757,15 +2150,35 @@ impl BeaconApi {
     }
     
     /// BeaconUnmapViewOfFile implementation (Windows)
-    /// Note: This is a stub implementation. Full implementation would require tracking
-    /// mapped file views. For BOF execution, this is typically not needed.
+    /// Unmaps a view of a file from the calling process's address space
     #[cfg(windows)]
     pub unsafe extern "C" fn beacon_unmap_view_of_file(
-        _base_address: *const std::ffi::c_void,
+        base_address: *const std::ffi::c_void,
     ) -> BOOL {
-        // Stub implementation - UnmapViewOfFile requires tracking mapped views
-        // which is complex. For BOF execution, this is rarely used.
-        BOOL::from(false)
+        if base_address.is_null() {
+            return BOOL::from(false);
+        }
+        
+        use windows::Win32::System::Memory::{UnmapViewOfFile, MEMORY_MAPPED_VIEW_ADDRESS};
+        
+        // Record API call
+        crate::core::executor::tracer::record_api_call(
+            "BeaconUnmapViewOfFile".to_string(),
+            vec![format!("address={:p}", base_address)],
+        );
+        
+        // Attempt to unmap the view
+        // Note: This will only work if the address was actually mapped via MapViewOfFile
+        // For emulation purposes, we try the call but it may fail if not a mapped view
+        let view_address = MEMORY_MAPPED_VIEW_ADDRESS { Value: base_address as *mut std::ffi::c_void };
+        match UnmapViewOfFile(view_address) {
+            Ok(_) => BOOL::from(true),
+            Err(_) => {
+                // In emulation, this is expected to fail for non-mapped addresses
+                // Return false to indicate failure
+                BOOL::from(false)
+            }
+        }
     }
     
     /// BeaconUnmapViewOfFile implementation (non-Windows stub)
@@ -1857,15 +2270,24 @@ impl BeaconApi {
         n_size: usize,
         lp_number_of_bytes_read: *mut usize,
     ) -> BOOL {
-        if lp_base_address.is_null() || lp_buffer.is_null() || n_size == 0 || h_process.is_invalid() {
+        if lp_base_address.is_null() || lp_buffer.is_null() || n_size == 0 {
             return BOOL::from(false);
         }
         
         use windows::Win32::System::Diagnostics::Debug::ReadProcessMemory;
         
+        // In Cobalt Strike, passing -1 (INVALID_HANDLE_VALUE) means read from current process
+        let process_handle = if h_process.is_invalid() {
+            // Check if it's -1 (INVALID_HANDLE_VALUE) - means current process
+            // On Windows, INVALID_HANDLE_VALUE is -1, which when cast to HANDLE becomes 0xFFFFFFFFFFFFFFFF
+            GetCurrentProcess()
+        } else {
+            h_process
+        };
+        
         let mut bytes_read = 0;
         match ReadProcessMemory(
-            h_process,
+            process_handle,
             lp_base_address,
             lp_buffer,
             n_size,
@@ -1936,6 +2358,60 @@ impl BeaconApi {
         _lp_number_of_bytes_written: *mut usize,
     ) -> i32 {
         0
+    }
+    
+    // ===== Beacon Gate APIs =====
+    
+    /// BeaconDisableBeaconGate implementation
+    /// Disables the beacon gate mechanism
+    pub unsafe extern "C" fn beacon_disable_beacon_gate() {
+        // Record API call
+        crate::core::executor::tracer::record_api_call(
+            "BeaconDisableBeaconGate".to_string(),
+            vec![],
+        );
+        
+        // In emulation, this is a no-op as we don't have a real beacon gate
+        // In a real beacon, this would disable the gate mechanism
+    }
+    
+    /// BeaconEnableBeaconGate implementation
+    /// Enables the beacon gate mechanism
+    pub unsafe extern "C" fn beacon_enable_beacon_gate() {
+        // Record API call
+        crate::core::executor::tracer::record_api_call(
+            "BeaconEnableBeaconGate".to_string(),
+            vec![],
+        );
+        
+        // In emulation, this is a no-op as we don't have a real beacon gate
+        // In a real beacon, this would enable the gate mechanism
+    }
+    
+    /// BeaconDisableBeaconGateMasking implementation
+    /// Disables masking for the beacon gate
+    pub unsafe extern "C" fn beacon_disable_beacon_gate_masking() {
+        // Record API call
+        crate::core::executor::tracer::record_api_call(
+            "BeaconDisableBeaconGateMasking".to_string(),
+            vec![],
+        );
+        
+        // In emulation, this is a no-op as we don't have a real beacon gate masking
+        // In a real beacon, this would disable masking for the gate
+    }
+    
+    /// BeaconEnableBeaconGateMasking implementation
+    /// Enables masking for the beacon gate
+    pub unsafe extern "C" fn beacon_enable_beacon_gate_masking() {
+        // Record API call
+        crate::core::executor::tracer::record_api_call(
+            "BeaconEnableBeaconGateMasking".to_string(),
+            vec![],
+        );
+        
+        // In emulation, this is a no-op as we don't have a real beacon gate masking
+        // In a real beacon, this would enable masking for the gate
     }
 }
 

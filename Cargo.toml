@@ -40,8 +40,17 @@ colored = "2.1"
 # Hex encoding/decoding
 hex = "0.4"
 
+# Lazy static initialization
+lazy_static = "1.4"
+
 # Disassembly (Phase 2.3)
 iced-x86 = "1.21"
+
+# YARA rule matching (Phase 6.1) - Enabled by default
+# Using "vendored" feature builds YARA from source automatically (easiest option)
+# Remove "vendored" if you want to use system-installed YARA (requires manual setup)
+# To build without YARA: cargo build --no-default-features
+yara = { version = "0.31", optional = true, package = "yara", features = ["vendored"] }
 
 # GUI dependencies (Phase 5)
 egui = "0.29"
@@ -60,6 +69,10 @@ windows = { version = "0.58", features = [
     "Win32_System_Threading",
     "Win32_Security",
 ] }
+
+[features]
+default = ["yara"]
+yara = ["dep:yara"]
 
 [dev-dependencies]
 # Testing utilities

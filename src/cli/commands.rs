@@ -16,16 +16,124 @@ pub fn analyze(
     dependencies: bool,
     lints: bool,
     relocs: bool,
+    enhanced: bool,
     output_file: Option<PathBuf>,
     format: OutputFormat,
+    yara_rules: &[core::analyzer::YaraRuleSource],
 ) -> Result<()> {
     info!("Analyzing BOF file: {:?}", file);
+
+    // Check if file exists
+    if !file.exists() {
+        anyhow::bail!("BOF file not found: {:?}", file);
+    }
 
     // Load and parse BOF
     let bof = core::parser::load_bof(&file)?;
     
     // Perform analysis
-    let report = core::analyzer::analyze(&bof, security, disasm, apis, dependencies, lints, relocs)?;
+    // Use default rules if no custom rules provided, otherwise don't use defaults (CLI behavior)
+    let use_default_rules = yara_rules.is_empty();
+    let report = core::analyzer::analyze(&bof, security, disasm, apis, dependencies, lints, relocs, yara_rules, use_default_rules)?;
+    
+    // Perform enhanced analysis if requested
+    if enhanced {
+        let enhanced_opsec = core::analyzer::analyze_api_opsec(&bof.imports);
+        let compatibility = core::analyzer::analyze_compatibility(&bof);
+        let calling_conv = core::analyzer::analyze_calling_conventions(&bof);
+        
+        // Display enhanced analysis results
+        if matches!(format, OutputFormat::Text) {
+            println!("\n=== Enhanced OpSec Analysis ===");
+            println!("OpSec Score: {}/100", enhanced_opsec.opsec_score);
+            
+            if !enhanced_opsec.risky_combinations.is_empty() {
+                println!("\nRisky API Combinations:");
+                for combo in &enhanced_opsec.risky_combinations {
+                    println!("  [!] {}: {}", 
+                        match combo.risk_level {
+                            core::analyzer::opsec::OpsecCategory::LowRisk => "LOW",
+                            core::analyzer::opsec::OpsecCategory::MediumRisk => "MEDIUM",
+                            core::analyzer::opsec::OpsecCategory::HighRisk => "HIGH",
+                            core::analyzer::opsec::OpsecCategory::CriticalRisk => "CRITICAL",
+                        },
+                        combo.description);
+                    println!("      APIs: {}", combo.apis.join(", "));
+                    println!("      Recommendation: {}", combo.recommendation);
+                }
+            }
+            
+            if !enhanced_opsec.suspicious_patterns.is_empty() {
+                println!("\nSuspicious Patterns:");
+                for pattern in &enhanced_opsec.suspicious_patterns {
+                    println!("  [!] {}: {}", 
+                        match pattern.severity {
+                            core::analyzer::opsec::OpsecCategory::LowRisk => "LOW",
+                            core::analyzer::opsec::OpsecCategory::MediumRisk => "MEDIUM",
+                            core::analyzer::opsec::OpsecCategory::HighRisk => "HIGH",
+                            core::analyzer::opsec::OpsecCategory::CriticalRisk => "CRITICAL",
+                        },
+                        pattern.description);
+                }
+            }
+            
+            if !enhanced_opsec.recommendations.is_empty() {
+                println!("\nRecommendations:");
+                for rec in &enhanced_opsec.recommendations {
+                    println!("  - {}", rec);
+                }
+            }
+            
+            println!("\n=== Compatibility Analysis ===");
+            println!("Compatible with: {}", 
+                compatibility.compatible_versions.iter()
+                    .map(|v| format!("{}", v))
+                    .collect::<Vec<_>>()
+                    .join(", "));
+            
+            if !compatibility.version_specific_features.is_empty() {
+                println!("\nVersion-Specific Features:");
+                for feature in &compatibility.version_specific_features {
+                    println!("  - {}", feature);
+                }
+            }
+            
+            if !compatibility.issues.is_empty() {
+                println!("\nCompatibility Issues:");
+                for issue in &compatibility.issues {
+                    println!("  [{}] {} (affects: {})", 
+                        match issue.severity {
+                            core::analyzer::compatibility::CompatibilitySeverity::Info => "INFO",
+                            core::analyzer::compatibility::CompatibilitySeverity::Warning => "WARN",
+                            core::analyzer::compatibility::CompatibilitySeverity::Error => "ERROR",
+                        },
+                        issue.message,
+                        issue.affected_versions.iter()
+                            .map(|v| format!("{}", v))
+                            .collect::<Vec<_>>()
+                            .join(", "));
+                    println!("      Recommendation: {}", issue.recommendation);
+                }
+            }
+            
+            println!("\n=== Calling Convention Analysis ===");
+            println!("Detected Convention: {}", calling_conv.detected_convention);
+            
+            if !calling_conv.issues.is_empty() {
+                println!("\nIssues:");
+                for issue in &calling_conv.issues {
+                    println!("  [{}] {}: {}", 
+                        match issue.severity {
+                            core::analyzer::calling_convention::IssueSeverity::Info => "INFO",
+                            core::analyzer::calling_convention::IssueSeverity::Warning => "WARN",
+                            core::analyzer::calling_convention::IssueSeverity::Error => "ERROR",
+                        },
+                        issue.location,
+                        issue.message);
+                }
+            }
+        }
+    }
 
     // Format and output report
     let formatted = match format {

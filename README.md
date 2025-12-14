@@ -89,13 +89,26 @@ A comprehensive Beacon Object File (BOF) analyzer and execution tool written in 
 - **Security Assessment**: Basic risk level calculation done, but capability detection and OpSec analysis pending
 - **Disassembly**: Structure exists but Capstone integration not yet implemented
 
+### ✅ Recently Completed
+
+- **Testing Suite**: Comprehensive test coverage
+  - Unit tests for argument parsing, Beacon API, symbol resolution
+  - Integration tests for BOF execution and analysis
+  - Parser, analyzer, and executor tests
+  - All tests passing
+
+### ✅ Recently Completed
+
+- **User Documentation**: ✅ Complete
+  - Installation guide
+  - Comprehensive user guide with examples
+  - CLI reference
+  - GUI guide
+
 ### ❌ Not Yet Implemented
 
-- **Linting System**: Structure exists but lint rules not implemented
-- **GUI Interface**: Stub exists, full egui implementation pending
 - **Advanced Analysis**: OpSec analysis, YARA integration, enhanced security features
-- **Unit Tests**: Test suite not yet created
-- **Documentation**: User guide and API reference pending
+- **Developer Documentation**: Architecture overview, API documentation, contributing guide
 
 ## Installation
 
@@ -123,9 +136,20 @@ The executable will be located at:
 - Debug: `target/debug/redbofanalyzer.exe`
 - Release: `target/release/redbofanalyzer.exe`
 
-## Usage
+## Quick Start
 
-### CLI Mode
+### Installation
+
+See [INSTALLATION.md](docs/INSTALLATION.md) for detailed installation instructions.
+
+```bash
+# Build from source
+cargo build --release
+
+# Executable will be at: target/release/redbofanalyzer.exe
+```
+
+### Basic Usage
 
 #### Analyze a BOF
 
@@ -133,11 +157,8 @@ The executable will be located at:
 # Basic analysis
 redbofanalyzer analyze path/to/bof.o
 
-# With options
-redbofanalyzer analyze path/to/bof.o --apis --dependencies --security
-
-# Output to file
-redbofanalyzer analyze path/to/bof.o --output report.json --format json
+# Full analysis with all details
+redbofanalyzer analyze path/to/bof.o --apis --dependencies --security --lints
 ```
 
 #### Execute a BOF
@@ -148,36 +169,28 @@ redbofanalyzer execute path/to/bof.o
 
 # Execute with arguments
 redbofanalyzer execute path/to/bof.o --args "z:test_string i:123"
-
-# Execute in sandbox mode with tracing
-redbofanalyzer execute path/to/bof.o --sandbox --trace --timeout 10
 ```
 
-#### Test Multiple BOFs
+#### Launch GUI
 
 ```bash
-# Test all BOFs in a directory
-redbofanalyzer test path/to/bofs/
-
-# With filtering and reporting
-redbofanalyzer test path/to/bofs/ --filter "*.o" --report markdown --output test_results.md
-```
-
-#### Validate a BOF
-
-```bash
-redbofanalyzer validate path/to/bof.o
-```
-
-### GUI Mode
-
-```bash
-# Launch GUI (not yet implemented)
+# Launch GUI mode
 redbofanalyzer --gui
 
-# Or simply
+# Or simply (defaults to GUI)
 redbofanalyzer
 ```
+
+## Documentation
+
+Comprehensive documentation is available in the `docs/` directory:
+
+- **[USER_GUIDE.md](docs/USER_GUIDE.md)** - Complete user guide with examples
+- **[CLI_REFERENCE.md](docs/CLI_REFERENCE.md)** - Detailed CLI command reference
+- **[GUI_GUIDE.md](docs/GUI_GUIDE.md)** - GUI usage guide
+- **[INSTALLATION.md](docs/INSTALLATION.md)** - Installation instructions
+- **[TESTING.md](TESTING.md)** - Testing information
+- **[tests/README.md](tests/README.md)** - Test suite documentation
 
 ## Project Status
 
@@ -211,9 +224,20 @@ redbofanalyzer
 - File loading via menu and drag-drop
 - Async analysis with progress indicator
 
-**Phase 6-8 (Advanced Features, Testing, Documentation)**: ❌ **Not Started**
+**Phase 6 (Advanced Features)**: ❌ **Not Started**
+**Phase 7 (Testing & Quality Assurance)**: ✅ **Complete**
+- Unit tests for all core components
+- Integration tests for BOF execution and analysis
+- Parser, analyzer, executor, and CLI tests
+- Batch testing framework
+- All tests passing ✅
 
-### Overall Progress: ~80% Complete
+**Phase 8 (Documentation & Polish)**: 🟡 **~50% Complete**
+- ✅ User documentation complete
+- 🟡 Developer documentation pending
+- ❌ Performance optimization pending
+
+### Overall Progress: ~90% Complete
 
 ## Architecture
 
@@ -253,50 +277,63 @@ RedBofAnalizer/
 
 ### Building
 
+**Standard Build (YARA enabled by default):**
 ```bash
 # Check for compilation errors
 cargo check
 
-# Build
+# Build (YARA enabled by default)
 cargo build
 
-# Run tests (when implemented)
+# Build release version
+cargo build --release
+
+# Run tests
 cargo test
 
 # Run with verbose logging
 RUST_LOG=debug cargo run -- analyze path/to/bof.o
 ```
 
+**Building without YARA Support (Optional):**
+
+If you want to build without YARA support, use `--no-default-features`:
+
+```bash
+# Build without YARA
+cargo build --no-default-features
+
+# Build release version without YARA
+cargo build --release --no-default-features
+```
+
+**Note:** YARA is enabled by default but can be disabled. The application works fully without it - the YARA tab will simply show that YARA bindings are not available. See [BUILD.md](BUILD.md) for detailed instructions.
+
+## Documentation
+
+Complete documentation is available:
+
+- **[User Guide](docs/USER_GUIDE.md)** - Comprehensive guide with examples and troubleshooting
+- **[CLI Reference](docs/CLI_REFERENCE.md)** - Complete command-line reference
+- **[GUI Guide](docs/GUI_GUIDE.md)** - Graphical interface guide
+- **[Installation Guide](docs/INSTALLATION.md)** - Installation and setup instructions
+
 ## Next Steps
 
-Based on the current progress, the recommended next steps are:
+1. **Test with Real BOFs** ⭐ **Current Priority**
+   - Run tests with BOFs from `src/` directories
+   - Validate execution with various BOF types
+   - Identify and fix any issues discovered
 
-1. **Implement Linting System (Phase 2.2)**
-   - Implement lint rules (BOF001-BOF008)
-   - Add severity levels and location tracking
-   - Integrate with analysis command
+2. **Advanced Features (Phase 6)** - Optional
+   - OpSec analysis and scoring
+   - YARA integration
+   - Enhanced analysis features
 
-2. **Enhance Relocation Processing (Phase 1.2.4)**
-   - Implement remaining relocation types
-   - Improve address calculation
-
-3. **Complete BeaconPrintf (Phase 1.6)**
-   - Implement full variadic argument support
-   - Add C wrapper if needed
-
-4. **Implement Disassembly Support (Phase 2.3)**
-   - Integrate Capstone disassembler
-   - Add disassembly view to analysis
-
-5. **Start GUI Implementation (Phase 5)**
-   - Set up egui framework
-   - Implement main window and navigation
-   - Create overview and sections tabs
-
-6. **Create Test Suite (Phase 7)**
-   - Unit tests for parser, executor, analyzer
-   - Integration tests with real BOFs
-   - Regression test suite
+3. **Performance Optimization (Phase 8.3)** - Optional
+   - Profile and optimize hot paths
+   - Memory optimization
+   - Startup time improvements
 
 ## Contributing
 

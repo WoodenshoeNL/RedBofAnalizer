@@ -10,7 +10,10 @@ pub enum ActiveTab {
     Symbols,
     Imports,
     Lints,
+    OpSec,
     Disassembly,
+    StackAnalysis,
+    Yara,
     Execute,
 }
 
@@ -29,7 +32,10 @@ impl ActiveTab {
             Self::Symbols => "Symbols",
             Self::Imports => "Imports",
             Self::Lints => "Lints",
+            Self::OpSec => "OpSec",
             Self::Disassembly => "Disassembly",
+            Self::StackAnalysis => "Stack",
+            Self::Yara => "YARA",
             Self::Execute => "Execute",
         }
     }
@@ -42,7 +48,10 @@ impl ActiveTab {
             Self::Symbols => "🔣",
             Self::Imports => "📥",
             Self::Lints => "⚠️",
+            Self::OpSec => "🔒",
             Self::Disassembly => "💻",
+            Self::StackAnalysis => "📊",
+            Self::Yara => "🔍",
             Self::Execute => "▶️",
         }
     }

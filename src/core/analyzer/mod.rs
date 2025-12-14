@@ -2,6 +2,12 @@
 
 pub mod linter;
 pub mod signatures;
+pub mod opsec;
+pub mod compatibility;
+pub mod calling_convention;
+pub mod stack_analysis;
+pub mod yara;
+pub mod yara_rules;
 
 use crate::core::models::bof::BofFile;
 use crate::core::models::report::{
@@ -13,7 +19,18 @@ use anyhow::Result;
 use std::fs;
 
 pub use linter::get_lint_summary;
-pub use signatures::{detect_argument_signature, ArgumentSignature};
+pub use opsec::analyze_api_opsec;
+pub use compatibility::analyze_compatibility;
+pub use calling_convention::analyze_calling_conventions;
+// Stack and YARA analysis are used internally but exported for potential external use
+#[allow(unused_imports)] // Exported for external use
+pub use stack_analysis::analyze_stack_usage;
+#[allow(unused_imports)] // Exported for external use
+pub use yara::{analyze_with_yara, YaraRuleSource, create_default_bof_rules, save_default_rules_to_file};
+#[allow(unused_imports)] // Exported for external use
+pub use yara_rules::{RuleManager, RuleInfo, RuleMetrics, extract_rule_info_from_rules};
+// Note: detect_argument_signature and ArgumentSignature are used internally but not exported
+// pub use signatures::{detect_argument_signature, ArgumentSignature};
 
 /// Analyze a BOF file
 pub fn analyze(
@@ -24,6 +41,8 @@ pub fn analyze(
     dependencies: bool,
     lints: bool,
     relocations: bool,
+    yara_rules: &[YaraRuleSource],
+    yara_use_default_rules: bool,
 ) -> Result<AnalysisReport> {
     // Get file size
     let file_size = fs::metadata(&bof.path)?.len();
@@ -81,8 +100,14 @@ pub fn analyze(
         vec![]
     };
     
-    // Build security assessment with lint-derived info
+    // Build security assessment with lint-derived info and enhanced OpSec analysis
     let security = build_security_assessment(bof, &lint_findings);
+    
+    // Perform compatibility analysis (always done for reporting)
+    let _compatibility = compatibility::analyze_compatibility(bof);
+    
+    // Perform calling convention analysis (always done for reporting)
+    let _calling_convention = calling_convention::analyze_calling_conventions(bof);
     
     // Perform disassembly if requested
     let disassembly = if disasm {
@@ -112,6 +137,21 @@ pub fn analyze(
     // Detect argument signature
     let argument_signature = signatures::detect_argument_signature(bof);
     
+    // Perform stack usage analysis (requires disassembly)
+    let stack_analysis = if disasm {
+        Some(stack_analysis::analyze_stack_usage(bof))
+    } else {
+        None
+    };
+    
+    // Perform YARA analysis (optional, can be enabled via CLI flag in future)
+    // For now, we'll do it if disassembly is enabled (to scan code sections)
+    let yara_analysis = if disasm {
+        Some(yara::analyze_with_yara(bof, yara_rules, yara_use_default_rules)?)
+    } else {
+        None
+    };
+    
     Ok(AnalysisReport {
         bof: bof.clone(),
         overview,
@@ -127,10 +167,12 @@ pub fn analyze(
         disassembly,
         relocations: relocation_report,
         argument_signature,
+        stack_analysis,
+        yara_analysis,
     })
 }
 
-/// Build security assessment, incorporating lint findings
+/// Build security assessment, incorporating lint findings and enhanced OpSec analysis
 fn build_security_assessment(bof: &BofFile, lint_findings: &[crate::core::models::lint::LintFinding]) -> SecurityAssessment {
     use crate::core::models::lint::Severity;
     use crate::core::models::report::Capability;
@@ -192,44 +234,56 @@ fn build_security_assessment(bof: &BofFile, lint_findings: &[crate::core::models
         }
     }
     
-    // Build risky APIs list from lint findings
-    let risky_apis: Vec<String> = lint_findings.iter()
+    // Perform enhanced OpSec analysis
+    let enhanced_opsec = opsec::analyze_api_opsec(&bof.imports);
+    
+    // Combine risky APIs from lint findings and OpSec analysis
+    let mut risky_apis: Vec<String> = lint_findings.iter()
         .filter(|f| f.code == "BOF004")
         .filter_map(|f| f.location.symbol.clone())
         .collect();
     
-    // Check for direct syscalls from lint findings
-    let direct_syscalls = lint_findings.iter()
-        .any(|f| f.code == "BOF005" && f.severity == Severity::Warning);
+    // Add high/critical risk APIs from OpSec analysis
+    for (api_name, info) in &enhanced_opsec.api_classifications {
+        if matches!(info.category, opsec::OpsecCategory::HighRisk | opsec::OpsecCategory::CriticalRisk) {
+            if !risky_apis.contains(api_name) {
+                risky_apis.push(api_name.clone());
+            }
+        }
+    }
     
-    // Build suspicious patterns list
-    let suspicious_patterns: Vec<String> = lint_findings.iter()
+    // Check for direct syscalls from lint findings and OpSec analysis
+    let direct_syscalls = lint_findings.iter()
+        .any(|f| f.code == "BOF005" && f.severity == Severity::Warning)
+        || enhanced_opsec.suspicious_patterns.iter()
+            .any(|p| matches!(p.pattern_type, opsec::PatternType::DirectSyscall));
+    
+    // Build suspicious patterns list from both sources
+    let mut suspicious_patterns: Vec<String> = lint_findings.iter()
         .filter(|f| f.severity == Severity::Warning || f.severity == Severity::Error)
         .map(|f| format!("[{}] {}", f.code, f.message))
         .collect();
     
-    // Calculate OPSEC score (0-100, 100 is best)
-    let mut opsec_score: i32 = 100;
-    
-    // Deduct points for lint findings
-    for finding in lint_findings {
-        match finding.severity {
-            Severity::Error => opsec_score -= 15,
-            Severity::Warning => opsec_score -= 10,
-            Severity::Info => opsec_score -= 2,
-        }
+    // Add OpSec suspicious patterns
+    for pattern in &enhanced_opsec.suspicious_patterns {
+        suspicious_patterns.push(format!("[OpSec] {}: {}", 
+            match pattern.pattern_type {
+                opsec::PatternType::DirectSyscall => "DirectSyscall",
+                opsec::PatternType::ProcessInjection => "ProcessInjection",
+                opsec::PatternType::TokenManipulation => "TokenManipulation",
+                opsec::PatternType::Unhooking => "Unhooking",
+                opsec::PatternType::AntiDebugging => "AntiDebugging",
+                opsec::PatternType::StringObfuscation => "StringObfuscation",
+                opsec::PatternType::HighEntropy => "HighEntropy",
+                opsec::PatternType::SuspiciousDll => "SuspiciousDll",
+                opsec::PatternType::NetworkActivity => "NetworkActivity",
+                opsec::PatternType::FileSystemAccess => "FileSystemAccess",
+            },
+            pattern.description));
     }
     
-    // Deduct points for high-risk capabilities
-    if capabilities.contains(&Capability::ProcessOperations) {
-        opsec_score -= 10;
-    }
-    if capabilities.contains(&Capability::TokenManipulation) {
-        opsec_score -= 5;
-    }
-    
-    // Ensure score is within bounds
-    let opsec_score = opsec_score.max(0).min(100) as u8;
+    // Use enhanced OpSec score (more sophisticated calculation)
+    let opsec_score = enhanced_opsec.opsec_score;
     
     SecurityAssessment {
         risk_level: assess_risk_level(bof),

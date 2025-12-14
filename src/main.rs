@@ -15,8 +15,12 @@ mod core;
 #[command(name = "redbofanalyzer")]
 #[command(about = "A comprehensive Beacon Object File (BOF) analyzer and execution tool", long_about = None)]
 struct Args {
-    /// Launch GUI mode
+    /// Run in CLI mode (default: GUI mode)
     #[arg(long, global = true)]
+    cli: bool,
+
+    /// Launch GUI mode (deprecated: GUI is now the default)
+    #[arg(long, global = true, hide = true)]
     gui: bool,
 
     /// Verbose output
@@ -64,6 +68,18 @@ enum Command {
         /// Show relocation information
         #[arg(long)]
         relocs: bool,
+        /// Enhanced OpSec analysis (API categorization, risky combinations)
+        #[arg(long)]
+        opsec: bool,
+        /// Compatibility analysis (CS version requirements)
+        #[arg(long)]
+        compatibility: bool,
+        /// Calling convention analysis
+        #[arg(long)]
+        calling_convention: bool,
+        /// YARA rule files or directories to load (can be specified multiple times)
+        #[arg(long)]
+        yara_rules: Vec<PathBuf>,
         /// Write report to file
         #[arg(long, short)]
         output: Option<PathBuf>,
@@ -131,8 +147,11 @@ fn main() -> anyhow::Result<()> {
 
     info!("RedBofAnalizer v{}", env!("CARGO_PKG_VERSION"));
 
-    // Check if GUI mode is requested or no command provided
-    if args.gui || args.command.is_none() {
+    // Determine mode: CLI if --cli flag is set or a command is provided, otherwise GUI (default)
+    let use_cli = args.cli || args.command.is_some();
+    
+    if !use_cli {
+        // GUI mode (default)
         info!("Launching GUI mode");
         // Set debug mode globally for executor
         core::executor::set_debug_mode(args.debug);
@@ -140,7 +159,23 @@ fn main() -> anyhow::Result<()> {
         return Ok(());
     }
     
-    // Set debug mode for CLI commands too
+    // CLI mode: require a command if --cli is explicitly set
+    if args.cli && args.command.is_none() {
+        eprintln!("Error: --cli flag requires a command to execute");
+        eprintln!();
+        eprintln!("Usage: redbofanalyzer --cli <COMMAND>");
+        eprintln!();
+        eprintln!("Available commands:");
+        eprintln!("  analyze    Analyze a BOF file");
+        eprintln!("  execute    Execute a BOF file");
+        eprintln!("  test       Test all BOFs in directory");
+        eprintln!("  validate   Validate BOF without execution");
+        eprintln!();
+        eprintln!("For more information, try 'redbofanalyzer --cli --help'");
+        std::process::exit(1);
+    }
+    
+    // Set debug mode for CLI commands
     core::executor::set_debug_mode(args.debug);
 
     // Execute CLI command
@@ -153,9 +188,53 @@ fn main() -> anyhow::Result<()> {
             dependencies,
             lints,
             relocs,
+            opsec,
+            compatibility,
+            calling_convention,
+            yara_rules,
             output,
         } => {
-            cli::commands::analyze(file, security, disasm, apis, dependencies, lints, relocs, output, args.format)?;
+            // Enhanced OpSec and compatibility analysis are always performed when security is enabled
+            // or when explicitly requested
+            let enhanced_analysis = security || opsec || compatibility || calling_convention;
+            
+            // Convert YARA rule paths to YaraRuleSource and validate they exist
+            use crate::core::analyzer::YaraRuleSource;
+            let yara_rules_count = yara_rules.len();
+            let mut yara_rule_sources = Vec::new();
+            for path in &yara_rules {
+                if !path.exists() {
+                    eprintln!("Warning: YARA rule path does not exist: {:?}", path);
+                    continue;
+                }
+                if path.is_dir() {
+                    log::info!("Loading YARA rules from directory: {:?}", path);
+                    yara_rule_sources.push(YaraRuleSource::Directory(path.clone()));
+                } else if path.is_file() {
+                    log::info!("Loading YARA rule file: {:?}", path);
+                    yara_rule_sources.push(YaraRuleSource::File(path.clone()));
+                } else {
+                    eprintln!("Warning: YARA rule path is neither a file nor directory: {:?}", path);
+                }
+            }
+            
+            if yara_rule_sources.is_empty() && yara_rules_count > 0 {
+                eprintln!("Warning: No valid YARA rule paths found. Using default rules only.");
+            }
+            
+            cli::commands::analyze(
+                file,
+                security,
+                disasm,
+                apis,
+                dependencies,
+                lints,
+                relocs,
+                enhanced_analysis,
+                output,
+                args.format,
+                &yara_rule_sources,
+            )?;
         }
         Command::Execute {
             file,

@@ -4,6 +4,7 @@
 //! using the egui immediate mode GUI framework.
 
 mod app;
+mod app_opsec;
 mod theme;
 mod tabs;
 mod widgets;

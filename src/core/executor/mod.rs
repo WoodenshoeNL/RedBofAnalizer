@@ -150,6 +150,8 @@ pub fn execute_with_entry_point(
     resolver.set_beacon_api("BeaconFormatPrintf", BeaconApi::beacon_format_printf as usize);
     resolver.set_beacon_api("BeaconFormatToString", BeaconApi::beacon_format_to_string as usize);
     resolver.set_beacon_api("BeaconFormatInt", BeaconApi::beacon_format_int as usize);
+    resolver.set_beacon_api("BeaconFormatShort", BeaconApi::beacon_format_short as usize);
+    resolver.set_beacon_api("BeaconFormatLength", BeaconApi::beacon_format_length as usize);
     
     // Memory APIs
     resolver.set_beacon_api("BeaconVirtualAlloc", BeaconApi::beacon_virtual_alloc as usize);
@@ -169,8 +171,21 @@ pub fn execute_with_entry_point(
     resolver.set_beacon_api("BeaconAddValue", BeaconApi::beacon_add_value as usize);
     resolver.set_beacon_api("BeaconGetValue", BeaconApi::beacon_get_value as usize);
     resolver.set_beacon_api("BeaconRemoveValue", BeaconApi::beacon_remove_value as usize);
+    resolver.set_beacon_api("BeaconGetIntValue", BeaconApi::beacon_get_int_value as usize);
+    resolver.set_beacon_api("BeaconGetShortValue", BeaconApi::beacon_get_short_value as usize);
+    resolver.set_beacon_api("BeaconGetCharValue", BeaconApi::beacon_get_char_value as usize);
+    resolver.set_beacon_api("BeaconGetPtrValue", BeaconApi::beacon_get_ptr_value as usize);
+    resolver.set_beacon_api("BeaconGetSizeValue", BeaconApi::beacon_get_size_value as usize);
+    resolver.set_beacon_api("BeaconGetDataValue", BeaconApi::beacon_get_data_value as usize);
     
     // Data Store APIs
+    resolver.set_beacon_api("BeaconDataStoreAlloc", BeaconApi::beacon_data_store_alloc as usize);
+    resolver.set_beacon_api("BeaconDataStoreReset", BeaconApi::beacon_data_store_reset as usize);
+    resolver.set_beacon_api("BeaconDataStoreFree", BeaconApi::beacon_data_store_free as usize);
+    resolver.set_beacon_api("BeaconDataStoreAdd", BeaconApi::beacon_data_store_add as usize);
+    resolver.set_beacon_api("BeaconDataStoreGet", BeaconApi::beacon_data_store_get as usize);
+    resolver.set_beacon_api("BeaconDataStoreRemove", BeaconApi::beacon_data_store_remove as usize);
+    resolver.set_beacon_api("BeaconDataStoreSize", BeaconApi::beacon_data_store_size as usize);
     resolver.set_beacon_api("BeaconDataStoreGetItem", BeaconApi::beacon_data_store_get_item as usize);
     resolver.set_beacon_api("BeaconDataStoreProtectItem", BeaconApi::beacon_data_store_protect_item as usize);
     resolver.set_beacon_api("BeaconDataStoreUnprotectItem", BeaconApi::beacon_data_store_unprotect_item as usize);
@@ -178,6 +193,7 @@ pub fn execute_with_entry_point(
     
     // User Data APIs
     resolver.set_beacon_api("BeaconGetCustomUserData", BeaconApi::beacon_get_custom_user_data as usize);
+    resolver.set_beacon_api("BeaconGetUserData", BeaconApi::beacon_get_user_data as usize);
     
     // Thread/Process APIs
     resolver.set_beacon_api("BeaconGetThreadContext", BeaconApi::beacon_get_thread_context as usize);
@@ -191,6 +207,12 @@ pub fn execute_with_entry_point(
     resolver.set_beacon_api("BeaconDuplicateHandle", BeaconApi::beacon_duplicate_handle as usize);
     resolver.set_beacon_api("BeaconReadProcessMemory", BeaconApi::beacon_read_process_memory as usize);
     resolver.set_beacon_api("BeaconWriteProcessMemory", BeaconApi::beacon_write_process_memory as usize);
+    
+    // Beacon Gate APIs
+    resolver.set_beacon_api("BeaconDisableBeaconGate", BeaconApi::beacon_disable_beacon_gate as usize);
+    resolver.set_beacon_api("BeaconEnableBeaconGate", BeaconApi::beacon_enable_beacon_gate as usize);
+    resolver.set_beacon_api("BeaconDisableBeaconGateMasking", BeaconApi::beacon_disable_beacon_gate_masking as usize);
+    resolver.set_beacon_api("BeaconEnableBeaconGateMasking", BeaconApi::beacon_enable_beacon_gate_masking as usize);
     
     // Resolve all symbols and build symbol map
     // Key: COFF symbol table index, Value: resolved address

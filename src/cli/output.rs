@@ -124,6 +124,12 @@ pub fn format_text(report: &AnalysisReport) -> String {
             output.push_str(&format!("  - {}\n", api));
         }
     }
+    if !report.security.opsec_analysis.suspicious_patterns.is_empty() {
+        output.push_str("\nSuspicious Patterns:\n");
+        for pattern in &report.security.opsec_analysis.suspicious_patterns {
+            output.push_str(&format!("  [!] {}\n", pattern));
+        }
+    }
     
     // Lint Findings
     if !report.lints.is_empty() {
@@ -144,6 +150,55 @@ pub fn format_text(report: &AnalysisReport) -> String {
             // Limit to 100 instructions per section in text output
             output.push_str(&format_disassembly_text(disasm, Some(100)));
             output.push_str("\n");
+        }
+    }
+    
+    // YARA Analysis
+    if let Some(ref yara_analysis) = report.yara_analysis {
+        output.push_str("\n=== YARA Analysis ===\n");
+        
+        if !yara_analysis.engine_available {
+            output.push_str("YARA engine is not available.\n");
+            output.push_str("Build with --features yara to enable YARA scanning.\n");
+        } else {
+            output.push_str(&format!("Rules Loaded: {}\n", yara_analysis.stats.rules_loaded));
+            output.push_str(&format!("Sections Scanned: {}\n", yara_analysis.stats.sections_scanned));
+            output.push_str(&format!("Total Matches: {}\n", yara_analysis.stats.total_matches));
+            output.push_str(&format!("Unique Rules Matched: {}\n", yara_analysis.stats.unique_rules_matched));
+            
+            if !yara_analysis.matches.is_empty() {
+                output.push_str("\nYARA Rule Matches:\n");
+                for (idx, match_item) in yara_analysis.matches.iter().enumerate() {
+                    output.push_str(&format!("\n{}. Rule: {}\n", idx + 1, match_item.rule_name));
+                    if let Some(ref ns) = match_item.namespace {
+                        output.push_str(&format!("   Namespace: {}\n", ns));
+                    }
+                    output.push_str(&format!("   Section: {}\n", match_item.section));
+                    output.push_str(&format!("   Offset: 0x{:08X}\n", match_item.offset));
+                    output.push_str(&format!("   Length: {} bytes\n", match_item.length));
+                    
+                    if let Some(ref severity) = match_item.severity {
+                        output.push_str(&format!("   Severity: {}\n", severity.to_uppercase()));
+                    }
+                    
+                    if !match_item.matched_strings.is_empty() {
+                        output.push_str("   Matched Strings:\n");
+                        for matched_str in &match_item.matched_strings {
+                            output.push_str(&format!("     - {} @ 0x{:08X}: {}\n", 
+                                matched_str.identifier, matched_str.offset, matched_str.data));
+                        }
+                    }
+                    
+                    if !match_item.metadata.is_empty() {
+                        output.push_str("   Metadata:\n");
+                        for (key, value) in &match_item.metadata {
+                            output.push_str(&format!("     - {}: {}\n", key, value));
+                        }
+                    }
+                }
+            } else {
+                output.push_str("\nNo YARA rule matches found.\n");
+            }
         }
     }
     
@@ -348,6 +403,75 @@ pub fn format_markdown(report: &AnalysisReport) -> String {
             // Limit to 100 instructions per section in markdown output
             output.push_str(&format_disassembly_markdown(disasm, Some(100)));
             output.push_str("\n");
+        }
+    }
+    
+    // YARA Analysis
+    if let Some(ref yara_analysis) = report.yara_analysis {
+        output.push_str("\n---\n\n");
+        output.push_str("## YARA Analysis\n\n");
+        
+        if !yara_analysis.engine_available {
+            output.push_str("⚠️ **YARA engine is not available.**\n\n");
+            output.push_str("Build with `--features yara` to enable YARA scanning.\n\n");
+        } else {
+            output.push_str(&format!("- **Rules Loaded:** {}\n", yara_analysis.stats.rules_loaded));
+            output.push_str(&format!("- **Sections Scanned:** {}\n", yara_analysis.stats.sections_scanned));
+            output.push_str(&format!("- **Total Matches:** {}\n", yara_analysis.stats.total_matches));
+            output.push_str(&format!("- **Unique Rules Matched:** {}\n\n", yara_analysis.stats.unique_rules_matched));
+            
+            if !yara_analysis.matches.is_empty() {
+                output.push_str("### YARA Rule Matches\n\n");
+                for (idx, match_item) in yara_analysis.matches.iter().enumerate() {
+                    output.push_str(&format!("#### {}. {}\n\n", idx + 1, match_item.rule_name));
+                    
+                    let mut details = Vec::new();
+                    if let Some(ref ns) = match_item.namespace {
+                        details.push(format!("**Namespace:** `{}`", ns));
+                    }
+                    details.push(format!("**Section:** `{}`", match_item.section));
+                    details.push(format!("**Offset:** `0x{:08X}`", match_item.offset));
+                    details.push(format!("**Length:** {} bytes", match_item.length));
+                    
+                    if let Some(ref severity) = match_item.severity {
+                        let severity_emoji = match severity.to_lowercase().as_str() {
+                            "critical" | "high" => "🔴",
+                            "medium" => "🟡",
+                            _ => "🔵",
+                        };
+                        details.push(format!("**Severity:** {} {}", severity_emoji, severity.to_uppercase()));
+                    }
+                    
+                    output.push_str(&format!("{}\n\n", details.join(" | ")));
+                    
+                    if !match_item.matched_strings.is_empty() {
+                        output.push_str("**Matched Strings:**\n\n");
+                        output.push_str("| Identifier | Offset | Data |\n");
+                        output.push_str("|------------|--------|------|\n");
+                        for matched_str in &match_item.matched_strings {
+                            // Truncate long data for markdown table
+                            let data_display = if matched_str.data.len() > 50 {
+                                format!("{}...", &matched_str.data[..50])
+                            } else {
+                                matched_str.data.clone()
+                            };
+                            output.push_str(&format!("| `{}` | `0x{:08X}` | `{}` |\n", 
+                                matched_str.identifier, matched_str.offset, data_display));
+                        }
+                        output.push_str("\n");
+                    }
+                    
+                    if !match_item.metadata.is_empty() {
+                        output.push_str("**Metadata:**\n\n");
+                        for (key, value) in &match_item.metadata {
+                            output.push_str(&format!("- **{}:** `{}`\n", key, value));
+                        }
+                        output.push_str("\n");
+                    }
+                }
+            } else {
+                output.push_str("✅ **No YARA rule matches found.**\n\n");
+            }
         }
     }
     

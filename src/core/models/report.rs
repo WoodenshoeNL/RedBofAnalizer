@@ -5,6 +5,8 @@ use crate::core::models::lint::LintFinding;
 use crate::core::utils::disasm::DisassemblyResult;
 use crate::core::parser::relocations::{RelocationInfo, RelocationStats};
 use crate::core::analyzer::signatures::ArgumentSignature;
+use crate::core::analyzer::stack_analysis::StackAnalysis;
+use crate::core::analyzer::yara::YaraAnalysis;
 use std::path::PathBuf;
 use std::time::Duration;
 
@@ -27,6 +29,12 @@ pub struct AnalysisReport {
     pub relocations: Option<RelocationReport>,
     /// Detected argument signature
     pub argument_signature: ArgumentSignature,
+    /// Stack usage analysis (if disassembly was performed)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub stack_analysis: Option<StackAnalysis>,
+    /// YARA rule matches
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub yara_analysis: Option<YaraAnalysis>,
 }
 
 /// Relocation report
