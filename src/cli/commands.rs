@@ -181,6 +181,7 @@ pub fn execute(
         sandbox,
         trace,
         std::time::Duration::from_secs(timeout),
+        false, // CLI: use zeroed BeaconInformation by default
     )?;
 
     // Display results

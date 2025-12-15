@@ -502,32 +502,32 @@ The project has successfully completed all critical phases and most advanced fea
 **Goal**: Ensure reliability and correctness
 
 #### 7.1 Unit Tests
-- [ ] COFF parser tests
+- [x] COFF parser tests
   - Valid BOF files
   - Invalid/malformed files
   - Edge cases
-- [ ] Symbol resolution tests
+- [x] Symbol resolution tests
   - Windows API resolution
   - Beacon API resolution
   - Missing symbol handling
-- [ ] Relocation tests
+- [x] Relocation tests
   - Different relocation types
   - Address calculations
-- [ ] Beacon API tests
+- [x] Beacon API tests
   - Each API function
   - Edge cases
   - Error conditions
 
 #### 7.2 Integration Tests
-- [ ] Full BOF execution tests
+- [x] Full BOF execution tests
   - Simple BOFs (whoami, dir)
   - Complex BOFs (process injection, token manipulation)
   - BOFs from `src/` directory
   - BOFs from `RedBof/` directory
-- [ ] Analysis tests
+- [x] Analysis tests
   - Verify analysis accuracy
   - Check report completeness
-- [ ] CLI tests
+- [x] CLI tests
   - Command parsing
   - Output formatting
   - Error handling
@@ -542,7 +542,7 @@ The project has successfully completed all critical phases and most advanced fea
   - Settings persistence
 
 #### 7.4 Regression Tests
-- [ ] Test suite with known BOFs
+- [x] Test suite with known BOFs
 - [ ] Automated testing on changes
 - [ ] Performance benchmarks
 
@@ -551,7 +551,7 @@ The project has successfully completed all critical phases and most advanced fea
 **Goal**: Complete documentation and final polish
 
 #### 8.1 Documentation
-- [ ] User documentation
+- [x] User documentation
   - Installation guide
   - Usage examples
   - CLI reference
@@ -945,6 +945,27 @@ The project is successful when:
    - Improve memory usage
    - Add caching for repeated analyses
    - Parallel processing for batch operations
+
+9. **OpSec Tab Improvements**
+   - **More precise findings**
+     - Add symbol/offset/location information for risky APIs, combinations, and patterns
+     - Make findings clickable to jump to `Imports`/`Disassembly` and (in future) per-function views
+     - Group OpSec information per function (which function pulls in which risky APIs/patterns)
+   - **Stronger OpSec signal model**
+     - Expand the internal API database (more Win32/NT APIs, categorized by intent: injection, persistence, discovery, defense evasion, etc.)
+     - Add more patterns: alternate injection methods (e.g. APC, section mapping, SetThreadContext), richer unhooking patterns, persistence‑style registry/service manipulation, and additional anti‑debug/evasion patterns
+     - Split OpSec into multiple dimensions (e.g. overall stealth, injection noisiness, anti‑debug/evasion profile) instead of a single score only
+   - **Configurable scoring / risk tuning**
+     - Allow custom weights per risk category and pattern
+     - Provide environment‑specific profiles (e.g. “aggressive EDR”, “lab”, “mature SOC”)
+     - Support whitelisting of specific APIs or combinations so known‑noisy helpers don’t tank the score
+   - **Usability and navigation**
+     - Improve table UX (full sorting on all columns, better filtering presets, mini summary cards for counts of high/critical issues)
+     - Cross‑link OpSec findings with Overview (security card) and lints so the top contributors to risk are surfaced immediately
+     - Add export of OpSec findings (JSON/Markdown) for reports, PRs, and external review
+   - **Actionability and comparison**
+     - Attach concrete alternative suggestions to common risky APIs/patterns (e.g. alternatives to `CreateRemoteThread`, trade‑offs for direct syscalls vs. unhooking)
+     - Add comparison/regression views: side‑by‑side OpSec comparison between BOF versions or different BOFs, with a delta view (score changes and pattern/API diffs)
 
 ### Optional Enhancements (Low Priority)
 

@@ -41,8 +41,9 @@ The main window uses a tab-based interface with the following tabs:
 3. **Symbols** - Symbol table and imports
 4. **Imports** - API usage (Beacon and Win32)
 5. **Issues** - Lint findings and warnings
-6. **Disassembly** - Code disassembly view
-7. **Run** - BOF execution interface
+6. **OpSec** - OpSec score, risky API combinations, and suspicious patterns
+7. **Disassembly** - Code disassembly view
+8. **Run** - BOF execution interface
 
 ## Tab Details
 
@@ -174,6 +175,20 @@ Shows lint findings and potential issues.
 - **Error** (Red) - Critical issues
 - **Warning** (Yellow) - Potential problems
 - **Info** (Blue) - Informational notes
+
+### OpSec Tab
+
+The OpSec tab shows a detailed **operational security assessment** for the current BOF.
+
+#### Features
+
+- **OpSec score (0–100)** with color-coded risk level
+- **API classifications** by OpSec risk category with filtering
+- Detection of **risky API combinations** (e.g., process injection, token manipulation, unhooking)
+- Detection of **suspicious patterns** (e.g., direct syscalls, injection, token abuse, unhooking)
+- Integrated **compatibility** and **calling convention** summaries
+
+For a deep dive into all OpSec signals and scoring details, see `OPSEC_TAB.md`.
 
 ### Disassembly Tab
 

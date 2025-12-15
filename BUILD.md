@@ -47,146 +47,61 @@ YARA support requires additional dependencies (only if not using vendored featur
 
 ### Windows Requirements
 
-1. **Install YARA C Library (Development Files):**
+1. **Install YARA C Library (Development Files) via vcpkg (Recommended)**
    
-   **Option A: Build from Source (Recommended)**
-   
-   You need the YARA development files (headers and libraries), not just the executables:
+   You need the YARA **development files** (headers and libraries), not just the `yara64.exe` / `yarac64.exe` executables. The simplest and tested setup on Windows is using **vcpkg**:
    
    ```powershell
-   # Install prerequisites
-   # - Visual Studio with C++ build tools
-   # - CMake (https://cmake.org/download/)
-   # - Git
-   
-   # Step 1: Clone YARA repository (if you haven't already)
+   # 1) Install vcpkg (once)
    cd C:\tools
-   git clone https://github.com/VirusTotal/yara.git
-   # OR if you already have it, make sure you're in the right directory
-   cd C:\tools\yara
+   git clone https://github.com/microsoft/vcpkg.git
+   cd .\vcpkg
+   .\bootstrap-vcpkg.bat
    
-   # Step 2: Verify you have the source code
-   # Check if CMakeLists.txt exists
-   Test-Path CMakeLists.txt
-   # If this returns False, you don't have the source code - re-clone the repository
-   
-   # Step 3: Create build directory (outside the source tree is fine)
-   mkdir build
-   cd build
-   
-   # Step 4: Configure with CMake
-   # Make sure you're in the build directory and pointing to the source directory
-   cmake .. -A x64
-   
-   # If you get "CMakeLists.txt not found" error:
-   # - Make sure you cloned the full repository (not just downloaded a zip)
-   # - Check that you're in C:\tools\yara\build and the source is in C:\tools\yara
-   # - Verify: Test-Path ..\CMakeLists.txt should return True
-   
-   # Step 5: Build
-   cmake --build . --config Release
-   
-   # This will create:
-   # - yara.h in the libyara/include directory (or include directory)
-   # - yara.lib and yara.dll in the build\Release directory
+   # 2) Install YARA for 64‑bit Windows
+   .\vcpkg.exe install yara:x64-windows
    ```
    
-   **Troubleshooting CMake Errors:**
+   After installation, vcpkg will place YARA headers and libraries under a path similar to:
    
-   If you get "CMakeLists.txt not found":
+   - C:\tools\vcpkg\installed\x64-windows\include\yara.h
+   - C:\tools\vcpkg\installed\x64-windows\lib\libyara.lib
+   
+   Set environment variables **once** so `yara-sys` can find them:
+   
    ```powershell
-   # Verify you have the source code
-   cd C:\tools\yara
-   dir CMakeLists.txt
+   # Adjust the paths if your vcpkg root is different
+   [System.Environment]::SetEnvironmentVariable("YARA_LIBRARY_PATH", "C:\tools\vcpkg\installed\x64-windows\lib", "User")
+   [System.Environment]::SetEnvironmentVariable("YARA_INCLUDE_PATH", "C:\tools\vcpkg\installed\x64-windows\include", "User")
    
-   # If it doesn't exist, you need to clone the repository properly:
-   cd C:\tools
-   # Remove the old directory if it exists
-   Remove-Item -Recurse -Force yara -ErrorAction SilentlyContinue
-   # Clone fresh
-   git clone https://github.com/VirusTotal/yara.git
-   cd yara
-   # Verify
-   Test-Path CMakeLists.txt  # Should return True
-   ```
-   
-   **Alternative: Use Visual Studio Solution (if CMake fails)**
-   
-   Some YARA versions include Visual Studio project files:
-   ```powershell
-   cd C:\tools\yara
-   # Look for .sln files
-   dir *.sln
-   # If found, open in Visual Studio and build
-   ```
-   
-   After building, set environment variables **permanently**:
-   
-   **Option A: Using PowerShell (Permanent - User Level)**
-   ```powershell
-   # Set permanently for current user
-   [System.Environment]::SetEnvironmentVariable("YARA_LIBRARY_PATH", "C:\path\to\yara\build\Release", "User")
-   [System.Environment]::SetEnvironmentVariable("YARA_INCLUDE_PATH", "C:\path\to\yara\libyara\include", "User")
-   
-   # Refresh current session (or restart PowerShell)
+   # Refresh current PowerShell session
    $env:YARA_LIBRARY_PATH = [System.Environment]::GetEnvironmentVariable("YARA_LIBRARY_PATH", "User")
    $env:YARA_INCLUDE_PATH = [System.Environment]::GetEnvironmentVariable("YARA_INCLUDE_PATH", "User")
    ```
    
-   **Option B: Using System Properties (GUI)**
-   1. Press `Win + R`, type `sysdm.cpl`, press Enter
-   2. Go to "Advanced" tab → Click "Environment Variables"
-   3. Under "User variables", click "New"
-   4. Add:
-      - Variable name: `YARA_LIBRARY_PATH`
-      - Variable value: `C:\path\to\yara\build\Release`
-   5. Click "New" again and add:
-      - Variable name: `YARA_INCLUDE_PATH`
-      - Variable value: `C:\path\to\yara\libyara\include`
-   6. Click "OK" on all dialogs
-   7. **Restart your terminal/PowerShell** for changes to take effect
-   
-   **Option C: Using Command Prompt (Permanent - User Level)**
-   ```cmd
-   setx YARA_LIBRARY_PATH "C:\path\to\yara\build\Release"
-   setx YARA_INCLUDE_PATH "C:\path\to\yara\libyara\include"
-   ```
-   Note: `setx` requires restarting the terminal to take effect.
-   
-   **For Current Session Only (Temporary):**
-   ```powershell
-   # These only last for the current PowerShell session
-   $env:YARA_LIBRARY_PATH = "C:\path\to\yara\build\Release"
-   $env:YARA_INCLUDE_PATH = "C:\path\to\yara\libyara\include"
-   ```
-   
-   **Option B: Use Pre-built Development Package**
-   
-   Some distributions provide development packages. You need:
-   - `yara.h` header file
-   - `libyara.lib` or `yara.lib` (import library) or `libyara.dll`/`yara.dll` (dynamic library)
-   - **Note:** vcpkg installs `libyara.lib` (Unix naming convention)
-   
-   Place them in a directory and set **permanently**:
-   ```powershell
-   # Permanent (User level)
-   [System.Environment]::SetEnvironmentVariable("YARA_LIBRARY_PATH", "C:\path\to\yara\lib", "User")
-   [System.Environment]::SetEnvironmentVariable("YARA_INCLUDE_PATH", "C:\path\to\yara\include", "User")
-   
-   # Refresh current session
-   $env:YARA_LIBRARY_PATH = [System.Environment]::GetEnvironmentVariable("YARA_LIBRARY_PATH", "User")
-   $env:YARA_INCLUDE_PATH = [System.Environment]::GetEnvironmentVariable("YARA_INCLUDE_PATH", "User")
-   ```
+   Notes:
+   - vcpkg installs **`libyara.lib`** (not `yara.lib`) – this is expected
+   - `YARA_LIBRARY_PATH` must point to the directory that contains `libyara.lib`
+   - `YARA_INCLUDE_PATH` must contain `yara.h`
    
 
 2. **Install LLVM/Clang (for libclang):**
    
-   ✅ You already have this installed! Just verify and set permanently:
+   YARA bindings on Windows require **libclang**. If you don’t have LLVM/Clang yet, install it and then set `LIBCLANG_PATH`.
+   
+   **Option A: Install via official LLVM installer (recommended)**
+   
+   1. Download the latest Windows installer from the LLVM website (`https://llvm.org/` → *Download* → *Windows*) (e.g. `LLVM-win64.exe`).
+   2. Run the installer and keep the default install path `C:\Program Files\LLVM` (or note the custom path you choose).
+   3. Ensure the **Clang** / **Clang tools** components are selected during setup.
+   
+   After installation, verify and configure:
+   
    ```powershell
-   # Verify libclang.dll exists
+   # Verify libclang.dll exists (adjust path if you chose a different install dir)
    Test-Path "C:\Program Files\LLVM\bin\libclang.dll"
    
-   # Set environment variable permanently (if not already set)
+   # Set environment variable permanently (User level)
    [System.Environment]::SetEnvironmentVariable("LIBCLANG_PATH", "C:\Program Files\LLVM\bin", "User")
    
    # Refresh current session
@@ -213,14 +128,17 @@ YARA support requires additional dependencies (only if not using vendored featur
    Test-Path "$env:LIBCLANG_PATH\libclang.dll"
    ```
 
-4. **Build with YARA feature:**
+4. **Build (YARA enabled by default):**
    ```powershell
    # Make sure environment variables are set in the same PowerShell session
-   cargo build --features yara
+   cargo build
    
    # Or for release
-   cargo build --release --features yara
+   cargo build --release
    ```
+   
+   YARA is part of the **default features**, so no extra `--features` flag is required.  
+   Use `--no-default-features` only if you explicitly want to **disable** YARA support.
 
 **Important Notes:**
 - You need **development files** (headers and libraries), not just executables
@@ -251,31 +169,20 @@ YARA support requires additional dependencies (only if not using vendored featur
 
 ### Error: "CMakeLists.txt not found" or "The source directory does not appear to contain CMakeLists.txt"
 
-**This is expected!** YARA doesn't use CMake - it uses **autotools** (configure.ac, Makefile.am) on Unix and **Visual Studio project files** on Windows. See the [YARA GitHub repository](https://github.com/VirusTotal/yara) structure.
+**This is expected if you're trying to build YARA from source with CMake.** The official YARA project does **not** ship a `CMakeLists.txt` file by default.
 
-**Solution:**
+**Recommended solution on Windows:** use **vcpkg** instead of building YARA manually:
+
 ```powershell
-# YARA doesn't have CMakeLists.txt - it uses different build systems
-
-# Option 1: Use vcpkg (Easiest) ⭐ RECOMMENDED
 cd C:\tools
-git clone https://github.com/Microsoft/vcpkg.git
-cd vcpkg
+git clone https://github.com/microsoft/vcpkg.git
+cd .\vcpkg
 .\bootstrap-vcpkg.bat
-.\vcpkg install yara:x64-windows
-# Then set environment variables as shown in Option A above
-
-# Option 2: Use Visual Studio project files
-cd C:\tools\yara-src\windows
-# Look for .sln or .vcxproj files
-dir *.sln, *.vcxproj
-# Open in Visual Studio or build with MSBuild
-
-# Option 3: Use MSYS2/MinGW to build with autotools (advanced)
-# This requires installing MSYS2 and using the autotools build system
+.\vcpkg.exe install yara:x64-windows
+# Then set YARA_LIBRARY_PATH / YARA_INCLUDE_PATH as shown in the Windows Requirements section
 ```
 
-**Note:** The easiest way is to use **vcpkg** (Option A) - it handles all the complexity for you!
+This gives you a known‑good, tested layout that works with `yara-sys` on Windows.
 
 ### Error: "Unable to find libclang"
 

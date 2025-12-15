@@ -266,7 +266,7 @@ fn build_security_assessment(bof: &BofFile, lint_findings: &[crate::core::models
     
     // Add OpSec suspicious patterns
     for pattern in &enhanced_opsec.suspicious_patterns {
-        suspicious_patterns.push(format!("[OpSec] {}: {}", 
+        suspicious_patterns.push(format!("[OpSec] {}: {}",
             match pattern.pattern_type {
                 opsec::PatternType::DirectSyscall => "DirectSyscall",
                 opsec::PatternType::ProcessInjection => "ProcessInjection",
@@ -278,6 +278,7 @@ fn build_security_assessment(bof: &BofFile, lint_findings: &[crate::core::models
                 opsec::PatternType::SuspiciousDll => "SuspiciousDll",
                 opsec::PatternType::NetworkActivity => "NetworkActivity",
                 opsec::PatternType::FileSystemAccess => "FileSystemAccess",
+                opsec::PatternType::Persistence => "Persistence",
             },
             pattern.description));
     }

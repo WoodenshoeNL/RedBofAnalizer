@@ -16,6 +16,7 @@ pub fn render_opsec_tab(
     risk_filter: &mut OpsecCategory,
     compat_severity_filter: &mut CompatibilitySeverity,
     show_all_severities: &mut bool,
+    jump_to_imports: &mut dyn FnMut(&str),
 ) {
     ScrollArea::vertical().show(ui, |ui| {
         // OpSec Analysis Section
@@ -34,11 +35,41 @@ pub fn render_opsec_tab(
                     Colors::RED_LIGHT
                 };
                 
-                ui.horizontal(|ui| {
-                    ui.label(RichText::new("OpSec Score:").strong());
-                    ui.label(RichText::new(format!("{}/100", score))
-                        .size(18.0)
-                        .color(score_color));
+                // Main score + dimension profile
+                ui.vertical(|ui| {
+                    ui.horizontal(|ui| {
+                        ui.label(RichText::new("OpSec Score:").strong());
+                        ui.label(RichText::new(format!("{}/100", score))
+                            .size(18.0)
+                            .color(score_color));
+                    });
+
+                    ui.add_space(6.0);
+
+                    egui::Grid::new("opsec_dimension_scores")
+                        .num_columns(2)
+                        .spacing([16.0, 4.0])
+                        .show(ui, |ui| {
+                            ui.label(RichText::new("Overall stealth:").color(Colors::TEXT_SECONDARY));
+                            ui.label(RichText::new(format!("{}/100", opsec_analysis.overall_stealth_score))
+                                .color(score_color));
+                            ui.end_row();
+
+                            ui.label(RichText::new("Injection noise:").color(Colors::TEXT_SECONDARY));
+                            ui.label(RichText::new(format!("{}/100", opsec_analysis.injection_noise_score))
+                                .color(Colors::RED_LIGHT));
+                            ui.end_row();
+
+                            ui.label(RichText::new("Anti-debug / evasion:").color(Colors::TEXT_SECONDARY));
+                            ui.label(RichText::new(format!("{}/100", opsec_analysis.anti_debug_evasion_score))
+                                .color(Colors::YELLOW_WARNING));
+                            ui.end_row();
+
+                            ui.label(RichText::new("Persistence profile:").color(Colors::TEXT_SECONDARY));
+                            ui.label(RichText::new(format!("{}/100", opsec_analysis.persistence_profile_score))
+                                .color(Colors::YELLOW_WARNING));
+                            ui.end_row();
+                        });
                 });
                 
                 ui.add_space(10.0);
@@ -144,7 +175,12 @@ pub fn render_opsec_tab(
                                         OpsecCategory::CriticalRisk => Colors::RED_ACCENT,
                                     };
                                     
-                                    ui.label(RichText::new(api_name).monospace());
+                                    // Make API name clickable to jump to Imports tab
+                                    let api_resp = ui
+                                        .label(RichText::new(api_name).monospace().underline());
+                                    if api_resp.clicked() {
+                                        jump_to_imports(api_name);
+                                    }
                                     ui.label(RichText::new(format!("{:?}", info.category))
                                         .color(category_color));
                                     ui.label(RichText::new(&info.description).small());
@@ -174,9 +210,23 @@ pub fn render_opsec_tab(
                                         .color(risk_color));
                                     ui.label(RichText::new(&combo.description).strong());
                                 });
-                                ui.label(RichText::new(format!("APIs: {}", combo.apis.join(", ")))
-                                    .monospace()
-                                    .color(Colors::TEXT_SECONDARY));
+                                ui.horizontal(|ui| {
+                                    ui.label(RichText::new("APIs:").color(Colors::TEXT_SECONDARY));
+                                    for (idx, api) in combo.apis.iter().enumerate() {
+                                        if idx > 0 {
+                                            ui.label(RichText::new(",").color(Colors::TEXT_SECONDARY));
+                                        }
+                                        let resp = ui.label(
+                                            RichText::new(api)
+                                                .monospace()
+                                                .underline()
+                                                .color(Colors::TEXT_PRIMARY),
+                                        );
+                                        if resp.clicked() {
+                                            jump_to_imports(api);
+                                        }
+                                    }
+                                });
                                 ui.label(RichText::new(format!("• {}", combo.recommendation))
                                     .small()
                                     .color(Colors::BLUE_INFO));

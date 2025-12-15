@@ -4,11 +4,12 @@
 
 use crate::core::models::report::ApiCall;
 use std::sync::Mutex;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Execution tracer
 pub struct ExecutionTracer {
-    enabled: bool,
+    enabled: AtomicBool,
     api_calls: Mutex<Vec<ApiCall>>,
     memory_allocations: Mutex<Vec<MemoryAllocation>>,
 }
@@ -25,20 +26,25 @@ impl ExecutionTracer {
     /// Create a new tracer
     pub fn new(enabled: bool) -> Self {
         Self {
-            enabled,
+            enabled: AtomicBool::new(enabled),
             api_calls: Mutex::new(Vec::new()),
             memory_allocations: Mutex::new(Vec::new()),
         }
     }
     
+    /// Enable or disable tracing at runtime
+    pub fn set_enabled(&self, enabled: bool) {
+        self.enabled.store(enabled, Ordering::Relaxed);
+    }
+    
     /// Check if tracing is enabled
     pub fn is_enabled(&self) -> bool {
-        self.enabled
+        self.enabled.load(Ordering::Relaxed)
     }
     
     /// Record an API call
     pub fn record_api_call(&self, name: String, arguments: Vec<String>) {
-        if !self.enabled {
+        if !self.is_enabled() {
             return;
         }
         
@@ -59,7 +65,7 @@ impl ExecutionTracer {
     
     /// Record a memory allocation
     pub fn record_memory_allocation(&self, address: usize, size: usize) {
-        if !self.enabled {
+        if !self.is_enabled() {
             return;
         }
         
@@ -110,7 +116,10 @@ static GLOBAL_TRACER: OnceLock<ExecutionTracer> = OnceLock::new();
 
 /// Initialize global tracer
 pub fn init_tracer(enabled: bool) {
-    GLOBAL_TRACER.get_or_init(|| ExecutionTracer::new(enabled));
+    let tracer = GLOBAL_TRACER.get_or_init(|| ExecutionTracer::new(enabled));
+    // Update enabled flag on every initialization so each execution
+    // can independently toggle tracing on or off.
+    tracer.set_enabled(enabled);
 }
 
 /// Get global tracer

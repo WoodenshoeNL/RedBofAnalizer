@@ -46,7 +46,16 @@ pub struct EnhancedOpsecAnalysis {
     pub api_classifications: Vec<(String, ApiOpsecInfo)>,
     pub risky_combinations: Vec<RiskyCombination>,
     pub suspicious_patterns: Vec<SuspiciousPattern>,
+    /// Overall OpSec score (0-100, higher is better)
     pub opsec_score: u8,
+    /// Estimated overall stealth (0-100, higher is stealthier)
+    pub overall_stealth_score: u8,
+    /// Injection noisiness (0-100, higher is noisier/more detectable)
+    pub injection_noise_score: u8,
+    /// Anti-debug / evasion aggressiveness (0-100, higher is more aggressive)
+    pub anti_debug_evasion_score: u8,
+    /// Persistence profile (0-100, higher means stronger / more permanent persistence)
+    pub persistence_profile_score: u8,
     pub recommendations: Vec<String>,
 }
 
@@ -61,23 +70,26 @@ pub struct SuspiciousPattern {
 
 /// Type of suspicious pattern
 #[derive(Debug, Clone, PartialEq, Eq)]
+#[allow(dead_code)] // Some variants are reserved for future use / extended patterns
 pub enum PatternType {
     DirectSyscall,
     ProcessInjection,
     TokenManipulation,
     Unhooking,
-    #[allow(dead_code)] // Reserved for future use
+    /// Anti-debugging and evasion behavior
     AntiDebugging,
-    #[allow(dead_code)] // Reserved for future use
+    /// Possible configuration or string obfuscation
     StringObfuscation,
-    #[allow(dead_code)] // Reserved for future use
+    /// Very high entropy regions (packed/obfuscated)
     HighEntropy,
-    #[allow(dead_code)] // Reserved for future use
+    /// Suspicious DLL usage
     SuspiciousDll,
-    #[allow(dead_code)] // Reserved for future use
+    /// Network-related behavior with OpSec impact
     NetworkActivity,
-    #[allow(dead_code)] // Reserved for future use
+    /// File system access with OpSec impact
     FileSystemAccess,
+    /// Persistence-related behavior (registry/services/etc.)
+    Persistence,
 }
 
 // API OpSec database
@@ -170,7 +182,7 @@ lazy_static::lazy_static! {
             description: "Connects via WinHTTP - network activity".to_string(),
             detection_vectors: vec!["Network monitoring".to_string()],
         });
-        
+
         // File operations
         map.insert("CreateFileA", ApiOpsecInfo {
             category: OpsecCategory::LowRisk,
@@ -182,8 +194,8 @@ lazy_static::lazy_static! {
             description: "Writes to file - file system access".to_string(),
             detection_vectors: vec!["File system monitoring".to_string()],
         });
-        
-        // Registry operations
+
+        // Registry operations / persistence
         map.insert("RegOpenKeyExA", ApiOpsecInfo {
             category: OpsecCategory::LowRisk,
             description: "Opens registry key - registry access".to_string(),
@@ -193,6 +205,67 @@ lazy_static::lazy_static! {
             category: OpsecCategory::MediumRisk,
             description: "Sets registry value - persistence indicator".to_string(),
             detection_vectors: vec!["Registry monitoring".to_string()],
+        });
+        map.insert("RegCreateKeyExA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Creates registry key - potential persistence mechanism".to_string(),
+            detection_vectors: vec!["Registry monitoring".to_string()],
+        });
+        map.insert("RegSetValueExW", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Sets registry value (Unicode) - persistence indicator".to_string(),
+            detection_vectors: vec!["Registry monitoring".to_string()],
+        });
+
+        // Service control manager / service persistence
+        map.insert("OpenSCManagerA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Opens Service Control Manager - potential service-based persistence".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string(), "ETW".to_string()],
+        });
+        map.insert("CreateServiceA", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Creates a Windows service - strong persistence indicator".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string(), "ETW".to_string()],
+        });
+        map.insert("ChangeServiceConfigA", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Changes service configuration - persistence / defense evasion".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string(), "ETW".to_string()],
+        });
+
+        // Alternate injection / thread manipulation
+        map.insert("QueueUserAPC", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Queues an APC to a thread - APC-based code injection".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Thread monitoring".to_string()],
+        });
+        map.insert("NtQueueApcThread", ApiOpsecInfo {
+            category: OpsecCategory::CriticalRisk,
+            description: "Queues an APC via direct syscall - stealthy APC-based injection".to_string(),
+            detection_vectors: vec!["Direct syscall detection".to_string(), "Thread monitoring".to_string()],
+        });
+        map.insert("SetThreadContext", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Manipulates thread context - code injection / hollowing primitive".to_string(),
+            detection_vectors: vec!["Thread monitoring".to_string(), "Behavioral analysis".to_string()],
+        });
+        map.insert("NtSetContextThread", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Direct syscall to change thread context - injection / hollowing primitive".to_string(),
+            detection_vectors: vec!["Direct syscall detection".to_string(), "Thread monitoring".to_string()],
+        });
+
+        // Additional anti-debug / evasion
+        map.insert("OutputDebugStringA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Sends string to debugger - often used in anti-debug logic".to_string(),
+            detection_vectors: vec!["Behavioral analysis".to_string()],
+        });
+        map.insert("NtSetInformationThread", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Can be used to hide threads from debuggers".to_string(),
+            detection_vectors: vec!["Direct syscall detection".to_string(), "Behavioral analysis".to_string()],
         });
         
         map
@@ -223,6 +296,30 @@ lazy_static::lazy_static! {
             risk_level: OpsecCategory::MediumRisk,
             description: "Multiple anti-debugging checks".to_string(),
             recommendation: "Consider using less detectable anti-debugging techniques".to_string(),
+        },
+        RiskyCombination {
+            apis: vec!["QueueUserAPC".to_string(), "VirtualAllocEx".to_string()],
+            risk_level: OpsecCategory::HighRisk,
+            description: "APC-based injection pattern (queue APC into remote thread)".to_string(),
+            recommendation: "APC-based injection is noisy on modern EDR; consider less obvious patterns.".to_string(),
+        },
+        RiskyCombination {
+            apis: vec!["NtQueueApcThread".to_string(), "NtWriteVirtualMemory".to_string()],
+            risk_level: OpsecCategory::CriticalRisk,
+            description: "Direct-syscall APC injection with memory write".to_string(),
+            recommendation: "Direct-syscall APC injection is powerful but highly profileable; ensure this is really necessary.".to_string(),
+        },
+        RiskyCombination {
+            apis: vec!["OpenSCManagerA".to_string(), "CreateServiceA".to_string()],
+            risk_level: OpsecCategory::HighRisk,
+            description: "Service-based persistence via Service Control Manager".to_string(),
+            recommendation: "Service-based persistence is durable but noisy; consider short-lived or fileless alternatives.".to_string(),
+        },
+        RiskyCombination {
+            apis: vec!["RegCreateKeyExA".to_string(), "RegSetValueExA".to_string()],
+            risk_level: OpsecCategory::MediumRisk,
+            description: "Registry-based persistence pattern (create key and set value)".to_string(),
+            recommendation: "Registries are heavily monitored; consider in-memory or transient techniques when possible.".to_string(),
         },
     ];
 }
@@ -269,11 +366,22 @@ pub fn analyze_api_opsec(imports: &[Import]) -> EnhancedOpsecAnalysis {
     
     // Detect suspicious patterns
     if detected_apis.contains("NtCreateThreadEx") || detected_apis.contains("NtWriteVirtualMemory") {
+        let mut location = Vec::new();
+        if detected_apis.contains("NtCreateThreadEx") {
+            location.push("NtCreateThreadEx");
+        }
+        if detected_apis.contains("NtWriteVirtualMemory") {
+            location.push("NtWriteVirtualMemory");
+        }
         suspicious_patterns.push(SuspiciousPattern {
             pattern_type: PatternType::DirectSyscall,
             description: "Direct syscalls detected - bypasses API hooks but more detectable".to_string(),
             severity: OpsecCategory::HighRisk,
-            location: None,
+            location: if location.is_empty() {
+                None
+            } else {
+                Some(format!("Win32 imports: {}", location.join(", ")))
+            },
         });
         recommendations.push("Direct syscalls are detectable via ETW. Consider using indirect syscalls or API unhooking instead.".to_string());
     }
@@ -283,7 +391,7 @@ pub fn analyze_api_opsec(imports: &[Import]) -> EnhancedOpsecAnalysis {
             pattern_type: PatternType::ProcessInjection,
             description: "Process injection pattern detected".to_string(),
             severity: OpsecCategory::CriticalRisk,
-            location: None,
+            location: Some("Win32 imports: CreateRemoteThread, WriteProcessMemory".to_string()),
         });
         recommendations.push("Process injection is highly detectable. Consider alternative techniques or ensure proper OpSec measures.".to_string());
     }
@@ -293,7 +401,7 @@ pub fn analyze_api_opsec(imports: &[Import]) -> EnhancedOpsecAnalysis {
             pattern_type: PatternType::TokenManipulation,
             description: "Token manipulation pattern detected".to_string(),
             severity: OpsecCategory::HighRisk,
-            location: None,
+            location: Some("Win32 imports: OpenProcessToken, DuplicateTokenEx".to_string()),
         });
     }
     
@@ -302,14 +410,57 @@ pub fn analyze_api_opsec(imports: &[Import]) -> EnhancedOpsecAnalysis {
             pattern_type: PatternType::Unhooking,
             description: "Unhooking pattern detected".to_string(),
             severity: OpsecCategory::HighRisk,
-            location: None,
+            location: Some("Win32 imports: NtProtectVirtualMemory, NtWriteVirtualMemory".to_string()),
+        });
+    }
+
+    if detected_apis.contains("QueueUserAPC") || detected_apis.contains("NtQueueApcThread") {
+        suspicious_patterns.push(SuspiciousPattern {
+            pattern_type: PatternType::ProcessInjection,
+            description: "APC-based injection pattern detected (QueueUserAPC / NtQueueApcThread)".to_string(),
+            severity: if detected_apis.contains("NtQueueApcThread") {
+                OpsecCategory::CriticalRisk
+            } else {
+                OpsecCategory::HighRisk
+            },
+            location: Some("Win32 imports: QueueUserAPC / NtQueueApcThread".to_string()),
+        });
+    }
+
+    if detected_apis.contains("SetThreadContext") || detected_apis.contains("NtSetContextThread") {
+        suspicious_patterns.push(SuspiciousPattern {
+            pattern_type: PatternType::ProcessInjection,
+            description: "Thread context manipulation detected (potential hollowing or injection)".to_string(),
+            severity: OpsecCategory::HighRisk,
+            location: Some("Win32 imports: SetThreadContext / NtSetContextThread".to_string()),
+        });
+    }
+
+    if detected_apis.contains("OpenSCManagerA") && detected_apis.contains("CreateServiceA") {
+        suspicious_patterns.push(SuspiciousPattern {
+            pattern_type: PatternType::Persistence,
+            description: "Service-based persistence pattern detected".to_string(),
+            severity: OpsecCategory::HighRisk,
+            location: Some("Win32 imports: OpenSCManagerA, CreateServiceA".to_string()),
+        });
+    }
+
+    if detected_apis.contains("RegCreateKeyExA") && (detected_apis.contains("RegSetValueExA") || detected_apis.contains("RegSetValueExW")) {
+        suspicious_patterns.push(SuspiciousPattern {
+            pattern_type: PatternType::Persistence,
+            description: "Registry-based persistence pattern detected".to_string(),
+            severity: OpsecCategory::MediumRisk,
+            location: Some("Win32 imports: RegCreateKeyExA, RegSetValueEx*".to_string()),
         });
     }
     
-    // Calculate OpSec score (0-100, higher is better)
+    // Calculate OpSec scores (0-100)
     let mut score: i32 = 100;
+    let mut injection_penalty: i32 = 0;
+    let mut anti_debug_penalty: i32 = 0;
+    let mut persistence_penalty: i32 = 0;
     
-    // Deduct points based on API categories
+    // Deduct points based on API categories (global score)
     for (_, info) in &api_classifications {
         match info.category {
             OpsecCategory::LowRisk => score -= 1,
@@ -319,28 +470,67 @@ pub fn analyze_api_opsec(imports: &[Import]) -> EnhancedOpsecAnalysis {
         }
     }
     
-    // Deduct additional points for risky combinations
+    // Deduct additional points for risky combinations (global + dimension-specific)
     for combination in &risky_combinations {
-        match combination.risk_level {
-            OpsecCategory::LowRisk => score -= 5,
-            OpsecCategory::MediumRisk => score -= 10,
-            OpsecCategory::HighRisk => score -= 15,
-            OpsecCategory::CriticalRisk => score -= 25,
+        let base = match combination.risk_level {
+            OpsecCategory::LowRisk => 5,
+            OpsecCategory::MediumRisk => 10,
+            OpsecCategory::HighRisk => 15,
+            OpsecCategory::CriticalRisk => 25,
+        };
+        score -= base;
+
+        // Heuristically map combinations into dimensions
+        let apis = &combination.apis;
+        if apis.iter().any(|a| a.contains("VirtualAlloc") || a.contains("WriteProcessMemory") || a.contains("Thread") || a.contains("Apc")) {
+            injection_penalty += base;
+        }
+        if apis.iter().any(|a| a.contains("Reg") || a.contains("Service") || a.contains("CreateService") || a.contains("OpenSCManager")) {
+            persistence_penalty += base;
+        }
+        if apis.iter().any(|a| a.contains("Debugger") || a.contains("QueryInformationProcess") || a.contains("SetInformationThread")) {
+            anti_debug_penalty += base;
         }
     }
     
-    // Deduct points for suspicious patterns
+    // Deduct points for suspicious patterns (global + dimension-specific)
     for pattern in &suspicious_patterns {
-        match pattern.severity {
-            OpsecCategory::LowRisk => score -= 3,
-            OpsecCategory::MediumRisk => score -= 7,
-            OpsecCategory::HighRisk => score -= 12,
-            OpsecCategory::CriticalRisk => score -= 20,
+        let base = match pattern.severity {
+            OpsecCategory::LowRisk => 3,
+            OpsecCategory::MediumRisk => 7,
+            OpsecCategory::HighRisk => 12,
+            OpsecCategory::CriticalRisk => 20,
+        };
+        score -= base;
+
+        match pattern.pattern_type {
+            PatternType::DirectSyscall | PatternType::ProcessInjection | PatternType::Unhooking => {
+                injection_penalty += base;
+            }
+            PatternType::AntiDebugging => {
+                anti_debug_penalty += base;
+            }
+            PatternType::Persistence => {
+                persistence_penalty += base;
+            }
+            _ => {}
         }
     }
     
-    // Ensure score is within bounds
+    // Ensure scores are within bounds
     let opsec_score = score.max(0).min(100) as u8;
+
+    // Overall stealth is derived from global OpSec score (higher is stealthier)
+    let overall_stealth_score = opsec_score;
+
+    // Dimension scores: map penalties roughly into 0-100
+    let clamp_score = |penalty: i32| -> u8 {
+        let raw = 20 + penalty; // minimum baseline
+        raw.min(100).max(0) as u8
+    };
+    let injection_noise_score = clamp_score(injection_penalty);
+    let anti_debug_evasion_score = clamp_score(anti_debug_penalty);
+    let persistence_profile_score = clamp_score(persistence_penalty);
     
     // Add general recommendations if score is low
     if opsec_score < 50 {
@@ -353,6 +543,10 @@ pub fn analyze_api_opsec(imports: &[Import]) -> EnhancedOpsecAnalysis {
         risky_combinations,
         suspicious_patterns,
         opsec_score,
+        overall_stealth_score,
+        injection_noise_score,
+        anti_debug_evasion_score,
+        persistence_profile_score,
         recommendations,
     }
 }

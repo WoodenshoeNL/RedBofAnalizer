@@ -1,17 +1,22 @@
 //! Beacon API emulation
 
-use std::sync::Mutex;
+use std::sync::{Mutex, OnceLock};
 use std::collections::HashMap;
-use std::ffi::CStr;
+use std::ffi::{CStr, CString};
 use std::os::raw::{c_char, c_int};
+use std::sync::atomic::{AtomicBool, Ordering};
 #[cfg(windows)]
-use windows::Win32::Foundation::{BOOL, HANDLE, CloseHandle};
+use windows::Win32::Foundation::{BOOL, HANDLE, CloseHandle, HMODULE};
 #[cfg(windows)]
 use windows::Win32::System::Memory::*;
 #[cfg(windows)]
 use windows::Win32::Security::*;
 #[cfg(windows)]
 use windows::Win32::System::Threading::*;
+#[cfg(windows)]
+use windows::Win32::System::LibraryLoader::{GetProcAddress, LoadLibraryA};
+#[cfg(windows)]
+use windows::core::PCSTR;
 
 /// Output capture for Beacon API calls
 pub struct OutputCapture {
@@ -574,8 +579,453 @@ pub struct BeaconSyscalls {
     pub rtls: RtlApi,
 }
 
+// ===== Beacon syscall information emulation support =====
+
+/// Global flag controlling whether BeaconGetSyscallInformation should resolve
+/// real syscall information from the host OS (ntdll.dll) or return a zeroed stub.
+#[cfg(windows)]
+static SYSCALL_INFO_FROM_OS: OnceLock<AtomicBool> = OnceLock::new();
+
+/// Global flag controlling whether we should print detailed debug information
+/// about resolved syscalls (for comparison with BOF output).
+#[cfg(windows)]
+static SYSCALL_TRACE_ENABLED: OnceLock<AtomicBool> = OnceLock::new();
+
+#[cfg(windows)]
+fn is_syscall_os_emulation_enabled() -> bool {
+    SYSCALL_INFO_FROM_OS
+        .get_or_init(|| AtomicBool::new(false))
+        .load(Ordering::Relaxed)
+}
+
+#[cfg(windows)]
+fn is_syscall_trace_enabled() -> bool {
+    SYSCALL_TRACE_ENABLED
+        .get_or_init(|| AtomicBool::new(false))
+        .load(Ordering::Relaxed)
+}
+
+/// Enable or disable syscall information emulation from the OS.
+///
+/// This is toggled from the BOF executor based on the "Emulate BeaconInformation"
+/// checkbox in the GUI. When enabled, BeaconGetSyscallInformation will attempt
+/// to read the real system service numbers (SSNs) from the local ntdll.dll.
+#[cfg(windows)]
+pub fn set_syscall_os_emulation_enabled(enable: bool) {
+    SYSCALL_INFO_FROM_OS
+        .get_or_init(|| AtomicBool::new(false))
+        .store(enable, Ordering::Relaxed);
+}
+
+/// Enable or disable verbose syscall resolution tracing.
+///
+/// This is typically wired to the "Trace Beacon API calls" checkbox so that
+/// when tracing is enabled, the loader also dumps the resolved syscall table
+/// to stderr for debugging/comparison.
+#[cfg(windows)]
+pub fn set_syscall_trace_enabled(enable: bool) {
+    SYSCALL_TRACE_ENABLED
+        .get_or_init(|| AtomicBool::new(false))
+        .store(enable, Ordering::Relaxed);
+}
+
+/// Get the handle to the local ntdll.dll module.
+///
+/// We call LoadLibraryA each time. On Windows this is effectively idempotent:
+/// if the module is already loaded in the process, the existing handle is
+/// returned. This avoids having to store HMODULE in a global (which is not
+/// Send/Sync-safe).
+#[cfg(windows)]
+unsafe fn get_ntdll_module() -> Option<HMODULE> {
+    // Use a static null-terminated string to avoid lifetime issues.
+    let name = b"ntdll.dll\0";
+    // LoadLibraryA will return the existing module if it's already loaded.
+    LoadLibraryA(PCSTR(name.as_ptr())).ok()
+}
+
+/// Helper to extract a system service number (SSN) from the local ntdll stub.
+///
+/// This mimics the common Windows x64 syscall stub pattern:
+///   4C 8B D1             mov r10, rcx
+///   B8 SS 00 00 00       mov eax, SSN
+///   0F 05                syscall
+#[cfg(windows)]
+unsafe fn get_ssn(func_name: &str) -> u32 {
+    let module = match get_ntdll_module() {
+        Some(m) => m,
+        None => return 0,
+    };
+
+    let func_cstr = match CString::new(func_name) {
+        Ok(s) => s,
+        Err(_) => return 0,
+    };
+
+    let addr = match GetProcAddress(module, PCSTR(func_cstr.as_ptr() as *const u8)) {
+        Some(p) => p as *const u8,
+        None => return 0,
+    };
+
+    if addr.is_null() {
+        return 0;
+    }
+
+    // We expect opcode 0xB8 at offset 3 (mov eax, SSN)
+    // Guard accesses to avoid UB if the stub is malformed.
+    let mov_eax_opcode = *addr.add(3);
+    if mov_eax_opcode != 0xB8 {
+        // Likely hooked or non-standard stub format.
+        return 0;
+    }
+
+    // Read the DWORD following the 0xB8 opcode.
+    let ssn_ptr = addr.add(4) as *const u32;
+    ssn_ptr.read_unaligned()
+}
+
+/// Initialize a SyscallApiEntry from the local ntdll export table.
+///
+/// - fn_addr: address of the Nt* function
+/// - sysnum: system service number extracted from the stub (0 if not resolvable)
+/// - jmp_addr: approximate address of the `syscall` instruction (fn_addr + 0x12)
+#[cfg(windows)]
+unsafe fn fill_syscall_entry(entry: &mut SyscallApiEntry, name: &str) {
+    let module = match get_ntdll_module() {
+        Some(m) => m,
+        None => {
+            entry.fn_addr = std::ptr::null_mut();
+            entry.jmp_addr = std::ptr::null_mut();
+            entry.sysnum = 0;
+            return;
+        }
+    };
+
+    let func_cstr = match CString::new(name) {
+        Ok(s) => s,
+        Err(_) => {
+            entry.fn_addr = std::ptr::null_mut();
+            entry.jmp_addr = std::ptr::null_mut();
+            entry.sysnum = 0;
+            return;
+        }
+    };
+
+    let fn_addr = match GetProcAddress(module, PCSTR(func_cstr.as_ptr() as *const u8)) {
+        Some(p) => p as *mut std::ffi::c_void,
+        None => std::ptr::null_mut(),
+    };
+
+    entry.fn_addr = fn_addr;
+    entry.sysnum = get_ssn(name);
+
+    if !fn_addr.is_null() {
+        // In typical ntdll stubs the syscall is at offset ~0x12 from the function start.
+        entry.jmp_addr = (fn_addr as *mut u8).add(0x12) as *mut std::ffi::c_void;
+    } else {
+        entry.jmp_addr = std::ptr::null_mut();
+    }
+}
+
+/// Initialize an RTL API entry from ntdll.dll.
+#[cfg(windows)]
+unsafe fn fill_rtl_entry(target: &mut *mut std::ffi::c_void, name: &str) {
+    let module = match get_ntdll_module() {
+        Some(m) => m,
+        None => {
+            *target = std::ptr::null_mut();
+            return;
+        }
+    };
+
+    let func_cstr = match CString::new(name) {
+        Ok(s) => s,
+        Err(_) => {
+            *target = std::ptr::null_mut();
+            return;
+        }
+    };
+
+    let addr = GetProcAddress(module, PCSTR(func_cstr.as_ptr() as *const u8))
+        .map(|p| p as *mut std::ffi::c_void)
+        .unwrap_or(std::ptr::null_mut());
+
+    *target = addr;
+}
+
+/// Initialize all syscall-related fields to a safe zeroed stub.
+#[cfg(windows)]
+unsafe fn init_beacon_syscalls_zero(info_ref: &mut BeaconSyscalls) {
+    let zero_entry = SyscallApiEntry {
+        fn_addr: std::ptr::null_mut(),
+        jmp_addr: std::ptr::null_mut(),
+        sysnum: 0,
+    };
+
+    info_ref.syscalls.nt_allocate_virtual_memory = zero_entry;
+    info_ref.syscalls.nt_protect_virtual_memory = zero_entry;
+    info_ref.syscalls.nt_free_virtual_memory = zero_entry;
+    info_ref.syscalls.nt_get_context_thread = zero_entry;
+    info_ref.syscalls.nt_set_context_thread = zero_entry;
+    info_ref.syscalls.nt_resume_thread = zero_entry;
+    info_ref.syscalls.nt_create_thread_ex = zero_entry;
+    info_ref.syscalls.nt_open_process = zero_entry;
+    info_ref.syscalls.nt_open_thread = zero_entry;
+    info_ref.syscalls.nt_close = zero_entry;
+    info_ref.syscalls.nt_create_section = zero_entry;
+    info_ref.syscalls.nt_map_view_of_section = zero_entry;
+    info_ref.syscalls.nt_unmap_view_of_section = zero_entry;
+    info_ref.syscalls.nt_query_virtual_memory = zero_entry;
+    info_ref.syscalls.nt_duplicate_object = zero_entry;
+    info_ref.syscalls.nt_read_virtual_memory = zero_entry;
+    info_ref.syscalls.nt_write_virtual_memory = zero_entry;
+    info_ref.syscalls.nt_read_file = zero_entry;
+    info_ref.syscalls.nt_write_file = zero_entry;
+    info_ref.syscalls.nt_create_file = zero_entry;
+    info_ref.syscalls.nt_queue_apc_thread = zero_entry;
+    info_ref.syscalls.nt_create_process = zero_entry;
+    info_ref.syscalls.nt_open_process_token = zero_entry;
+    info_ref.syscalls.nt_test_alert = zero_entry;
+    info_ref.syscalls.nt_suspend_process = zero_entry;
+    info_ref.syscalls.nt_resume_process = zero_entry;
+    info_ref.syscalls.nt_query_system_information = zero_entry;
+    info_ref.syscalls.nt_query_directory_file = zero_entry;
+    info_ref.syscalls.nt_set_information_process = zero_entry;
+    info_ref.syscalls.nt_set_information_thread = zero_entry;
+    info_ref.syscalls.nt_query_information_process = zero_entry;
+    info_ref.syscalls.nt_query_information_thread = zero_entry;
+    info_ref.syscalls.nt_open_section = zero_entry;
+    info_ref.syscalls.nt_adjust_privileges_token = zero_entry;
+    info_ref.syscalls.nt_device_io_control_file = zero_entry;
+    info_ref.syscalls.nt_wait_for_multiple_objects = zero_entry;
+
+    info_ref.rtls.rtl_dos_path_name_to_nt_path_name_u_with_status_addr = std::ptr::null_mut();
+    info_ref.rtls.rtl_free_heap_addr = std::ptr::null_mut();
+    info_ref.rtls.rtl_get_process_heap_addr = std::ptr::null_mut();
+}
+
+/// Emit a debug dump of all resolved syscalls and RTL functions.
+///
+/// This is only active when syscall tracing is enabled, and is intended purely
+/// for developer comparison with the BOF's own `dump_syscalls` output.
+#[cfg(windows)]
+unsafe fn trace_beacon_syscalls(info_ref: &BeaconSyscalls) {
+    if !is_syscall_trace_enabled() {
+        return;
+    }
+
+    eprintln!("[BeaconGetSyscallInformation] Resolved syscall table from local ntdll.dll:");
+
+    // Helper macro to reduce repetition when printing entries.
+    macro_rules! dump_entry {
+        ($name:expr, $entry:expr) => {
+            eprintln!(
+                "  {:28} fnAddr: {:?} jmpAddr: {:?} sysnum: {}",
+                $name,
+                $entry.fn_addr,
+                $entry.jmp_addr,
+                $entry.sysnum
+            );
+        };
+    }
+
+    let s = &info_ref.syscalls;
+    dump_entry!("NtAllocateVirtualMemory", s.nt_allocate_virtual_memory);
+    dump_entry!("NtProtectVirtualMemory", s.nt_protect_virtual_memory);
+    dump_entry!("NtFreeVirtualMemory", s.nt_free_virtual_memory);
+    dump_entry!("NtGetContextThread", s.nt_get_context_thread);
+    dump_entry!("NtSetContextThread", s.nt_set_context_thread);
+    dump_entry!("NtResumeThread", s.nt_resume_thread);
+    dump_entry!("NtCreateThreadEx", s.nt_create_thread_ex);
+    dump_entry!("NtOpenProcess", s.nt_open_process);
+    dump_entry!("NtOpenThread", s.nt_open_thread);
+    dump_entry!("NtClose", s.nt_close);
+    dump_entry!("NtCreateSection", s.nt_create_section);
+    dump_entry!("NtMapViewOfSection", s.nt_map_view_of_section);
+    dump_entry!("NtUnmapViewOfSection", s.nt_unmap_view_of_section);
+    dump_entry!("NtQueryVirtualMemory", s.nt_query_virtual_memory);
+    dump_entry!("NtDuplicateObject", s.nt_duplicate_object);
+    dump_entry!("NtReadVirtualMemory", s.nt_read_virtual_memory);
+    dump_entry!("NtWriteVirtualMemory", s.nt_write_virtual_memory);
+    dump_entry!("NtReadFile", s.nt_read_file);
+    dump_entry!("NtWriteFile", s.nt_write_file);
+    dump_entry!("NtCreateFile", s.nt_create_file);
+    dump_entry!("NtQueueApcThread", s.nt_queue_apc_thread);
+    dump_entry!("NtCreateProcess", s.nt_create_process);
+    dump_entry!("NtOpenProcessToken", s.nt_open_process_token);
+    dump_entry!("NtTestAlert", s.nt_test_alert);
+    dump_entry!("NtSuspendProcess", s.nt_suspend_process);
+    dump_entry!("NtResumeProcess", s.nt_resume_process);
+    dump_entry!("NtQuerySystemInformation", s.nt_query_system_information);
+    dump_entry!("NtQueryDirectoryFile", s.nt_query_directory_file);
+    dump_entry!("NtSetInformationProcess", s.nt_set_information_process);
+    dump_entry!("NtSetInformationThread", s.nt_set_information_thread);
+    dump_entry!("NtQueryInformationProcess", s.nt_query_information_process);
+    dump_entry!("NtQueryInformationThread", s.nt_query_information_thread);
+    dump_entry!("NtOpenSection", s.nt_open_section);
+    dump_entry!("NtAdjustPrivilegesToken", s.nt_adjust_privileges_token);
+    dump_entry!("NtDeviceIoControlFile", s.nt_device_io_control_file);
+    dump_entry!("NtWaitForMultipleObjects", s.nt_wait_for_multiple_objects);
+
+    eprintln!("[BeaconGetSyscallInformation] RTL functions:");
+    eprintln!(
+        "  {:28} addr: {:?}",
+        "RtlDosPathNameToNtPathNameUWithStatus",
+        info_ref
+            .rtls
+            .rtl_dos_path_name_to_nt_path_name_u_with_status_addr
+    );
+    eprintln!("  {:28} addr: {:?}", "RtlFreeHeap", info_ref.rtls.rtl_free_heap_addr);
+    eprintln!(
+        "  {:28} addr: {:?}",
+        "RtlGetProcessHeap",
+        info_ref.rtls.rtl_get_process_heap_addr
+    );
+}
+
+// ===== BeaconInformation emulation support =====
+
+/// Internal section info used for BeaconInformation emulation
+#[cfg(windows)]
+#[derive(Clone)]
+struct BeaconSectionInfo {
+    label: u32,
+    base_address: usize,
+    virtual_size: usize,
+    current_protect: u32,
+}
+
+/// Internal runtime info used for BeaconInformation emulation
+#[cfg(windows)]
+#[derive(Clone)]
+struct BeaconRuntimeInfo {
+    base_address: usize,
+    region_size: usize,
+    sections: Vec<BeaconSectionInfo>,
+    sleep_mask_base: usize,
+    sleep_mask_text_size: u32,
+    sleep_mask_total_size: u32,
+    mask: [u8; 13],
+}
+
+/// Global state for BeaconInformation emulation
+#[cfg(windows)]
+struct BeaconEmulationState {
+    runtime: Option<BeaconRuntimeInfo>,
+    // store (ptr_addr, size) pairs to keep this Send-safe; we rebuild HeapRecord on demand
+    heap_records: Vec<(usize, usize)>,
+}
+
+#[cfg(windows)]
+static BEACON_EMULATION_STATE: OnceLock<Mutex<BeaconEmulationState>> = OnceLock::new();
+
+#[cfg(windows)]
+fn get_beacon_emulation_state() -> &'static Mutex<BeaconEmulationState> {
+    BEACON_EMULATION_STATE.get_or_init(|| Mutex::new(BeaconEmulationState {
+        runtime: None,
+        heap_records: Vec::new(),
+    }))
+}
+
+/// Initialize or clear BeaconInformation emulation runtime based on loader state.
+///
+/// This is called from the BOF executor after sections are loaded.
+#[cfg(windows)]
+pub fn initialize_beacon_information_emulation(
+    base: *mut u8,
+    total_size: usize,
+    sections: &[crate::core::executor::loader::SectionMapping],
+    enable: bool,
+) {
+    use windows::Win32::System::Memory::{PAGE_EXECUTE_READ, PAGE_READWRITE};
+
+    let mut state = get_beacon_emulation_state().lock().unwrap();
+
+    if !enable {
+        state.runtime = None;
+        state.heap_records.clear();
+        return;
+    }
+
+    let base_addr = base as usize;
+
+    // Build section info from loader mappings
+    let mut section_infos = Vec::new();
+    for m in sections {
+        let name = m.name.to_ascii_lowercase();
+        let label = if name == ".text" {
+            3 // LABEL_TEXT
+        } else if name == ".rdata" {
+            4 // LABEL_RDATA
+        } else if name == ".data" {
+            5 // LABEL_DATA
+        } else {
+            1 // LABEL_BUFFER (generic)
+        };
+
+        let protect = if label == 3 {
+            PAGE_EXECUTE_READ.0
+        } else {
+            PAGE_READWRITE.0
+        };
+
+        section_infos.push(BeaconSectionInfo {
+            label,
+            base_address: m.virtual_address,
+            virtual_size: m.size,
+            current_protect: protect,
+        });
+    }
+
+    // Choose a sleep mask region based on .text section if available
+    let (sleep_base, sleep_text_size, sleep_total_size) = if let Some(text) =
+        section_infos.iter().find(|s| s.label == 3)
+    {
+        let text_sz = text.virtual_size.min(8192) as u32;
+        let total_sz = (text.virtual_size.min(16384)) as u32;
+        (text.base_address as *mut c_char, text_sz, total_sz)
+    } else if let Some(first) = section_infos.first() {
+        let sz = first.virtual_size.min(4096) as u32;
+        (first.base_address as *mut c_char, sz, sz * 2)
+    } else {
+        (std::ptr::null_mut(), 0, 0)
+    };
+
+    // Generate a pseudo-random 13-byte mask based on time and base address
+    let mut mask = [0u8; 13];
+    let now = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_nanos();
+    let seed = now ^ (base as usize as u128);
+    for i in 0..13 {
+        mask[i] = ((seed >> (i * 5)) & 0xFF) as u8;
+    }
+
+    // PURPOSE_BEACON_MEMORY = 2, METHOD_VIRTUALALLOC = 1
+    let runtime = BeaconRuntimeInfo {
+        base_address: base_addr,
+        region_size: total_size,
+        sections: section_infos,
+        sleep_mask_base: sleep_base as usize,
+        sleep_mask_text_size: sleep_text_size,
+        sleep_mask_total_size: sleep_total_size,
+        mask,
+    };
+
+    // Emulate a few heap records inside the allocated region to look realistic.
+    state.heap_records.clear();
+    if total_size >= 0x2000 {
+        let base_u = base as usize;
+        state.heap_records.push((base_u + 0x1000, 512));
+        state.heap_records.push((base_u + 0x1500, 1024));
+        state.heap_records.push((base_u + 0x2000, 128));
+    }
+
+    state.runtime = Some(runtime);
+}
+
 /// Key/Value store for BOFs to persist data across executions
-use std::sync::OnceLock;
+use std::time::{SystemTime, UNIX_EPOCH};
 // Use usize instead of *mut c_void to avoid Send/Sync issues
 static KEY_VALUE_STORE: OnceLock<Mutex<HashMap<String, usize>>> = OnceLock::new();
 
@@ -1327,7 +1777,7 @@ impl BeaconApi {
     pub unsafe extern "C" fn beacon_spawn_temporary_process(
         x86: BOOL,
         ignore_token: BOOL,
-        si: *mut windows::Win32::System::Threading::STARTUPINFOW,
+        _si: *mut windows::Win32::System::Threading::STARTUPINFOW,
         pi: *mut windows::Win32::System::Threading::PROCESS_INFORMATION,
     ) -> BOOL {
         // Record API call
@@ -1722,6 +2172,103 @@ impl BeaconApi {
         if !supported_versions.contains(&requested_version) {
             return BOOL::from(false);
         }
+
+    // If we have emulation runtime information, populate with realistic values
+    if let Ok(state) = get_beacon_emulation_state().lock() {
+        if let Some(runtime) = &state.runtime {
+            // Version
+            info_ref.version = requested_version;
+            
+            // Sleep mask information
+            info_ref.sleep_mask_ptr = runtime.sleep_mask_base as *mut c_char;
+            info_ref.sleep_mask_text_size = runtime.sleep_mask_text_size;
+            info_ref.sleep_mask_total_size = runtime.sleep_mask_total_size;
+            
+            // Beacon base pointer
+            info_ref.beacon_ptr = runtime.base_address as *mut c_char;
+            
+            // Heap records - point to our emulated records if any, otherwise NULL.
+            // We rebuild a HeapRecord array from stored (addr, size) pairs and leak it
+            // so the pointer remains valid for the lifetime of the process.
+            if state.heap_records.is_empty() {
+                info_ref.heap_records = std::ptr::null_mut();
+            } else {
+                let mut heap_vec: Vec<HeapRecord> = state
+                    .heap_records
+                    .iter()
+                    .map(|(addr, size)| HeapRecord {
+                        ptr: *addr as *mut c_char,
+                        size: *size,
+                    })
+                    .collect();
+                let heap_ptr = heap_vec.as_mut_ptr();
+                std::mem::forget(heap_vec);
+                info_ref.heap_records = heap_ptr;
+            }
+            
+            // Mask
+            info_ref.mask = runtime.mask;
+            
+            // Initialize allocated memory regions to empty first
+            for region in info_ref.allocated_memory.allocated_memory_regions.iter_mut() {
+                region.purpose = 0; // PURPOSE_EMPTY
+                region.allocation_base = std::ptr::null_mut();
+                region.region_size = 0;
+                region.type_ = 0;
+                region.dripload_allocation_granularity = 0;
+                
+                for section in region.sections.iter_mut() {
+                    section.label = 0; // LABEL_EMPTY
+                    section.base_address = std::ptr::null_mut();
+                    section.virtual_size = 0;
+                    section.current_protect = 0;
+                    section.previous_protect = 0;
+                    section.mask_section = 0;
+                    section.dripload_page_size = 0;
+                }
+                
+                region.cleanup_information.cleanup = 0;
+                region.cleanup_information.allocation_method = 0;
+                region.cleanup_information.additional_cleanup_info = [0u8; 16];
+            }
+            
+            // Fill first region as BEACON_MEMORY
+            if let Some(first_region) = info_ref.allocated_memory.allocated_memory_regions.get_mut(0) {
+                // Values based on beacon.h enums:
+                // PURPOSE_BEACON_MEMORY = 2, METHOD_VIRTUALALLOC = 1
+                const PURPOSE_BEACON_MEMORY: u32 = 2;
+                const METHOD_VIRTUALALLOC: u32 = 1;
+                
+                first_region.purpose = PURPOSE_BEACON_MEMORY;
+                first_region.allocation_base = runtime.base_address as *mut std::ffi::c_void;
+                first_region.region_size = runtime.region_size;
+                // Match typical MEM_COMMIT|MEM_RESERVE flag used by VirtualAlloc in beacon
+                first_region.type_ = 0x20000;
+                first_region.dripload_allocation_granularity = 0;
+                
+                // We have room for up to 8 sections in this region
+                for (idx, sec_info) in runtime.sections.iter().take(first_region.sections.len()).enumerate() {
+                    let section = &mut first_region.sections[idx];
+                    // Use the label computed during initialization (e.g., TEXT/RDATA/DATA or generic buffer)
+                    section.label = sec_info.label;
+                    section.base_address = sec_info.base_address as *mut std::ffi::c_void;
+                    section.virtual_size = sec_info.virtual_size;
+                    section.current_protect = sec_info.current_protect;
+                    section.previous_protect = sec_info.current_protect;
+                    // Mark sections as masked to mimic real beacon behavior
+                    section.mask_section = 1;
+                    section.dripload_page_size = 0;
+                }
+                
+                // Cleanup information
+                first_region.cleanup_information.cleanup = 1;
+                first_region.cleanup_information.allocation_method = METHOD_VIRTUALALLOC;
+                first_region.cleanup_information.additional_cleanup_info = [0u8; 16];
+            }
+            
+            return BOOL::from(true);
+        }
+    }
         
         // Fill in the structure with emulated values
         // Set version (already set by caller, but we keep it)
@@ -2197,57 +2744,75 @@ impl BeaconApi {
         // Cast to BeaconSyscalls structure
         let info_ptr = info as *mut BeaconSyscalls;
         let info_ref = &mut *info_ptr;
-        
-        // Initialize all syscall entries with NULL pointers and zero sysnums
-        // This is safe for emulation - BOFs can still display the information
-        let zero_entry = SyscallApiEntry {
-            fn_addr: std::ptr::null_mut(),
-            jmp_addr: std::ptr::null_mut(),
-            sysnum: 0,
-        };
-        
-        // Fill in all syscall entries
-        info_ref.syscalls.nt_allocate_virtual_memory = zero_entry;
-        info_ref.syscalls.nt_protect_virtual_memory = zero_entry;
-        info_ref.syscalls.nt_free_virtual_memory = zero_entry;
-        info_ref.syscalls.nt_get_context_thread = zero_entry;
-        info_ref.syscalls.nt_set_context_thread = zero_entry;
-        info_ref.syscalls.nt_resume_thread = zero_entry;
-        info_ref.syscalls.nt_create_thread_ex = zero_entry;
-        info_ref.syscalls.nt_open_process = zero_entry;
-        info_ref.syscalls.nt_open_thread = zero_entry;
-        info_ref.syscalls.nt_close = zero_entry;
-        info_ref.syscalls.nt_create_section = zero_entry;
-        info_ref.syscalls.nt_map_view_of_section = zero_entry;
-        info_ref.syscalls.nt_unmap_view_of_section = zero_entry;
-        info_ref.syscalls.nt_query_virtual_memory = zero_entry;
-        info_ref.syscalls.nt_duplicate_object = zero_entry;
-        info_ref.syscalls.nt_read_virtual_memory = zero_entry;
-        info_ref.syscalls.nt_write_virtual_memory = zero_entry;
-        info_ref.syscalls.nt_read_file = zero_entry;
-        info_ref.syscalls.nt_write_file = zero_entry;
-        info_ref.syscalls.nt_create_file = zero_entry;
-        info_ref.syscalls.nt_queue_apc_thread = zero_entry;
-        info_ref.syscalls.nt_create_process = zero_entry;
-        info_ref.syscalls.nt_open_process_token = zero_entry;
-        info_ref.syscalls.nt_test_alert = zero_entry;
-        info_ref.syscalls.nt_suspend_process = zero_entry;
-        info_ref.syscalls.nt_resume_process = zero_entry;
-        info_ref.syscalls.nt_query_system_information = zero_entry;
-        info_ref.syscalls.nt_query_directory_file = zero_entry;
-        info_ref.syscalls.nt_set_information_process = zero_entry;
-        info_ref.syscalls.nt_set_information_thread = zero_entry;
-        info_ref.syscalls.nt_query_information_process = zero_entry;
-        info_ref.syscalls.nt_query_information_thread = zero_entry;
-        info_ref.syscalls.nt_open_section = zero_entry;
-        info_ref.syscalls.nt_adjust_privileges_token = zero_entry;
-        info_ref.syscalls.nt_device_io_control_file = zero_entry;
-        info_ref.syscalls.nt_wait_for_multiple_objects = zero_entry;
-        
-        // Initialize RTL API entries
-        info_ref.rtls.rtl_dos_path_name_to_nt_path_name_u_with_status_addr = std::ptr::null_mut();
-        info_ref.rtls.rtl_free_heap_addr = std::ptr::null_mut();
-        info_ref.rtls.rtl_get_process_heap_addr = std::ptr::null_mut();
+
+        // Always start from a safe zeroed stub so that any functions we fail to
+        // resolve from ntdll.dll remain in a consistent state.
+        init_beacon_syscalls_zero(info_ref);
+
+        // If syscall emulation from the OS is not enabled, just return the
+        // zeroed stub. This matches the previous behavior.
+        if !is_syscall_os_emulation_enabled() {
+            return BOOL::from(true);
+        }
+
+        // Populate system calls from the local ntdll.dll.
+        //
+        // These names must match the exported Nt* functions exactly so that
+        // GetProcAddress can resolve them correctly.
+        fill_syscall_entry(&mut info_ref.syscalls.nt_allocate_virtual_memory, "NtAllocateVirtualMemory");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_protect_virtual_memory, "NtProtectVirtualMemory");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_free_virtual_memory, "NtFreeVirtualMemory");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_get_context_thread, "NtGetContextThread");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_set_context_thread, "NtSetContextThread");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_resume_thread, "NtResumeThread");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_create_thread_ex, "NtCreateThreadEx");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_open_process, "NtOpenProcess");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_open_thread, "NtOpenThread");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_close, "NtClose");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_create_section, "NtCreateSection");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_map_view_of_section, "NtMapViewOfSection");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_unmap_view_of_section, "NtUnmapViewOfSection");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_query_virtual_memory, "NtQueryVirtualMemory");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_duplicate_object, "NtDuplicateObject");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_read_virtual_memory, "NtReadVirtualMemory");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_write_virtual_memory, "NtWriteVirtualMemory");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_read_file, "NtReadFile");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_write_file, "NtWriteFile");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_create_file, "NtCreateFile");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_queue_apc_thread, "NtQueueApcThread");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_create_process, "NtCreateProcess");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_open_process_token, "NtOpenProcessToken");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_test_alert, "NtTestAlert");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_suspend_process, "NtSuspendProcess");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_resume_process, "NtResumeProcess");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_query_system_information, "NtQuerySystemInformation");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_query_directory_file, "NtQueryDirectoryFile");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_set_information_process, "NtSetInformationProcess");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_set_information_thread, "NtSetInformationThread");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_query_information_process, "NtQueryInformationProcess");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_query_information_thread, "NtQueryInformationThread");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_open_section, "NtOpenSection");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_adjust_privileges_token, "NtAdjustPrivilegesToken");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_device_io_control_file, "NtDeviceIoControlFile");
+        fill_syscall_entry(&mut info_ref.syscalls.nt_wait_for_multiple_objects, "NtWaitForMultipleObjects");
+
+        // Populate RTL function addresses from ntdll.dll.
+        fill_rtl_entry(
+            &mut info_ref.rtls.rtl_dos_path_name_to_nt_path_name_u_with_status_addr,
+            "RtlDosPathNameToNtPathNameUWithStatus",
+        );
+        fill_rtl_entry(
+            &mut info_ref.rtls.rtl_free_heap_addr,
+            "RtlFreeHeap",
+        );
+        fill_rtl_entry(
+            &mut info_ref.rtls.rtl_get_process_heap_addr,
+            "RtlGetProcessHeap",
+        );
+
+        // Optionally emit a debug/trace dump of the resolved table so the user
+        // can compare it directly with the BOF's dump_syscalls output.
+        trace_beacon_syscalls(info_ref);
         
         BOOL::from(true)
     }

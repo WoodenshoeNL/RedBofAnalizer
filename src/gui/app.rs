@@ -52,6 +52,8 @@ pub struct RedBofApp {
     execution_trace: bool,
     /// Cobalt Strike compatible argument mode
     execution_cs_compat: bool,
+    /// Emulate real BeaconInformation data (instead of zeroed stub)
+    execution_emulate_beacon_info: bool,
     /// Override automatic signature detection
     override_signature_detection: bool,
     /// Manual signature override (e.g., "zi", "zzi", etc.)
@@ -62,6 +64,8 @@ pub struct RedBofApp {
     symbol_filter: String,
     /// Search filter for sections
     section_filter: String,
+    /// Search/filter for imports (used by OpSec jump navigation)
+    imports_filter: String,
     /// Async message channel
     message_rx: Receiver<AppMessage>,
     message_tx: Sender<AppMessage>,
@@ -153,11 +157,13 @@ impl RedBofApp {
             execution_sandbox: false,
             execution_trace: false,
             execution_cs_compat: false,
+            execution_emulate_beacon_info: false,
             override_signature_detection: false,
             manual_signature: String::new(),
             execution_timeout: 30,
             symbol_filter: String::new(),
             section_filter: String::new(),
+            imports_filter: String::new(),
             message_rx: rx,
             message_tx: tx,
             show_disassembly: false,
@@ -803,6 +809,21 @@ impl RedBofApp {
     fn render_imports_tab(&self, ui: &mut egui::Ui) {
         if let Some(report) = &self.analysis_report {
             egui::ScrollArea::vertical().show(ui, |ui| {
+                // Filter controls (primarily driven by OpSec jumps)
+                ui.horizontal(|ui| {
+                    ui.label("Filter by function:");
+                    // We render read-only view of current filter here to avoid borrowing issues;
+                    // actual filtering uses self.imports_filter.
+                    ui.label(
+                        if self.imports_filter.is_empty() {
+                            "-".to_string()
+                        } else {
+                            self.imports_filter.clone()
+                        }
+                    );
+                });
+                ui.add_space(8.0);
+
                 // Win32 APIs
                 ui.group(|ui| {
                     ui.heading("Win32 APIs");
@@ -819,6 +840,13 @@ impl RedBofApp {
                             ui.end_row();
                             
                             for api in &report.apis.win32_apis {
+                                // Apply optional filter from OpSec navigation
+                                if !self.imports_filter.is_empty()
+                                    && !api.function.to_lowercase().contains(&self.imports_filter.to_lowercase())
+                                {
+                                    continue;
+                                }
+
                                 ui.label(RichText::new(&api.dll).color(Colors::TEXT_SECONDARY));
                                 ui.label(RichText::new(&api.function).monospace());
                                 ui.end_row();
@@ -847,6 +875,13 @@ impl RedBofApp {
     /// Render OpSec tab
     fn render_opsec_tab(&mut self, ui: &mut egui::Ui) {
         use super::app_opsec::render_opsec_tab;
+
+        // Callbacks used by OpSec tab to jump into other views
+        let mut jump_to_imports = |api_name: &str| {
+            self.active_tab = ActiveTab::Imports;
+            self.imports_filter = api_name.to_string();
+        };
+
         render_opsec_tab(
             ui,
             self.opsec_analysis.as_ref(),
@@ -856,6 +891,7 @@ impl RedBofApp {
             &mut self.opsec_risk_filter,
             &mut self.opsec_compat_severity_filter,
             &mut self.opsec_show_all_severities,
+            &mut jump_to_imports,
         );
     }
 
@@ -1168,6 +1204,10 @@ impl RedBofApp {
     
     /// Render YARA analysis tab
     fn render_yara_tab(&mut self, ui: &mut egui::Ui, ctx: &egui::Context) {
+        // Make the entire YARA tab scrollable so large rule sets and details remain accessible
+        egui::ScrollArea::vertical()
+            .auto_shrink([false, false])
+            .show(ui, |ui| {
         // YARA Rule Loading Section
         ui.group(|ui| {
             ui.heading("YARA Rule Management");
@@ -1516,6 +1556,9 @@ impl RedBofApp {
         } else {
             ui.label("No analysis report available");
         }
+
+        // Close outer YARA tab scroll area
+        });
     }
 
     /// Render rule management UI
@@ -1994,11 +2037,11 @@ impl RedBofApp {
                 if self.override_signature_detection {
                     ui.add_space(4.0);
                     if self.manual_signature.trim().is_empty() {
-                        ui.label(RichText::new("⚠️ Warning: Override is enabled but manual signature is empty. Please enter a signature (e.g., 'zi', 'zzi') or disable override.")
+                        ui.label(RichText::new("Warning: Override is enabled but the manual signature is empty. Please enter a signature (e.g., 'zi', 'zzi') or disable override.")
                             .small()
                             .color(Colors::YELLOW_WARNING));
                     } else {
-                        ui.label(RichText::new("ℹ️ When enabled, the manual signature will be used instead of auto-detected signature")
+                        ui.label(RichText::new("Note: When enabled, the manual signature will be used instead of the auto-detected signature.")
                             .small()
                             .color(Colors::TEXT_MUTED));
                     }
@@ -2072,8 +2115,12 @@ impl RedBofApp {
                         ui.label("Options:");
                         ui.horizontal(|ui| {
                             ui.checkbox(&mut self.execution_sandbox, "Sandbox");
-                            ui.checkbox(&mut self.execution_trace, "Trace API calls");
+                            ui.checkbox(&mut self.execution_trace, "Trace Beacon API calls");
                             ui.checkbox(&mut self.execution_cs_compat, "Cobalt Strike Compatible");
+                            ui.checkbox(
+                                &mut self.execution_emulate_beacon_info,
+                                "Emulate BeaconInformation",
+                            );
                         });
                         ui.end_row();
                     });
@@ -2310,6 +2357,7 @@ impl RedBofApp {
             let timeout = Duration::from_secs(self.execution_timeout);
             let tx = self.message_tx.clone();
             let entry_point_name = self.selected_entry_point.clone();
+            let emulate_beacon_info = self.execution_emulate_beacon_info;
             
             thread::spawn(move || {
                 // Use catch_unwind to handle any panics in the execution
@@ -2320,7 +2368,8 @@ impl RedBofApp {
                         sandbox, 
                         trace, 
                         timeout,
-                        entry_point_name.as_deref()
+                        entry_point_name.as_deref(),
+                        emulate_beacon_info,
                     )
                 }));
                 

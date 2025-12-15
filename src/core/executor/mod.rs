@@ -76,8 +76,9 @@ pub fn execute(
     sandbox: bool,
     trace: bool,
     timeout: Duration,
+    emulate_beacon_info: bool,
 ) -> Result<ExecutionResult> {
-    execute_with_entry_point(bof, args, sandbox, trace, timeout, None)
+    execute_with_entry_point(bof, args, sandbox, trace, timeout, None, emulate_beacon_info)
 }
 
 /// Execute a BOF with a specific entry point
@@ -88,6 +89,7 @@ pub fn execute_with_entry_point(
     trace: bool,
     timeout: Duration,
     entry_point_name: Option<&str>,
+    emulate_beacon_info: bool,
 ) -> Result<ExecutionResult> {
     let start = Instant::now();
     clear_global_output();
@@ -109,6 +111,19 @@ pub fn execute_with_entry_point(
     // Load sections
     let section_mappings = load_sections(bof, &memory)
         .context("Failed to load sections")?;
+
+    // Initialize BeaconInformation and syscall information emulation (if enabled)
+    #[cfg(windows)]
+    crate::core::executor::beacon_api::initialize_beacon_information_emulation(
+        memory.base(),
+        total_size,
+        &section_mappings,
+        emulate_beacon_info,
+    );
+    #[cfg(windows)]
+    crate::core::executor::beacon_api::set_syscall_os_emulation_enabled(emulate_beacon_info);
+    #[cfg(windows)]
+    crate::core::executor::beacon_api::set_syscall_trace_enabled(trace);
     
     // Resolve symbols
     let mut resolver = SymbolResolver::new();
@@ -593,7 +608,7 @@ pub fn test_bof(path: &std::path::PathBuf, _continue_on_error: bool) -> Result<E
     let bof = parser::load_bof(path)?;
     
     // Execute without arguments
-    execute(&bof, &[], false, false, Duration::from_secs(30))
+    execute(&bof, &[], false, false, Duration::from_secs(30), false)
 }
 
 
