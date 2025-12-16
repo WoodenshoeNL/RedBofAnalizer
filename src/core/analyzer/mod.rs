@@ -3,11 +3,16 @@
 pub mod linter;
 pub mod signatures;
 pub mod opsec;
+pub mod opsec_config;
 pub mod compatibility;
 pub mod calling_convention;
 pub mod stack_analysis;
 pub mod yara;
 pub mod yara_rules;
+
+// Export scoring configuration (public API - may not be used internally)
+#[allow(unused_imports)]
+pub use opsec_config::{ScoringProfile, ScoringProfiles, ProfileManager, CategoryWeights, PatternWeights, CombinationWeights};
 
 use crate::core::models::bof::BofFile;
 use crate::core::models::report::{
@@ -19,7 +24,8 @@ use anyhow::Result;
 use std::fs;
 
 pub use linter::get_lint_summary;
-pub use opsec::analyze_api_opsec;
+// Note: analyze_api_opsec is kept for backward compatibility but not exported
+// Use opsec::analyze_api_opsec_with_bof for enhanced analysis with location information
 pub use compatibility::analyze_compatibility;
 pub use calling_convention::analyze_calling_conventions;
 // Stack and YARA analysis are used internally but exported for potential external use
@@ -234,8 +240,9 @@ fn build_security_assessment(bof: &BofFile, lint_findings: &[crate::core::models
         }
     }
     
-    // Perform enhanced OpSec analysis
-    let enhanced_opsec = opsec::analyze_api_opsec(&bof.imports);
+    // Perform enhanced OpSec analysis (with full BOF context for location information)
+    use opsec::analyze_api_opsec_with_bof;
+    let enhanced_opsec = analyze_api_opsec_with_bof(&bof.imports, Some(bof), None);
     
     // Combine risky APIs from lint findings and OpSec analysis
     let mut risky_apis: Vec<String> = lint_findings.iter()

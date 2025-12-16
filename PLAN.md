@@ -951,9 +951,47 @@ The project is successful when:
      - Add symbol/offset/location information for risky APIs, combinations, and patterns
      - Make findings clickable to jump to `Imports`/`Disassembly` and (in future) per-function views
      - Group OpSec information per function (which function pulls in which risky APIs/patterns)
-   - **Stronger OpSec signal model**
-     - Expand the internal API database (more Win32/NT APIs, categorized by intent: injection, persistence, discovery, defense evasion, etc.)
-     - Add more patterns: alternate injection methods (e.g. APC, section mapping, SetThreadContext), richer unhooking patterns, persistence‑style registry/service manipulation, and additional anti‑debug/evasion patterns
+   - **Stronger OpSec signal model** ✅ Complete
+     - ✅ Expanded the internal API database with 100+ additional Win32/NT APIs, categorized by intent:
+       - Injection APIs: section mapping (NtCreateSection, NtMapViewOfSection), process hollowing (NtUnmapViewOfSection, GetThreadContext, SetThreadContext, ResumeThread), manual mapping (LdrLoadDll, LdrGetProcedureAddress), DLL injection (LoadLibrary variants), and additional primitives (NtAllocateVirtualMemory, NtReadVirtualMemory, NtOpenProcess, NtOpenThread)
+       - Unhooking APIs: VirtualProtect variants, FlushInstructionCache, ETW patching (EtwEventWrite, EtwEventWriteFull), AMSI bypass (AmsiScanBuffer, AmsiInitialize)
+       - Persistence APIs: scheduled tasks (ITaskScheduler, SchRpcRegisterTask), WMI event subscriptions (IWbemServices, IWbemEventConsumerProvider), COM hijacking (CoGetClassObject, CoCreateInstance), startup folder (SHGetSpecialFolderPath variants), additional registry/service APIs
+       - Anti-debug/evasion APIs: timing checks (QueryPerformanceCounter, GetTickCount variants), exception handling (SetUnhandledExceptionFilter, AddVectoredExceptionHandler, RaiseException), additional NtQueryInformation* APIs (NtQueryInformationThread, NtQuerySystemInformation, NtQueryObject)
+       - Discovery APIs: process enumeration (CreateToolhelp32Snapshot, Process32First/Next, EnumProcesses), network enumeration (GetAdaptersInfo, GetAdaptersAddresses, GetIpNetTable), service enumeration (EnumServicesStatus variants), registry enumeration (RegEnumKeyEx, RegEnumValue variants), file system enumeration (FindFirstFile/NextFile variants), credential access (CredEnumerate, CredRead, LsaRetrievePrivateData, SamEnumerateDomainsInSamServer)
+     - ✅ Added 20+ new risky API combinations:
+       - Section mapping injection patterns
+       - Process hollowing patterns
+       - Early bird injection patterns
+       - Manual mapping / DLL injection patterns
+       - Enhanced unhooking patterns (with FlushInstructionCache)
+       - ETW patching patterns
+       - AMSI bypass patterns
+       - Scheduled task persistence
+       - WMI event subscription persistence
+       - COM hijacking persistence
+       - Startup folder persistence
+       - Service modification patterns
+       - Multiple anti-debug check patterns
+       - Timing-based anti-debug patterns
+       - Exception-based anti-debug patterns
+       - Thread information manipulation patterns
+       - Discovery patterns (process enumeration, service enumeration, credential access)
+     - ✅ Enhanced suspicious pattern detection with 15+ new patterns:
+       - Section mapping injection detection
+       - Process hollowing detection
+       - Early bird injection detection
+       - Manual DLL mapping detection
+       - Enhanced unhooking detection (with cache flushing)
+       - ETW patching detection
+       - AMSI bypass detection
+       - Timing-based anti-debug detection
+       - Exception-based anti-debug detection
+       - Scheduled task persistence detection
+       - WMI event subscription persistence detection
+       - COM hijacking persistence detection
+       - Startup folder persistence detection
+       - Process enumeration detection
+       - Credential access detection
      - Split OpSec into multiple dimensions (e.g. overall stealth, injection noisiness, anti‑debug/evasion profile) instead of a single score only
    - **Configurable scoring / risk tuning**
      - Allow custom weights per risk category and pattern

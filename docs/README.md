@@ -10,6 +10,8 @@ Complete documentation for RedBofAnalizer.
 - **[User Guide](USER_GUIDE.md)** - Comprehensive guide covering all features
 - **[CLI Reference](CLI_REFERENCE.md)** - Complete command-line interface reference
 - **[GUI Guide](GUI_GUIDE.md)** - Graphical user interface guide
+- **[OpSec Tab Guide](OPSEC_TAB.md)** - OpSec analysis and scoring
+- **[Configurable Scoring Guide](CONFIGURABLE_SCORING.md)** - Custom scoring profiles and whitelisting
 
 ### Developer Documentation
 

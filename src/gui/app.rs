@@ -3,12 +3,14 @@
 #![allow(dead_code)]
 
 use crate::core::analyzer;
+use crate::core::analyzer::opsec_config::ProfileManager;
 use crate::core::executor;
 use crate::core::models::bof::BofFile;
 use crate::core::models::report::{AnalysisReport, ExecutionResult};
 use crate::core::parser;
 use super::tabs::ActiveTab;
 use super::theme::Colors;
+use super::widgets::HexDump;
 
 use egui::{Align, Layout, RichText};
 use std::collections::HashSet;
@@ -86,6 +88,11 @@ pub struct RedBofApp {
     opsec_risk_filter: crate::core::analyzer::opsec::OpsecCategory,
     opsec_compat_severity_filter: crate::core::analyzer::compatibility::CompatibilitySeverity,
     opsec_show_all_severities: bool,
+    /// OpSec table sorting state
+    opsec_sort_column: Option<usize>, // 0=API, 1=Category, 2=Description
+    opsec_sort_ascending: bool,
+    /// OpSec filter preset (None = custom, Some = preset name)
+    opsec_filter_preset: Option<String>,
     /// YARA rule paths (files or directories)
     yara_rule_paths: Vec<PathBuf>,
     /// Persistent YARA rules folder (automatically loaded on startup)
@@ -101,6 +108,12 @@ pub struct RedBofApp {
     rule_mgmt_show_disabled: bool,
     rule_mgmt_show_metrics: bool,
     rule_mgmt_selected_rule: Option<String>,
+    /// OpSec scoring profile manager
+    opsec_profile_manager: ProfileManager,
+    /// Currently selected OpSec profile name
+    opsec_selected_profile: String,
+    /// Section name for which hex preview window should be shown (None = closed)
+    hex_preview_section: Option<String>,
 }
 
 impl RedBofApp {
@@ -176,6 +189,9 @@ impl RedBofApp {
             opsec_risk_filter: crate::core::analyzer::opsec::OpsecCategory::LowRisk,
             opsec_compat_severity_filter: crate::core::analyzer::compatibility::CompatibilitySeverity::Warning,
             opsec_show_all_severities: true,
+            opsec_sort_column: None,
+            opsec_sort_ascending: true,
+            opsec_filter_preset: None,
             yara_rule_paths,
             yara_persistent_folder,
             yara_use_default_rules,
@@ -186,6 +202,9 @@ impl RedBofApp {
             rule_mgmt_show_disabled: true,
             rule_mgmt_show_metrics: false,
             rule_mgmt_selected_rule: None,
+            opsec_profile_manager: ProfileManager::with_default_profiles(),
+            opsec_selected_profile: "default".to_string(),
+            hex_preview_section: None,
         }
     }
     
@@ -239,7 +258,10 @@ impl RedBofApp {
                     
                     // Perform advanced analysis
                     if let Some(bof) = &self.bof_file {
-                        self.opsec_analysis = Some(analyzer::analyze_api_opsec(&bof.imports));
+                        use crate::core::analyzer::opsec::analyze_api_opsec_with_bof;
+                        let profile = self.opsec_profile_manager.get_profile(&self.opsec_selected_profile)
+                            .or_else(|| self.opsec_profile_manager.get_profile("default"));
+                        self.opsec_analysis = Some(analyze_api_opsec_with_bof(&bof.imports, Some(bof), profile));
                         self.compatibility_analysis = Some(analyzer::analyze_compatibility(bof));
                         self.calling_convention_analysis = Some(analyzer::analyze_calling_conventions(bof));
                     }
@@ -491,7 +513,7 @@ impl RedBofApp {
     }
 
     /// Render overview tab
-    fn render_overview_tab(&self, ui: &mut egui::Ui) {
+    fn render_overview_tab(&mut self, ui: &mut egui::Ui) {
         if let Some(bof) = &self.bof_file {
             egui::ScrollArea::vertical().show(ui, |ui| {
                 // File info card
@@ -648,6 +670,84 @@ impl RedBofApp {
                     
                     ui.add_space(10.0);
                     
+                    // Enhanced OpSec Findings Summary (if available)
+                    if let Some(opsec) = &self.opsec_analysis {
+                        ui.group(|ui| {
+                            ui.horizontal(|ui| {
+                                ui.heading("OpSec Findings");
+                                ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+                                    // Use ASCII-only label to avoid missing glyphs on some platforms
+                                    if ui.button("View Details >>").clicked() {
+                                        self.active_tab = ActiveTab::OpSec;
+                                    }
+                                });
+                            });
+                            ui.separator();
+                            
+                            // Summary counts
+                            let critical_count = opsec.api_classifications.iter()
+                                .filter(|(_, info)| info.category == crate::core::analyzer::opsec::OpsecCategory::CriticalRisk).count();
+                            let high_count = opsec.api_classifications.iter()
+                                .filter(|(_, info)| info.category == crate::core::analyzer::opsec::OpsecCategory::HighRisk).count();
+                            let combo_count = opsec.risky_combinations.len();
+                            let pattern_count = opsec.suspicious_patterns.len();
+                            
+                            egui::Grid::new("opsec_summary_grid")
+                                .num_columns(2)
+                                .spacing([40.0, 6.0])
+                                .show(ui, |ui| {
+                                    ui.label(RichText::new("OpSec Score:").color(Colors::TEXT_SECONDARY));
+                                    let score = opsec.opsec_score;
+                                    let color = if score >= 70 { Colors::GREEN_SUCCESS }
+                                        else if score >= 40 { Colors::YELLOW_WARNING }
+                                        else { Colors::RED_LIGHT };
+                                    ui.label(RichText::new(format!("{}/100", score)).color(color).strong());
+                                    ui.end_row();
+                                    
+                                    if critical_count > 0 || high_count > 0 {
+                                        ui.label(RichText::new("High/Critical Issues:").color(Colors::TEXT_SECONDARY));
+                                        let issue_color = if critical_count > 0 { Colors::RED_ACCENT } else { Colors::RED_LIGHT };
+                                        let resp = ui.label(RichText::new(format!("{} Critical, {} High", critical_count, high_count))
+                                            .color(issue_color)
+                                            .underline());
+                                        if resp.clicked() {
+                                            self.active_tab = ActiveTab::OpSec;
+                                        }
+                                        ui.end_row();
+                                    }
+                                    
+                                    if combo_count > 0 {
+                                        ui.label(RichText::new("Risky Combinations:").color(Colors::TEXT_SECONDARY));
+                                        let resp = ui.label(RichText::new(format!("{}", combo_count))
+                                            .color(Colors::YELLOW_WARNING)
+                                            .underline());
+                                        if resp.clicked() {
+                                            self.active_tab = ActiveTab::OpSec;
+                                        }
+                                        ui.end_row();
+                                    }
+                                    
+                                    if pattern_count > 0 {
+                                        ui.label(RichText::new("Suspicious Patterns:").color(Colors::TEXT_SECONDARY));
+                                        let resp = ui.label(RichText::new(format!("{}", pattern_count))
+                                            .color(Colors::YELLOW_WARNING)
+                                            .underline());
+                                        if resp.clicked() {
+                                            self.active_tab = ActiveTab::OpSec;
+                                        }
+                                        ui.end_row();
+                                    }
+                                });
+                            
+                            ui.add_space(5.0);
+                            ui.label(RichText::new("Click counts or 'View Details' to see full OpSec analysis")
+                                .small()
+                                .color(Colors::TEXT_MUTED));
+                        });
+                        
+                        ui.add_space(10.0);
+                    }
+                    
                     // Capabilities
                     if !report.security.capabilities.is_empty() {
                         ui.group(|ui| {
@@ -723,24 +823,11 @@ impl RedBofApp {
                             ui.label(RichText::new(format!("Entropy: {:.2}", section.entropy)).color(Colors::TEXT_SECONDARY).small());
                         });
                         
-                        // Hex preview
+                        // Hex preview button
                         if !section.data.is_empty() {
-                            ui.collapsing("Hex Preview", |ui| {
-                                let preview_len = section.data.len().min(256);
-                                let hex_str: String = section.data[..preview_len]
-                                    .iter()
-                                    .enumerate()
-                                    .map(|(i, b)| {
-                                        if i > 0 && i % 16 == 0 { format!("\n{:02x}", b) }
-                                        else if i > 0 && i % 8 == 0 { format!("  {:02x}", b) }
-                                        else { format!(" {:02x}", b) }
-                                    })
-                                    .collect();
-                                ui.label(RichText::new(hex_str.trim()).monospace().color(Colors::TEXT_SECONDARY));
-                                if section.data.len() > 256 {
-                                    ui.label(RichText::new("... (truncated)").color(Colors::TEXT_MUTED));
-                                }
-                            });
+                            if ui.button(RichText::new("► Hex Preview").color(Colors::BLUE_INFO)).clicked() {
+                                self.hex_preview_section = Some(section.name.clone());
+                            }
                         }
                     });
                     ui.add_space(4.0);
@@ -874,13 +961,39 @@ impl RedBofApp {
 
     /// Render OpSec tab
     fn render_opsec_tab(&mut self, ui: &mut egui::Ui) {
-        use super::app_opsec::render_opsec_tab;
+        use super::app_opsec::{render_opsec_tab, NavigationRequest};
+        use egui::ComboBox;
 
-        // Callbacks used by OpSec tab to jump into other views
-        let mut jump_to_imports = |api_name: &str| {
-            self.active_tab = ActiveTab::Imports;
-            self.imports_filter = api_name.to_string();
-        };
+        // Profile selection UI
+        ui.horizontal(|ui| {
+            ui.label(RichText::new("Scoring Profile:").strong());
+            ComboBox::new("opsec_profile", "")
+                .selected_text(&self.opsec_selected_profile)
+                .show_ui(ui, |ui| {
+                    for profile_name in self.opsec_profile_manager.list_profiles() {
+                        if ui.selectable_value(
+                            &mut self.opsec_selected_profile,
+                            profile_name.clone(),
+                            &profile_name,
+                        ).changed() {
+                            // Re-run analysis with new profile if BOF is loaded
+                            if let Some(bof) = &self.bof_file {
+                                use crate::core::analyzer::opsec::analyze_api_opsec_with_bof;
+                                let profile = self.opsec_profile_manager.get_profile(&self.opsec_selected_profile)
+                                    .or_else(|| self.opsec_profile_manager.get_profile("default"));
+                                self.opsec_analysis = Some(analyze_api_opsec_with_bof(&bof.imports, Some(bof), profile));
+                            }
+                        }
+                    }
+                });
+            
+            if let Some(profile) = self.opsec_profile_manager.get_profile(&self.opsec_selected_profile) {
+                ui.label(RichText::new(format!("({})", profile.description)).small().color(Colors::TEXT_SECONDARY));
+            }
+        });
+        ui.separator();
+
+        let mut nav_request: Option<NavigationRequest> = None;
 
         render_opsec_tab(
             ui,
@@ -891,8 +1004,27 @@ impl RedBofApp {
             &mut self.opsec_risk_filter,
             &mut self.opsec_compat_severity_filter,
             &mut self.opsec_show_all_severities,
-            &mut jump_to_imports,
+            &mut self.opsec_sort_column,
+            &mut self.opsec_sort_ascending,
+            &mut self.opsec_filter_preset,
+            &mut nav_request,
         );
+        
+        // Apply navigation after render_opsec_tab returns
+        if let Some(request) = nav_request {
+            if request.target == "export_opsec" {
+                // Export OpSec findings
+                self.export_opsec_findings();
+            } else if let Some(_addr) = request.address {
+                // Navigate to Disassembly tab with address
+                self.active_tab = ActiveTab::Disassembly;
+                // TODO: Set disassembly search/scroll to address when address-based navigation is implemented
+            } else {
+                // Navigate to Imports tab with API name filter
+                self.active_tab = ActiveTab::Imports;
+                self.imports_filter = request.target;
+            }
+        }
     }
 
     /// Render lints tab
@@ -2514,6 +2646,170 @@ impl RedBofApp {
             self.status_message = "YARA feature not enabled".to_string();
         }
     }
+    
+    /// Export OpSec findings to JSON or Markdown
+    fn export_opsec_findings(&mut self) {
+        if let Some(opsec) = &self.opsec_analysis {
+            // Try JSON first, then Markdown
+            if let Some(path) = rfd::FileDialog::new()
+                .add_filter("JSON", &["json"])
+                .add_filter("Markdown", &["md"])
+                .set_file_name("opsec_findings.json")
+                .save_file()
+            {
+                let format = if path.extension().and_then(|s| s.to_str()) == Some("md") {
+                    "md"
+                } else {
+                    "json"
+                };
+                
+                match self.write_opsec_export(&path, opsec, format) {
+                    Ok(_) => {
+                        self.status_message = format!("Exported OpSec findings to {}", path.display());
+                    }
+                    Err(e) => {
+                        self.status_message = format!("Export failed: {}", e);
+                    }
+                }
+            }
+        } else {
+            self.status_message = "No OpSec analysis available to export".to_string();
+        }
+    }
+    
+    /// Write OpSec findings to file
+    fn write_opsec_export(&self, path: &std::path::Path, opsec: &crate::core::analyzer::opsec::EnhancedOpsecAnalysis, format: &str) -> anyhow::Result<()> {
+        use std::fs;
+        
+        let content = if format == "json" {
+            self.format_opsec_json(opsec)?
+        } else {
+            self.format_opsec_markdown(opsec)
+        };
+        
+        fs::write(path, content)?;
+        Ok(())
+    }
+    
+    /// Format OpSec findings as JSON
+    fn format_opsec_json(&self, opsec: &crate::core::analyzer::opsec::EnhancedOpsecAnalysis) -> anyhow::Result<String> {
+        use serde_json::json;
+        
+        let mut api_findings = Vec::new();
+        for (api_name, info) in &opsec.api_classifications {
+            api_findings.push(json!({
+                "api": api_name,
+                "category": format!("{:?}", info.category),
+                "description": info.description,
+                "locations": info.locations.iter().map(|loc| {
+                    let mut loc_obj = json!({});
+                    if let Some(ref import_info) = loc.import_info {
+                        loc_obj["library"] = json!(import_info.library);
+                        loc_obj["function"] = json!(import_info.function);
+                    }
+                    if let Some(ref sym) = loc.symbol {
+                        loc_obj["symbol"] = json!(sym);
+                    }
+                    if let Some(addr) = loc.address {
+                        loc_obj["address"] = json!(format!("0x{:X}", addr));
+                    }
+                    loc_obj
+                }).collect::<Vec<_>>()
+            }));
+        }
+        
+        let mut combinations = Vec::new();
+        for combo in &opsec.risky_combinations {
+            combinations.push(json!({
+                "risk_level": format!("{:?}", combo.risk_level),
+                "apis": combo.apis,
+                "description": combo.description,
+                "recommendation": combo.recommendation
+            }));
+        }
+        
+        let mut patterns = Vec::new();
+        for pattern in &opsec.suspicious_patterns {
+            patterns.push(json!({
+                "pattern_type": format!("{:?}", pattern.pattern_type),
+                "severity": format!("{:?}", pattern.severity),
+                "description": pattern.description,
+                "location": pattern.location
+            }));
+        }
+        
+        let json_obj = json!({
+            "opsec_score": opsec.opsec_score,
+            "overall_stealth_score": opsec.overall_stealth_score,
+            "injection_noise_score": opsec.injection_noise_score,
+            "anti_debug_evasion_score": opsec.anti_debug_evasion_score,
+            "persistence_profile_score": opsec.persistence_profile_score,
+            "api_classifications": api_findings,
+            "risky_combinations": combinations,
+            "suspicious_patterns": patterns,
+            "recommendations": opsec.recommendations
+        });
+        
+        serde_json::to_string_pretty(&json_obj).map_err(|e| anyhow::anyhow!("JSON serialization error: {}", e))
+    }
+    
+    /// Format OpSec findings as Markdown
+    fn format_opsec_markdown(&self, opsec: &crate::core::analyzer::opsec::EnhancedOpsecAnalysis) -> String {
+        let mut md = String::new();
+        
+        md.push_str("# OpSec Analysis Report\n\n");
+        md.push_str(&format!("**OpSec Score:** {}/100\n\n", opsec.opsec_score));
+        md.push_str(&format!("- Overall Stealth: {}/100\n", opsec.overall_stealth_score));
+        md.push_str(&format!("- Injection Noise: {}/100\n", opsec.injection_noise_score));
+        md.push_str(&format!("- Anti-Debug/Evasion: {}/100\n", opsec.anti_debug_evasion_score));
+        md.push_str(&format!("- Persistence Profile: {}/100\n\n", opsec.persistence_profile_score));
+        
+        // API Classifications
+        if !opsec.api_classifications.is_empty() {
+            md.push_str("## API Classifications\n\n");
+            md.push_str("| API | Category | Description |\n");
+            md.push_str("|-----|----------|-------------|\n");
+            
+            for (api_name, info) in &opsec.api_classifications {
+                md.push_str(&format!("| `{}` | {:?} | {} |\n", 
+                    api_name, info.category, info.description));
+            }
+            md.push_str("\n");
+        }
+        
+        // Risky Combinations
+        if !opsec.risky_combinations.is_empty() {
+            md.push_str("## Risky API Combinations\n\n");
+            for combo in &opsec.risky_combinations {
+                md.push_str(&format!("### {:?} Risk\n\n", combo.risk_level));
+                md.push_str(&format!("**APIs:** {}\n\n", combo.apis.join(", ")));
+                md.push_str(&format!("{}\n\n", combo.description));
+                md.push_str(&format!("**Recommendation:** {}\n\n", combo.recommendation));
+            }
+        }
+        
+        // Suspicious Patterns
+        if !opsec.suspicious_patterns.is_empty() {
+            md.push_str("## Suspicious Patterns\n\n");
+            for pattern in &opsec.suspicious_patterns {
+                md.push_str(&format!("### {:?} ({:?})\n\n", pattern.pattern_type, pattern.severity));
+                md.push_str(&format!("{}\n\n", pattern.description));
+                if let Some(ref loc) = pattern.location {
+                    md.push_str(&format!("**Location:** {}\n\n", loc));
+                }
+            }
+        }
+        
+        // Recommendations
+        if !opsec.recommendations.is_empty() {
+            md.push_str("## Recommendations\n\n");
+            for rec in &opsec.recommendations {
+                md.push_str(&format!("- {}\n", rec));
+            }
+        }
+        
+        md
+    }
 }
 
 impl eframe::App for RedBofApp {
@@ -2552,6 +2848,41 @@ impl eframe::App for RedBofApp {
         
         // Render menu bar
         self.render_menu_bar(ctx);
+        
+        // Render hex preview window if a section is selected
+        if let Some(section_name) = &self.hex_preview_section {
+            if let Some(bof) = &self.bof_file {
+                if let Some(section) = bof.sections.iter().find(|s| &s.name == section_name) {
+                    egui::Window::new(format!("Hex Preview: {}", section_name))
+                        .collapsible(false)
+                        .resizable(true)
+                        .default_size([800.0, 600.0])
+                        .show(ctx, |ui| {
+                            // Close button at the top
+                            ui.horizontal(|ui| {
+                                ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                                    if ui.button("Close").clicked() {
+                                        self.hex_preview_section = None;
+                                    }
+                                });
+                            });
+                            ui.separator();
+                            
+                            // Scrollable hex content
+                            egui::ScrollArea::both().show(ui, |ui| {
+                                if !section.data.is_empty() {
+                                    ui.add(HexDump::new(&section.data).max_rows(1000));
+                                } else {
+                                    ui.label(RichText::new("Section is empty").color(Colors::TEXT_MUTED));
+                                }
+                            });
+                        });
+                } else {
+                    // Section not found, close the window
+                    self.hex_preview_section = None;
+                }
+            }
+        }
         
         // Main content panel
         egui::CentralPanel::default().show(ctx, |ui| {

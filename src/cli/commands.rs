@@ -38,7 +38,8 @@ pub fn analyze(
     
     // Perform enhanced analysis if requested
     if enhanced {
-        let enhanced_opsec = core::analyzer::analyze_api_opsec(&bof.imports);
+        use core::analyzer::opsec::analyze_api_opsec_with_bof;
+        let enhanced_opsec = analyze_api_opsec_with_bof(&bof.imports, Some(&bof), None);
         let compatibility = core::analyzer::analyze_compatibility(&bof);
         let calling_conv = core::analyzer::analyze_calling_conventions(&bof);
         
