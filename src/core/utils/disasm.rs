@@ -114,6 +114,9 @@ pub fn disassemble_bof(bof: &BofFile) -> Vec<DisassemblyResult> {
     // Build symbol map for annotations
     let symbol_map = build_symbol_map(bof);
     
+    // Build import address map for resolving indirect API calls
+    let import_map = build_import_map(bof);
+    
     // Disassemble code sections
     for section in &bof.sections {
         // Check if section is executable
@@ -121,7 +124,7 @@ pub fn disassemble_bof(bof: &BofFile) -> Vec<DisassemblyResult> {
             || section.characteristics & 0x20000000 != 0; // IMAGE_SCN_MEM_EXECUTE
         
         if is_code && !section.data.is_empty() {
-            let result = disassemble_section(section, bitness, &symbol_map);
+            let result = disassemble_section(section, bitness, &symbol_map, &import_map);
             results.push(result);
         }
     }
@@ -134,6 +137,7 @@ pub fn disassemble_section(
     section: &Section,
     bitness: u32,
     symbol_map: &HashMap<u64, String>,
+    import_map: &HashMap<u64, String>,
 ) -> DisassemblyResult {
     let mut instructions = Vec::new();
     let mut api_calls = Vec::new();
@@ -201,7 +205,7 @@ pub fn disassemble_section(
         
         // Track API calls
         if is_call {
-            let call_info = analyze_call(&instruction, symbol_map);
+            let call_info = analyze_call(&instruction, symbol_map, import_map);
             if let Some(info) = call_info {
                 api_calls.push(info);
             }
@@ -306,8 +310,37 @@ fn build_symbol_map(bof: &BofFile) -> HashMap<u64, String> {
     map
 }
 
+/// Build a map from addresses to import API names (for resolving indirect calls)
+pub fn build_import_map(bof: &BofFile) -> HashMap<u64, String> {
+    let mut map = HashMap::new();
+    
+    // Build a map from import symbol names to their API names
+    let mut symbol_to_api: HashMap<String, String> = HashMap::new();
+    for import in &bof.imports {
+        // Format: LIBRARY!Function
+        let api_name = format!("{}!{}", import.library, import.function);
+        symbol_to_api.insert(import.symbol_name.clone(), api_name);
+    }
+    
+    // Map symbol addresses to API names
+    for symbol in &bof.symbols {
+        // Check if this symbol is an import symbol (starts with __imp_)
+        if symbol.name.starts_with("__imp_") {
+            if let Some(api_name) = symbol_to_api.get(&symbol.name) {
+                map.insert(symbol.value, api_name.clone());
+            }
+        }
+    }
+    
+    map
+}
+
 /// Analyze a call instruction
-fn analyze_call(instruction: &Instruction, symbol_map: &HashMap<u64, String>) -> Option<ApiCallInfo> {
+fn analyze_call(
+    instruction: &Instruction, 
+    symbol_map: &HashMap<u64, String>,
+    import_map: &HashMap<u64, String>,
+) -> Option<ApiCallInfo> {
     use iced_x86::OpKind;
     
     if instruction.op_count() == 0 {
@@ -326,9 +359,28 @@ fn analyze_call(instruction: &Instruction, symbol_map: &HashMap<u64, String>) ->
             (target_name, CallType::Direct)
         }
         OpKind::Memory => {
-            // Indirect call through memory
-            let target = format!("[0x{:X}]", instruction.memory_displacement64());
-            (target, CallType::Indirect)
+            // Indirect call through memory - try to resolve to API name
+            let mem_disp = instruction.memory_displacement64();
+            
+            // For x64, memory operands are typically RIP-relative
+            // Calculate the actual address: next_instruction + displacement
+            let next_ip = instruction.ip() + instruction.len() as u64;
+            let calculated_addr = next_ip.wrapping_add(mem_disp as i64 as u64);
+            
+            // Try to resolve using the calculated address (RIP-relative)
+            let resolved = import_map.get(&calculated_addr)
+                .or_else(|| {
+                    // Also try the raw displacement (in case it's already absolute)
+                    import_map.get(&mem_disp)
+                });
+            
+            if let Some(api_name) = resolved {
+                (api_name.clone(), CallType::Indirect)
+            } else {
+                // Fallback to showing the address
+                let target = format!("[0x{:X}]", mem_disp);
+                (target, CallType::Indirect)
+            }
         }
         OpKind::Register => {
             let reg = instruction.op0_register();

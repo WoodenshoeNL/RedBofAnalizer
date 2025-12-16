@@ -5,7 +5,7 @@
 
 use crate::core::models::bof::BofFile;
 use crate::core::executor::arguments::ArgumentType;
-use crate::core::utils::disasm::disassemble_section;
+use crate::core::utils::disasm::{disassemble_section, build_import_map};
 use std::collections::HashMap;
 
 /// Detected argument signature
@@ -94,6 +94,9 @@ fn detect_from_disassembly(bof: &BofFile) -> Option<ArgumentSignature> {
     // Build symbol map
     let symbol_map = build_symbol_map(bof);
     
+    // Build import map for resolving indirect API calls
+    let import_map = build_import_map(bof);
+    
     // Build relocation map: map section offset -> symbol index
     // For indirect calls, we need to check relocations in the code section
     let relocation_map = build_relocation_map(bof, section_idx);
@@ -113,7 +116,7 @@ fn detect_from_disassembly(bof: &BofFile) -> Option<ArgumentSignature> {
         .collect();
     
     // Disassemble the section
-    let result = disassemble_section(section, bitness, &symbol_map);
+    let result = disassemble_section(section, bitness, &symbol_map, &import_map);
     
     // Find the entry point function in the disassembly
     let entry_offset = entry_point.value as usize;

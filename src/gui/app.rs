@@ -1087,13 +1087,14 @@ impl RedBofApp {
                             ui.separator();
                             
                             egui::Grid::new(format!("disasm_grid_{}", disasm_result.section_name))
-                                .num_columns(3)
+                                .num_columns(4)
                                 .striped(true)
                                 .min_col_width(80.0)
                                 .show(ui, |ui| {
                                     ui.label(RichText::new("Address").strong());
                                     ui.label(RichText::new("Bytes").strong());
                                     ui.label(RichText::new("Instruction").strong());
+                                    ui.label(RichText::new("Annotations").strong());
                                     ui.end_row();
                                     
                                     for instr in &disasm_result.instructions {
@@ -1117,6 +1118,45 @@ impl RedBofApp {
                                         };
                                         
                                         ui.label(RichText::new(&instr.text).monospace().color(color));
+                                        
+                                        // Build annotation string
+                                        let mut annotations = Vec::new();
+                                        
+                                        // Check for function name at this address
+                                        if let Some(func) = disasm_result.functions.iter()
+                                            .find(|f| f.start_address == instr.address) {
+                                            if let Some(ref name) = func.name {
+                                                annotations.push(format!("func: {}", name));
+                                            }
+                                        }
+                                        
+                                        // Check for API call at this address
+                                        if let Some(api_call) = disasm_result.api_calls.iter()
+                                            .find(|api| api.address == instr.address) {
+                                            annotations.push(format!("api: {}", api_call.target));
+                                        }
+                                        
+                                        // Add comment if present
+                                        if let Some(ref comment) = instr.comment {
+                                            annotations.push(comment.clone());
+                                        }
+                                        
+                                        // Display annotations
+                                        let annotation_text = if annotations.is_empty() {
+                                            String::new()
+                                        } else {
+                                            annotations.join(" | ")
+                                        };
+                                        
+                                        if !annotation_text.is_empty() {
+                                            ui.label(RichText::new(annotation_text)
+                                                .monospace()
+                                                .small()
+                                                .color(Colors::TEXT_SECONDARY));
+                                        } else {
+                                            ui.label("");
+                                        }
+                                        
                                         ui.end_row();
                                     }
                                 });
