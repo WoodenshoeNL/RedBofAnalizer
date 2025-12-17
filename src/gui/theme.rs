@@ -80,6 +80,7 @@ impl Colors {
     pub const GREEN_SUCCESS: Color32 = Color32::from_rgb(80, 200, 120);
     pub const YELLOW_WARNING: Color32 = Color32::from_rgb(255, 200, 80);
     pub const BLUE_INFO: Color32 = Color32::from_rgb(100, 160, 255);
+    pub const CYAN_ACCENT: Color32 = Color32::from_rgb(0, 200, 220);
     
     pub const TEXT_PRIMARY: Color32 = Color32::from_rgb(230, 230, 235);
     pub const TEXT_SECONDARY: Color32 = Color32::from_rgb(160, 160, 170);

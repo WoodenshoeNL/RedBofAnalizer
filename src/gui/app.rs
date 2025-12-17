@@ -114,6 +114,12 @@ pub struct RedBofApp {
     opsec_selected_profile: String,
     /// Section name for which hex preview window should be shown (None = closed)
     hex_preview_section: Option<String>,
+    /// Address to highlight and scroll to in disassembly view (set by navigation from OpSec/Imports)
+    disasm_highlight_address: Option<u64>,
+    /// Resolved import addresses from last execution (symbol_name -> function address)
+    last_resolved_imports: std::collections::HashMap<String, u64>,
+    /// Base address where BOF code was loaded during last execution
+    last_code_base_address: Option<u64>,
 }
 
 impl RedBofApp {
@@ -205,6 +211,9 @@ impl RedBofApp {
             opsec_profile_manager: ProfileManager::with_default_profiles(),
             opsec_selected_profile: "default".to_string(),
             hex_preview_section: None,
+            disasm_highlight_address: None,
+            last_resolved_imports: std::collections::HashMap::new(),
+            last_code_base_address: None,
         }
     }
     
@@ -269,6 +278,10 @@ impl RedBofApp {
                 AppMessage::ExecutionComplete(result) => {
                     self.is_executing = false;
                     
+                    // Store resolved imports for display in Imports tab
+                    self.last_resolved_imports = result.resolved_imports.clone();
+                    self.last_code_base_address = result.code_base_address;
+                    
                     // Add BOF output first
                     if !result.output.is_empty() {
                         self.execution_output.push("--- Output ---".into());
@@ -285,6 +298,17 @@ impl RedBofApp {
                             for arg in &call.arguments {
                                 self.execution_output.push(format!("    - {}", arg));
                             }
+                        }
+                    }
+                    
+                    // Add resolved imports (showing actual function addresses)
+                    if !result.resolved_imports.is_empty() {
+                        self.execution_output.push(format!("--- Resolved Imports ({}) ---", result.resolved_imports.len()));
+                        let mut sorted_imports: Vec<_> = result.resolved_imports.iter().collect();
+                        sorted_imports.sort_by_key(|(name, _)| *name);
+                        for (symbol_name, address) in sorted_imports {
+                            // Format: __imp_KERNEL32$GetLastError -> 0x00007FFE12345678
+                            self.execution_output.push(format!("  {} -> 0x{:016X}", symbol_name, address));
                         }
                     }
                     
@@ -914,16 +938,25 @@ impl RedBofApp {
                 // Win32 APIs
                 ui.group(|ui| {
                     ui.heading("Win32 APIs");
-                    ui.label(format!("{} functions", report.apis.win32_apis.len()));
+                    let has_resolved = !self.last_resolved_imports.is_empty();
+                    ui.horizontal(|ui| {
+                        ui.label(format!("{} functions", report.apis.win32_apis.len()));
+                        if has_resolved {
+                            ui.label(RichText::new(" | Resolved addresses available (from last execution)")
+                                .small()
+                                .color(Colors::GREEN_SUCCESS));
+                        }
+                    });
                     ui.separator();
                     
                     egui::Grid::new("win32_apis_grid")
-                        .num_columns(2)
+                        .num_columns(3)
                         .striped(true)
-                        .min_col_width(200.0)
+                        .min_col_width(150.0)
                         .show(ui, |ui| {
                             ui.label(RichText::new("DLL").strong());
                             ui.label(RichText::new("Function").strong());
+                            ui.label(RichText::new("Resolved Address").strong());
                             ui.end_row();
                             
                             for api in &report.apis.win32_apis {
@@ -936,6 +969,30 @@ impl RedBofApp {
 
                                 ui.label(RichText::new(&api.dll).color(Colors::TEXT_SECONDARY));
                                 ui.label(RichText::new(&api.function).monospace());
+                                
+                                // Look up resolved address using import symbol pattern
+                                let symbol_name = format!("__imp_{}${}", api.dll.to_uppercase(), api.function);
+                                // Also try with original case
+                                let symbol_name_orig = format!("__imp_{}${}", api.dll, api.function);
+                                
+                                let resolved_addr = self.last_resolved_imports.get(&symbol_name)
+                                    .or_else(|| self.last_resolved_imports.get(&symbol_name_orig))
+                                    .or_else(|| {
+                                        // Try case-insensitive match
+                                        self.last_resolved_imports.iter()
+                                            .find(|(k, _)| k.to_lowercase() == symbol_name.to_lowercase())
+                                            .map(|(_, v)| v)
+                                    });
+                                
+                                if let Some(addr) = resolved_addr {
+                                    ui.label(RichText::new(format!("0x{:016X}", addr))
+                                        .monospace()
+                                        .color(Colors::GREEN_SUCCESS));
+                                } else if has_resolved {
+                                    ui.label(RichText::new("-").color(Colors::TEXT_MUTED));
+                                } else {
+                                    ui.label(RichText::new("-").color(Colors::TEXT_MUTED));
+                                }
                                 ui.end_row();
                             }
                         });
@@ -949,9 +1006,35 @@ impl RedBofApp {
                     ui.label(format!("{} functions", report.apis.beacon_apis.len()));
                     ui.separator();
                     
-                    for api in &report.apis.beacon_apis {
-                        ui.label(RichText::new(api).monospace().color(Colors::BLUE_INFO));
-                    }
+                    let has_resolved = !self.last_resolved_imports.is_empty();
+                    egui::Grid::new("beacon_apis_grid")
+                        .num_columns(2)
+                        .striped(true)
+                        .min_col_width(200.0)
+                        .show(ui, |ui| {
+                            ui.label(RichText::new("Function").strong());
+                            ui.label(RichText::new("Resolved Address").strong());
+                            ui.end_row();
+                            
+                            for api in &report.apis.beacon_apis {
+                                ui.label(RichText::new(api).monospace().color(Colors::BLUE_INFO));
+                                
+                                // Look up resolved address
+                                let symbol_name = format!("__imp_{}", api);
+                                let resolved_addr = self.last_resolved_imports.get(&symbol_name);
+                                
+                                if let Some(addr) = resolved_addr {
+                                    ui.label(RichText::new(format!("0x{:016X}", addr))
+                                        .monospace()
+                                        .color(Colors::GREEN_SUCCESS));
+                                } else if has_resolved {
+                                    ui.label(RichText::new("-").color(Colors::TEXT_MUTED));
+                                } else {
+                                    ui.label(RichText::new("-").color(Colors::TEXT_MUTED));
+                                }
+                                ui.end_row();
+                            }
+                        });
                 });
             });
         } else {
@@ -1015,10 +1098,37 @@ impl RedBofApp {
             if request.target == "export_opsec" {
                 // Export OpSec findings
                 self.export_opsec_findings();
-            } else if let Some(_addr) = request.address {
-                // Navigate to Disassembly tab with address
+            } else if request.address.is_some() || request.target.contains("!") || request.target.starts_with("__imp_") {
+                // Navigate to Disassembly tab - find the actual call address from disassembly
                 self.active_tab = ActiveTab::Disassembly;
-                // TODO: Set disassembly search/scroll to address when address-based navigation is implemented
+                
+                // Try to find the API call address in disassembly
+                let mut found_addr: Option<u64> = None;
+                if let Some(report) = &self.analysis_report {
+                    // Extract API name from target (could be "LIBRARY!Function" or just "Function")
+                    let api_search = if request.target.contains("!") {
+                        request.target.clone()
+                    } else if request.target.starts_with("__imp_") {
+                        // Convert __imp_LIBRARY$Function to LIBRARY!Function
+                        request.target.trim_start_matches("__imp_").replace("$", "!")
+                    } else {
+                        request.target.clone()
+                    };
+                    
+                    // Search in disassembly API calls
+                    for disasm in &report.disassembly {
+                        for api_call in &disasm.api_calls {
+                            if api_call.target == api_search || api_call.target.ends_with(&format!("!{}", request.target)) {
+                                found_addr = Some(api_call.address);
+                                break;
+                            }
+                        }
+                        if found_addr.is_some() { break; }
+                    }
+                }
+                
+                // Use found address, or fallback to provided address (even if 0)
+                self.disasm_highlight_address = found_addr.or(request.address);
             } else {
                 // Navigate to Imports tab with API name filter
                 self.active_tab = ActiveTab::Imports;
@@ -1072,33 +1182,123 @@ impl RedBofApp {
     }
 
     /// Render disassembly tab
-    fn render_disassembly_tab(&self, ui: &mut egui::Ui) {
+    fn render_disassembly_tab(&mut self, ui: &mut egui::Ui) {
         if let Some(report) = &self.analysis_report {
+            // Build a set of API call addresses for quick lookup
+            let mut api_call_addresses: std::collections::HashSet<u64> = std::collections::HashSet::new();
+            for disasm_result in &report.disassembly {
+                for api_call in &disasm_result.api_calls {
+                    api_call_addresses.insert(api_call.address);
+                }
+            }
+            
+            let highlight_addr = self.disasm_highlight_address;
+            let mut should_clear_highlight = false;
+            
             egui::ScrollArea::vertical().show(ui, |ui| {
                 if report.disassembly.is_empty() {
                     ui.label("No disassembly available");
                 } else {
+                    // Show highlight info banner if navigated from OpSec
+                    if let Some(addr) = highlight_addr {
+                        ui.horizontal(|ui| {
+                            if addr == 0 {
+                                ui.label(RichText::new("⚠ API call not found in disassembly - API may be imported but not called")
+                                    .color(Colors::YELLOW_WARNING));
+                            } else {
+                                ui.label(RichText::new(format!("📍 Navigated to address: 0x{:08X}", addr))
+                                    .color(Colors::YELLOW_WARNING)
+                                    .strong());
+                            }
+                            if ui.small_button("✕ Clear").clicked() {
+                                should_clear_highlight = true;
+                            }
+                        });
+                        ui.separator();
+                    }
+                    
                     for disasm_result in &report.disassembly {
                         ui.group(|ui| {
                             ui.heading(format!("Section: {}", disasm_result.section_name));
-                            ui.label(format!("{} instructions | {} functions detected", 
-                                disasm_result.stats.total_instructions,
-                                disasm_result.functions.len()));
+                            ui.horizontal(|ui| {
+                                ui.label(format!("{} instructions | {} functions detected", 
+                                    disasm_result.stats.total_instructions,
+                                    disasm_result.functions.len()));
+                                ui.label(RichText::new(format!(" | {} API calls", disasm_result.api_calls.len()))
+                                    .color(Colors::CYAN_ACCENT));
+                            });
                             ui.separator();
+                            
+                            // Show resolved base address if available
+                            if let Some(base) = self.last_code_base_address {
+                                ui.horizontal(|ui| {
+                                    ui.label(RichText::new("📍 Resolved base address:").color(Colors::TEXT_SECONDARY));
+                                    ui.label(RichText::new(format!("0x{:016X}", base))
+                                        .monospace()
+                                        .color(Colors::CYAN_ACCENT));
+                                });
+                                ui.separator();
+                            }
                             
                             egui::Grid::new(format!("disasm_grid_{}", disasm_result.section_name))
                                 .num_columns(4)
                                 .striped(true)
                                 .min_col_width(80.0)
                                 .show(ui, |ui| {
-                                    ui.label(RichText::new("Address").strong());
+                                    let header = if self.last_code_base_address.is_some() {
+                                        "Address (Relative → Resolved)"
+                                    } else {
+                                        "Address"
+                                    };
+                                    ui.label(RichText::new(header).strong());
                                     ui.label(RichText::new("Bytes").strong());
                                     ui.label(RichText::new("Instruction").strong());
                                     ui.label(RichText::new("Annotations").strong());
                                     ui.end_row();
                                     
                                     for instr in &disasm_result.instructions {
-                                        ui.label(RichText::new(format!("0x{:08x}", instr.address)).monospace());
+                                        let is_highlighted = highlight_addr == Some(instr.address);
+                                        let is_api_call = api_call_addresses.contains(&instr.address);
+                                        
+                                        // Highlight background for navigated address
+                                        let row_bg = if is_highlighted {
+                                            Some(egui::Color32::from_rgba_unmultiplied(255, 200, 0, 60))
+                                        } else if is_api_call {
+                                            Some(egui::Color32::from_rgba_unmultiplied(0, 200, 255, 25))
+                                        } else {
+                                            None
+                                        };
+                                        
+                                        // Address column - show both relative and resolved if base available
+                                        let addr_str = if let Some(base) = self.last_code_base_address {
+                                            let resolved = base + instr.address;
+                                            format!("0x{:08x} → 0x{:016X}", instr.address, resolved)
+                                        } else {
+                                            format!("0x{:08x}", instr.address)
+                                        };
+                                        let addr_text = RichText::new(addr_str).monospace();
+                                        let addr_text = if is_highlighted {
+                                            addr_text.strong().color(Colors::YELLOW_WARNING)
+                                        } else if is_api_call {
+                                            addr_text.color(Colors::CYAN_ACCENT)
+                                        } else {
+                                            addr_text
+                                        };
+                                        
+                                        if let Some(bg) = row_bg {
+                                            ui.scope(|ui| {
+                                                let rect = ui.available_rect_before_wrap();
+                                                ui.painter().rect_filled(rect, 0.0, bg);
+                                                ui.label(addr_text);
+                                            });
+                                        } else {
+                                            ui.label(addr_text);
+                                        }
+                                        
+                                        // Scroll to highlighted address
+                                        if is_highlighted {
+                                            ui.scroll_to_cursor(Some(egui::Align::Center));
+                                        }
                                         
                                         let bytes_str: String = instr.bytes.iter()
                                             .map(|b| format!("{:02x}", b))
@@ -1107,7 +1307,9 @@ impl RedBofApp {
                                         ui.label(RichText::new(bytes_str).monospace().color(Colors::TEXT_SECONDARY));
                                         
                                         // Color code instructions
-                                        let color = if instr.is_call {
+                                        let color = if is_api_call {
+                                            Colors::CYAN_ACCENT
+                                        } else if instr.is_call {
                                             Colors::BLUE_INFO
                                         } else if instr.is_jump {
                                             Colors::YELLOW_WARNING
@@ -1117,7 +1319,9 @@ impl RedBofApp {
                                             Colors::TEXT_PRIMARY
                                         };
                                         
-                                        ui.label(RichText::new(&instr.text).monospace().color(color));
+                                        let instr_text = RichText::new(&instr.text).monospace().color(color);
+                                        let instr_text = if is_api_call { instr_text.strong() } else { instr_text };
+                                        ui.label(instr_text);
                                         
                                         // Build annotation string
                                         let mut annotations = Vec::new();
@@ -1130,10 +1334,23 @@ impl RedBofApp {
                                             }
                                         }
                                         
-                                        // Check for API call at this address
+                                        // Check for API call at this address - make it prominent
                                         if let Some(api_call) = disasm_result.api_calls.iter()
                                             .find(|api| api.address == instr.address) {
-                                            annotations.push(format!("api: {}", api_call.target));
+                                            // Try to find resolved address for this API
+                                            let resolved_addr = self.last_resolved_imports.iter()
+                                                .find(|(k, _)| {
+                                                    // Match __imp_LIBRARY$Function to LIBRARY!Function
+                                                    let normalized = k.trim_start_matches("__imp_").replace("$", "!");
+                                                    normalized.eq_ignore_ascii_case(&api_call.target)
+                                                })
+                                                .map(|(_, v)| *v);
+                                            
+                                            if let Some(addr) = resolved_addr {
+                                                annotations.push(format!("⚡ API: {} → 0x{:X}", api_call.target, addr));
+                                            } else {
+                                                annotations.push(format!("⚡ API: {}", api_call.target));
+                                            }
                                         }
                                         
                                         // Add comment if present
@@ -1149,10 +1366,11 @@ impl RedBofApp {
                                         };
                                         
                                         if !annotation_text.is_empty() {
+                                            let ann_color = if is_api_call { Colors::CYAN_ACCENT } else { Colors::TEXT_SECONDARY };
                                             ui.label(RichText::new(annotation_text)
                                                 .monospace()
                                                 .small()
-                                                .color(Colors::TEXT_SECONDARY));
+                                                .color(ann_color));
                                         } else {
                                             ui.label("");
                                         }
@@ -1165,6 +1383,10 @@ impl RedBofApp {
                     }
                 }
             });
+            
+            if should_clear_highlight {
+                self.disasm_highlight_address = None;
+            }
         } else {
             ui.label("No analysis report available");
         }

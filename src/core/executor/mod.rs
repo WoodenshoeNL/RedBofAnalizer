@@ -233,6 +233,9 @@ pub fn execute_with_entry_point(
     // Key: COFF symbol table index, Value: resolved address
     let mut resolved_symbols: std::collections::HashMap<usize, usize> = std::collections::HashMap::new();
     
+    // Track resolved import addresses for reporting (symbol_name -> function address)
+    let mut resolved_imports: std::collections::HashMap<String, u64> = std::collections::HashMap::new();
+    
     // For __imp_ symbols, we need to store the function address in memory
     // and use the memory address as the symbol value (indirect addressing)
     // Allocate space for import address table (IAT)
@@ -267,6 +270,9 @@ pub fn execute_with_entry_point(
             if let Some(import) = import_map.get(&symbol.name) {
                 match resolver.resolve(import) {
                     Ok(func_addr) => {
+                        // Track resolved import for reporting
+                        resolved_imports.insert(symbol.name.clone(), func_addr as u64);
+                        
                         // For __imp_ symbols, we need indirect addressing:
                         // Store the function address in the IAT and return the IAT slot address
                         if symbol.name.starts_with("__imp_") {
@@ -305,6 +311,9 @@ pub fn execute_with_entry_point(
                     symbol_name: symbol.name.clone(),
                 };
                 if let Ok(func_addr) = resolver.resolve(&fake_import) {
+                    // Track resolved import for reporting
+                    resolved_imports.insert(symbol.name.clone(), func_addr as u64);
+                    
                     if symbol.name.starts_with("__imp_") {
                         if let Some(ref iat) = iat_memory {
                             let iat_slot_offset = iat_index * std::mem::size_of::<usize>();
@@ -599,6 +608,8 @@ pub fn execute_with_entry_point(
         execution_time,
         error,
         api_calls,
+        resolved_imports,
+        code_base_address: Some(memory.base() as u64),
     })
 }
 

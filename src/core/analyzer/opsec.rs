@@ -987,6 +987,2430 @@ lazy_static::lazy_static! {
             locations: Vec::new(),
         });
         
+        // ===== HANDLE AND ERROR MANAGEMENT APIs =====
+        
+        map.insert("CloseHandle", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Closes an open object handle - standard cleanup function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetLastError", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Retrieves the last error code - standard error handling".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetCurrentProcess", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Returns pseudo-handle to current process - standard process query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("LocalFree", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees local memory - standard memory management".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== TOKEN AND SECURITY APIs =====
+        
+        map.insert("GetTokenInformation", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Retrieves information about an access token - token enumeration".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Token monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("ConvertSidToStringSidA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts SID to string format - standard SID handling".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("LookupAccountSidA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Looks up account name for a SID - standard account lookup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("LookupPrivilegeNameA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Retrieves privilege name from LUID - standard privilege query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("LookupPrivilegeDisplayNameA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Retrieves display name for a privilege - standard privilege query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetUserNameExA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Retrieves extended user name - standard user information query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== ADDITIONAL C RUNTIME APIs =====
+        
+        map.insert("sprintf", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Formats string - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("memset", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Fills memory with a value - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("memcmp", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Compares memory blocks - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== LIBRARY LOADING APIs =====
+        
+        map.insert("GetProcAddress", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets address of exported function - standard dynamic linking".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("FreeLibrary", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees loaded DLL module - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== TIME CONVERSION APIs =====
+        
+        map.insert("FileTimeToSystemTime", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts file time to system time - standard time conversion".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== SECURITY DESCRIPTOR APIs =====
+        
+        map.insert("GetSecurityDescriptorOwner", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets owner from security descriptor - standard security query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetSecurityDescriptorDacl", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets DACL from security descriptor - standard security query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetAclInformation", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets information about an ACL - standard security query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetAce", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets an ACE from an ACL - standard security query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("LookupAccountSidW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Looks up account name for a SID (Unicode) - standard account lookup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ConvertSidToStringSidW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts SID to string format (Unicode) - standard SID handling".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== CRYPTO/CERTIFICATE APIs =====
+        
+        map.insert("CryptFindOIDInfo", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Finds OID information - standard crypto query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CertFreeCertificateContext", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees certificate context - standard crypto cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== COM/OLE APIs =====
+        
+        map.insert("StringFromGUID2", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts GUID to string - standard COM utility".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== ADDITIONAL C RUNTIME WIDE STRING APIs =====
+        
+        map.insert("wcscpy", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Copies wide string - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("wcstok_s", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Tokenizes wide string (secure) - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("wcstoul", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts wide string to unsigned long - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== ADDITIONAL SECURITY DESCRIPTOR APIs =====
+        
+        map.insert("ConvertStringSecurityDescriptorToSecurityDescriptorW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts SDDL string to security descriptor - standard security conversion".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== SAFEARRAY APIs =====
+        
+        map.insert("SafeArrayAccessData", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Accesses SafeArray data - standard COM/OLE array access".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("SafeArrayUnaccessData", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Releases SafeArray data access - standard COM/OLE cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("SafeArrayGetElement", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets element from SafeArray - standard COM/OLE array access".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== FILE OPERATIONS =====
+        
+        map.insert("CreateFileW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Creates/opens file (Unicode) - file system access".to_string(),
+            detection_vectors: vec!["File system monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("ReadFile", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Reads from file - file system access".to_string(),
+            detection_vectors: vec!["File system monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("GetFileSize", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets file size - standard file query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("FindClose", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Closes find handle - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ExpandEnvironmentStringsW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Expands environment variables - standard string expansion".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== HEAP MANAGEMENT =====
+        
+        map.insert("HeapReAlloc", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Reallocates heap memory - standard memory management".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== C RUNTIME STRING APIs =====
+        
+        map.insert("strlen", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets string length - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("strcpy", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Copies string - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("strcmp", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Compares strings - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("strstr", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Finds substring - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("strtok_s", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Tokenizes string (secure) - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("wcscmp", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Compares wide strings - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("_snwprintf", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Formats wide string with size limit - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("wcsrchr", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Finds last occurrence of character in wide string - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== KERNEL32 STRING APIs =====
+        
+        map.insert("lstrlenW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets wide string length - standard string function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("lstrcpynW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Copies wide string with length limit - standard string function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("lstrcatW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Concatenates wide strings - standard string function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== FILE/DIRECTORY QUERY APIs =====
+        
+        map.insert("GetFileAttributesW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets file attributes (Unicode) - standard file query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetFullPathNameW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets full path name (Unicode) - standard path query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetCurrentDirectoryW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets current directory (Unicode) - standard directory query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetFileSecurityW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets file security descriptor (Unicode) - standard security query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== SECURITY APIs =====
+        
+        map.insert("MapGenericMask", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Maps generic access rights to specific rights - standard security function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== ERROR HANDLING =====
+        
+        map.insert("SetLastError", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Sets the last error code - standard error handling".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== USER32 CHARACTER APIs =====
+        
+        map.insert("CharPrevW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets pointer to previous character in wide string - standard character function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== TIME CONVERSION APIs =====
+        
+        map.insert("SystemTimeToTzSpecificLocalTime", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts UTC time to local time - standard time conversion".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== ADDITIONAL C RUNTIME STRING APIs =====
+        
+        map.insert("_strnicmp", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Case-insensitive string comparison with length - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("strcat", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Concatenates strings - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("strncat", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Concatenates strings with length limit - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== FILE ENUMERATION APIs =====
+        
+        map.insert("FindFirstFileA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Finds first file matching pattern - file system discovery".to_string(),
+            detection_vectors: vec!["File system monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("FindNextFileA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Finds next file matching pattern - file system discovery".to_string(),
+            detection_vectors: vec!["File system monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== SERVICE CONTROL APIs =====
+        
+        map.insert("CloseServiceHandle", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Closes service handle - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("EnumServicesStatusExW", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Enumerates services with extended info (Unicode) - service discovery".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string(), "ETW".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== REGISTRY APIs =====
+        
+        map.insert("RegCloseKey", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Closes registry key handle - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("RegQueryValueExW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Queries registry value (Unicode) - standard registry read".to_string(),
+            detection_vectors: vec!["Registry monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== CERTIFICATE/CRYPTO APIs =====
+        
+        map.insert("CertGetNameStringW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets certificate name string (Unicode) - standard certificate query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CryptVerifyMessageSignature", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Verifies message signature - standard crypto verification".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== IMAGE/PE APIs =====
+        
+        map.insert("ImageEnumerateCertificates", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Enumerates certificates in PE image - standard image query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ImageGetCertificateData", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets certificate data from PE image - standard image query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ImageGetCertificateHeader", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets certificate header from PE image - standard image query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== NT FILE APIs =====
+        
+        map.insert("NtCreateFile", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Creates/opens file via NT syscall - low-level file access".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "File system monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NtClose", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Closes handle via NT syscall - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== ADDITIONAL C RUNTIME WIDE STRING APIs =====
+        
+        map.insert("_wcsicmp", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Case-insensitive wide string comparison - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("wcscat", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Concatenates wide strings - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("wcsncat", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Concatenates wide strings with length limit - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== ADDITIONAL REGISTRY APIs =====
+        
+        map.insert("RegConnectRegistryA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Connects to remote registry - remote registry access".to_string(),
+            detection_vectors: vec!["Registry monitoring".to_string(), "Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("RegQueryValueExA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Queries registry value - standard registry read".to_string(),
+            detection_vectors: vec!["Registry monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== ADDITIONAL C RUNTIME APIs =====
+        
+        map.insert("strtoul", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts string to unsigned long - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== TERMINAL SERVICES APIs =====
+        
+        map.insert("WTSEnumerateSessionsA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Enumerates terminal sessions - session discovery".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Session monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("WTSQuerySessionInformationA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Queries terminal session information - session discovery".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Session monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("WTSFreeMemory", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees WTS memory - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== ENVIRONMENT APIs =====
+        
+        map.insert("GetEnvironmentStrings", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets environment strings block - standard environment query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("FreeEnvironmentStringsA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees environment strings block - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== KERNEL32 STRING APIs =====
+        
+        map.insert("lstrlenA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets string length - standard string function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== MODULE ENUMERATION APIs =====
+        
+        map.insert("Module32First", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets first module in snapshot - module enumeration".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Process monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("Module32Next", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets next module in snapshot - module enumeration".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Process monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("EnumProcessModulesEx", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Enumerates process modules - module discovery".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Process monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("GetModuleFileNameExA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets module file name - standard module query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== SHLWAPI STRING APIs =====
+        
+        map.insert("StrStrIA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Case-insensitive substring search - standard string function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== BCRYPT APIs =====
+        
+        map.insert("BCryptOpenAlgorithmProvider", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Opens crypto algorithm provider - standard crypto operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("BCryptCloseAlgorithmProvider", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Closes crypto algorithm provider - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("BCryptCreateHash", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Creates hash object - standard crypto operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("BCryptHashData", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Hashes data - standard crypto operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("BCryptFinishHash", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Finishes hash computation - standard crypto operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("BCryptDestroyHash", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Destroys hash object - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("BCryptSetProperty", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Sets crypto property - standard crypto operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("BCryptGenerateSymmetricKey", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Generates symmetric key - standard crypto operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("BCryptDecrypt", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Decrypts data - standard crypto operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("BCryptDestroyKey", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Destroys crypto key - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== SECURITY DESCRIPTOR APIs =====
+        
+        map.insert("InitializeSecurityDescriptor", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Initializes security descriptor - standard security operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("SetSecurityDescriptorDacl", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Sets DACL on security descriptor - security modification".to_string(),
+            detection_vectors: vec!["Security monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("SetEntriesInAclA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Creates ACL with specified entries - security modification".to_string(),
+            detection_vectors: vec!["Security monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("RegGetKeySecurity", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets registry key security - standard security query".to_string(),
+            detection_vectors: vec!["Registry monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("RegSetKeySecurity", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Sets registry key security - security modification".to_string(),
+            detection_vectors: vec!["Registry monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("RegQueryInfoKeyA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Queries registry key information - standard registry query".to_string(),
+            detection_vectors: vec!["Registry monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== C RUNTIME MEMORY APIs =====
+        
+        map.insert("memcpy", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Copies memory - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("malloc", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Allocates memory - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("_ultoa", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts unsigned long to string - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("strtok", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Tokenizes string - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("wcstombs", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts wide string to multibyte - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("_stricmp", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Case-insensitive string comparison - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== NETAPI32 APIs =====
+        
+        map.insert("NetApiBufferFree", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees NetAPI buffer - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("NetUserModalsGet", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets user modals information - user/domain discovery".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetSessionEnum", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Enumerates network sessions - session discovery".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetWkstaGetInfo", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets workstation information - network discovery".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("DsGetDcNameA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets domain controller name - domain discovery".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== LSA APIs =====
+        
+        map.insert("LsaGetLogonSessionData", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets logon session data - session information query".to_string(),
+            detection_vectors: vec!["LSA monitoring".to_string(), "ETW".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("LsaFreeReturnBuffer", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees LSA return buffer - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== DNS APIs =====
+        
+        map.insert("DnsQuery_A", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Performs DNS query - standard DNS operation".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("DnsFree", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees DNS memory - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("DnsGetCacheDataTable", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets DNS cache data - DNS cache enumeration".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== MEMORY ALLOCATION APIs =====
+        
+        map.insert("LocalAlloc", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Allocates local memory - standard memory allocation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GlobalAlloc", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Allocates global memory - standard memory allocation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GlobalFree", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees global memory - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== NETWORK/IP HELPER APIs =====
+        
+        map.insert("GetNetworkParams", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets network parameters - standard network query".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== LDAP/BER APIs =====
+        
+        map.insert("ber_alloc_t", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Allocates BER element - LDAP encoding".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ber_free", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees BER element - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ber_printf", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Formats BER element - LDAP encoding".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ber_flatten", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Flattens BER element to berval - LDAP encoding".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ber_bvfree", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees berval structure - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== COM/OLE VARIANT APIs =====
+        
+        map.insert("CoInitializeEx", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Initializes COM library - standard COM initialization".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CoUninitialize", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Uninitializes COM library - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("VariantInit", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Initializes VARIANT - standard COM operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("VariantClear", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Clears VARIANT - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("VariantChangeType", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Changes VARIANT type - standard COM operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== PROCESS APIs =====
+        
+        map.insert("OpenProcess", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Opens process handle - process access".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Process monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("GetCurrentProcessId", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets current process ID - standard process query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== VERSION INFO APIs =====
+        
+        map.insert("GetFileVersionInfoSizeA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets file version info size - standard version query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetFileVersionInfoA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets file version info - standard version query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("VerQueryValueA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Queries version value - standard version query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== LOCALE/DATE APIs =====
+        
+        map.insert("GetSystemDefaultLocaleName", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets system default locale name - standard locale query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetLocaleInfoEx", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets locale information - standard locale query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("LocaleNameToLCID", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts locale name to LCID - standard locale conversion".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetDateFormatEx", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Formats date string - standard date formatting".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== LEGACY CRYPT APIs =====
+        
+        map.insert("CryptAcquireContextA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Acquires crypto context - standard crypto operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CryptCreateHash", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Creates hash object - standard crypto operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CryptHashData", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Hashes data - standard crypto operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CryptGetHashParam", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets hash parameter - standard crypto operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CryptDestroyHash", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Destroys hash object - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CryptReleaseContext", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Releases crypto context - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== COMPUTER NAME APIs =====
+        
+        map.insert("GetComputerNameExW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets computer name (Unicode) - standard system query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== NETAPI32 USER/GROUP ENUMERATION APIs =====
+        
+        map.insert("NetGroupGetUsers", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets users in a group - user enumeration".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetQueryDisplayInformation", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Queries display information - user/group enumeration".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetLocalGroupEnum", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Enumerates local groups - group discovery".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetLocalGroupGetMembers", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets local group members - group membership enumeration".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetWkstaUserEnum", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Enumerates workstation users - user discovery".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetShareEnum", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Enumerates network shares - share discovery".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== NETWORK TABLE APIs =====
+        
+        map.insert("GetExtendedTcpTable", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets TCP connection table - network connection enumeration".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("GetExtendedUdpTable", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets UDP endpoint table - network connection enumeration".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== PROCESS QUERY APIs =====
+        
+        map.insert("QueryFullProcessImageNameA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets full process image name - standard process query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== WINSOCK APIs =====
+        
+        map.insert("htonl", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts host to network long - standard network byte order".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("htons", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts host to network short - standard network byte order".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== TIME APIs =====
+        
+        map.insert("GetLocalTime", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets local time - standard time query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetSystemTimeAsFileTime", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets system time as file time - standard time query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("FileTimeToLocalFileTime", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts file time to local - standard time conversion".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetDateFormatW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Formats date string (Unicode) - standard date formatting".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("gmtime", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts time to UTC struct - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("strftime", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Formats time string - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== NETAPI32 ADDITIONAL APIs =====
+        
+        map.insert("NetRemoteTOD", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets remote time of day - remote system query".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetStatisticsGet", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets network statistics - network information query".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetUserGetInfo", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets user information - user enumeration".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetUserGetGroups", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets user's global groups - group enumeration".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetUserGetLocalGroups", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets user's local groups - group enumeration".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetGetAnyDCName", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Gets any domain controller name - domain discovery".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetUserEnum", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Enumerates users - user discovery".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetServerEnum", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Enumerates servers - network discovery".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== MESSAGE/ERROR APIs =====
+        
+        map.insert("FormatMessageA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Formats message string - standard message formatting".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== WNET (MPR) APIs =====
+        
+        map.insert("WNetAddConnection2W", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Adds network connection - network resource access".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("WNetCancelConnection2W", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Cancels network connection - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("WNetOpenEnumW", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Opens network resource enumeration - network discovery".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("WNetEnumResourceW", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Enumerates network resources - network discovery".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("WNetGetResourceInformationW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets network resource information - network query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("WNetGetUserW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets network user name - standard user query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("WNetCloseEnum", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Closes network enumeration - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== LDAP APIs =====
+        
+        map.insert("ldap_init", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Initializes LDAP connection - LDAP access".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("ldap_bind_s", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Binds to LDAP server - LDAP authentication".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("ldap_unbind", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Unbinds from LDAP server - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ldap_search_s", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Performs LDAP search - LDAP query".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("ldap_count_entries", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Counts LDAP entries - standard LDAP operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ldap_first_entry", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets first LDAP entry - standard LDAP operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ldap_next_entry", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets next LDAP entry - standard LDAP operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ldap_first_attribute", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets first LDAP attribute - standard LDAP operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ldap_next_attribute", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets next LDAP attribute - standard LDAP operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ldap_get_values", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets LDAP attribute values - standard LDAP operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ldap_get_values_lenA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets LDAP attribute values with length - standard LDAP operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ldap_value_free", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees LDAP values - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ldap_value_free_len", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees LDAP values with length - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ldap_memfree", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees LDAP memory - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ldap_msgfree", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees LDAP message - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== USER32 WINDOW APIs =====
+        
+        map.insert("EnumChildWindows", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Enumerates child windows - window enumeration".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("EnumDesktopWindows", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Enumerates desktop windows - window enumeration".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("FindWindowExA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Finds child window - window query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetClassNameA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets window class name - window query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetWindowTextA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets window text - window query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("IsWindowVisible", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Checks if window is visible - window query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("SendMessageA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Sends message to window - window messaging".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== WINSOCK APIs =====
+        
+        map.insert("socket", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Creates socket - network socket creation".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("connect", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Connects socket - network connection".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("closesocket", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Closes socket - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("select", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Monitors socket status - standard socket operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("ioctlsocket", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Controls socket I/O mode - standard socket operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("getaddrinfo", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets address info - DNS resolution".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("freeaddrinfo", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees address info - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("__WSAFDIsSet", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Checks if socket is in FD set - standard socket operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("inet_ntoa", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts IP to string - standard network utility".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== SYSTEM INFO APIs =====
+        
+        map.insert("GetDiskFreeSpaceExA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets disk free space - system information query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GlobalMemoryStatusEx", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets memory status - system information query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetIpForwardTable", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets IP routing table - network information query".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== SERVICE APIs =====
+        
+        map.insert("EnumServicesStatusExA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Enumerates services with extended info - service discovery".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string(), "ETW".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("OpenServiceA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Opens service handle - service access".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("QueryServiceConfigA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Queries service configuration - service query".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("QueryServiceConfig2A", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Queries service optional configuration - service query".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("QueryServiceStatus", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Queries service status - service query".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== RPC APIs =====
+        
+        map.insert("UuidToStringA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts UUID to string - standard RPC utility".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("RpcStringFreeA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees RPC string - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== C RUNTIME STRING APIs =====
+        
+        map.insert("wcslen", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets wide string length - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("wcstok", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Tokenizes wide string - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== OLEAUT32 BSTR/VARIANT APIs =====
+        
+        map.insert("SysAllocString", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Allocates BSTR string - standard COM string operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("SysFreeString", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees BSTR string - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("VarFormatDateTime", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Formats variant date/time - standard COM operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== COM SECURITY APIs =====
+        
+        map.insert("CoInitializeSecurity", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Initializes COM security - standard COM security setup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CoSetProxyBlanket", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Sets proxy authentication - standard COM security".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== SAFEARRAY ADDITIONAL APIs =====
+        
+        map.insert("SafeArrayDestroy", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Destroys SafeArray - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("SafeArrayGetLBound", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets SafeArray lower bound - standard array operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("SafeArrayGetUBound", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets SafeArray upper bound - standard array operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== TIME CONVERSION APIs =====
+        
+        map.insert("SystemTimeToFileTime", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts system time to file time - standard time conversion".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== USER INPUT APIs =====
+        
+        map.insert("GetLastInputInfo", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets last input time - user activity query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== NT FILE CONTROL APIs =====
+        
+        map.insert("NtFsControlFile", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Sends control code to file system - low-level file system control".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "File system monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== STRING CONVERSION APIs =====
+        
+        map.insert("MultiByteToWideChar", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts multibyte string to wide string - standard string conversion".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== CRYPTO ENCODING APIs =====
+        
+        map.insert("CryptBinaryToStringW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts binary to string (Unicode) - standard crypto encoding".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CryptBinaryToStringA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts binary to string - standard crypto encoding".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CryptEncodeObjectEx", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Encodes crypto object - standard crypto encoding".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CryptUnprotectData", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Decrypts DPAPI protected data - credential access".to_string(),
+            detection_vectors: vec!["DPAPI monitoring".to_string(), "ETW".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== USER/COMPUTER NAME APIs =====
+        
+        map.insert("GetComputerObjectNameW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets computer object name (Unicode) - standard system query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetUserNameExW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets extended user name (Unicode) - standard user query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== SLEEP/TIMING APIs =====
+        
+        map.insert("Sleep", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Suspends execution - standard timing function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== OLEAUT32 STRING APIs =====
+        
+        map.insert("SysStringLen", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets BSTR length - standard COM string operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("SysAllocStringByteLen", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Allocates BSTR with byte length - standard COM string operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("SysStringByteLen", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets BSTR byte length - standard COM string operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== C RUNTIME FORMATTING APIs =====
+        
+        map.insert("_swprintf", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Formats wide string - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== CERTIFICATE STORE APIs =====
+        
+        map.insert("CertOpenStore", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Opens certificate store - certificate access".to_string(),
+            detection_vectors: vec!["Certificate monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("CertCloseStore", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Closes certificate store - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CertEnumCertificatesInStore", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Enumerates certificates in store - certificate enumeration".to_string(),
+            detection_vectors: vec!["Certificate monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("CertFindCertificateInStore", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Finds certificate in store - certificate query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CertCreateCertificateContext", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Creates certificate context - standard certificate operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("CertAddCertificateContextToStore", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Adds certificate to store - certificate modification".to_string(),
+            detection_vectors: vec!["Certificate monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("CertDeleteCertificateFromStore", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Deletes certificate from store - certificate modification".to_string(),
+            detection_vectors: vec!["Certificate monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("PFXImportCertStore", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Imports PFX certificate store - certificate import".to_string(),
+            detection_vectors: vec!["Certificate monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== C RUNTIME RANDOM/TIME APIs =====
+        
+        map.insert("_time32", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets current time - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("rand", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Generates random number - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("srand", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Seeds random generator - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("strnlen", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets string length with limit - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== NETAPI32 USER MANAGEMENT APIs =====
+        
+        map.insert("NetUserAdd", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Adds user account - user creation".to_string(),
+            detection_vectors: vec!["Security monitoring".to_string(), "ETW".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetGroupAddUser", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Adds user to group - group membership modification".to_string(),
+            detection_vectors: vec!["Security monitoring".to_string(), "ETW".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NetLocalGroupAddMembers", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Adds members to local group - group membership modification".to_string(),
+            detection_vectors: vec!["Security monitoring".to_string(), "ETW".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== PATH APIs =====
+        
+        map.insert("PathCombineW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Combines path components - standard path operation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("PathFileExistsW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Checks if path exists - standard file query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("StrStrA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Finds substring - standard string function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== NETAPI32 USER MODIFICATION APIs =====
+        
+        map.insert("NetUserSetInfo", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Modifies user account - user modification".to_string(),
+            detection_vectors: vec!["Security monitoring".to_string(), "ETW".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== EVENT/SYNCHRONIZATION APIs =====
+        
+        map.insert("CreateEventA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Creates event object - standard synchronization".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("SetEvent", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Sets event to signaled - standard synchronization".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("WaitForSingleObject", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Waits for object - standard synchronization".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== WINDOW MESSAGING APIs =====
+        
+        map.insert("SendMessageTimeoutW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Sends message with timeout - window messaging".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== SHELL EXECUTION APIs =====
+        
+        map.insert("ShellExecuteA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Executes shell operation - process execution".to_string(),
+            detection_vectors: vec!["Process monitoring".to_string(), "ETW".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== RANDOM APIs =====
+        
+        map.insert("SystemFunction036", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "RtlGenRandom - cryptographic random generation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== THREAD APIs =====
+        
+        map.insert("TerminateThread", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Terminates thread - thread manipulation".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Thread monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("_beginthreadex", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Creates thread - standard C runtime thread creation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetCurrentThread", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets current thread handle - standard thread query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== WINSOCK STARTUP/CLEANUP APIs =====
+        
+        map.insert("WSAStartup", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Initializes Winsock - standard network initialization".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("WSACleanup", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Cleans up Winsock - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== WINHTTP APIs =====
+        
+        map.insert("WinHttpOpen", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Opens WinHTTP session - network initialization".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("WinHttpOpenRequest", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Opens HTTP request - network activity".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("WinHttpAddRequestHeaders", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Adds HTTP headers - network activity".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("WinHttpSendRequest", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Sends HTTP request - network activity".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("WinHttpReceiveResponse", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Receives HTTP response - network activity".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("WinHttpReadData", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Reads HTTP data - network activity".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("WinHttpCloseHandle", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Closes WinHTTP handle - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== C RUNTIME STRING APIs =====
+        
+        map.insert("_snprintf", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Formats string with size limit - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("strchr", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Finds character in string - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("strncmp", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Compares strings with length - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("_strlwr", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts string to lowercase - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("_strupr", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts string to uppercase - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("isspace", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Checks if whitespace - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== WINSOCK SERVER APIs =====
+        
+        map.insert("bind", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Binds socket to address - network server".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("listen", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Listens on socket - network server".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("accept", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Accepts connection - network server".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("recv", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Receives data from socket - network communication".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("send", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Sends data to socket - network communication".to_string(),
+            detection_vectors: vec!["Network monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("inet_addr", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts IP string to address - standard network utility".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== TOKEN PRIVILEGE APIs =====
+        
+        map.insert("AdjustTokenPrivileges", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Adjusts token privileges - privilege escalation".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Token monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("LookupPrivilegeValueA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Looks up privilege LUID - standard privilege query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("OpenThreadToken", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Opens thread token - token access".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Token monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== COMPUTER/ACCOUNT APIs =====
+        
+        map.insert("GetComputerNameA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets computer name - standard system query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("LookupAccountNameA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Looks up account SID by name - standard account query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== MEMORY QUERY APIs =====
+        
+        map.insert("VirtualQueryEx", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Queries virtual memory in process - memory reconnaissance".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Process monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== CERTIFICATE PROPERTY APIs =====
+        
+        map.insert("CertGetCertificateContextProperty", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets certificate property - standard certificate query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== CREDENTIAL APIs =====
+        
+        map.insert("CredMarshalCredentialW", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Marshals credential - credential handling".to_string(),
+            detection_vectors: vec!["Credential monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("LogonUserW", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Logs on user - authentication/impersonation".to_string(),
+            detection_vectors: vec!["Security monitoring".to_string(), "ETW".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== FILE DELETION APIs =====
+        
+        map.insert("DeleteFileW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Deletes file (Unicode) - file system modification".to_string(),
+            detection_vectors: vec!["File system monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== DEBUG/DUMP APIs =====
+        
+        map.insert("MiniDumpWriteDump", ApiOpsecInfo {
+            category: OpsecCategory::CriticalRisk,
+            description: "Writes process minidump - credential dumping technique".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Process monitoring".to_string(), "LSASS protection".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== MODULE APIs =====
+        
+        map.insert("GetModuleHandleA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets module handle - standard module query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== REGISTRY MODIFICATION APIs =====
+        
+        map.insert("RegDeleteKeyExA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Deletes registry key - registry modification".to_string(),
+            detection_vectors: vec!["Registry monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("RegDeleteKeyValueA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Deletes registry key value - registry modification".to_string(),
+            detection_vectors: vec!["Registry monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("RegSaveKeyExA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Saves registry key to file - registry backup/exfiltration".to_string(),
+            detection_vectors: vec!["Registry monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== SERVICE CONTROL APIs =====
+        
+        map.insert("ChangeServiceConfig2A", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Changes service optional configuration - service modification".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string(), "ETW".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("QueryServiceStatusEx", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Queries service status extended - service query".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("ControlService", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Sends control code to service - service control".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string(), "ETW".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("EnumDependentServicesA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Enumerates dependent services - service query".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== SECURITY DESCRIPTOR CONVERSION APIs =====
+        
+        map.insert("ConvertSecurityDescriptorToStringSecurityDescriptorW", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Converts security descriptor to SDDL - standard security conversion".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== PROCESS CREATION APIs =====
+        
+        map.insert("CreateProcessWithLogonW", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Creates process with different credentials - credential use".to_string(),
+            detection_vectors: vec!["Process monitoring".to_string(), "ETW".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== C RUNTIME WIDE STRING APIs =====
+        
+        map.insert("wcsstr", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Finds wide substring - standard C runtime function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== SYSTEM SHUTDOWN APIs =====
+        
+        map.insert("InitiateSystemShutdownExA", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Initiates system shutdown - system control".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Security monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== NT PROCESS CONTROL APIs =====
+        
+        map.insert("NtSuspendProcess", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Suspends entire process via syscall - process manipulation".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Process monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("NtResumeProcess", ApiOpsecInfo {
+            category: OpsecCategory::HighRisk,
+            description: "Resumes entire process via syscall - process manipulation".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Process monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== MEMORY MAPPING APIs =====
+        
+        map.insert("UnmapViewOfFile", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Unmaps file view - standard memory cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("VirtualAlloc", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Allocates virtual memory - memory allocation".to_string(),
+            detection_vectors: vec!["ETW".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== ENVIRONMENT APIs =====
+        
+        map.insert("ExpandEnvironmentStringsA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Expands environment variables - standard string expansion".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== THREAD/PROCESS ID APIs =====
+        
+        map.insert("GetProcessIdOfThread", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets process ID from thread - standard query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetWindowThreadProcessId", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets thread/process ID from window - standard query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("OpenThread", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Opens thread handle - thread access".to_string(),
+            detection_vectors: vec!["ETW".to_string(), "Thread monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== WINDOW PROPERTY APIs =====
+        
+        map.insert("PostMessageA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Posts message to window - window messaging".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("SetPropA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Sets window property - window property manipulation".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== STRING COMPARISON APIs =====
+        
+        map.insert("lstrcmpA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Compares strings - standard string function".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== WINDOW LONG/PROPERTY APIs =====
+        
+        map.insert("GetWindowLongPtrA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets window long pointer value - window query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("SetWindowLongPtrA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Sets window long pointer value - window modification".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("FindWindowA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Finds window by class/title - window query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("GetPropA", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets window property - window query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== DDE APIs =====
+        
+        map.insert("DdeInitializeA", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Initializes DDE - DDE communication".to_string(),
+            detection_vectors: vec!["DDE monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("DdeUninitialize", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Uninitializes DDE - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        map.insert("DdeConnectList", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Connects to DDE servers - DDE communication".to_string(),
+            detection_vectors: vec!["DDE monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("DdeDisconnectList", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Disconnects DDE connections - standard cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== MEMORY FREE APIs =====
+        
+        map.insert("VirtualFree", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Frees virtual memory - standard memory cleanup".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
+        // ===== SERVICE UNICODE APIs =====
+        
+        map.insert("OpenServiceW", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Opens service handle (Unicode) - service access".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string()],
+            locations: Vec::new(),
+        });
+        map.insert("OpenSCManagerW", ApiOpsecInfo {
+            category: OpsecCategory::MediumRisk,
+            description: "Opens Service Control Manager (Unicode) - service access".to_string(),
+            detection_vectors: vec!["Service monitoring".to_string(), "ETW".to_string()],
+            locations: Vec::new(),
+        });
+        
+        // ===== SYSTEM INFO APIs =====
+        
+        map.insert("GetSystemInfo", ApiOpsecInfo {
+            category: OpsecCategory::LowRisk,
+            description: "Gets system information - standard system query".to_string(),
+            detection_vectors: vec![],
+            locations: Vec::new(),
+        });
+        
         map
     };
     
@@ -1377,7 +3801,18 @@ pub fn analyze_api_opsec_with_bof(
             }),
         }];
         
-        if let Some(mut info) = API_OPSEC_DB.get(api_name.as_str()).cloned() {
+        // Strip @N suffix for 32-bit stdcall decorated names (e.g., "CloseHandle@4" -> "CloseHandle")
+        let base_api_name = if let Some(at_pos) = api_name.rfind('@') {
+            if api_name[at_pos + 1..].chars().all(|c| c.is_ascii_digit()) {
+                &api_name[..at_pos]
+            } else {
+                api_name.as_str()
+            }
+        } else {
+            api_name.as_str()
+        };
+        
+        if let Some(mut info) = API_OPSEC_DB.get(base_api_name).cloned() {
             info.locations = locations;
             api_classifications.push((api_name.clone(), info));
         } else {

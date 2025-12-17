@@ -187,6 +187,10 @@ pub struct ExecutionResult {
     pub execution_time: Duration,
     pub error: Option<String>,
     pub api_calls: Vec<ApiCall>,
+    /// Resolved import addresses (symbol_name -> resolved function address)
+    pub resolved_imports: std::collections::HashMap<String, u64>,
+    /// Base address where the BOF code was loaded during execution
+    pub code_base_address: Option<u64>,
 }
 
 /// API call record
