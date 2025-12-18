@@ -1,0 +1,1480 @@
+{
+  "dll": "crypt32.dll",
+  "exports": [
+    {
+      "name": "CertAddCRLContextToStore",
+      "ordinal": 1020,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddCRLLinkToStore",
+      "ordinal": 1021,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddCTLContextToStore",
+      "ordinal": 1022,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddCTLLinkToStore",
+      "ordinal": 1023,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddCertificateContextToStore",
+      "ordinal": 1024,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddCertificateLinkToStore",
+      "ordinal": 1025,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddEncodedCRLToStore",
+      "ordinal": 1026,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddEncodedCTLToStore",
+      "ordinal": 1027,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddEncodedCertificateToStore",
+      "ordinal": 1028,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddEncodedCertificateToSystemStoreA",
+      "ordinal": 1029,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddEncodedCertificateToSystemStoreW",
+      "ordinal": 1030,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddEnhancedKeyUsageIdentifier",
+      "ordinal": 1031,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddRefServerOcspResponse",
+      "ordinal": 1032,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddRefServerOcspResponseContext",
+      "ordinal": 1033,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddSerializedElementToStore",
+      "ordinal": 1034,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAddStoreToCollection",
+      "ordinal": 1035,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertAlgIdToOID",
+      "ordinal": 1036,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertCloseServerOcspResponse",
+      "ordinal": 1037,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertCloseStore",
+      "ordinal": 1038,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertCompareCertificate",
+      "ordinal": 1039,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertCompareCertificateName",
+      "ordinal": 1040,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertCompareIntegerBlob",
+      "ordinal": 1041,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertComparePublicKeyInfo",
+      "ordinal": 1042,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertControlStore",
+      "ordinal": 1043,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertCreateCRLContext",
+      "ordinal": 1044,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertCreateCTLContext",
+      "ordinal": 1045,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertCreateCTLEntryFromCertificateContextProperties",
+      "ordinal": 1046,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertCreateCertificateChainEngine",
+      "ordinal": 1047,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertCreateCertificateContext",
+      "ordinal": 1048,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertCreateContext",
+      "ordinal": 1049,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertCreateSelfSignCertificate",
+      "ordinal": 1050,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertDeleteCRLFromStore",
+      "ordinal": 1051,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertDeleteCTLFromStore",
+      "ordinal": 1052,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertDeleteCertificateFromStore",
+      "ordinal": 1053,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertDuplicateCRLContext",
+      "ordinal": 1054,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertDuplicateCTLContext",
+      "ordinal": 1055,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertDuplicateCertificateChain",
+      "ordinal": 1056,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertDuplicateCertificateContext",
+      "ordinal": 1057,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertDuplicateStore",
+      "ordinal": 1058,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertEnumCRLContextProperties",
+      "ordinal": 1059,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertEnumCRLsInStore",
+      "ordinal": 1060,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertEnumCTLContextProperties",
+      "ordinal": 1061,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertEnumCTLsInStore",
+      "ordinal": 1062,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertEnumCertificateContextProperties",
+      "ordinal": 1063,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertEnumCertificatesInStore",
+      "ordinal": 1064,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertEnumPhysicalStore",
+      "ordinal": 1065,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertEnumSubjectInSortedCTL",
+      "ordinal": 1066,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertEnumSystemStore",
+      "ordinal": 1067,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertEnumSystemStoreLocation",
+      "ordinal": 1068,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFindAttribute",
+      "ordinal": 1069,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFindCRLInStore",
+      "ordinal": 1070,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFindCTLInStore",
+      "ordinal": 1071,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFindCertificateInCRL",
+      "ordinal": 1072,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFindCertificateInStore",
+      "ordinal": 1073,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFindChainInStore",
+      "ordinal": 1074,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFindExtension",
+      "ordinal": 1075,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFindRDNAttr",
+      "ordinal": 1076,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFindSubjectInCTL",
+      "ordinal": 1077,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFindSubjectInSortedCTL",
+      "ordinal": 1078,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFreeCRLContext",
+      "ordinal": 1079,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFreeCTLContext",
+      "ordinal": 1080,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFreeCertificateChain",
+      "ordinal": 1081,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFreeCertificateChainEngine",
+      "ordinal": 1082,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFreeCertificateChainList",
+      "ordinal": 1083,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFreeCertificateContext",
+      "ordinal": 1084,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertFreeServerOcspResponseContext",
+      "ordinal": 1085,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetCRLContextProperty",
+      "ordinal": 1086,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetCRLFromStore",
+      "ordinal": 1087,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetCTLContextProperty",
+      "ordinal": 1088,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetCertificateChain",
+      "ordinal": 1089,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetCertificateContextProperty",
+      "ordinal": 1090,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetEnhancedKeyUsage",
+      "ordinal": 1091,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetIntendedKeyUsage",
+      "ordinal": 1092,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetIssuerCertificateFromStore",
+      "ordinal": 1093,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetNameStringA",
+      "ordinal": 1094,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetNameStringW",
+      "ordinal": 1095,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetPublicKeyLength",
+      "ordinal": 1096,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetServerOcspResponseContext",
+      "ordinal": 1097,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetStoreProperty",
+      "ordinal": 1098,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetSubjectCertificateFromStore",
+      "ordinal": 1099,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertGetValidUsages",
+      "ordinal": 1100,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertIsRDNAttrsInCertificateName",
+      "ordinal": 1101,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertIsStrongHashToSign",
+      "ordinal": 1102,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertIsValidCRLForCertificate",
+      "ordinal": 1103,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertIsWeakHash",
+      "ordinal": 1104,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertNameToStrA",
+      "ordinal": 1105,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertNameToStrW",
+      "ordinal": 1106,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertOIDToAlgId",
+      "ordinal": 1107,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertOpenServerOcspResponse",
+      "ordinal": 1108,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertOpenStore",
+      "ordinal": 1109,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertOpenSystemStoreA",
+      "ordinal": 1110,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertOpenSystemStoreW",
+      "ordinal": 1111,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertRDNValueToStrA",
+      "ordinal": 1112,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertRDNValueToStrW",
+      "ordinal": 1113,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertRegisterPhysicalStore",
+      "ordinal": 1114,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertRegisterSystemStore",
+      "ordinal": 1115,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertRemoveEnhancedKeyUsageIdentifier",
+      "ordinal": 1116,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertRemoveStoreFromCollection",
+      "ordinal": 1117,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertResyncCertificateChainEngine",
+      "ordinal": 1118,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertRetrieveLogoOrBiometricInfo",
+      "ordinal": 1119,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertSaveStore",
+      "ordinal": 1120,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertSelectCertificateChains",
+      "ordinal": 1121,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertSerializeCRLStoreElement",
+      "ordinal": 1122,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertSerializeCTLStoreElement",
+      "ordinal": 1123,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertSerializeCertificateStoreElement",
+      "ordinal": 1124,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertSetCRLContextProperty",
+      "ordinal": 1125,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertSetCTLContextProperty",
+      "ordinal": 1126,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertSetCertificateContextPropertiesFromCTLEntry",
+      "ordinal": 1127,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertSetCertificateContextProperty",
+      "ordinal": 1128,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertSetEnhancedKeyUsage",
+      "ordinal": 1129,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertSetStoreProperty",
+      "ordinal": 1130,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertStrToNameA",
+      "ordinal": 1131,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertStrToNameW",
+      "ordinal": 1132,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertUnregisterPhysicalStore",
+      "ordinal": 1133,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertUnregisterSystemStore",
+      "ordinal": 1134,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertVerifyCRLRevocation",
+      "ordinal": 1135,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertVerifyCRLTimeValidity",
+      "ordinal": 1136,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertVerifyCTLUsage",
+      "ordinal": 1137,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertVerifyCertificateChainPolicy",
+      "ordinal": 1138,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertVerifyRevocation",
+      "ordinal": 1139,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertVerifySubjectCertificateContext",
+      "ordinal": 1140,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertVerifyTimeValidity",
+      "ordinal": 1141,
+      "is_forwarder": false
+    },
+    {
+      "name": "CertVerifyValidityNesting",
+      "ordinal": 1142,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptAcquireCertificatePrivateKey",
+      "ordinal": 1143,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptBinaryToStringA",
+      "ordinal": 1144,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptBinaryToStringW",
+      "ordinal": 1145,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptCloseAsyncHandle",
+      "ordinal": 1146,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptCreateAsyncHandle",
+      "ordinal": 1147,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptCreateKeyIdentifierFromCSP",
+      "ordinal": 1148,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptDecodeMessage",
+      "ordinal": 1149,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptDecodeObject",
+      "ordinal": 1150,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptDecodeObjectEx",
+      "ordinal": 1151,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptDecryptAndVerifyMessageSignature",
+      "ordinal": 1152,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptDecryptMessage",
+      "ordinal": 1153,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptEncodeObject",
+      "ordinal": 1154,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptEncodeObjectEx",
+      "ordinal": 1155,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptEncryptMessage",
+      "ordinal": 1156,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptEnumKeyIdentifierProperties",
+      "ordinal": 1157,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptEnumOIDFunction",
+      "ordinal": 1158,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptEnumOIDInfo",
+      "ordinal": 1159,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptExportPKCS8",
+      "ordinal": 1160,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptExportPublicKeyInfo",
+      "ordinal": 1161,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptExportPublicKeyInfoEx",
+      "ordinal": 1162,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptExportPublicKeyInfoFromBCryptKeyHandle",
+      "ordinal": 1163,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptFindCertificateKeyProvInfo",
+      "ordinal": 1164,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptFindLocalizedName",
+      "ordinal": 1165,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptFindOIDInfo",
+      "ordinal": 1166,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptFormatObject",
+      "ordinal": 1167,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptFreeOIDFunctionAddress",
+      "ordinal": 1168,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGetAsyncParam",
+      "ordinal": 1169,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGetDefaultOIDDllList",
+      "ordinal": 1170,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGetDefaultOIDFunctionAddress",
+      "ordinal": 1171,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGetKeyIdentifierProperty",
+      "ordinal": 1172,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGetMessageCertificates",
+      "ordinal": 1173,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGetMessageSignerCount",
+      "ordinal": 1174,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGetOIDFunctionAddress",
+      "ordinal": 1175,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGetOIDFunctionValue",
+      "ordinal": 1176,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptHashCertificate",
+      "ordinal": 1177,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptHashCertificate2",
+      "ordinal": 1178,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptHashMessage",
+      "ordinal": 1179,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptHashPublicKeyInfo",
+      "ordinal": 1180,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptHashToBeSigned",
+      "ordinal": 1181,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptImportPKCS8",
+      "ordinal": 1182,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptImportPublicKeyInfo",
+      "ordinal": 1183,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptImportPublicKeyInfoEx",
+      "ordinal": 1184,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptImportPublicKeyInfoEx2",
+      "ordinal": 1185,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptInitOIDFunctionSet",
+      "ordinal": 1186,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptInstallDefaultContext",
+      "ordinal": 1187,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptInstallOIDFunctionAddress",
+      "ordinal": 1188,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptLoadSip",
+      "ordinal": 1189,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMemAlloc",
+      "ordinal": 1190,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMemFree",
+      "ordinal": 1191,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMemRealloc",
+      "ordinal": 1192,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgCalculateEncodedLength",
+      "ordinal": 1193,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgClose",
+      "ordinal": 1194,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgControl",
+      "ordinal": 1195,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgCountersign",
+      "ordinal": 1196,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgCountersignEncoded",
+      "ordinal": 1197,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgDuplicate",
+      "ordinal": 1198,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgEncodeAndSignCTL",
+      "ordinal": 1199,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgGetAndVerifySigner",
+      "ordinal": 1200,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgGetParam",
+      "ordinal": 1201,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgOpenToDecode",
+      "ordinal": 1202,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgOpenToEncode",
+      "ordinal": 1203,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgSignCTL",
+      "ordinal": 1204,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgUpdate",
+      "ordinal": 1205,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgVerifyCountersignatureEncoded",
+      "ordinal": 1206,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptMsgVerifyCountersignatureEncodedEx",
+      "ordinal": 1207,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptObjectLocatorFree",
+      "ordinal": 1012,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptObjectLocatorGet",
+      "ordinal": 1013,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptObjectLocatorGetContent",
+      "ordinal": 1014,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptObjectLocatorGetUpdated",
+      "ordinal": 1015,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptObjectLocatorInitialize",
+      "ordinal": 1016,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptObjectLocatorIsChanged",
+      "ordinal": 1017,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptObjectLocatorRelease",
+      "ordinal": 1018,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptProtectData",
+      "ordinal": 1208,
+      "is_forwarder": false
+    },
+    {
+      "name": "DPAPI.CryptProtectMemory)",
+      "ordinal": 1209,
+      "is_forwarder": true
+    },
+    {
+      "name": "CryptQueryObject",
+      "ordinal": 1210,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptRegisterDefaultOIDFunction",
+      "ordinal": 1211,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptRegisterOIDFunction",
+      "ordinal": 1212,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptRegisterOIDInfo",
+      "ordinal": 1213,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptRetrieveTimeStamp",
+      "ordinal": 1214,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSIPAddProvider",
+      "ordinal": 1215,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSIPCreateIndirectData",
+      "ordinal": 1216,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSIPGetCaps",
+      "ordinal": 1217,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSIPGetSealedDigest",
+      "ordinal": 1218,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSIPGetSignedDataMsg",
+      "ordinal": 1219,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSIPLoad",
+      "ordinal": 1220,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSIPPutSignedDataMsg",
+      "ordinal": 1221,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSIPRemoveProvider",
+      "ordinal": 1222,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSIPRemoveSignedDataMsg",
+      "ordinal": 1223,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSIPRetrieveSubjectGuid",
+      "ordinal": 1224,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSIPRetrieveSubjectGuidForCatalogFile",
+      "ordinal": 1225,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSIPVerifyIndirectData",
+      "ordinal": 1226,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSetAsyncParam",
+      "ordinal": 1227,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSetKeyIdentifierProperty",
+      "ordinal": 1228,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSetOIDFunctionValue",
+      "ordinal": 1229,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSignAndEncodeCertificate",
+      "ordinal": 1230,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSignAndEncryptMessage",
+      "ordinal": 1231,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSignCertificate",
+      "ordinal": 1232,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSignMessage",
+      "ordinal": 1233,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSignMessageWithKey",
+      "ordinal": 1234,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptStringToBinaryA",
+      "ordinal": 1235,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptStringToBinaryW",
+      "ordinal": 1236,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptUninstallDefaultContext",
+      "ordinal": 1237,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptUnprotectData",
+      "ordinal": 1238,
+      "is_forwarder": false
+    },
+    {
+      "name": "DPAPI.CryptUnprotectMemory)",
+      "ordinal": 1239,
+      "is_forwarder": true
+    },
+    {
+      "name": "CryptUnregisterDefaultOIDFunction",
+      "ordinal": 1240,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptUnregisterOIDFunction",
+      "ordinal": 1241,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptUnregisterOIDInfo",
+      "ordinal": 1242,
+      "is_forwarder": false
+    },
+    {
+      "name": "DPAPI.CryptUpdateProtectedState)",
+      "ordinal": 1243,
+      "is_forwarder": true
+    },
+    {
+      "name": "CryptVerifyCertificateSignature",
+      "ordinal": 1244,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptVerifyCertificateSignatureEx",
+      "ordinal": 1245,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptVerifyDetachedMessageHash",
+      "ordinal": 1246,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptVerifyDetachedMessageSignature",
+      "ordinal": 1247,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptVerifyMessageHash",
+      "ordinal": 1248,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptVerifyMessageSignature",
+      "ordinal": 1249,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptVerifyMessageSignatureWithKey",
+      "ordinal": 1250,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptVerifyTimeStampSignature",
+      "ordinal": 1251,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CertChainEngineIsDisallowedCertificate",
+      "ordinal": 1252,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CertDiagControl",
+      "ordinal": 1253,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CertFinishSslHandshake",
+      "ordinal": 1254,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CertProcessSslHandshake",
+      "ordinal": 1255,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CertProtectFunction",
+      "ordinal": 1256,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CertSrvProtectFunction",
+      "ordinal": 1257,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CertSyncStore",
+      "ordinal": 1258,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CertUpdateStore",
+      "ordinal": 1259,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CertWnfEnableFlushCache",
+      "ordinal": 1260,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptAddRefLruEntry",
+      "ordinal": 1261,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptAddSmartCardCertToStore",
+      "ordinal": 1262,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptAllocTls",
+      "ordinal": 1263,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptAllocTlsEx",
+      "ordinal": 1264,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptCreateLruCache",
+      "ordinal": 1265,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptCreateLruEntry",
+      "ordinal": 1266,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptDetachTls",
+      "ordinal": 1267,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptDisableLruOfEntries",
+      "ordinal": 1268,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptEnableLruOfEntries",
+      "ordinal": 1269,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptEnumMatchingLruEntries",
+      "ordinal": 1270,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptFindLruEntry",
+      "ordinal": 1271,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptFindLruEntryData",
+      "ordinal": 1272,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptFindSmartCardCertInStore",
+      "ordinal": 1273,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptFlushLruCache",
+      "ordinal": 1274,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptFreeLruCache",
+      "ordinal": 1275,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptFreeTls",
+      "ordinal": 1276,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptGetAsn1Decoder",
+      "ordinal": 1277,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptGetAsn1Encoder",
+      "ordinal": 1278,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptGetDefaultCryptProv",
+      "ordinal": 1279,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptGetDefaultCryptProvForEncrypt",
+      "ordinal": 1280,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptGetFileVersion",
+      "ordinal": 1281,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptGetLruEntryData",
+      "ordinal": 1282,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptGetLruEntryIdentifier",
+      "ordinal": 1283,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptGetOssGlobal",
+      "ordinal": 1284,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptGetTls",
+      "ordinal": 1285,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptInsertLruEntry",
+      "ordinal": 1286,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptInstallAsn1Module",
+      "ordinal": 1287,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptInstallOssGlobal",
+      "ordinal": 1288,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptReadTrustedPublisherDWORDValueFromRegistry",
+      "ordinal": 1289,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptRegisterSmartCardStore",
+      "ordinal": 1290,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptReleaseLruEntry",
+      "ordinal": 1291,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptRemoveLruEntry",
+      "ordinal": 1292,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptSetTls",
+      "ordinal": 1293,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptTouchLruEntry",
+      "ordinal": 1294,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptUninstallAsn1Module",
+      "ordinal": 1295,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptUninstallOssGlobal",
+      "ordinal": 1296,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptUnregisterSmartCardStore",
+      "ordinal": 1297,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_CryptWalkAllLruCacheEntries",
+      "ordinal": 1298,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_PFXDecrypt",
+      "ordinal": 1299,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_PFXHMAC",
+      "ordinal": 1300,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_PFXImportCertStoreEx",
+      "ordinal": 1019,
+      "is_forwarder": false
+    },
+    {
+      "name": "PFXExportCertStore",
+      "ordinal": 1301,
+      "is_forwarder": false
+    },
+    {
+      "name": "PFXExportCertStore2",
+      "ordinal": 1302,
+      "is_forwarder": false
+    },
+    {
+      "name": "PFXExportCertStoreEx",
+      "ordinal": 1303,
+      "is_forwarder": false
+    },
+    {
+      "name": "PFXImportCertStore",
+      "ordinal": 1304,
+      "is_forwarder": false
+    },
+    {
+      "name": "PFXIsPFXBlob",
+      "ordinal": 1305,
+      "is_forwarder": false
+    },
+    {
+      "name": "PFXVerifyPassword",
+      "ordinal": 1306,
+      "is_forwarder": false
+    }
+  ]
+}

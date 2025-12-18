@@ -1,0 +1,830 @@
+{
+  "dll": "imagehlp.dll",
+  "exports": [
+    {
+      "name": "BindImage",
+      "ordinal": 10,
+      "is_forwarder": false
+    },
+    {
+      "name": "BindImageEx",
+      "ordinal": 11,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckSumMappedFile",
+      "ordinal": 12,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumerateLoadedModules",
+      "ordinal": 13,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumerateLoadedModules64",
+      "ordinal": 14,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumerateLoadedModulesEx",
+      "ordinal": 15,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumerateLoadedModulesExW",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumerateLoadedModulesW64",
+      "ordinal": 17,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindDebugInfoFile",
+      "ordinal": 18,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindDebugInfoFileEx",
+      "ordinal": 19,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindExecutableImage",
+      "ordinal": 20,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindExecutableImageEx",
+      "ordinal": 21,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFileInPath",
+      "ordinal": 22,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFileInSearchPath",
+      "ordinal": 23,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetImageConfigInformation",
+      "ordinal": 24,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetImageUnusedHeaderBytes",
+      "ordinal": 25,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSymLoadError",
+      "ordinal": 26,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTimestampForLoadedLibrary",
+      "ordinal": 27,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImageAddCertificate",
+      "ordinal": 28,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImageDirectoryEntryToData",
+      "ordinal": 29,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImageDirectoryEntryToDataEx",
+      "ordinal": 30,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImageEnumerateCertificates",
+      "ordinal": 31,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImageGetCertificateData",
+      "ordinal": 32,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImageGetCertificateDataEx",
+      "ordinal": 33,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImageGetCertificateHeader",
+      "ordinal": 34,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImageGetDigestStream",
+      "ordinal": 35,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImageLoad",
+      "ordinal": 36,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImageNtHeader",
+      "ordinal": 37,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImageRemoveCertificate",
+      "ordinal": 38,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImageRvaToSection",
+      "ordinal": 39,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImageRvaToVa",
+      "ordinal": 40,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImageUnload",
+      "ordinal": 41,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImagehlpApiVersion",
+      "ordinal": 42,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImagehlpApiVersionEx",
+      "ordinal": 43,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsBufferCleanOfInvalidMarkers",
+      "ordinal": 44,
+      "is_forwarder": false
+    },
+    {
+      "name": "MakeSureDirectoryPathExists",
+      "ordinal": 45,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapAndLoad",
+      "ordinal": 46,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapFileAndCheckSumA",
+      "ordinal": 47,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapFileAndCheckSumW",
+      "ordinal": 48,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReBaseImage",
+      "ordinal": 49,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReBaseImage64",
+      "ordinal": 50,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoveInvalidModuleList",
+      "ordinal": 51,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemovePrivateCvSymbolic",
+      "ordinal": 52,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemovePrivateCvSymbolicEx",
+      "ordinal": 53,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoveRelocations",
+      "ordinal": 1,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReportSymbolLoadSummary",
+      "ordinal": 54,
+      "is_forwarder": false
+    },
+    {
+      "name": "SearchTreeForFile",
+      "ordinal": 55,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCheckUserInterruptShared",
+      "ordinal": 56,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetImageConfigInformation",
+      "ordinal": 57,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSymLoadError",
+      "ordinal": 58,
+      "is_forwarder": false
+    },
+    {
+      "name": "SplitSymbols",
+      "ordinal": 59,
+      "is_forwarder": false
+    },
+    {
+      "name": "StackWalk",
+      "ordinal": 60,
+      "is_forwarder": false
+    },
+    {
+      "name": "StackWalk2",
+      "ordinal": 61,
+      "is_forwarder": false
+    },
+    {
+      "name": "StackWalk64",
+      "ordinal": 62,
+      "is_forwarder": false
+    },
+    {
+      "name": "StackWalkEx",
+      "ordinal": 63,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymAddrIncludeInlineTrace",
+      "ordinal": 64,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymAllocDiaString",
+      "ordinal": 2,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymCleanup",
+      "ordinal": 65,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymCompareInlineTrace",
+      "ordinal": 66,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumSym",
+      "ordinal": 67,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumSymbols",
+      "ordinal": 68,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumSymbolsEx",
+      "ordinal": 69,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumSymbolsExW",
+      "ordinal": 70,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumSymbolsForAddr",
+      "ordinal": 71,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumTypes",
+      "ordinal": 72,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumTypesByName",
+      "ordinal": 73,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumTypesByNameW",
+      "ordinal": 74,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumTypesW",
+      "ordinal": 75,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumerateModules",
+      "ordinal": 76,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumerateModules64",
+      "ordinal": 77,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumerateSymbols",
+      "ordinal": 78,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumerateSymbols64",
+      "ordinal": 79,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumerateSymbolsW",
+      "ordinal": 80,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymEnumerateSymbolsW64",
+      "ordinal": 81,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymFindFileInPath",
+      "ordinal": 82,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymFindFileInPathW",
+      "ordinal": 83,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymFreeDiaString",
+      "ordinal": 3,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymFromAddr",
+      "ordinal": 84,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymFromInlineContext",
+      "ordinal": 85,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymFromInlineContextW",
+      "ordinal": 86,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymFromName",
+      "ordinal": 87,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymFunctionTableAccess",
+      "ordinal": 88,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymFunctionTableAccess64",
+      "ordinal": 89,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymFunctionTableAccess64AccessRoutines",
+      "ordinal": 90,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetDiaSession",
+      "ordinal": 4,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetDiaSource",
+      "ordinal": 5,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetExtendedOption",
+      "ordinal": 91,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetLineFromAddr",
+      "ordinal": 92,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetLineFromAddr64",
+      "ordinal": 93,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetLineFromInlineContext",
+      "ordinal": 94,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetLineFromInlineContextW",
+      "ordinal": 95,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetLineFromName",
+      "ordinal": 96,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetLineFromName64",
+      "ordinal": 97,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetLineNext",
+      "ordinal": 98,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetLineNext64",
+      "ordinal": 99,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetLinePrev",
+      "ordinal": 100,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetLinePrev64",
+      "ordinal": 101,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetModuleBase",
+      "ordinal": 102,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetModuleBase64",
+      "ordinal": 103,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetModuleInfo",
+      "ordinal": 104,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetModuleInfo64",
+      "ordinal": 105,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetModuleInfoW",
+      "ordinal": 106,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetModuleInfoW64",
+      "ordinal": 107,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetOptions",
+      "ordinal": 108,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetParentWindow",
+      "ordinal": 109,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSearchPath",
+      "ordinal": 110,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSourceFileChecksumW",
+      "ordinal": 111,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSourceFileFromTokenByTokenName",
+      "ordinal": 112,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSourceFileFromTokenByTokenNameW",
+      "ordinal": 113,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSourceFileFromTokenW",
+      "ordinal": 114,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSourceFileTokenByTokenName",
+      "ordinal": 115,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSourceFileTokenByTokenNameW",
+      "ordinal": 116,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSourceFileTokenW",
+      "ordinal": 117,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSourceVarFromTokenW",
+      "ordinal": 118,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSymFromAddr",
+      "ordinal": 119,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSymFromAddr64",
+      "ordinal": 120,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSymFromName",
+      "ordinal": 121,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSymFromName64",
+      "ordinal": 122,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSymNext",
+      "ordinal": 123,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSymNext64",
+      "ordinal": 124,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSymPrev",
+      "ordinal": 125,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSymPrev64",
+      "ordinal": 126,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSymbolFile",
+      "ordinal": 127,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetSymbolFileW",
+      "ordinal": 128,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetTypeFromName",
+      "ordinal": 129,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetTypeFromNameW",
+      "ordinal": 130,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetTypeInfo",
+      "ordinal": 131,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymGetTypeInfoEx",
+      "ordinal": 132,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymInitialize",
+      "ordinal": 133,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymLoadModule",
+      "ordinal": 134,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymLoadModule64",
+      "ordinal": 135,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymMatchFileName",
+      "ordinal": 136,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymMatchFileNameW",
+      "ordinal": 137,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymMatchString",
+      "ordinal": 138,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymMatchStringA",
+      "ordinal": 139,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymMatchStringW",
+      "ordinal": 140,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymQueryInlineTrace",
+      "ordinal": 141,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymRegisterCallback",
+      "ordinal": 142,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymRegisterCallback64",
+      "ordinal": 143,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymRegisterFunctionEntryCallback",
+      "ordinal": 144,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymRegisterFunctionEntryCallback64",
+      "ordinal": 145,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymRegisterGetSourcePathPartCallback",
+      "ordinal": 6,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymRegisterSourceFileUrlListCallback",
+      "ordinal": 7,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymSetContext",
+      "ordinal": 146,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymSetDiaSession",
+      "ordinal": 8,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymSetExtendedOption",
+      "ordinal": 147,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymSetOptions",
+      "ordinal": 148,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymSetScopeFromAddr",
+      "ordinal": 149,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymSetScopeFromIndex",
+      "ordinal": 150,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymSetScopeFromInlineContext",
+      "ordinal": 151,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymSetSearchPath",
+      "ordinal": 152,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymSetServiceManager",
+      "ordinal": 9,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymSrvGetFileIndexString",
+      "ordinal": 153,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymSrvGetFileIndexStringW",
+      "ordinal": 154,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymSrvGetFileIndexes",
+      "ordinal": 155,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymSrvGetFileIndexesW",
+      "ordinal": 156,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymUnDName",
+      "ordinal": 157,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymUnDName64",
+      "ordinal": 158,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymUnloadModule",
+      "ordinal": 159,
+      "is_forwarder": false
+    },
+    {
+      "name": "SymUnloadModule64",
+      "ordinal": 160,
+      "is_forwarder": false
+    },
+    {
+      "name": "TouchFileTimes",
+      "ordinal": 161,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnDecorateSymbolName",
+      "ordinal": 162,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnMapAndLoad",
+      "ordinal": 163,
+      "is_forwarder": false
+    },
+    {
+      "name": "UpdateDebugInfoFile",
+      "ordinal": 164,
+      "is_forwarder": false
+    },
+    {
+      "name": "UpdateDebugInfoFileEx",
+      "ordinal": 165,
+      "is_forwarder": false
+    }
+  ]
+}

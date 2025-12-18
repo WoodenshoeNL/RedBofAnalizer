@@ -24,7 +24,7 @@ pub fn is_debug_mode() -> bool {
     DEBUG_MODE.load(Ordering::SeqCst)
 }
 
-use crate::core::models::bof::{BofFile, Import};
+use crate::core::models::bof::{BofFile, Import, MachineType};
 use crate::core::models::report::{ExecutionResult, OutputMessage, OutputType};
 use crate::core::parser;
 use anyhow::{Result, Context};
@@ -94,6 +94,44 @@ pub fn execute_with_entry_point(
     let start = Instant::now();
     clear_global_output();
     clear_tracer();
+    
+    // ---------------------------------------------------------------------
+    // Architecture compatibility check
+    // ---------------------------------------------------------------------
+    //
+    // BOF code runs directly inside this process, so the BOF machine type
+    // must match the process architecture. If it does not, we refuse to
+    // execute and return a clear error instead of crashing.
+    #[cfg(target_pointer_width = "64")]
+    let process_arch_bits: u32 = 64;
+    #[cfg(target_pointer_width = "32")]
+    let process_arch_bits: u32 = 32;
+
+    let bof_arch_bits: u32 = match bof.header.machine {
+        MachineType::X64 => 64,
+        MachineType::X86 => 32,
+        MachineType::Unknown(val) => {
+            return Err(anyhow::anyhow!(
+                "Cannot execute BOF with unknown or unsupported architecture (machine = 0x{:04X})",
+                val
+            ));
+        }
+    };
+
+    if bof_arch_bits != process_arch_bits {
+        let bof_arch_str = if bof_arch_bits == 64 { "x64" } else { "x86" };
+        let proc_arch_str = if process_arch_bits == 64 { "x64" } else { "x86" };
+
+        return Err(anyhow::anyhow!(
+            "BOF architecture is not compatible with this redbofanalyzer build.\n\
+             - BOF architecture: {}\n\
+             - Process/tool architecture: {}\n\
+             This build can only execute BOFs that match the process architecture.\n\
+             Use a 32-bit build to execute x86 BOFs, or a 64-bit build to execute x64 BOFs.",
+            bof_arch_str,
+            proc_arch_str
+        ));
+    }
     
     // Initialize sandbox and tracer
     init_sandbox(sandbox);

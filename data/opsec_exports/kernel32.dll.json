@@ -1,0 +1,8465 @@
+{
+  "dll": "kernel32.dll",
+  "exports": [
+    {
+      "name": "NTDLL.RtlAcquireSRWLockExclusive)",
+      "ordinal": 1,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlAcquireSRWLockShared)",
+      "ordinal": 2,
+      "is_forwarder": true
+    },
+    {
+      "name": "ActivateActCtx",
+      "ordinal": 3,
+      "is_forwarder": false
+    },
+    {
+      "name": "ActivateActCtxWorker",
+      "ordinal": 4,
+      "is_forwarder": false
+    },
+    {
+      "name": "ActivatePackageVirtualizationContext",
+      "ordinal": 5,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddAtomA",
+      "ordinal": 6,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddAtomW",
+      "ordinal": 7,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddConsoleAliasA",
+      "ordinal": 8,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddConsoleAliasW",
+      "ordinal": 9,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-libraryloader-l1-1-0.AddDllDirectory)",
+      "ordinal": 10,
+      "is_forwarder": true
+    },
+    {
+      "name": "AddIntegrityLabelToBoundaryDescriptor",
+      "ordinal": 11,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddLocalAlternateComputerNameA",
+      "ordinal": 12,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddLocalAlternateComputerNameW",
+      "ordinal": 13,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddRefActCtx",
+      "ordinal": 14,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddRefActCtxWorker",
+      "ordinal": 15,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddResourceAttributeAce",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddSIDToBoundaryDescriptor",
+      "ordinal": 17,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddScopedPolicyIDAce",
+      "ordinal": 18,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddSecureMemoryCacheCallback",
+      "ordinal": 19,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlAddVectoredContinueHandler)",
+      "ordinal": 20,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlAddVectoredExceptionHandler)",
+      "ordinal": 21,
+      "is_forwarder": true
+    },
+    {
+      "name": "AdjustCalendarDate",
+      "ordinal": 22,
+      "is_forwarder": false
+    },
+    {
+      "name": "AllocConsole",
+      "ordinal": 23,
+      "is_forwarder": false
+    },
+    {
+      "name": "AllocConsoleWithOptions",
+      "ordinal": 24,
+      "is_forwarder": false
+    },
+    {
+      "name": "AllocateUserPhysicalPages",
+      "ordinal": 25,
+      "is_forwarder": false
+    },
+    {
+      "name": "AllocateUserPhysicalPagesNuma",
+      "ordinal": 26,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.AppPolicyGetClrCompat)",
+      "ordinal": 27,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.AppPolicyGetCreateFileAccess)",
+      "ordinal": 28,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.AppPolicyGetLifecycleManagement)",
+      "ordinal": 29,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.AppPolicyGetMediaFoundationCodecLoading)",
+      "ordinal": 30,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.AppPolicyGetProcessTerminationMethod)",
+      "ordinal": 31,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.AppPolicyGetShowDeveloperDiagnostic)",
+      "ordinal": 32,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.AppPolicyGetThreadInitializationType)",
+      "ordinal": 33,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.AppPolicyGetWindowingModel)",
+      "ordinal": 34,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.AppXGetOSMaxVersionTested)",
+      "ordinal": 35,
+      "is_forwarder": true
+    },
+    {
+      "name": "ApplicationRecoveryFinished",
+      "ordinal": 36,
+      "is_forwarder": false
+    },
+    {
+      "name": "ApplicationRecoveryInProgress",
+      "ordinal": 37,
+      "is_forwarder": false
+    },
+    {
+      "name": "AreFileApisANSI",
+      "ordinal": 38,
+      "is_forwarder": false
+    },
+    {
+      "name": "AreShortNamesEnabled",
+      "ordinal": 39,
+      "is_forwarder": false
+    },
+    {
+      "name": "AssignProcessToJobObject",
+      "ordinal": 40,
+      "is_forwarder": false
+    },
+    {
+      "name": "AttachConsole",
+      "ordinal": 41,
+      "is_forwarder": false
+    },
+    {
+      "name": "BackupRead",
+      "ordinal": 42,
+      "is_forwarder": false
+    },
+    {
+      "name": "BackupReadEx",
+      "ordinal": 43,
+      "is_forwarder": false
+    },
+    {
+      "name": "BackupSeek",
+      "ordinal": 44,
+      "is_forwarder": false
+    },
+    {
+      "name": "BackupWrite",
+      "ordinal": 45,
+      "is_forwarder": false
+    },
+    {
+      "name": "BackupWriteEx",
+      "ordinal": 46,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseCheckAppcompatCache",
+      "ordinal": 47,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseCheckAppcompatCacheEx",
+      "ordinal": 48,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseCheckAppcompatCacheExWorker",
+      "ordinal": 49,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseCheckAppcompatCacheWorker",
+      "ordinal": 50,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseCheckElevation",
+      "ordinal": 51,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseCleanupAppcompatCacheSupport",
+      "ordinal": 52,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseCleanupAppcompatCacheSupportWorker",
+      "ordinal": 53,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseDestroyVDMEnvironment",
+      "ordinal": 54,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseDllReadWriteIniFile",
+      "ordinal": 55,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseDumpAppcompatCache",
+      "ordinal": 56,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseDumpAppcompatCacheWorker",
+      "ordinal": 57,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseElevationPostProcessing",
+      "ordinal": 58,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseFlushAppcompatCache",
+      "ordinal": 59,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseFlushAppcompatCacheWorker",
+      "ordinal": 60,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseFormatObjectAttributes",
+      "ordinal": 61,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseFormatTimeOut",
+      "ordinal": 62,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseFreeAppCompatDataForProcessWorker",
+      "ordinal": 63,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseGenerateAppCompatData",
+      "ordinal": 64,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseGetNamedObjectDirectory",
+      "ordinal": 65,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseInitAppcompatCacheSupport",
+      "ordinal": 66,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseInitAppcompatCacheSupportWorker",
+      "ordinal": 67,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseIsAppcompatInfrastructureDisabled",
+      "ordinal": 68,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseIsAppcompatInfrastructureDisabledWorker",
+      "ordinal": 69,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseIsDosApplication",
+      "ordinal": 70,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseQueryModuleData",
+      "ordinal": 71,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseReadAppCompatDataForProcessWorker",
+      "ordinal": 72,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseSetLastNTError",
+      "ordinal": 73,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseThreadInitThunk",
+      "ordinal": 74,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseUpdateAppcompatCache",
+      "ordinal": 75,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseUpdateAppcompatCacheWorker",
+      "ordinal": 76,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseUpdateVDMEntry",
+      "ordinal": 77,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseWriteErrorElevationRequiredEvent",
+      "ordinal": 78,
+      "is_forwarder": false
+    },
+    {
+      "name": "Basep8BitStringToDynamicUnicodeString",
+      "ordinal": 79,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepAllocateActivationContextActivationBlock",
+      "ordinal": 80,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepAnsiStringToDynamicUnicodeString",
+      "ordinal": 81,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepAppContainerEnvironmentExtension",
+      "ordinal": 82,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepAppXExtension",
+      "ordinal": 83,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepCheckAppCompat",
+      "ordinal": 84,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepCheckPplSupport",
+      "ordinal": 85,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepCheckWebBladeHashes",
+      "ordinal": 86,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepCheckWinSaferRestrictions",
+      "ordinal": 87,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepConstructSxsCreateProcessMessage",
+      "ordinal": 88,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepCopyEncryption",
+      "ordinal": 89,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepFinishPackageActivation",
+      "ordinal": 90,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepFinishPackageActivationForSxS",
+      "ordinal": 91,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepFreeActivationContextActivationBlock",
+      "ordinal": 92,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepFreeActivationTokenInfo",
+      "ordinal": 93,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepFreeAppCompatData",
+      "ordinal": 94,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepGetAppCompatData",
+      "ordinal": 95,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepGetComputerNameFromNtPath",
+      "ordinal": 96,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepGetExeArchType",
+      "ordinal": 97,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepGetPackageActivationTokenForFilePath",
+      "ordinal": 98,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepGetPackageActivationTokenForFilePath2",
+      "ordinal": 99,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepGetPackageActivationTokenForSxS",
+      "ordinal": 100,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepGetPackageActivationTokenForSxS2",
+      "ordinal": 101,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepGetPackageActivationTokenForSxS3",
+      "ordinal": 102,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepGetPackagedAppInfoForFile",
+      "ordinal": 103,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepInitAppCompatData",
+      "ordinal": 104,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepIsProcessAllowed",
+      "ordinal": 105,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepMapModuleHandle",
+      "ordinal": 106,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepNotifyLoadStringResource",
+      "ordinal": 107,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepPostSuccessAppXExtension",
+      "ordinal": 108,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepProcessInvalidImage",
+      "ordinal": 109,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepQueryAppCompat",
+      "ordinal": 110,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepQueryModuleChpeSettings",
+      "ordinal": 111,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepReleaseAppXContext",
+      "ordinal": 112,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepReleasePackagedAppInfo",
+      "ordinal": 113,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepReleaseSxsCreateProcessUtilityStruct",
+      "ordinal": 114,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepReportFault",
+      "ordinal": 115,
+      "is_forwarder": false
+    },
+    {
+      "name": "BasepSetFileEncryptionCompression",
+      "ordinal": 116,
+      "is_forwarder": false
+    },
+    {
+      "name": "Beep",
+      "ordinal": 117,
+      "is_forwarder": false
+    },
+    {
+      "name": "BeginUpdateResourceA",
+      "ordinal": 118,
+      "is_forwarder": false
+    },
+    {
+      "name": "BeginUpdateResourceW",
+      "ordinal": 119,
+      "is_forwarder": false
+    },
+    {
+      "name": "BindIoCompletionCallback",
+      "ordinal": 120,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildCommDCBA",
+      "ordinal": 121,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildCommDCBAndTimeoutsA",
+      "ordinal": 122,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildCommDCBAndTimeoutsW",
+      "ordinal": 123,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildCommDCBW",
+      "ordinal": 124,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-0.BuildIoRingCancelRequest)",
+      "ordinal": 125,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-1.BuildIoRingFlushFile)",
+      "ordinal": 126,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-0.BuildIoRingReadFile)",
+      "ordinal": 127,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-2.BuildIoRingReadFileScatter)",
+      "ordinal": 128,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-0.BuildIoRingRegisterBuffers)",
+      "ordinal": 129,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-0.BuildIoRingRegisterFileHandles)",
+      "ordinal": 130,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-1.BuildIoRingWriteFile)",
+      "ordinal": 131,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-2.BuildIoRingWriteFileGather)",
+      "ordinal": 132,
+      "is_forwarder": true
+    },
+    {
+      "name": "CallNamedPipeA",
+      "ordinal": 133,
+      "is_forwarder": false
+    },
+    {
+      "name": "CallNamedPipeW",
+      "ordinal": 134,
+      "is_forwarder": false
+    },
+    {
+      "name": "CallbackMayRunLong",
+      "ordinal": 135,
+      "is_forwarder": false
+    },
+    {
+      "name": "CancelDeviceWakeupRequest",
+      "ordinal": 136,
+      "is_forwarder": false
+    },
+    {
+      "name": "CancelIo",
+      "ordinal": 137,
+      "is_forwarder": false
+    },
+    {
+      "name": "CancelIoEx",
+      "ordinal": 138,
+      "is_forwarder": false
+    },
+    {
+      "name": "CancelSynchronousIo",
+      "ordinal": 139,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.TpCancelAsyncIoOperation)",
+      "ordinal": 140,
+      "is_forwarder": true
+    },
+    {
+      "name": "CancelTimerQueueTimer",
+      "ordinal": 141,
+      "is_forwarder": false
+    },
+    {
+      "name": "CancelWaitableTimer",
+      "ordinal": 142,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.CeipIsOptedIn)",
+      "ordinal": 143,
+      "is_forwarder": true
+    },
+    {
+      "name": "ChangeTimerQueueTimer",
+      "ordinal": 144,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckAllowDecryptedRemoteDestinationPolicy",
+      "ordinal": 145,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckElevation",
+      "ordinal": 146,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckElevationEnabled",
+      "ordinal": 147,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckForReadOnlyResource",
+      "ordinal": 148,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckForReadOnlyResourceFilter",
+      "ordinal": 149,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckNameLegalDOS8Dot3A",
+      "ordinal": 150,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckNameLegalDOS8Dot3W",
+      "ordinal": 151,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckRemoteDebuggerPresent",
+      "ordinal": 152,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckTokenCapability",
+      "ordinal": 153,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckTokenMembershipEx",
+      "ordinal": 154,
+      "is_forwarder": false
+    },
+    {
+      "name": "ClearCommBreak",
+      "ordinal": 155,
+      "is_forwarder": false
+    },
+    {
+      "name": "ClearCommError",
+      "ordinal": 156,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseConsoleHandle",
+      "ordinal": 157,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseHandle",
+      "ordinal": 158,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-0.CloseIoRing)",
+      "ordinal": 159,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.ClosePackageInfo)",
+      "ordinal": 160,
+      "is_forwarder": true
+    },
+    {
+      "name": "ClosePrivateNamespace",
+      "ordinal": 161,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseProfileUserMapping",
+      "ordinal": 162,
+      "is_forwarder": false
+    },
+    {
+      "name": "ClosePseudoConsole",
+      "ordinal": 163,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.CloseState)",
+      "ordinal": 164,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpReleasePool)",
+      "ordinal": 165,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpReleaseCleanupGroup)",
+      "ordinal": 166,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpReleaseCleanupGroupMembers)",
+      "ordinal": 167,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpReleaseIoCompletion)",
+      "ordinal": 168,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpReleaseTimer)",
+      "ordinal": 169,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpReleaseWait)",
+      "ordinal": 170,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpReleaseWork)",
+      "ordinal": 171,
+      "is_forwarder": true
+    },
+    {
+      "name": "CmdBatNotification",
+      "ordinal": 172,
+      "is_forwarder": false
+    },
+    {
+      "name": "CommConfigDialogA",
+      "ordinal": 173,
+      "is_forwarder": false
+    },
+    {
+      "name": "CommConfigDialogW",
+      "ordinal": 174,
+      "is_forwarder": false
+    },
+    {
+      "name": "CompareCalendarDates",
+      "ordinal": 175,
+      "is_forwarder": false
+    },
+    {
+      "name": "CompareFileTime",
+      "ordinal": 176,
+      "is_forwarder": false
+    },
+    {
+      "name": "CompareStringA",
+      "ordinal": 177,
+      "is_forwarder": false
+    },
+    {
+      "name": "CompareStringEx",
+      "ordinal": 178,
+      "is_forwarder": false
+    },
+    {
+      "name": "CompareStringOrdinal",
+      "ordinal": 179,
+      "is_forwarder": false
+    },
+    {
+      "name": "CompareStringW",
+      "ordinal": 180,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConnectNamedPipe",
+      "ordinal": 181,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConsoleMenuControl",
+      "ordinal": 182,
+      "is_forwarder": false
+    },
+    {
+      "name": "ContinueDebugEvent",
+      "ordinal": 183,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertCalDateTimeToSystemTime",
+      "ordinal": 184,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertDefaultLocale",
+      "ordinal": 185,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertFiberToThread",
+      "ordinal": 186,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertNLSDayOfWeekToWin32DayOfWeek",
+      "ordinal": 187,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertSystemTimeToCalDateTime",
+      "ordinal": 188,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertThreadToFiber",
+      "ordinal": 189,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertThreadToFiberEx",
+      "ordinal": 190,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopyContext",
+      "ordinal": 191,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopyFile2",
+      "ordinal": 192,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopyFileA",
+      "ordinal": 193,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopyFileExA",
+      "ordinal": 194,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopyFileExW",
+      "ordinal": 195,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopyFileTransactedA",
+      "ordinal": 196,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopyFileTransactedW",
+      "ordinal": 197,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopyFileW",
+      "ordinal": 198,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopyLZFile",
+      "ordinal": 199,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateActCtxA",
+      "ordinal": 200,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateActCtxW",
+      "ordinal": 201,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateActCtxWWorker",
+      "ordinal": 202,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateBoundaryDescriptorA",
+      "ordinal": 203,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateBoundaryDescriptorW",
+      "ordinal": 204,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateConsoleScreenBuffer",
+      "ordinal": 205,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDirectory2A",
+      "ordinal": 206,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDirectory2W",
+      "ordinal": 207,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDirectoryA",
+      "ordinal": 208,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDirectoryExA",
+      "ordinal": 209,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDirectoryExW",
+      "ordinal": 210,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDirectoryTransactedA",
+      "ordinal": 211,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDirectoryTransactedW",
+      "ordinal": 212,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDirectoryW",
+      "ordinal": 213,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-enclave-l1-1-0.CreateEnclave)",
+      "ordinal": 214,
+      "is_forwarder": true
+    },
+    {
+      "name": "CreateEventA",
+      "ordinal": 215,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateEventExA",
+      "ordinal": 216,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateEventExW",
+      "ordinal": 217,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateEventW",
+      "ordinal": 218,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateFiber",
+      "ordinal": 219,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateFiberEx",
+      "ordinal": 220,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateFile2",
+      "ordinal": 221,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateFile3",
+      "ordinal": 222,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateFileA",
+      "ordinal": 223,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateFileMappingA",
+      "ordinal": 224,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-memory-l1-1-1.CreateFileMappingFromApp)",
+      "ordinal": 225,
+      "is_forwarder": true
+    },
+    {
+      "name": "CreateFileMappingNumaA",
+      "ordinal": 226,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateFileMappingNumaW",
+      "ordinal": 227,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateFileMappingW",
+      "ordinal": 228,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateFileTransactedA",
+      "ordinal": 229,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateFileTransactedW",
+      "ordinal": 230,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateFileW",
+      "ordinal": 231,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateHardLinkA",
+      "ordinal": 232,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateHardLinkTransactedA",
+      "ordinal": 233,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateHardLinkTransactedW",
+      "ordinal": 234,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateHardLinkW",
+      "ordinal": 235,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateIoCompletionPort",
+      "ordinal": 236,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-0.CreateIoRing)",
+      "ordinal": 237,
+      "is_forwarder": true
+    },
+    {
+      "name": "CreateJobObjectA",
+      "ordinal": 238,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateJobObjectW",
+      "ordinal": 239,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateJobSet",
+      "ordinal": 240,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateMailslotA",
+      "ordinal": 241,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateMailslotW",
+      "ordinal": 242,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateMemoryResourceNotification",
+      "ordinal": 243,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateMutexA",
+      "ordinal": 244,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateMutexExA",
+      "ordinal": 245,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateMutexExW",
+      "ordinal": 246,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateMutexW",
+      "ordinal": 247,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateNamedPipeA",
+      "ordinal": 248,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateNamedPipeW",
+      "ordinal": 249,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreatePackageVirtualizationContext",
+      "ordinal": 250,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreatePipe",
+      "ordinal": 251,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreatePrivateNamespaceA",
+      "ordinal": 252,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreatePrivateNamespaceW",
+      "ordinal": 253,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateProcessA",
+      "ordinal": 254,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateProcessAsUserA",
+      "ordinal": 255,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateProcessAsUserW",
+      "ordinal": 256,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateProcessInternalA",
+      "ordinal": 257,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateProcessInternalW",
+      "ordinal": 258,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateProcessW",
+      "ordinal": 259,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreatePseudoConsole",
+      "ordinal": 260,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateRemoteThread",
+      "ordinal": 261,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-0.CreateRemoteThreadEx)",
+      "ordinal": 262,
+      "is_forwarder": true
+    },
+    {
+      "name": "CreateSemaphoreA",
+      "ordinal": 263,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateSemaphoreExA",
+      "ordinal": 264,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateSemaphoreExW",
+      "ordinal": 265,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateSemaphoreW",
+      "ordinal": 266,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateSymbolicLinkA",
+      "ordinal": 267,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateSymbolicLinkTransactedA",
+      "ordinal": 268,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateSymbolicLinkTransactedW",
+      "ordinal": 269,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateSymbolicLinkW",
+      "ordinal": 270,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateTapePartition",
+      "ordinal": 271,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateThread",
+      "ordinal": 272,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateThreadpool",
+      "ordinal": 273,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateThreadpoolCleanupGroup",
+      "ordinal": 274,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateThreadpoolIo",
+      "ordinal": 275,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateThreadpoolTimer",
+      "ordinal": 276,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateThreadpoolWait",
+      "ordinal": 277,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateThreadpoolWork",
+      "ordinal": 278,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateTimerQueue",
+      "ordinal": 279,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateTimerQueueTimer",
+      "ordinal": 280,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateToolhelp32Snapshot",
+      "ordinal": 281,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateUmsCompletionList",
+      "ordinal": 282,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateUmsThreadContext",
+      "ordinal": 283,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateWaitableTimerA",
+      "ordinal": 284,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateWaitableTimerExA",
+      "ordinal": 285,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateWaitableTimerExW",
+      "ordinal": 286,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateWaitableTimerW",
+      "ordinal": 287,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.CtrlRoutine)",
+      "ordinal": 288,
+      "is_forwarder": true
+    },
+    {
+      "name": "DeactivateActCtx",
+      "ordinal": 289,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeactivateActCtxWorker",
+      "ordinal": 290,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeactivatePackageVirtualizationContext",
+      "ordinal": 291,
+      "is_forwarder": false
+    },
+    {
+      "name": "DebugActiveProcess",
+      "ordinal": 292,
+      "is_forwarder": false
+    },
+    {
+      "name": "DebugActiveProcessStop",
+      "ordinal": 293,
+      "is_forwarder": false
+    },
+    {
+      "name": "DebugBreak",
+      "ordinal": 294,
+      "is_forwarder": false
+    },
+    {
+      "name": "DebugBreakProcess",
+      "ordinal": 295,
+      "is_forwarder": false
+    },
+    {
+      "name": "DebugSetProcessKillOnExit",
+      "ordinal": 296,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlDecodePointer)",
+      "ordinal": 297,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlDecodeSystemPointer)",
+      "ordinal": 298,
+      "is_forwarder": true
+    },
+    {
+      "name": "DefineDosDeviceA",
+      "ordinal": 299,
+      "is_forwarder": false
+    },
+    {
+      "name": "DefineDosDeviceW",
+      "ordinal": 300,
+      "is_forwarder": false
+    },
+    {
+      "name": "DelayLoadFailureHook",
+      "ordinal": 301,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteAtom",
+      "ordinal": 302,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteBoundaryDescriptor",
+      "ordinal": 303,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlDeleteCriticalSection)",
+      "ordinal": 304,
+      "is_forwarder": true
+    },
+    {
+      "name": "DeleteFiber",
+      "ordinal": 305,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteFile2A",
+      "ordinal": 306,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteFile2W",
+      "ordinal": 307,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteFileA",
+      "ordinal": 308,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteFileTransactedA",
+      "ordinal": 309,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteFileTransactedW",
+      "ordinal": 310,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteFileW",
+      "ordinal": 311,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-0.DeleteProcThreadAttributeList)",
+      "ordinal": 312,
+      "is_forwarder": true
+    },
+    {
+      "name": "DeleteSynchronizationBarrier",
+      "ordinal": 313,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteTimerQueue",
+      "ordinal": 314,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteTimerQueueEx",
+      "ordinal": 315,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteTimerQueueTimer",
+      "ordinal": 316,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteUmsCompletionList",
+      "ordinal": 317,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteUmsThreadContext",
+      "ordinal": 318,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteVolumeMountPointA",
+      "ordinal": 319,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteVolumeMountPointW",
+      "ordinal": 320,
+      "is_forwarder": false
+    },
+    {
+      "name": "DequeueUmsCompletionListItems",
+      "ordinal": 321,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeviceIoControl",
+      "ordinal": 322,
+      "is_forwarder": false
+    },
+    {
+      "name": "DisableThreadLibraryCalls",
+      "ordinal": 323,
+      "is_forwarder": false
+    },
+    {
+      "name": "DisableThreadProfiling",
+      "ordinal": 324,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.TpDisassociateCallback)",
+      "ordinal": 325,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-memory-l1-1-2.DiscardVirtualMemory)",
+      "ordinal": 326,
+      "is_forwarder": true
+    },
+    {
+      "name": "DisconnectNamedPipe",
+      "ordinal": 327,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsHostnameToComputerNameA",
+      "ordinal": 328,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsHostnameToComputerNameExW",
+      "ordinal": 329,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsHostnameToComputerNameW",
+      "ordinal": 330,
+      "is_forwarder": false
+    },
+    {
+      "name": "DosDateTimeToFileTime",
+      "ordinal": 331,
+      "is_forwarder": false
+    },
+    {
+      "name": "DosPathToSessionPathA",
+      "ordinal": 332,
+      "is_forwarder": false
+    },
+    {
+      "name": "DosPathToSessionPathW",
+      "ordinal": 333,
+      "is_forwarder": false
+    },
+    {
+      "name": "DuplicateConsoleHandle",
+      "ordinal": 334,
+      "is_forwarder": false
+    },
+    {
+      "name": "DuplicateEncryptionInfoFileExt",
+      "ordinal": 335,
+      "is_forwarder": false
+    },
+    {
+      "name": "DuplicateHandle",
+      "ordinal": 336,
+      "is_forwarder": false
+    },
+    {
+      "name": "DuplicatePackageVirtualizationContext",
+      "ordinal": 337,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnableProcessOptionalXStateFeatures",
+      "ordinal": 338,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnableThreadProfiling",
+      "ordinal": 339,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlEncodePointer)",
+      "ordinal": 340,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlEncodeSystemPointer)",
+      "ordinal": 341,
+      "is_forwarder": true
+    },
+    {
+      "name": "EndUpdateResourceA",
+      "ordinal": 342,
+      "is_forwarder": false
+    },
+    {
+      "name": "EndUpdateResourceW",
+      "ordinal": 343,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlEnterCriticalSection)",
+      "ordinal": 344,
+      "is_forwarder": true
+    },
+    {
+      "name": "EnterSynchronizationBarrier",
+      "ordinal": 345,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnterUmsSchedulingMode",
+      "ordinal": 346,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumCalendarInfoA",
+      "ordinal": 347,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumCalendarInfoExA",
+      "ordinal": 348,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumCalendarInfoExEx",
+      "ordinal": 349,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumCalendarInfoExW",
+      "ordinal": 350,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumCalendarInfoW",
+      "ordinal": 351,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDateFormatsA",
+      "ordinal": 352,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDateFormatsExA",
+      "ordinal": 353,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDateFormatsExEx",
+      "ordinal": 354,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDateFormatsExW",
+      "ordinal": 355,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDateFormatsW",
+      "ordinal": 356,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumLanguageGroupLocalesA",
+      "ordinal": 357,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumLanguageGroupLocalesW",
+      "ordinal": 358,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumResourceLanguagesA",
+      "ordinal": 359,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumResourceLanguagesExA",
+      "ordinal": 360,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumResourceLanguagesExW",
+      "ordinal": 361,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumResourceLanguagesW",
+      "ordinal": 362,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumResourceNamesA",
+      "ordinal": 363,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumResourceNamesExA",
+      "ordinal": 364,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumResourceNamesExW",
+      "ordinal": 365,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumResourceNamesW",
+      "ordinal": 366,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumResourceTypesA",
+      "ordinal": 367,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumResourceTypesExA",
+      "ordinal": 368,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumResourceTypesExW",
+      "ordinal": 369,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumResourceTypesW",
+      "ordinal": 370,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumSystemCodePagesA",
+      "ordinal": 371,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumSystemCodePagesW",
+      "ordinal": 372,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumSystemFirmwareTables",
+      "ordinal": 373,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumSystemGeoID",
+      "ordinal": 374,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumSystemGeoNames",
+      "ordinal": 375,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumSystemLanguageGroupsA",
+      "ordinal": 376,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumSystemLanguageGroupsW",
+      "ordinal": 377,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumSystemLocalesA",
+      "ordinal": 378,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumSystemLocalesEx",
+      "ordinal": 379,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumSystemLocalesW",
+      "ordinal": 380,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumTimeFormatsA",
+      "ordinal": 381,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumTimeFormatsEx",
+      "ordinal": 382,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumTimeFormatsW",
+      "ordinal": 383,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumUILanguagesA",
+      "ordinal": 384,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumUILanguagesW",
+      "ordinal": 385,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumerateLocalComputerNamesA",
+      "ordinal": 386,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumerateLocalComputerNamesW",
+      "ordinal": 387,
+      "is_forwarder": false
+    },
+    {
+      "name": "EraseTape",
+      "ordinal": 388,
+      "is_forwarder": false
+    },
+    {
+      "name": "EscapeCommFunction",
+      "ordinal": 389,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExecuteUmsThread",
+      "ordinal": 390,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExitProcess",
+      "ordinal": 391,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlExitUserThread)",
+      "ordinal": 392,
+      "is_forwarder": true
+    },
+    {
+      "name": "ExitVDM",
+      "ordinal": 393,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExpandEnvironmentStringsA",
+      "ordinal": 394,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExpandEnvironmentStringsW",
+      "ordinal": 395,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExpungeConsoleCommandHistoryA",
+      "ordinal": 396,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExpungeConsoleCommandHistoryW",
+      "ordinal": 397,
+      "is_forwarder": false
+    },
+    {
+      "name": "FatalAppExitA",
+      "ordinal": 398,
+      "is_forwarder": false
+    },
+    {
+      "name": "FatalAppExitW",
+      "ordinal": 399,
+      "is_forwarder": false
+    },
+    {
+      "name": "FatalExit",
+      "ordinal": 400,
+      "is_forwarder": false
+    },
+    {
+      "name": "FileTimeToDosDateTime",
+      "ordinal": 401,
+      "is_forwarder": false
+    },
+    {
+      "name": "FileTimeToLocalFileTime",
+      "ordinal": 402,
+      "is_forwarder": false
+    },
+    {
+      "name": "FileTimeToSystemTime",
+      "ordinal": 403,
+      "is_forwarder": false
+    },
+    {
+      "name": "FillConsoleOutputAttribute",
+      "ordinal": 404,
+      "is_forwarder": false
+    },
+    {
+      "name": "FillConsoleOutputCharacterA",
+      "ordinal": 405,
+      "is_forwarder": false
+    },
+    {
+      "name": "FillConsoleOutputCharacterW",
+      "ordinal": 406,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindActCtxSectionGuid",
+      "ordinal": 407,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindActCtxSectionGuidWorker",
+      "ordinal": 408,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindActCtxSectionStringA",
+      "ordinal": 409,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindActCtxSectionStringW",
+      "ordinal": 410,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindActCtxSectionStringWWorker",
+      "ordinal": 411,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindAtomA",
+      "ordinal": 412,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindAtomW",
+      "ordinal": 413,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindClose",
+      "ordinal": 414,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindCloseChangeNotification",
+      "ordinal": 415,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstChangeNotificationA",
+      "ordinal": 416,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstChangeNotificationW",
+      "ordinal": 417,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstFileA",
+      "ordinal": 418,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstFileExA",
+      "ordinal": 419,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstFileExW",
+      "ordinal": 420,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstFileNameTransactedW",
+      "ordinal": 421,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstFileNameW",
+      "ordinal": 422,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstFileTransactedA",
+      "ordinal": 423,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstFileTransactedW",
+      "ordinal": 424,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstFileW",
+      "ordinal": 425,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstStreamTransactedW",
+      "ordinal": 426,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-file-l1-2-2.FindFirstStreamW)",
+      "ordinal": 427,
+      "is_forwarder": true
+    },
+    {
+      "name": "FindFirstVolumeA",
+      "ordinal": 428,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstVolumeMountPointA",
+      "ordinal": 429,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstVolumeMountPointW",
+      "ordinal": 430,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstVolumeW",
+      "ordinal": 431,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindNLSString",
+      "ordinal": 432,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindNLSStringEx",
+      "ordinal": 433,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindNextChangeNotification",
+      "ordinal": 434,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindNextFileA",
+      "ordinal": 435,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindNextFileNameW",
+      "ordinal": 436,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindNextFileW",
+      "ordinal": 437,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-file-l1-2-2.FindNextStreamW)",
+      "ordinal": 438,
+      "is_forwarder": true
+    },
+    {
+      "name": "FindNextVolumeA",
+      "ordinal": 439,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindNextVolumeMountPointA",
+      "ordinal": 440,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindNextVolumeMountPointW",
+      "ordinal": 441,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindNextVolumeW",
+      "ordinal": 442,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.FindPackagesByPackageFamily)",
+      "ordinal": 443,
+      "is_forwarder": true
+    },
+    {
+      "name": "FindResourceA",
+      "ordinal": 444,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindResourceExA",
+      "ordinal": 445,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindResourceExW",
+      "ordinal": 446,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindResourceW",
+      "ordinal": 447,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindStringOrdinal",
+      "ordinal": 448,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindVolumeClose",
+      "ordinal": 449,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindVolumeMountPointClose",
+      "ordinal": 450,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlsAlloc",
+      "ordinal": 451,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlsFree",
+      "ordinal": 452,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlsGetValue",
+      "ordinal": 453,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.FlsGetValue2)",
+      "ordinal": 454,
+      "is_forwarder": true
+    },
+    {
+      "name": "FlsSetValue",
+      "ordinal": 455,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlushConsoleInputBuffer",
+      "ordinal": 456,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlushFileBuffers",
+      "ordinal": 457,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlushInstructionCache",
+      "ordinal": 458,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.NtFlushProcessWriteBuffers)",
+      "ordinal": 459,
+      "is_forwarder": true
+    },
+    {
+      "name": "FlushViewOfFile",
+      "ordinal": 460,
+      "is_forwarder": false
+    },
+    {
+      "name": "FoldStringA",
+      "ordinal": 461,
+      "is_forwarder": false
+    },
+    {
+      "name": "FoldStringW",
+      "ordinal": 462,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.FormatApplicationUserModelId)",
+      "ordinal": 463,
+      "is_forwarder": true
+    },
+    {
+      "name": "FormatMessageA",
+      "ordinal": 464,
+      "is_forwarder": false
+    },
+    {
+      "name": "FormatMessageW",
+      "ordinal": 465,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeConsole",
+      "ordinal": 466,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeEnvironmentStringsA",
+      "ordinal": 467,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeEnvironmentStringsW",
+      "ordinal": 468,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeLibrary",
+      "ordinal": 469,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeLibraryAndExitThread",
+      "ordinal": 470,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.TpCallbackUnloadDllOnCompletion)",
+      "ordinal": 471,
+      "is_forwarder": true
+    },
+    {
+      "name": "FreeMemoryJobObject",
+      "ordinal": 472,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeResource",
+      "ordinal": 473,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeUserPhysicalPages",
+      "ordinal": 474,
+      "is_forwarder": false
+    },
+    {
+      "name": "GenerateConsoleCtrlEvent",
+      "ordinal": 475,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetACP",
+      "ordinal": 476,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetActiveProcessorCount",
+      "ordinal": 477,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetActiveProcessorGroupCount",
+      "ordinal": 478,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAppContainerAce",
+      "ordinal": 479,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAppContainerNamedObjectPath",
+      "ordinal": 480,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetApplicationRecoveryCallback",
+      "ordinal": 481,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetApplicationRecoveryCallbackWorker",
+      "ordinal": 482,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetApplicationRestartSettings",
+      "ordinal": 483,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetApplicationRestartSettingsWorker",
+      "ordinal": 484,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.GetApplicationUserModelId)",
+      "ordinal": 485,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetAtomNameA",
+      "ordinal": 486,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAtomNameW",
+      "ordinal": 487,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetBinaryType",
+      "ordinal": 488,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetBinaryTypeA",
+      "ordinal": 489,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetBinaryTypeW",
+      "ordinal": 490,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCPInfo",
+      "ordinal": 491,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCPInfoExA",
+      "ordinal": 492,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCPInfoExW",
+      "ordinal": 493,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCachedSigningLevel",
+      "ordinal": 494,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCalendarDateFormat",
+      "ordinal": 495,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCalendarDateFormatEx",
+      "ordinal": 496,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCalendarDaysInMonth",
+      "ordinal": 497,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCalendarDifferenceInDays",
+      "ordinal": 498,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCalendarInfoA",
+      "ordinal": 499,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCalendarInfoEx",
+      "ordinal": 500,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCalendarInfoW",
+      "ordinal": 501,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCalendarMonthsInYear",
+      "ordinal": 502,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCalendarSupportedDateRange",
+      "ordinal": 503,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCalendarWeekNumber",
+      "ordinal": 504,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetComPlusPackageInstallStatus",
+      "ordinal": 505,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCommConfig",
+      "ordinal": 506,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCommMask",
+      "ordinal": 507,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCommModemStatus",
+      "ordinal": 508,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCommProperties",
+      "ordinal": 509,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCommState",
+      "ordinal": 510,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCommTimeouts",
+      "ordinal": 511,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCommandLineA",
+      "ordinal": 512,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCommandLineW",
+      "ordinal": 513,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCompressedFileSizeA",
+      "ordinal": 514,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCompressedFileSizeTransactedA",
+      "ordinal": 515,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCompressedFileSizeTransactedW",
+      "ordinal": 516,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCompressedFileSizeW",
+      "ordinal": 517,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetComputerNameA",
+      "ordinal": 518,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetComputerNameExA",
+      "ordinal": 519,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetComputerNameExW",
+      "ordinal": 520,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetComputerNameW",
+      "ordinal": 521,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleAliasA",
+      "ordinal": 522,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleAliasExesA",
+      "ordinal": 523,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleAliasExesLengthA",
+      "ordinal": 524,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleAliasExesLengthW",
+      "ordinal": 525,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleAliasExesW",
+      "ordinal": 526,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleAliasW",
+      "ordinal": 527,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleAliasesA",
+      "ordinal": 528,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleAliasesLengthA",
+      "ordinal": 529,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleAliasesLengthW",
+      "ordinal": 530,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleAliasesW",
+      "ordinal": 531,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleCP",
+      "ordinal": 532,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleCharType",
+      "ordinal": 533,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleCommandHistoryA",
+      "ordinal": 534,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleCommandHistoryLengthA",
+      "ordinal": 535,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleCommandHistoryLengthW",
+      "ordinal": 536,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleCommandHistoryW",
+      "ordinal": 537,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleCursorInfo",
+      "ordinal": 538,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleCursorMode",
+      "ordinal": 539,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleDisplayMode",
+      "ordinal": 540,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleFontInfo",
+      "ordinal": 541,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleFontSize",
+      "ordinal": 542,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleHardwareState",
+      "ordinal": 543,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleHistoryInfo",
+      "ordinal": 544,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.GetConsoleInputExeNameA)",
+      "ordinal": 545,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.GetConsoleInputExeNameW)",
+      "ordinal": 546,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetConsoleInputWaitHandle",
+      "ordinal": 547,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleKeyboardLayoutNameA",
+      "ordinal": 548,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleKeyboardLayoutNameW",
+      "ordinal": 549,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleMode",
+      "ordinal": 550,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleNlsMode",
+      "ordinal": 551,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleOriginalTitleA",
+      "ordinal": 552,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleOriginalTitleW",
+      "ordinal": 553,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleOutputCP",
+      "ordinal": 554,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleProcessList",
+      "ordinal": 555,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleScreenBufferInfo",
+      "ordinal": 556,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleScreenBufferInfoEx",
+      "ordinal": 557,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleSelectionInfo",
+      "ordinal": 558,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleTitleA",
+      "ordinal": 559,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleTitleW",
+      "ordinal": 560,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConsoleWindow",
+      "ordinal": 561,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrencyFormatA",
+      "ordinal": 562,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrencyFormatEx",
+      "ordinal": 563,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrencyFormatW",
+      "ordinal": 564,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentActCtx",
+      "ordinal": 565,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentActCtxWorker",
+      "ordinal": 566,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.GetCurrentApplicationUserModelId)",
+      "ordinal": 567,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetCurrentConsoleFont",
+      "ordinal": 568,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentConsoleFontEx",
+      "ordinal": 569,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentDirectoryA",
+      "ordinal": 570,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentDirectoryW",
+      "ordinal": 571,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.GetCurrentPackageFamilyName)",
+      "ordinal": 572,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.GetCurrentPackageFullName)",
+      "ordinal": 573,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.GetCurrentPackageId)",
+      "ordinal": 574,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.GetCurrentPackageInfo)",
+      "ordinal": 575,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.GetCurrentPackagePath)",
+      "ordinal": 576,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetCurrentPackageVirtualizationContext",
+      "ordinal": 577,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentProcess",
+      "ordinal": 578,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentProcessId",
+      "ordinal": 579,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlGetCurrentProcessorNumber)",
+      "ordinal": 580,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlGetCurrentProcessorNumberEx)",
+      "ordinal": 581,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetCurrentThread",
+      "ordinal": 582,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentThreadId",
+      "ordinal": 583,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-0.GetCurrentThreadStackLimits)",
+      "ordinal": 584,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetCurrentUmsThread",
+      "ordinal": 585,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDateFormatA",
+      "ordinal": 586,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDateFormatAWorker",
+      "ordinal": 587,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDateFormatEx",
+      "ordinal": 588,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDateFormatW",
+      "ordinal": 589,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDateFormatWWorker",
+      "ordinal": 590,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDefaultCommConfigA",
+      "ordinal": 591,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDefaultCommConfigW",
+      "ordinal": 592,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDevicePowerState",
+      "ordinal": 593,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDiskFreeSpaceA",
+      "ordinal": 594,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDiskFreeSpaceExA",
+      "ordinal": 595,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDiskFreeSpaceExW",
+      "ordinal": 596,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDiskFreeSpaceW",
+      "ordinal": 597,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-file-l1-2-3.GetDiskSpaceInformationA)",
+      "ordinal": 598,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-file-l1-2-3.GetDiskSpaceInformationW)",
+      "ordinal": 599,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetDllDirectoryA",
+      "ordinal": 600,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDllDirectoryW",
+      "ordinal": 601,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDriveTypeA",
+      "ordinal": 602,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDriveTypeW",
+      "ordinal": 603,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDurationFormat",
+      "ordinal": 604,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDurationFormatEx",
+      "ordinal": 605,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDynamicTimeZoneInformation",
+      "ordinal": 606,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetEnabledXStateFeatures",
+      "ordinal": 607,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetEncryptedFileVersionExt",
+      "ordinal": 608,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetEnvironmentStrings",
+      "ordinal": 609,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetEnvironmentStringsA",
+      "ordinal": 610,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetEnvironmentStringsW",
+      "ordinal": 611,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetEnvironmentVariableA",
+      "ordinal": 612,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetEnvironmentVariableW",
+      "ordinal": 613,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetEraNameCountedString",
+      "ordinal": 614,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetErrorMode",
+      "ordinal": 615,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetExitCodeProcess",
+      "ordinal": 616,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetExitCodeThread",
+      "ordinal": 617,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetExpandedNameA",
+      "ordinal": 618,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetExpandedNameW",
+      "ordinal": 619,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileAttributesA",
+      "ordinal": 620,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileAttributesExA",
+      "ordinal": 621,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileAttributesExW",
+      "ordinal": 622,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileAttributesTransactedA",
+      "ordinal": 623,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileAttributesTransactedW",
+      "ordinal": 624,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileAttributesW",
+      "ordinal": 625,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileBandwidthReservation",
+      "ordinal": 626,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileInformationByHandle",
+      "ordinal": 627,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileInformationByHandleEx",
+      "ordinal": 628,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileInformationByName",
+      "ordinal": 629,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileMUIInfo",
+      "ordinal": 630,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileMUIPath",
+      "ordinal": 631,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileSize",
+      "ordinal": 632,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileSizeEx",
+      "ordinal": 633,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileTime",
+      "ordinal": 634,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileType",
+      "ordinal": 635,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFinalPathNameByHandleA",
+      "ordinal": 636,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFinalPathNameByHandleW",
+      "ordinal": 637,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFirmwareEnvironmentVariableA",
+      "ordinal": 638,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFirmwareEnvironmentVariableExA",
+      "ordinal": 639,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFirmwareEnvironmentVariableExW",
+      "ordinal": 640,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFirmwareEnvironmentVariableW",
+      "ordinal": 641,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFirmwareType",
+      "ordinal": 642,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFullPathNameA",
+      "ordinal": 643,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFullPathNameTransactedA",
+      "ordinal": 644,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFullPathNameTransactedW",
+      "ordinal": 645,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFullPathNameW",
+      "ordinal": 646,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetGeoInfoA",
+      "ordinal": 647,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetGeoInfoEx",
+      "ordinal": 648,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetGeoInfoW",
+      "ordinal": 649,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetHandleInformation",
+      "ordinal": 650,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-0.GetIoRingInfo)",
+      "ordinal": 651,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetLargePageMinimum",
+      "ordinal": 652,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLargestConsoleWindowSize",
+      "ordinal": 653,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLastError",
+      "ordinal": 654,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLocalTime",
+      "ordinal": 655,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLocaleInfoA",
+      "ordinal": 656,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLocaleInfoEx",
+      "ordinal": 657,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLocaleInfoW",
+      "ordinal": 658,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLogicalDriveStringsA",
+      "ordinal": 659,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLogicalDriveStringsW",
+      "ordinal": 660,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLogicalDrives",
+      "ordinal": 661,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLogicalProcessorInformation",
+      "ordinal": 662,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-sysinfo-l1-1-0.GetLogicalProcessorInformationEx)",
+      "ordinal": 663,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetLongPathNameA",
+      "ordinal": 664,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLongPathNameTransactedA",
+      "ordinal": 665,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLongPathNameTransactedW",
+      "ordinal": 666,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLongPathNameW",
+      "ordinal": 667,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-7.GetMachineTypeAttributes)",
+      "ordinal": 668,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetMailslotInfo",
+      "ordinal": 669,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMaximumProcessorCount",
+      "ordinal": 670,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMaximumProcessorGroupCount",
+      "ordinal": 671,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMemoryErrorHandlingCapabilities",
+      "ordinal": 672,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetModuleFileNameA",
+      "ordinal": 673,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetModuleFileNameW",
+      "ordinal": 674,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetModuleHandleA",
+      "ordinal": 675,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetModuleHandleExA",
+      "ordinal": 676,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetModuleHandleExW",
+      "ordinal": 677,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetModuleHandleW",
+      "ordinal": 678,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNLSVersion",
+      "ordinal": 679,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNLSVersionEx",
+      "ordinal": 680,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNamedPipeAttribute",
+      "ordinal": 681,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNamedPipeClientComputerNameA",
+      "ordinal": 682,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNamedPipeClientComputerNameW",
+      "ordinal": 683,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNamedPipeClientProcessId",
+      "ordinal": 684,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNamedPipeClientSessionId",
+      "ordinal": 685,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNamedPipeHandleStateA",
+      "ordinal": 686,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNamedPipeHandleStateW",
+      "ordinal": 687,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-namedpipe-l1-2-1.GetNamedPipeInfo)",
+      "ordinal": 688,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetNamedPipeServerProcessId",
+      "ordinal": 689,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNamedPipeServerSessionId",
+      "ordinal": 690,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNativeSystemInfo",
+      "ordinal": 691,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNextUmsListItem",
+      "ordinal": 692,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNextVDMCommand",
+      "ordinal": 693,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumaAvailableMemoryNode",
+      "ordinal": 694,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumaAvailableMemoryNodeEx",
+      "ordinal": 695,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumaHighestNodeNumber",
+      "ordinal": 696,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumaNodeNumberFromHandle",
+      "ordinal": 697,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumaNodeProcessorMask",
+      "ordinal": 698,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-systemtopology-l1-1-2.GetNumaNodeProcessorMask2)",
+      "ordinal": 699,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetNumaNodeProcessorMaskEx",
+      "ordinal": 700,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumaProcessorNode",
+      "ordinal": 701,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumaProcessorNodeEx",
+      "ordinal": 702,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumaProximityNode",
+      "ordinal": 703,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumaProximityNodeEx",
+      "ordinal": 704,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumberFormatA",
+      "ordinal": 705,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumberFormatEx",
+      "ordinal": 706,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumberFormatW",
+      "ordinal": 707,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumberOfConsoleFonts",
+      "ordinal": 708,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumberOfConsoleInputEvents",
+      "ordinal": 709,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumberOfConsoleMouseButtons",
+      "ordinal": 710,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetOEMCP",
+      "ordinal": 711,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetOverlappedResult",
+      "ordinal": 712,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-io-l1-1-1.GetOverlappedResultEx)",
+      "ordinal": 713,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.GetPackageApplicationIds)",
+      "ordinal": 714,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.GetPackageFamilyName)",
+      "ordinal": 715,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.GetPackageFullName)",
+      "ordinal": 716,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.GetPackageId)",
+      "ordinal": 717,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.GetPackageInfo)",
+      "ordinal": 718,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.GetPackagePath)",
+      "ordinal": 719,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.GetPackagePathByFullName)",
+      "ordinal": 720,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.GetPackagesByPackageFamily)",
+      "ordinal": 721,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetPhysicallyInstalledSystemMemory",
+      "ordinal": 722,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPriorityClass",
+      "ordinal": 723,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPrivateProfileIntA",
+      "ordinal": 724,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPrivateProfileIntW",
+      "ordinal": 725,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPrivateProfileSectionA",
+      "ordinal": 726,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPrivateProfileSectionNamesA",
+      "ordinal": 727,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPrivateProfileSectionNamesW",
+      "ordinal": 728,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPrivateProfileSectionW",
+      "ordinal": 729,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPrivateProfileStringA",
+      "ordinal": 730,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPrivateProfileStringW",
+      "ordinal": 731,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPrivateProfileStructA",
+      "ordinal": 732,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPrivateProfileStructW",
+      "ordinal": 733,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcAddress",
+      "ordinal": 734,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessAffinityMask",
+      "ordinal": 735,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessDEPPolicy",
+      "ordinal": 736,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-6.GetProcessDefaultCpuSetMasks)",
+      "ordinal": 737,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-3.GetProcessDefaultCpuSets)",
+      "ordinal": 738,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetProcessGroupAffinity",
+      "ordinal": 739,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessHandleCount",
+      "ordinal": 740,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessHeap",
+      "ordinal": 741,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessHeaps",
+      "ordinal": 742,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessId",
+      "ordinal": 743,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessIdOfThread",
+      "ordinal": 744,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessInformation",
+      "ordinal": 745,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessIoCounters",
+      "ordinal": 746,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-1.GetProcessMitigationPolicy)",
+      "ordinal": 747,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetProcessPreferredUILanguages",
+      "ordinal": 748,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessPriorityBoost",
+      "ordinal": 749,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessShutdownParameters",
+      "ordinal": 750,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessTimes",
+      "ordinal": 751,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessVersion",
+      "ordinal": 752,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessWorkingSetSize",
+      "ordinal": 753,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessWorkingSetSizeEx",
+      "ordinal": 754,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessesInVirtualizationContext",
+      "ordinal": 755,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-sysinfo-l1-2-2.GetProcessorSystemCycleTime)",
+      "ordinal": 756,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetProductInfo",
+      "ordinal": 757,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProfileIntA",
+      "ordinal": 758,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProfileIntW",
+      "ordinal": 759,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProfileSectionA",
+      "ordinal": 760,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProfileSectionW",
+      "ordinal": 761,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProfileStringA",
+      "ordinal": 762,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProfileStringW",
+      "ordinal": 763,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetQueuedCompletionStatus",
+      "ordinal": 764,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetQueuedCompletionStatusEx",
+      "ordinal": 765,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetShortPathNameA",
+      "ordinal": 766,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetShortPathNameW",
+      "ordinal": 767,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.GetStagedPackagePathByFullName)",
+      "ordinal": 768,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetStartupInfoA",
+      "ordinal": 769,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetStartupInfoW",
+      "ordinal": 770,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.GetStateFolder)",
+      "ordinal": 771,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetStdHandle",
+      "ordinal": 772,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetStringScripts",
+      "ordinal": 773,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetStringTypeA",
+      "ordinal": 774,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetStringTypeExA",
+      "ordinal": 775,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetStringTypeExW",
+      "ordinal": 776,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetStringTypeW",
+      "ordinal": 777,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.GetSystemAppDataKey)",
+      "ordinal": 778,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-3.GetSystemCpuSetInformation)",
+      "ordinal": 779,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetSystemDEPPolicy",
+      "ordinal": 780,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemDefaultLCID",
+      "ordinal": 781,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemDefaultLangID",
+      "ordinal": 782,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemDefaultLocaleName",
+      "ordinal": 783,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemDefaultUILanguage",
+      "ordinal": 784,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemDirectoryA",
+      "ordinal": 785,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemDirectoryW",
+      "ordinal": 786,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemFileCacheSize",
+      "ordinal": 787,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemFirmwareTable",
+      "ordinal": 788,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemInfo",
+      "ordinal": 789,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemPowerStatus",
+      "ordinal": 790,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemPreferredUILanguages",
+      "ordinal": 791,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemRegistryQuota",
+      "ordinal": 792,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemTime",
+      "ordinal": 793,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemTimeAdjustment",
+      "ordinal": 794,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemTimeAsFileTime",
+      "ordinal": 795,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemTimePreciseAsFileTime",
+      "ordinal": 796,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemTimes",
+      "ordinal": 797,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemWindowsDirectoryA",
+      "ordinal": 798,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemWindowsDirectoryW",
+      "ordinal": 799,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemWow64DirectoryA",
+      "ordinal": 800,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemWow64DirectoryW",
+      "ordinal": 801,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTapeParameters",
+      "ordinal": 802,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTapePosition",
+      "ordinal": 803,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTapeStatus",
+      "ordinal": 804,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTempFileNameA",
+      "ordinal": 805,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTempFileNameW",
+      "ordinal": 806,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTempPath2A",
+      "ordinal": 807,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTempPath2W",
+      "ordinal": 808,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTempPathA",
+      "ordinal": 809,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTempPathW",
+      "ordinal": 810,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadContext",
+      "ordinal": 811,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-3.GetThreadDescription)",
+      "ordinal": 812,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetThreadEnabledXStateFeatures",
+      "ordinal": 813,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadErrorMode",
+      "ordinal": 814,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadGroupAffinity",
+      "ordinal": 815,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadIOPendingFlag",
+      "ordinal": 816,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadId",
+      "ordinal": 817,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadIdealProcessorEx",
+      "ordinal": 818,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadInformation",
+      "ordinal": 819,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadLocale",
+      "ordinal": 820,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadPreferredUILanguages",
+      "ordinal": 821,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadPriority",
+      "ordinal": 822,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadPriorityBoost",
+      "ordinal": 823,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-6.GetThreadSelectedCpuSetMasks)",
+      "ordinal": 824,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-3.GetThreadSelectedCpuSets)",
+      "ordinal": 825,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetThreadSelectorEntry",
+      "ordinal": 826,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadTimes",
+      "ordinal": 827,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadUILanguage",
+      "ordinal": 828,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTickCount",
+      "ordinal": 829,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTickCount64",
+      "ordinal": 830,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTimeFormatA",
+      "ordinal": 831,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTimeFormatAWorker",
+      "ordinal": 832,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTimeFormatEx",
+      "ordinal": 833,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTimeFormatW",
+      "ordinal": 834,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTimeFormatWWorker",
+      "ordinal": 835,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTimeZoneInformation",
+      "ordinal": 836,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTimeZoneInformationForYear",
+      "ordinal": 837,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUILanguageInfo",
+      "ordinal": 838,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUmsCompletionListEvent",
+      "ordinal": 839,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUmsSystemThreadInformation",
+      "ordinal": 840,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUserDefaultGeoName",
+      "ordinal": 841,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUserDefaultLCID",
+      "ordinal": 842,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUserDefaultLangID",
+      "ordinal": 843,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUserDefaultLocaleName",
+      "ordinal": 844,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUserDefaultUILanguage",
+      "ordinal": 845,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUserGeoID",
+      "ordinal": 846,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUserPreferredUILanguages",
+      "ordinal": 847,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetVDMCurrentDirectories",
+      "ordinal": 848,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetVersion",
+      "ordinal": 849,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetVersionExA",
+      "ordinal": 850,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetVersionExW",
+      "ordinal": 851,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetVolumeInformationA",
+      "ordinal": 852,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetVolumeInformationByHandleW",
+      "ordinal": 853,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetVolumeInformationW",
+      "ordinal": 854,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetVolumeNameForVolumeMountPointA",
+      "ordinal": 855,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetVolumeNameForVolumeMountPointW",
+      "ordinal": 856,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetVolumePathNameA",
+      "ordinal": 857,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetVolumePathNameW",
+      "ordinal": 858,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetVolumePathNamesForVolumeNameA",
+      "ordinal": 859,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetVolumePathNamesForVolumeNameW",
+      "ordinal": 860,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowsDirectoryA",
+      "ordinal": 861,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowsDirectoryW",
+      "ordinal": 862,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWriteWatch",
+      "ordinal": 863,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetXStateFeaturesMask",
+      "ordinal": 864,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalAddAtomA",
+      "ordinal": 865,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalAddAtomExA",
+      "ordinal": 866,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalAddAtomExW",
+      "ordinal": 867,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalAddAtomW",
+      "ordinal": 868,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalAlloc",
+      "ordinal": 869,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalCompact",
+      "ordinal": 870,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalDeleteAtom",
+      "ordinal": 871,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalFindAtomA",
+      "ordinal": 872,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalFindAtomW",
+      "ordinal": 873,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalFix",
+      "ordinal": 874,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalFlags",
+      "ordinal": 875,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalFree",
+      "ordinal": 876,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalGetAtomNameA",
+      "ordinal": 877,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalGetAtomNameW",
+      "ordinal": 878,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalHandle",
+      "ordinal": 879,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalLock",
+      "ordinal": 880,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalMemoryStatus",
+      "ordinal": 881,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalMemoryStatusEx",
+      "ordinal": 882,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalReAlloc",
+      "ordinal": 883,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalSize",
+      "ordinal": 884,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalUnWire",
+      "ordinal": 885,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalUnfix",
+      "ordinal": 886,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalUnlock",
+      "ordinal": 887,
+      "is_forwarder": false
+    },
+    {
+      "name": "GlobalWire",
+      "ordinal": 888,
+      "is_forwarder": false
+    },
+    {
+      "name": "Heap32First",
+      "ordinal": 889,
+      "is_forwarder": false
+    },
+    {
+      "name": "Heap32ListFirst",
+      "ordinal": 890,
+      "is_forwarder": false
+    },
+    {
+      "name": "Heap32ListNext",
+      "ordinal": 891,
+      "is_forwarder": false
+    },
+    {
+      "name": "Heap32Next",
+      "ordinal": 892,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlAllocateHeap)",
+      "ordinal": 893,
+      "is_forwarder": true
+    },
+    {
+      "name": "HeapCompact",
+      "ordinal": 894,
+      "is_forwarder": false
+    },
+    {
+      "name": "HeapCreate",
+      "ordinal": 895,
+      "is_forwarder": false
+    },
+    {
+      "name": "HeapDestroy",
+      "ordinal": 896,
+      "is_forwarder": false
+    },
+    {
+      "name": "HeapFree",
+      "ordinal": 897,
+      "is_forwarder": false
+    },
+    {
+      "name": "HeapLock",
+      "ordinal": 898,
+      "is_forwarder": false
+    },
+    {
+      "name": "HeapQueryInformation",
+      "ordinal": 899,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlReAllocateHeap)",
+      "ordinal": 900,
+      "is_forwarder": true
+    },
+    {
+      "name": "HeapSetInformation",
+      "ordinal": 901,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlSizeHeap)",
+      "ordinal": 902,
+      "is_forwarder": true
+    },
+    {
+      "name": "HeapSummary",
+      "ordinal": 903,
+      "is_forwarder": false
+    },
+    {
+      "name": "HeapUnlock",
+      "ordinal": 904,
+      "is_forwarder": false
+    },
+    {
+      "name": "HeapValidate",
+      "ordinal": 905,
+      "is_forwarder": false
+    },
+    {
+      "name": "HeapWalk",
+      "ordinal": 906,
+      "is_forwarder": false
+    },
+    {
+      "name": "IdnToAscii",
+      "ordinal": 907,
+      "is_forwarder": false
+    },
+    {
+      "name": "IdnToNameprepUnicode",
+      "ordinal": 908,
+      "is_forwarder": false
+    },
+    {
+      "name": "IdnToUnicode",
+      "ordinal": 909,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitAtomTable",
+      "ordinal": 910,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-synch-l1-2-0.InitOnceBeginInitialize)",
+      "ordinal": 911,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-synch-l1-2-0.InitOnceComplete)",
+      "ordinal": 912,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-synch-l1-2-0.InitOnceExecuteOnce)",
+      "ordinal": 913,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlRunOnceInitialize)",
+      "ordinal": 914,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlInitializeConditionVariable)",
+      "ordinal": 915,
+      "is_forwarder": true
+    },
+    {
+      "name": "InitializeContext",
+      "ordinal": 916,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeContext2",
+      "ordinal": 917,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlInitializeCriticalSection)",
+      "ordinal": 918,
+      "is_forwarder": true
+    },
+    {
+      "name": "InitializeCriticalSectionAndSpinCount",
+      "ordinal": 919,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeCriticalSectionEx",
+      "ordinal": 920,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-enclave-l1-1-0.InitializeEnclave)",
+      "ordinal": 921,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-0.InitializeProcThreadAttributeList)",
+      "ordinal": 922,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlInitializeSListHead)",
+      "ordinal": 923,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlInitializeSRWLock)",
+      "ordinal": 924,
+      "is_forwarder": true
+    },
+    {
+      "name": "InitializeSynchronizationBarrier",
+      "ordinal": 925,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-sysinfo-l1-2-1.InstallELAMCertificateInfo)",
+      "ordinal": 926,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlInterlockedFlushSList)",
+      "ordinal": 927,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlInterlockedPopEntrySList)",
+      "ordinal": 928,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlInterlockedPushEntrySList)",
+      "ordinal": 929,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlInterlockedPushListSList)",
+      "ordinal": 930,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlInterlockedPushListSListEx)",
+      "ordinal": 931,
+      "is_forwarder": true
+    },
+    {
+      "name": "InvalidateConsoleDIBits",
+      "ordinal": 932,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsBadCodePtr",
+      "ordinal": 933,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsBadHugeReadPtr",
+      "ordinal": 934,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsBadHugeWritePtr",
+      "ordinal": 935,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsBadReadPtr",
+      "ordinal": 936,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsBadStringPtrA",
+      "ordinal": 937,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsBadStringPtrW",
+      "ordinal": 938,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsBadWritePtr",
+      "ordinal": 939,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsCalendarLeapDay",
+      "ordinal": 940,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsCalendarLeapMonth",
+      "ordinal": 941,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsCalendarLeapYear",
+      "ordinal": 942,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsDBCSLeadByte",
+      "ordinal": 943,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsDBCSLeadByteEx",
+      "ordinal": 944,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsDebuggerPresent",
+      "ordinal": 945,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-enclave-l1-1-0.IsEnclaveTypeSupported)",
+      "ordinal": 946,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-0.IsIoRingOpSupported)",
+      "ordinal": 947,
+      "is_forwarder": true
+    },
+    {
+      "name": "IsNLSDefinedString",
+      "ordinal": 948,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsNativeVhdBoot",
+      "ordinal": 949,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsNormalizedString",
+      "ordinal": 950,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-2.IsProcessCritical)",
+      "ordinal": 951,
+      "is_forwarder": true
+    },
+    {
+      "name": "IsProcessInJob",
+      "ordinal": 952,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsProcessorFeaturePresent",
+      "ordinal": 953,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsSystemResumeAutomatic",
+      "ordinal": 954,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsThreadAFiber",
+      "ordinal": 955,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.TpIsTimerSet)",
+      "ordinal": 956,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-sysinfo-l1-2-6.IsUserCetAvailableInEnvironment)",
+      "ordinal": 957,
+      "is_forwarder": true
+    },
+    {
+      "name": "IsValidCalDateTime",
+      "ordinal": 958,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsValidCodePage",
+      "ordinal": 959,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsValidLanguageGroup",
+      "ordinal": 960,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsValidLocale",
+      "ordinal": 961,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsValidLocaleName",
+      "ordinal": 962,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsValidNLSVersion",
+      "ordinal": 963,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-wow64-l1-1-2.IsWow64GuestMachineSupported)",
+      "ordinal": 964,
+      "is_forwarder": true
+    },
+    {
+      "name": "IsWow64Process",
+      "ordinal": 965,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-wow64-l1-1-1.IsWow64Process2)",
+      "ordinal": 966,
+      "is_forwarder": true
+    },
+    {
+      "name": "K32EmptyWorkingSet",
+      "ordinal": 967,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32EnumDeviceDrivers",
+      "ordinal": 968,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32EnumPageFilesA",
+      "ordinal": 969,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32EnumPageFilesW",
+      "ordinal": 970,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32EnumProcessModules",
+      "ordinal": 971,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32EnumProcessModulesEx",
+      "ordinal": 972,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32EnumProcesses",
+      "ordinal": 973,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetDeviceDriverBaseNameA",
+      "ordinal": 974,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetDeviceDriverBaseNameW",
+      "ordinal": 975,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetDeviceDriverFileNameA",
+      "ordinal": 976,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetDeviceDriverFileNameW",
+      "ordinal": 977,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetMappedFileNameA",
+      "ordinal": 978,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetMappedFileNameW",
+      "ordinal": 979,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetModuleBaseNameA",
+      "ordinal": 980,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetModuleBaseNameW",
+      "ordinal": 981,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetModuleFileNameExA",
+      "ordinal": 982,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetModuleFileNameExW",
+      "ordinal": 983,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetModuleInformation",
+      "ordinal": 984,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetPerformanceInfo",
+      "ordinal": 985,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetProcessImageFileNameA",
+      "ordinal": 986,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetProcessImageFileNameW",
+      "ordinal": 987,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetProcessMemoryInfo",
+      "ordinal": 988,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetWsChanges",
+      "ordinal": 989,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32GetWsChangesEx",
+      "ordinal": 990,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32InitializeProcessForWsWatch",
+      "ordinal": 991,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32QueryWorkingSet",
+      "ordinal": 992,
+      "is_forwarder": false
+    },
+    {
+      "name": "K32QueryWorkingSetEx",
+      "ordinal": 993,
+      "is_forwarder": false
+    },
+    {
+      "name": "LCIDToLocaleName",
+      "ordinal": 994,
+      "is_forwarder": false
+    },
+    {
+      "name": "LCMapStringA",
+      "ordinal": 995,
+      "is_forwarder": false
+    },
+    {
+      "name": "LCMapStringEx",
+      "ordinal": 996,
+      "is_forwarder": false
+    },
+    {
+      "name": "LCMapStringW",
+      "ordinal": 997,
+      "is_forwarder": false
+    },
+    {
+      "name": "LZClose",
+      "ordinal": 998,
+      "is_forwarder": false
+    },
+    {
+      "name": "LZCloseFile",
+      "ordinal": 999,
+      "is_forwarder": false
+    },
+    {
+      "name": "LZCopy",
+      "ordinal": 1000,
+      "is_forwarder": false
+    },
+    {
+      "name": "LZCreateFileW",
+      "ordinal": 1001,
+      "is_forwarder": false
+    },
+    {
+      "name": "LZDone",
+      "ordinal": 1002,
+      "is_forwarder": false
+    },
+    {
+      "name": "LZInit",
+      "ordinal": 1003,
+      "is_forwarder": false
+    },
+    {
+      "name": "LZOpenFileA",
+      "ordinal": 1004,
+      "is_forwarder": false
+    },
+    {
+      "name": "LZOpenFileW",
+      "ordinal": 1005,
+      "is_forwarder": false
+    },
+    {
+      "name": "LZRead",
+      "ordinal": 1006,
+      "is_forwarder": false
+    },
+    {
+      "name": "LZSeek",
+      "ordinal": 1007,
+      "is_forwarder": false
+    },
+    {
+      "name": "LZStart",
+      "ordinal": 1008,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlLeaveCriticalSection)",
+      "ordinal": 1009,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpCallbackLeaveCriticalSectionOnCompletion)",
+      "ordinal": 1010,
+      "is_forwarder": true
+    },
+    {
+      "name": "LoadAppInitDlls",
+      "ordinal": 1011,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-enclave-l1-1-0.LoadEnclaveData)",
+      "ordinal": 1012,
+      "is_forwarder": true
+    },
+    {
+      "name": "LoadLibraryA",
+      "ordinal": 1013,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadLibraryExA",
+      "ordinal": 1014,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadLibraryExW",
+      "ordinal": 1015,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadLibraryW",
+      "ordinal": 1016,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadModule",
+      "ordinal": 1017,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadPackagedLibrary",
+      "ordinal": 1018,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadResource",
+      "ordinal": 1019,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadStringBaseExW",
+      "ordinal": 1020,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadStringBaseW",
+      "ordinal": 1021,
+      "is_forwarder": false
+    },
+    {
+      "name": "LocalAlloc",
+      "ordinal": 1022,
+      "is_forwarder": false
+    },
+    {
+      "name": "LocalCompact",
+      "ordinal": 1023,
+      "is_forwarder": false
+    },
+    {
+      "name": "LocalFileTimeToFileTime",
+      "ordinal": 1024,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-timezone-l1-1-1.LocalFileTimeToLocalSystemTime)",
+      "ordinal": 1025,
+      "is_forwarder": true
+    },
+    {
+      "name": "LocalFlags",
+      "ordinal": 1026,
+      "is_forwarder": false
+    },
+    {
+      "name": "LocalFree",
+      "ordinal": 1027,
+      "is_forwarder": false
+    },
+    {
+      "name": "LocalHandle",
+      "ordinal": 1028,
+      "is_forwarder": false
+    },
+    {
+      "name": "LocalLock",
+      "ordinal": 1029,
+      "is_forwarder": false
+    },
+    {
+      "name": "LocalReAlloc",
+      "ordinal": 1030,
+      "is_forwarder": false
+    },
+    {
+      "name": "LocalShrink",
+      "ordinal": 1031,
+      "is_forwarder": false
+    },
+    {
+      "name": "LocalSize",
+      "ordinal": 1032,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-timezone-l1-1-1.LocalSystemTimeToLocalFileTime)",
+      "ordinal": 1033,
+      "is_forwarder": true
+    },
+    {
+      "name": "LocalUnlock",
+      "ordinal": 1034,
+      "is_forwarder": false
+    },
+    {
+      "name": "LocaleNameToLCID",
+      "ordinal": 1035,
+      "is_forwarder": false
+    },
+    {
+      "name": "LocateXStateFeature",
+      "ordinal": 1036,
+      "is_forwarder": false
+    },
+    {
+      "name": "LockFile",
+      "ordinal": 1037,
+      "is_forwarder": false
+    },
+    {
+      "name": "LockFileEx",
+      "ordinal": 1038,
+      "is_forwarder": false
+    },
+    {
+      "name": "LockResource",
+      "ordinal": 1039,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlLogUnexpectedCodepath)",
+      "ordinal": 1040,
+      "is_forwarder": true
+    },
+    {
+      "name": "MapUserPhysicalPages",
+      "ordinal": 1041,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapUserPhysicalPagesScatter",
+      "ordinal": 1042,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapViewOfFile",
+      "ordinal": 1043,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapViewOfFileEx",
+      "ordinal": 1044,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapViewOfFileExNuma",
+      "ordinal": 1045,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-memory-l1-1-1.MapViewOfFileFromApp)",
+      "ordinal": 1046,
+      "is_forwarder": true
+    },
+    {
+      "name": "Module32First",
+      "ordinal": 1047,
+      "is_forwarder": false
+    },
+    {
+      "name": "Module32FirstW",
+      "ordinal": 1048,
+      "is_forwarder": false
+    },
+    {
+      "name": "Module32Next",
+      "ordinal": 1049,
+      "is_forwarder": false
+    },
+    {
+      "name": "Module32NextW",
+      "ordinal": 1050,
+      "is_forwarder": false
+    },
+    {
+      "name": "MoveFileA",
+      "ordinal": 1051,
+      "is_forwarder": false
+    },
+    {
+      "name": "MoveFileExA",
+      "ordinal": 1052,
+      "is_forwarder": false
+    },
+    {
+      "name": "MoveFileExW",
+      "ordinal": 1053,
+      "is_forwarder": false
+    },
+    {
+      "name": "MoveFileTransactedA",
+      "ordinal": 1054,
+      "is_forwarder": false
+    },
+    {
+      "name": "MoveFileTransactedW",
+      "ordinal": 1055,
+      "is_forwarder": false
+    },
+    {
+      "name": "MoveFileW",
+      "ordinal": 1056,
+      "is_forwarder": false
+    },
+    {
+      "name": "MoveFileWithProgressA",
+      "ordinal": 1057,
+      "is_forwarder": false
+    },
+    {
+      "name": "MoveFileWithProgressW",
+      "ordinal": 1058,
+      "is_forwarder": false
+    },
+    {
+      "name": "MulDiv",
+      "ordinal": 1059,
+      "is_forwarder": false
+    },
+    {
+      "name": "MultiByteToWideChar",
+      "ordinal": 1060,
+      "is_forwarder": false
+    },
+    {
+      "name": "NeedCurrentDirectoryForExePathA",
+      "ordinal": 1061,
+      "is_forwarder": false
+    },
+    {
+      "name": "NeedCurrentDirectoryForExePathW",
+      "ordinal": 1062,
+      "is_forwarder": false
+    },
+    {
+      "name": "NlsCheckPolicy",
+      "ordinal": 1063,
+      "is_forwarder": false
+    },
+    {
+      "name": "NlsGetCacheUpdateCount",
+      "ordinal": 1064,
+      "is_forwarder": false
+    },
+    {
+      "name": "NlsUpdateLocale",
+      "ordinal": 1065,
+      "is_forwarder": false
+    },
+    {
+      "name": "NlsUpdateSystemLocale",
+      "ordinal": 1066,
+      "is_forwarder": false
+    },
+    {
+      "name": "NormalizeString",
+      "ordinal": 1067,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyMountMgr",
+      "ordinal": 1068,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyUILanguageChange",
+      "ordinal": 1069,
+      "is_forwarder": false
+    },
+    {
+      "name": "NtVdm64CreateProcessInternalW",
+      "ordinal": 1070,
+      "is_forwarder": false
+    },
+    {
+      "name": "OOBEComplete",
+      "ordinal": 1071,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-memory-l1-1-2.OfferVirtualMemory)",
+      "ordinal": 1072,
+      "is_forwarder": true
+    },
+    {
+      "name": "OpenConsoleW",
+      "ordinal": 1073,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenConsoleWStub",
+      "ordinal": 1074,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenEventA",
+      "ordinal": 1075,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenEventW",
+      "ordinal": 1076,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenFile",
+      "ordinal": 1077,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenFileById",
+      "ordinal": 1078,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenFileMappingA",
+      "ordinal": 1079,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenFileMappingW",
+      "ordinal": 1080,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenJobObjectA",
+      "ordinal": 1081,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenJobObjectW",
+      "ordinal": 1082,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenMutexA",
+      "ordinal": 1083,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenMutexW",
+      "ordinal": 1084,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.OpenPackageInfoByFullName)",
+      "ordinal": 1085,
+      "is_forwarder": true
+    },
+    {
+      "name": "OpenPrivateNamespaceA",
+      "ordinal": 1086,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenPrivateNamespaceW",
+      "ordinal": 1087,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenProcess",
+      "ordinal": 1088,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-0.OpenProcessToken)",
+      "ordinal": 1089,
+      "is_forwarder": true
+    },
+    {
+      "name": "OpenProfileUserMapping",
+      "ordinal": 1090,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenSemaphoreA",
+      "ordinal": 1091,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenSemaphoreW",
+      "ordinal": 1092,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.OpenState)",
+      "ordinal": 1093,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.OpenStateExplicit)",
+      "ordinal": 1094,
+      "is_forwarder": true
+    },
+    {
+      "name": "OpenThread",
+      "ordinal": 1095,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-0.OpenThreadToken)",
+      "ordinal": 1096,
+      "is_forwarder": true
+    },
+    {
+      "name": "OpenWaitableTimerA",
+      "ordinal": 1097,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenWaitableTimerW",
+      "ordinal": 1098,
+      "is_forwarder": false
+    },
+    {
+      "name": "OutputDebugStringA",
+      "ordinal": 1099,
+      "is_forwarder": false
+    },
+    {
+      "name": "OutputDebugStringW",
+      "ordinal": 1100,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.PackageFamilyNameFromFullName)",
+      "ordinal": 1101,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.PackageFamilyNameFromId)",
+      "ordinal": 1102,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.PackageFullNameFromId)",
+      "ordinal": 1103,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.PackageIdFromFullName)",
+      "ordinal": 1104,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.PackageNameAndPublisherIdFromFamilyName)",
+      "ordinal": 1105,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.ParseApplicationUserModelId)",
+      "ordinal": 1106,
+      "is_forwarder": true
+    },
+    {
+      "name": "PeekConsoleInputA",
+      "ordinal": 1107,
+      "is_forwarder": false
+    },
+    {
+      "name": "PeekConsoleInputW",
+      "ordinal": 1108,
+      "is_forwarder": false
+    },
+    {
+      "name": "PeekNamedPipe",
+      "ordinal": 1109,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-0.PopIoRingCompletion)",
+      "ordinal": 1110,
+      "is_forwarder": true
+    },
+    {
+      "name": "PostQueuedCompletionStatus",
+      "ordinal": 1111,
+      "is_forwarder": false
+    },
+    {
+      "name": "PowerClearRequest",
+      "ordinal": 1112,
+      "is_forwarder": false
+    },
+    {
+      "name": "PowerCreateRequest",
+      "ordinal": 1113,
+      "is_forwarder": false
+    },
+    {
+      "name": "PowerSetRequest",
+      "ordinal": 1114,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-memory-l1-1-1.PrefetchVirtualMemory)",
+      "ordinal": 1115,
+      "is_forwarder": true
+    },
+    {
+      "name": "PrepareTape",
+      "ordinal": 1116,
+      "is_forwarder": false
+    },
+    {
+      "name": "PrivCopyFileExW",
+      "ordinal": 1117,
+      "is_forwarder": false
+    },
+    {
+      "name": "PrivMoveFileIdentityW",
+      "ordinal": 1118,
+      "is_forwarder": false
+    },
+    {
+      "name": "Process32First",
+      "ordinal": 1119,
+      "is_forwarder": false
+    },
+    {
+      "name": "Process32FirstW",
+      "ordinal": 1120,
+      "is_forwarder": false
+    },
+    {
+      "name": "Process32Next",
+      "ordinal": 1121,
+      "is_forwarder": false
+    },
+    {
+      "name": "Process32NextW",
+      "ordinal": 1122,
+      "is_forwarder": false
+    },
+    {
+      "name": "ProcessIdToSessionId",
+      "ordinal": 1123,
+      "is_forwarder": false
+    },
+    {
+      "name": "PssCaptureSnapshot",
+      "ordinal": 1124,
+      "is_forwarder": false
+    },
+    {
+      "name": "PssDuplicateSnapshot",
+      "ordinal": 1125,
+      "is_forwarder": false
+    },
+    {
+      "name": "PssFreeSnapshot",
+      "ordinal": 1126,
+      "is_forwarder": false
+    },
+    {
+      "name": "PssQuerySnapshot",
+      "ordinal": 1127,
+      "is_forwarder": false
+    },
+    {
+      "name": "PssWalkMarkerCreate",
+      "ordinal": 1128,
+      "is_forwarder": false
+    },
+    {
+      "name": "PssWalkMarkerFree",
+      "ordinal": 1129,
+      "is_forwarder": false
+    },
+    {
+      "name": "PssWalkMarkerGetPosition",
+      "ordinal": 1130,
+      "is_forwarder": false
+    },
+    {
+      "name": "PssWalkMarkerRewind",
+      "ordinal": 1131,
+      "is_forwarder": false
+    },
+    {
+      "name": "PssWalkMarkerSeek",
+      "ordinal": 1132,
+      "is_forwarder": false
+    },
+    {
+      "name": "PssWalkMarkerSeekToBeginning",
+      "ordinal": 1133,
+      "is_forwarder": false
+    },
+    {
+      "name": "PssWalkMarkerSetPosition",
+      "ordinal": 1134,
+      "is_forwarder": false
+    },
+    {
+      "name": "PssWalkMarkerTell",
+      "ordinal": 1135,
+      "is_forwarder": false
+    },
+    {
+      "name": "PssWalkSnapshot",
+      "ordinal": 1136,
+      "is_forwarder": false
+    },
+    {
+      "name": "PulseEvent",
+      "ordinal": 1137,
+      "is_forwarder": false
+    },
+    {
+      "name": "PurgeComm",
+      "ordinal": 1138,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryActCtxSettingsW",
+      "ordinal": 1139,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryActCtxSettingsWWorker",
+      "ordinal": 1140,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryActCtxW",
+      "ordinal": 1141,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryActCtxWWorker",
+      "ordinal": 1142,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlQueryDepthSList)",
+      "ordinal": 1143,
+      "is_forwarder": true
+    },
+    {
+      "name": "QueryDosDeviceA",
+      "ordinal": 1144,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryDosDeviceW",
+      "ordinal": 1145,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryFullProcessImageNameA",
+      "ordinal": 1146,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryFullProcessImageNameW",
+      "ordinal": 1147,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryIdleProcessorCycleTime",
+      "ordinal": 1148,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryIdleProcessorCycleTimeEx",
+      "ordinal": 1149,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryInformationJobObject",
+      "ordinal": 1150,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryIoRateControlInformationJobObject",
+      "ordinal": 1151,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-0.QueryIoRingCapabilities)",
+      "ordinal": 1152,
+      "is_forwarder": true
+    },
+    {
+      "name": "QueryMemoryResourceNotification",
+      "ordinal": 1153,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryPerformanceCounter",
+      "ordinal": 1154,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryPerformanceFrequency",
+      "ordinal": 1155,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryProcessAffinityUpdateMode",
+      "ordinal": 1156,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryProcessCycleTime",
+      "ordinal": 1157,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-2.QueryProtectedPolicy)",
+      "ordinal": 1158,
+      "is_forwarder": true
+    },
+    {
+      "name": "QueryThreadCycleTime",
+      "ordinal": 1159,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryThreadProfiling",
+      "ordinal": 1160,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryThreadpoolStackInformation",
+      "ordinal": 1161,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryUmsThreadInformation",
+      "ordinal": 1162,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryUnbiasedInterruptTime",
+      "ordinal": 1163,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueueUserAPC",
+      "ordinal": 1164,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-5.QueueUserAPC2)",
+      "ordinal": 1165,
+      "is_forwarder": true
+    },
+    {
+      "name": "QueueUserWorkItem",
+      "ordinal": 1166,
+      "is_forwarder": false
+    },
+    {
+      "name": "QuirkGetData2Worker",
+      "ordinal": 1167,
+      "is_forwarder": false
+    },
+    {
+      "name": "QuirkGetDataWorker",
+      "ordinal": 1168,
+      "is_forwarder": false
+    },
+    {
+      "name": "QuirkIsEnabled2Worker",
+      "ordinal": 1169,
+      "is_forwarder": false
+    },
+    {
+      "name": "QuirkIsEnabled3Worker",
+      "ordinal": 1170,
+      "is_forwarder": false
+    },
+    {
+      "name": "QuirkIsEnabledForPackage2Worker",
+      "ordinal": 1171,
+      "is_forwarder": false
+    },
+    {
+      "name": "QuirkIsEnabledForPackage3Worker",
+      "ordinal": 1172,
+      "is_forwarder": false
+    },
+    {
+      "name": "QuirkIsEnabledForPackage4Worker",
+      "ordinal": 1173,
+      "is_forwarder": false
+    },
+    {
+      "name": "QuirkIsEnabledForPackageWorker",
+      "ordinal": 1174,
+      "is_forwarder": false
+    },
+    {
+      "name": "QuirkIsEnabledForProcessWorker",
+      "ordinal": 1175,
+      "is_forwarder": false
+    },
+    {
+      "name": "QuirkIsEnabledWorker",
+      "ordinal": 1176,
+      "is_forwarder": false
+    },
+    {
+      "name": "RaiseException",
+      "ordinal": 1177,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.RaiseFailFastException)",
+      "ordinal": 1178,
+      "is_forwarder": true
+    },
+    {
+      "name": "RaiseInvalid16BitExeError",
+      "ordinal": 1179,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReOpenFile",
+      "ordinal": 1180,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadConsoleA",
+      "ordinal": 1181,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadConsoleInputA",
+      "ordinal": 1182,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.ReadConsoleInputExA)",
+      "ordinal": 1183,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.ReadConsoleInputExW)",
+      "ordinal": 1184,
+      "is_forwarder": true
+    },
+    {
+      "name": "ReadConsoleInputW",
+      "ordinal": 1185,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadConsoleOutputA",
+      "ordinal": 1186,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadConsoleOutputAttribute",
+      "ordinal": 1187,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadConsoleOutputCharacterA",
+      "ordinal": 1188,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadConsoleOutputCharacterW",
+      "ordinal": 1189,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadConsoleOutputW",
+      "ordinal": 1190,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadConsoleW",
+      "ordinal": 1191,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadDirectoryChangesExW",
+      "ordinal": 1192,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadDirectoryChangesW",
+      "ordinal": 1193,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadFile",
+      "ordinal": 1194,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadFileEx",
+      "ordinal": 1195,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadFileScatter",
+      "ordinal": 1196,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadProcessMemory",
+      "ordinal": 1197,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadThreadProfilingData",
+      "ordinal": 1198,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-memory-l1-1-2.ReclaimVirtualMemory)",
+      "ordinal": 1199,
+      "is_forwarder": true
+    },
+    {
+      "name": "RegCloseKey",
+      "ordinal": 1200,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegCopyTreeW",
+      "ordinal": 1201,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegCreateKeyExA",
+      "ordinal": 1202,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegCreateKeyExW",
+      "ordinal": 1203,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteKeyExA",
+      "ordinal": 1204,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteKeyExW",
+      "ordinal": 1205,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteTreeA",
+      "ordinal": 1206,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteTreeW",
+      "ordinal": 1207,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteValueA",
+      "ordinal": 1208,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteValueW",
+      "ordinal": 1209,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDisablePredefinedCacheEx",
+      "ordinal": 1210,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegEnumKeyExA",
+      "ordinal": 1211,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegEnumKeyExW",
+      "ordinal": 1212,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegEnumValueA",
+      "ordinal": 1213,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegEnumValueW",
+      "ordinal": 1214,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegFlushKey",
+      "ordinal": 1215,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegGetKeySecurity",
+      "ordinal": 1216,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegGetValueA",
+      "ordinal": 1217,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegGetValueW",
+      "ordinal": 1218,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegLoadKeyA",
+      "ordinal": 1219,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegLoadKeyW",
+      "ordinal": 1220,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegLoadMUIStringA",
+      "ordinal": 1221,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegLoadMUIStringW",
+      "ordinal": 1222,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegNotifyChangeKeyValue",
+      "ordinal": 1223,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegOpenCurrentUser",
+      "ordinal": 1224,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegOpenKeyExA",
+      "ordinal": 1225,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegOpenKeyExW",
+      "ordinal": 1226,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegOpenUserClassesRoot",
+      "ordinal": 1227,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegQueryInfoKeyA",
+      "ordinal": 1228,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegQueryInfoKeyW",
+      "ordinal": 1229,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegQueryValueExA",
+      "ordinal": 1230,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegQueryValueExW",
+      "ordinal": 1231,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegRestoreKeyA",
+      "ordinal": 1232,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegRestoreKeyW",
+      "ordinal": 1233,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSaveKeyExA",
+      "ordinal": 1234,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSaveKeyExW",
+      "ordinal": 1235,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSetKeySecurity",
+      "ordinal": 1236,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSetValueExA",
+      "ordinal": 1237,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSetValueExW",
+      "ordinal": 1238,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegUnLoadKeyA",
+      "ordinal": 1239,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegUnLoadKeyW",
+      "ordinal": 1240,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterApplicationRecoveryCallback",
+      "ordinal": 1241,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterApplicationRestart",
+      "ordinal": 1242,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterBadMemoryNotification",
+      "ordinal": 1243,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterConsoleIME",
+      "ordinal": 1244,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterConsoleOS2",
+      "ordinal": 1245,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterConsoleVDM",
+      "ordinal": 1246,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterWaitForInputIdle",
+      "ordinal": 1247,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterWaitForSingleObject",
+      "ordinal": 1248,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterWaitForSingleObjectEx",
+      "ordinal": 1249,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterWaitUntilOOBECompleted",
+      "ordinal": 1250,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterWowBaseHandlers",
+      "ordinal": 1251,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterWowExec",
+      "ordinal": 1252,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReleaseActCtx",
+      "ordinal": 1253,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReleaseActCtxWorker",
+      "ordinal": 1254,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReleaseMutex",
+      "ordinal": 1255,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.TpCallbackReleaseMutexOnCompletion)",
+      "ordinal": 1256,
+      "is_forwarder": true
+    },
+    {
+      "name": "ReleasePackageVirtualizationContext",
+      "ordinal": 1257,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReleasePseudoConsole",
+      "ordinal": 1258,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlReleaseSRWLockExclusive)",
+      "ordinal": 1259,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlReleaseSRWLockShared)",
+      "ordinal": 1260,
+      "is_forwarder": true
+    },
+    {
+      "name": "ReleaseSemaphore",
+      "ordinal": 1261,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.TpCallbackReleaseSemaphoreOnCompletion)",
+      "ordinal": 1262,
+      "is_forwarder": true
+    },
+    {
+      "name": "RemoveDirectory2A",
+      "ordinal": 1263,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoveDirectory2W",
+      "ordinal": 1264,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoveDirectoryA",
+      "ordinal": 1265,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoveDirectoryTransactedA",
+      "ordinal": 1266,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoveDirectoryTransactedW",
+      "ordinal": 1267,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoveDirectoryW",
+      "ordinal": 1268,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-libraryloader-l1-1-0.RemoveDllDirectory)",
+      "ordinal": 1269,
+      "is_forwarder": true
+    },
+    {
+      "name": "RemoveLocalAlternateComputerNameA",
+      "ordinal": 1270,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoveLocalAlternateComputerNameW",
+      "ordinal": 1271,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoveSecureMemoryCacheCallback",
+      "ordinal": 1272,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlRemoveVectoredContinueHandler)",
+      "ordinal": 1273,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlRemoveVectoredExceptionHandler)",
+      "ordinal": 1274,
+      "is_forwarder": true
+    },
+    {
+      "name": "ReplaceFile",
+      "ordinal": 1275,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReplaceFileA",
+      "ordinal": 1276,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReplaceFileW",
+      "ordinal": 1277,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReplacePartitionUnit",
+      "ordinal": 1278,
+      "is_forwarder": false
+    },
+    {
+      "name": "RequestDeviceWakeup",
+      "ordinal": 1279,
+      "is_forwarder": false
+    },
+    {
+      "name": "RequestWakeupLatency",
+      "ordinal": 1280,
+      "is_forwarder": false
+    },
+    {
+      "name": "ResetEvent",
+      "ordinal": 1281,
+      "is_forwarder": false
+    },
+    {
+      "name": "ResetWriteWatch",
+      "ordinal": 1282,
+      "is_forwarder": false
+    },
+    {
+      "name": "ResizePseudoConsole",
+      "ordinal": 1283,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.LdrResolveDelayLoadedAPI)",
+      "ordinal": 1284,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.LdrResolveDelayLoadsFromDll)",
+      "ordinal": 1285,
+      "is_forwarder": true
+    },
+    {
+      "name": "ResolveLocaleName",
+      "ordinal": 1286,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlRestoreLastWin32Error)",
+      "ordinal": 1287,
+      "is_forwarder": true
+    },
+    {
+      "name": "ResumeThread",
+      "ordinal": 1288,
+      "is_forwarder": false
+    },
+    {
+      "name": "RtlAddFunctionTable",
+      "ordinal": 1289,
+      "is_forwarder": false
+    },
+    {
+      "name": "RtlCaptureContext",
+      "ordinal": 1290,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlCaptureStackBackTrace)",
+      "ordinal": 1291,
+      "is_forwarder": true
+    },
+    {
+      "name": "RtlCompareMemory",
+      "ordinal": 1292,
+      "is_forwarder": false
+    },
+    {
+      "name": "RtlCopyMemory",
+      "ordinal": 1293,
+      "is_forwarder": false
+    },
+    {
+      "name": "RtlDeleteFunctionTable",
+      "ordinal": 1294,
+      "is_forwarder": false
+    },
+    {
+      "name": "RtlFillMemory",
+      "ordinal": 1295,
+      "is_forwarder": false
+    },
+    {
+      "name": "RtlInstallFunctionTableCallback",
+      "ordinal": 1296,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlIsEcCode)",
+      "ordinal": 1297,
+      "is_forwarder": true
+    },
+    {
+      "name": "RtlLookupFunctionEntry",
+      "ordinal": 1298,
+      "is_forwarder": false
+    },
+    {
+      "name": "RtlMoveMemory",
+      "ordinal": 1299,
+      "is_forwarder": false
+    },
+    {
+      "name": "RtlPcToFileHeader",
+      "ordinal": 1300,
+      "is_forwarder": false
+    },
+    {
+      "name": "RtlRaiseException",
+      "ordinal": 1301,
+      "is_forwarder": false
+    },
+    {
+      "name": "RtlRestoreContext",
+      "ordinal": 1302,
+      "is_forwarder": false
+    },
+    {
+      "name": "RtlUnwind",
+      "ordinal": 1303,
+      "is_forwarder": false
+    },
+    {
+      "name": "RtlUnwindEx",
+      "ordinal": 1304,
+      "is_forwarder": false
+    },
+    {
+      "name": "RtlVirtualUnwind",
+      "ordinal": 1305,
+      "is_forwarder": false
+    },
+    {
+      "name": "RtlVirtualUnwind2",
+      "ordinal": 1306,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlZeroMemory)",
+      "ordinal": 1307,
+      "is_forwarder": true
+    },
+    {
+      "name": "ScrollConsoleScreenBufferA",
+      "ordinal": 1308,
+      "is_forwarder": false
+    },
+    {
+      "name": "ScrollConsoleScreenBufferW",
+      "ordinal": 1309,
+      "is_forwarder": false
+    },
+    {
+      "name": "SearchPathA",
+      "ordinal": 1310,
+      "is_forwarder": false
+    },
+    {
+      "name": "SearchPathW",
+      "ordinal": 1311,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCachedSigningLevel",
+      "ordinal": 1312,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCalendarInfoA",
+      "ordinal": 1313,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCalendarInfoW",
+      "ordinal": 1314,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetComPlusPackageInstallStatus",
+      "ordinal": 1315,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCommBreak",
+      "ordinal": 1316,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCommConfig",
+      "ordinal": 1317,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCommMask",
+      "ordinal": 1318,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCommState",
+      "ordinal": 1319,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCommTimeouts",
+      "ordinal": 1320,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetComputerNameA",
+      "ordinal": 1321,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetComputerNameEx2W",
+      "ordinal": 1322,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetComputerNameExA",
+      "ordinal": 1323,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetComputerNameExW",
+      "ordinal": 1324,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetComputerNameW",
+      "ordinal": 1325,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleActiveScreenBuffer",
+      "ordinal": 1326,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleCP",
+      "ordinal": 1327,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleCtrlHandler",
+      "ordinal": 1328,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleCursor",
+      "ordinal": 1329,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleCursorInfo",
+      "ordinal": 1330,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleCursorMode",
+      "ordinal": 1331,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleCursorPosition",
+      "ordinal": 1332,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleDisplayMode",
+      "ordinal": 1333,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleFont",
+      "ordinal": 1334,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleHardwareState",
+      "ordinal": 1335,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleHistoryInfo",
+      "ordinal": 1336,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleIcon",
+      "ordinal": 1337,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.SetConsoleInputExeNameA)",
+      "ordinal": 1338,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.SetConsoleInputExeNameW)",
+      "ordinal": 1339,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetConsoleKeyShortcuts",
+      "ordinal": 1340,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleLocalEUDC",
+      "ordinal": 1341,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleMaximumWindowSize",
+      "ordinal": 1342,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleMenuClose",
+      "ordinal": 1343,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleMode",
+      "ordinal": 1344,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleNlsMode",
+      "ordinal": 1345,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleNumberOfCommandsA",
+      "ordinal": 1346,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleNumberOfCommandsW",
+      "ordinal": 1347,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleOS2OemFormat",
+      "ordinal": 1348,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleOutputCP",
+      "ordinal": 1349,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsolePalette",
+      "ordinal": 1350,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleScreenBufferInfoEx",
+      "ordinal": 1351,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleScreenBufferSize",
+      "ordinal": 1352,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleTextAttribute",
+      "ordinal": 1353,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleTitleA",
+      "ordinal": 1354,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleTitleW",
+      "ordinal": 1355,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConsoleWindowInfo",
+      "ordinal": 1356,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlSetCriticalSectionSpinCount)",
+      "ordinal": 1357,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetCurrentConsoleFontEx",
+      "ordinal": 1358,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCurrentDirectoryA",
+      "ordinal": 1359,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCurrentDirectoryW",
+      "ordinal": 1360,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDefaultCommConfigA",
+      "ordinal": 1361,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDefaultCommConfigW",
+      "ordinal": 1362,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-libraryloader-l1-1-0.SetDefaultDllDirectories)",
+      "ordinal": 1363,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetDllDirectoryA",
+      "ordinal": 1364,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDllDirectoryW",
+      "ordinal": 1365,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDynamicTimeZoneInformation",
+      "ordinal": 1366,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetEndOfFile",
+      "ordinal": 1367,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetEnvironmentStringsA",
+      "ordinal": 1368,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetEnvironmentStringsW",
+      "ordinal": 1369,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetEnvironmentVariableA",
+      "ordinal": 1370,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetEnvironmentVariableW",
+      "ordinal": 1371,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetErrorMode",
+      "ordinal": 1372,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetEvent",
+      "ordinal": 1373,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.TpCallbackSetEventOnCompletion)",
+      "ordinal": 1374,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetFileApisToANSI",
+      "ordinal": 1375,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileApisToOEM",
+      "ordinal": 1376,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileAttributesA",
+      "ordinal": 1377,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileAttributesTransactedA",
+      "ordinal": 1378,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileAttributesTransactedW",
+      "ordinal": 1379,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileAttributesW",
+      "ordinal": 1380,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileBandwidthReservation",
+      "ordinal": 1381,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileCompletionNotificationModes",
+      "ordinal": 1382,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileInformationByHandle",
+      "ordinal": 1383,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileIoOverlappedRange",
+      "ordinal": 1384,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFilePointer",
+      "ordinal": 1385,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFilePointerEx",
+      "ordinal": 1386,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileShortNameA",
+      "ordinal": 1387,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileShortNameW",
+      "ordinal": 1388,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileTime",
+      "ordinal": 1389,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileValidData",
+      "ordinal": 1390,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFirmwareEnvironmentVariableA",
+      "ordinal": 1391,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFirmwareEnvironmentVariableExA",
+      "ordinal": 1392,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFirmwareEnvironmentVariableExW",
+      "ordinal": 1393,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFirmwareEnvironmentVariableW",
+      "ordinal": 1394,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetHandleCount",
+      "ordinal": 1395,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetHandleInformation",
+      "ordinal": 1396,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetInformationJobObject",
+      "ordinal": 1397,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetIoRateControlInformationJobObject",
+      "ordinal": 1398,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-0.SetIoRingCompletionEvent)",
+      "ordinal": 1399,
+      "is_forwarder": true
+    },
+    {
+      "name": "kernelbase.SetLastConsoleEventActive)",
+      "ordinal": 1400,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetLastError",
+      "ordinal": 1401,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetLocalPrimaryComputerNameA",
+      "ordinal": 1402,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetLocalPrimaryComputerNameW",
+      "ordinal": 1403,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetLocalTime",
+      "ordinal": 1404,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetLocaleInfoA",
+      "ordinal": 1405,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetLocaleInfoW",
+      "ordinal": 1406,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMailslotInfo",
+      "ordinal": 1407,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMessageWaitingIndicator",
+      "ordinal": 1408,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetNamedPipeAttribute",
+      "ordinal": 1409,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetNamedPipeHandleState",
+      "ordinal": 1410,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetPriorityClass",
+      "ordinal": 1411,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProcessAffinityMask",
+      "ordinal": 1412,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProcessAffinityUpdateMode",
+      "ordinal": 1413,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProcessDEPPolicy",
+      "ordinal": 1414,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-6.SetProcessDefaultCpuSetMasks)",
+      "ordinal": 1415,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-3.SetProcessDefaultCpuSets)",
+      "ordinal": 1416,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-4.SetProcessDynamicEHContinuationTargets)",
+      "ordinal": 1417,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-6.SetProcessDynamicEnforcedCetCompatibleRanges)",
+      "ordinal": 1418,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetProcessInformation",
+      "ordinal": 1419,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-1.SetProcessMitigationPolicy)",
+      "ordinal": 1420,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetProcessPreferredUILanguages",
+      "ordinal": 1421,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProcessPriorityBoost",
+      "ordinal": 1422,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProcessShutdownParameters",
+      "ordinal": 1423,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProcessWorkingSetSize",
+      "ordinal": 1424,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProcessWorkingSetSizeEx",
+      "ordinal": 1425,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-2.SetProtectedPolicy)",
+      "ordinal": 1426,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetSearchPathMode",
+      "ordinal": 1427,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetStdHandle",
+      "ordinal": 1428,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetStdHandleEx",
+      "ordinal": 1429,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSystemFileCacheSize",
+      "ordinal": 1430,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSystemPowerState",
+      "ordinal": 1431,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSystemTime",
+      "ordinal": 1432,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSystemTimeAdjustment",
+      "ordinal": 1433,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetTapeParameters",
+      "ordinal": 1434,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetTapePosition",
+      "ordinal": 1435,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetTermsrvAppInstallMode",
+      "ordinal": 1436,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadAffinityMask",
+      "ordinal": 1437,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadContext",
+      "ordinal": 1438,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-3.SetThreadDescription)",
+      "ordinal": 1439,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetThreadErrorMode",
+      "ordinal": 1440,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadExecutionState",
+      "ordinal": 1441,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadGroupAffinity",
+      "ordinal": 1442,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadIdealProcessor",
+      "ordinal": 1443,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadIdealProcessorEx",
+      "ordinal": 1444,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadInformation",
+      "ordinal": 1445,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadLocale",
+      "ordinal": 1446,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadPreferredUILanguages",
+      "ordinal": 1447,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadPriority",
+      "ordinal": 1448,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadPriorityBoost",
+      "ordinal": 1449,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-6.SetThreadSelectedCpuSetMasks)",
+      "ordinal": 1450,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-3.SetThreadSelectedCpuSets)",
+      "ordinal": 1451,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetThreadStackGuarantee",
+      "ordinal": 1452,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-0.SetThreadToken)",
+      "ordinal": 1453,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetThreadUILanguage",
+      "ordinal": 1454,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadpoolStackInformation",
+      "ordinal": 1455,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.TpSetPoolMaxThreads)",
+      "ordinal": 1456,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetThreadpoolThreadMinimum",
+      "ordinal": 1457,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.TpSetTimer)",
+      "ordinal": 1458,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpSetTimerEx)",
+      "ordinal": 1459,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpSetWait)",
+      "ordinal": 1460,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpSetWaitEx)",
+      "ordinal": 1461,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetTimeZoneInformation",
+      "ordinal": 1462,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetTimerQueueTimer",
+      "ordinal": 1463,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetUmsThreadInformation",
+      "ordinal": 1464,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetUnhandledExceptionFilter",
+      "ordinal": 1465,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetUserGeoID",
+      "ordinal": 1466,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetUserGeoName",
+      "ordinal": 1467,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetVDMCurrentDirectories",
+      "ordinal": 1468,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetVolumeLabelA",
+      "ordinal": 1469,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetVolumeLabelW",
+      "ordinal": 1470,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetVolumeMountPointA",
+      "ordinal": 1471,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetVolumeMountPointW",
+      "ordinal": 1472,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetVolumeMountPointWStub",
+      "ordinal": 1473,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWaitableTimer",
+      "ordinal": 1474,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-synch-l1-1-0.SetWaitableTimerEx)",
+      "ordinal": 1475,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetXStateFeaturesMask",
+      "ordinal": 1476,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetupComm",
+      "ordinal": 1477,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShowConsoleCursor",
+      "ordinal": 1478,
+      "is_forwarder": false
+    },
+    {
+      "name": "SignalObjectAndWait",
+      "ordinal": 1479,
+      "is_forwarder": false
+    },
+    {
+      "name": "SizeofResource",
+      "ordinal": 1480,
+      "is_forwarder": false
+    },
+    {
+      "name": "Sleep",
+      "ordinal": 1481,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-synch-l1-2-0.SleepConditionVariableCS)",
+      "ordinal": 1482,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-synch-l1-2-0.SleepConditionVariableSRW)",
+      "ordinal": 1483,
+      "is_forwarder": true
+    },
+    {
+      "name": "SleepEx",
+      "ordinal": 1484,
+      "is_forwarder": false
+    },
+    {
+      "name": "SortCloseHandle",
+      "ordinal": 1485,
+      "is_forwarder": false
+    },
+    {
+      "name": "SortGetHandle",
+      "ordinal": 1486,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.TpStartAsyncIoOperation)",
+      "ordinal": 1487,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-ioring-l1-1-0.SubmitIoRing)",
+      "ordinal": 1488,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpPostWork)",
+      "ordinal": 1489,
+      "is_forwarder": true
+    },
+    {
+      "name": "SuspendThread",
+      "ordinal": 1490,
+      "is_forwarder": false
+    },
+    {
+      "name": "SwitchToFiber",
+      "ordinal": 1491,
+      "is_forwarder": false
+    },
+    {
+      "name": "SwitchToThread",
+      "ordinal": 1492,
+      "is_forwarder": false
+    },
+    {
+      "name": "SystemTimeToFileTime",
+      "ordinal": 1493,
+      "is_forwarder": false
+    },
+    {
+      "name": "SystemTimeToTzSpecificLocalTime",
+      "ordinal": 1494,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-timezone-l1-1-0.SystemTimeToTzSpecificLocalTimeEx)",
+      "ordinal": 1495,
+      "is_forwarder": true
+    },
+    {
+      "name": "TerminateJobObject",
+      "ordinal": 1496,
+      "is_forwarder": false
+    },
+    {
+      "name": "TerminateProcess",
+      "ordinal": 1497,
+      "is_forwarder": false
+    },
+    {
+      "name": "TerminateThread",
+      "ordinal": 1498,
+      "is_forwarder": false
+    },
+    {
+      "name": "TermsrvAppInstallMode",
+      "ordinal": 1499,
+      "is_forwarder": false
+    },
+    {
+      "name": "TermsrvConvertSysRootToUserDir",
+      "ordinal": 1500,
+      "is_forwarder": false
+    },
+    {
+      "name": "TermsrvCreateRegEntry",
+      "ordinal": 1501,
+      "is_forwarder": false
+    },
+    {
+      "name": "TermsrvDeleteKey",
+      "ordinal": 1502,
+      "is_forwarder": false
+    },
+    {
+      "name": "TermsrvDeleteValue",
+      "ordinal": 1503,
+      "is_forwarder": false
+    },
+    {
+      "name": "TermsrvGetPreSetValue",
+      "ordinal": 1504,
+      "is_forwarder": false
+    },
+    {
+      "name": "TermsrvGetWindowsDirectoryA",
+      "ordinal": 1505,
+      "is_forwarder": false
+    },
+    {
+      "name": "TermsrvGetWindowsDirectoryW",
+      "ordinal": 1506,
+      "is_forwarder": false
+    },
+    {
+      "name": "TermsrvOpenRegEntry",
+      "ordinal": 1507,
+      "is_forwarder": false
+    },
+    {
+      "name": "TermsrvOpenUserClasses",
+      "ordinal": 1508,
+      "is_forwarder": false
+    },
+    {
+      "name": "TermsrvRestoreKey",
+      "ordinal": 1509,
+      "is_forwarder": false
+    },
+    {
+      "name": "TermsrvSetKeySecurity",
+      "ordinal": 1510,
+      "is_forwarder": false
+    },
+    {
+      "name": "TermsrvSetValueKey",
+      "ordinal": 1511,
+      "is_forwarder": false
+    },
+    {
+      "name": "TermsrvSyncUserIniFileExt",
+      "ordinal": 1512,
+      "is_forwarder": false
+    },
+    {
+      "name": "Thread32First",
+      "ordinal": 1513,
+      "is_forwarder": false
+    },
+    {
+      "name": "Thread32Next",
+      "ordinal": 1514,
+      "is_forwarder": false
+    },
+    {
+      "name": "TlsAlloc",
+      "ordinal": 1515,
+      "is_forwarder": false
+    },
+    {
+      "name": "TlsFree",
+      "ordinal": 1516,
+      "is_forwarder": false
+    },
+    {
+      "name": "TlsGetValue",
+      "ordinal": 1517,
+      "is_forwarder": false
+    },
+    {
+      "name": "kernelbase.TlsGetValue2)",
+      "ordinal": 1518,
+      "is_forwarder": true
+    },
+    {
+      "name": "TlsSetValue",
+      "ordinal": 1519,
+      "is_forwarder": false
+    },
+    {
+      "name": "Toolhelp32ReadProcessMemory",
+      "ordinal": 1520,
+      "is_forwarder": false
+    },
+    {
+      "name": "TransactNamedPipe",
+      "ordinal": 1521,
+      "is_forwarder": false
+    },
+    {
+      "name": "TransmitCommChar",
+      "ordinal": 1522,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlTryAcquireSRWLockExclusive)",
+      "ordinal": 1523,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlTryAcquireSRWLockShared)",
+      "ordinal": 1524,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlTryEnterCriticalSection)",
+      "ordinal": 1525,
+      "is_forwarder": true
+    },
+    {
+      "name": "TrySubmitThreadpoolCallback",
+      "ordinal": 1526,
+      "is_forwarder": false
+    },
+    {
+      "name": "TzSpecificLocalTimeToSystemTime",
+      "ordinal": 1527,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-timezone-l1-1-0.TzSpecificLocalTimeToSystemTimeEx)",
+      "ordinal": 1528,
+      "is_forwarder": true
+    },
+    {
+      "name": "UTRegister",
+      "ordinal": 1529,
+      "is_forwarder": false
+    },
+    {
+      "name": "UTUnRegister",
+      "ordinal": 1530,
+      "is_forwarder": false
+    },
+    {
+      "name": "UmsThreadYield",
+      "ordinal": 1531,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnhandledExceptionFilter",
+      "ordinal": 1532,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnlockFile",
+      "ordinal": 1533,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnlockFileEx",
+      "ordinal": 1534,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnmapViewOfFile",
+      "ordinal": 1535,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-memory-l1-1-1.UnmapViewOfFileEx)",
+      "ordinal": 1536,
+      "is_forwarder": true
+    },
+    {
+      "name": "UnregisterApplicationRecoveryCallback",
+      "ordinal": 1537,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterApplicationRestart",
+      "ordinal": 1538,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterBadMemoryNotification",
+      "ordinal": 1539,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterConsoleIME",
+      "ordinal": 1540,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterWait",
+      "ordinal": 1541,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterWaitEx",
+      "ordinal": 1542,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterWaitUntilOOBECompleted",
+      "ordinal": 1543,
+      "is_forwarder": false
+    },
+    {
+      "name": "UpdateCalendarDayOfWeek",
+      "ordinal": 1544,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-0.UpdateProcThreadAttribute)",
+      "ordinal": 1545,
+      "is_forwarder": true
+    },
+    {
+      "name": "UpdateResourceA",
+      "ordinal": 1546,
+      "is_forwarder": false
+    },
+    {
+      "name": "UpdateResourceW",
+      "ordinal": 1547,
+      "is_forwarder": false
+    },
+    {
+      "name": "VDMConsoleOperation",
+      "ordinal": 1548,
+      "is_forwarder": false
+    },
+    {
+      "name": "VDMOperationStarted",
+      "ordinal": 1549,
+      "is_forwarder": false
+    },
+    {
+      "name": "VerLanguageNameA",
+      "ordinal": 1550,
+      "is_forwarder": false
+    },
+    {
+      "name": "VerLanguageNameW",
+      "ordinal": 1551,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.VerSetConditionMask)",
+      "ordinal": 1552,
+      "is_forwarder": true
+    },
+    {
+      "name": "VerifyConsoleIoHandle",
+      "ordinal": 1553,
+      "is_forwarder": false
+    },
+    {
+      "name": "VerifyScripts",
+      "ordinal": 1554,
+      "is_forwarder": false
+    },
+    {
+      "name": "VerifyVersionInfoA",
+      "ordinal": 1555,
+      "is_forwarder": false
+    },
+    {
+      "name": "VerifyVersionInfoW",
+      "ordinal": 1556,
+      "is_forwarder": false
+    },
+    {
+      "name": "VirtualAlloc",
+      "ordinal": 1557,
+      "is_forwarder": false
+    },
+    {
+      "name": "VirtualAllocEx",
+      "ordinal": 1558,
+      "is_forwarder": false
+    },
+    {
+      "name": "VirtualAllocExNuma",
+      "ordinal": 1559,
+      "is_forwarder": false
+    },
+    {
+      "name": "VirtualFree",
+      "ordinal": 1560,
+      "is_forwarder": false
+    },
+    {
+      "name": "VirtualFreeEx",
+      "ordinal": 1561,
+      "is_forwarder": false
+    },
+    {
+      "name": "VirtualLock",
+      "ordinal": 1562,
+      "is_forwarder": false
+    },
+    {
+      "name": "VirtualProtect",
+      "ordinal": 1563,
+      "is_forwarder": false
+    },
+    {
+      "name": "VirtualProtectEx",
+      "ordinal": 1564,
+      "is_forwarder": false
+    },
+    {
+      "name": "VirtualQuery",
+      "ordinal": 1565,
+      "is_forwarder": false
+    },
+    {
+      "name": "VirtualQueryEx",
+      "ordinal": 1566,
+      "is_forwarder": false
+    },
+    {
+      "name": "VirtualUnlock",
+      "ordinal": 1567,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSGetActiveConsoleSessionId",
+      "ordinal": 1568,
+      "is_forwarder": false
+    },
+    {
+      "name": "WaitCommEvent",
+      "ordinal": 1569,
+      "is_forwarder": false
+    },
+    {
+      "name": "WaitForDebugEvent",
+      "ordinal": 1570,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-debug-l1-1-2.WaitForDebugEventEx)",
+      "ordinal": 1571,
+      "is_forwarder": true
+    },
+    {
+      "name": "WaitForMultipleObjects",
+      "ordinal": 1572,
+      "is_forwarder": false
+    },
+    {
+      "name": "WaitForMultipleObjectsEx",
+      "ordinal": 1573,
+      "is_forwarder": false
+    },
+    {
+      "name": "WaitForSingleObject",
+      "ordinal": 1574,
+      "is_forwarder": false
+    },
+    {
+      "name": "WaitForSingleObjectEx",
+      "ordinal": 1575,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.TpWaitForIoCompletion)",
+      "ordinal": 1576,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpWaitForTimer)",
+      "ordinal": 1577,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpWaitForWait)",
+      "ordinal": 1578,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.TpWaitForWork)",
+      "ordinal": 1579,
+      "is_forwarder": true
+    },
+    {
+      "name": "WaitNamedPipeA",
+      "ordinal": 1580,
+      "is_forwarder": false
+    },
+    {
+      "name": "WaitNamedPipeW",
+      "ordinal": 1581,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.RtlWakeAllConditionVariable)",
+      "ordinal": 1582,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.RtlWakeConditionVariable)",
+      "ordinal": 1583,
+      "is_forwarder": true
+    },
+    {
+      "name": "WerGetFlags",
+      "ordinal": 1584,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerGetFlagsWorker",
+      "ordinal": 1585,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerRegisterAdditionalProcess",
+      "ordinal": 1586,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerRegisterAppLocalDump",
+      "ordinal": 1587,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerRegisterCustomMetadata",
+      "ordinal": 1588,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerRegisterExcludedMemoryBlock",
+      "ordinal": 1589,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerRegisterFile",
+      "ordinal": 1590,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerRegisterFileWorker",
+      "ordinal": 1591,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerRegisterMemoryBlock",
+      "ordinal": 1592,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerRegisterMemoryBlockWorker",
+      "ordinal": 1593,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerRegisterRuntimeExceptionModule",
+      "ordinal": 1594,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerRegisterRuntimeExceptionModuleWorker",
+      "ordinal": 1595,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerSetFlags",
+      "ordinal": 1596,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerSetFlagsWorker",
+      "ordinal": 1597,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerUnregisterAdditionalProcess",
+      "ordinal": 1598,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerUnregisterAppLocalDump",
+      "ordinal": 1599,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerUnregisterCustomMetadata",
+      "ordinal": 1600,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerUnregisterExcludedMemoryBlock",
+      "ordinal": 1601,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerUnregisterFile",
+      "ordinal": 1602,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerUnregisterFileWorker",
+      "ordinal": 1603,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerUnregisterMemoryBlock",
+      "ordinal": 1604,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerUnregisterMemoryBlockWorker",
+      "ordinal": 1605,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerUnregisterRuntimeExceptionModule",
+      "ordinal": 1606,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerUnregisterRuntimeExceptionModuleWorker",
+      "ordinal": 1607,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerpGetDebugger",
+      "ordinal": 1608,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerpInitiateRemoteRecovery",
+      "ordinal": 1609,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerpLaunchAeDebug",
+      "ordinal": 1610,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerpNotifyLoadStringResourceWorker",
+      "ordinal": 1611,
+      "is_forwarder": false
+    },
+    {
+      "name": "WerpNotifyUseStringResourceWorker",
+      "ordinal": 1612,
+      "is_forwarder": false
+    },
+    {
+      "name": "WideCharToMultiByte",
+      "ordinal": 1613,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinExec",
+      "ordinal": 1614,
+      "is_forwarder": false
+    },
+    {
+      "name": "Wow64DisableWow64FsRedirection",
+      "ordinal": 1615,
+      "is_forwarder": false
+    },
+    {
+      "name": "Wow64EnableWow64FsRedirection",
+      "ordinal": 1616,
+      "is_forwarder": false
+    },
+    {
+      "name": "Wow64GetThreadContext",
+      "ordinal": 1617,
+      "is_forwarder": false
+    },
+    {
+      "name": "Wow64GetThreadSelectorEntry",
+      "ordinal": 1618,
+      "is_forwarder": false
+    },
+    {
+      "name": "Wow64RevertWow64FsRedirection",
+      "ordinal": 1619,
+      "is_forwarder": false
+    },
+    {
+      "name": "Wow64SetThreadContext",
+      "ordinal": 1620,
+      "is_forwarder": false
+    },
+    {
+      "name": "Wow64SuspendThread",
+      "ordinal": 1621,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteConsoleA",
+      "ordinal": 1622,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteConsoleInputA",
+      "ordinal": 1623,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteConsoleInputVDMA",
+      "ordinal": 1624,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteConsoleInputVDMW",
+      "ordinal": 1625,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteConsoleInputW",
+      "ordinal": 1626,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteConsoleOutputA",
+      "ordinal": 1627,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteConsoleOutputAttribute",
+      "ordinal": 1628,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteConsoleOutputCharacterA",
+      "ordinal": 1629,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteConsoleOutputCharacterW",
+      "ordinal": 1630,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteConsoleOutputW",
+      "ordinal": 1631,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteConsoleW",
+      "ordinal": 1632,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteFile",
+      "ordinal": 1633,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteFileEx",
+      "ordinal": 1634,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteFileGather",
+      "ordinal": 1635,
+      "is_forwarder": false
+    },
+    {
+      "name": "WritePrivateProfileSectionA",
+      "ordinal": 1636,
+      "is_forwarder": false
+    },
+    {
+      "name": "WritePrivateProfileSectionW",
+      "ordinal": 1637,
+      "is_forwarder": false
+    },
+    {
+      "name": "WritePrivateProfileStringA",
+      "ordinal": 1638,
+      "is_forwarder": false
+    },
+    {
+      "name": "WritePrivateProfileStringW",
+      "ordinal": 1639,
+      "is_forwarder": false
+    },
+    {
+      "name": "WritePrivateProfileStructA",
+      "ordinal": 1640,
+      "is_forwarder": false
+    },
+    {
+      "name": "WritePrivateProfileStructW",
+      "ordinal": 1641,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteProcessMemory",
+      "ordinal": 1642,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteProfileSectionA",
+      "ordinal": 1643,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteProfileSectionW",
+      "ordinal": 1644,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteProfileStringA",
+      "ordinal": 1645,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteProfileStringW",
+      "ordinal": 1646,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteTapemark",
+      "ordinal": 1647,
+      "is_forwarder": false
+    },
+    {
+      "name": "ZombifyActCtx",
+      "ordinal": 1648,
+      "is_forwarder": false
+    },
+    {
+      "name": "ZombifyActCtxWorker",
+      "ordinal": 1649,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.__C_specific_handler)",
+      "ordinal": 1650,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.__chkstk)",
+      "ordinal": 1651,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.__misaligned_access)",
+      "ordinal": 1652,
+      "is_forwarder": true
+    },
+    {
+      "name": "_hread",
+      "ordinal": 1653,
+      "is_forwarder": false
+    },
+    {
+      "name": "_hwrite",
+      "ordinal": 1654,
+      "is_forwarder": false
+    },
+    {
+      "name": "_lclose",
+      "ordinal": 1655,
+      "is_forwarder": false
+    },
+    {
+      "name": "_lcreat",
+      "ordinal": 1656,
+      "is_forwarder": false
+    },
+    {
+      "name": "_llseek",
+      "ordinal": 1657,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL._local_unwind)",
+      "ordinal": 1658,
+      "is_forwarder": true
+    },
+    {
+      "name": "_lopen",
+      "ordinal": 1659,
+      "is_forwarder": false
+    },
+    {
+      "name": "_lread",
+      "ordinal": 1660,
+      "is_forwarder": false
+    },
+    {
+      "name": "_lwrite",
+      "ordinal": 1661,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcat",
+      "ordinal": 1662,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcatA",
+      "ordinal": 1663,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcatW",
+      "ordinal": 1664,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcmp",
+      "ordinal": 1665,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcmpA",
+      "ordinal": 1666,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcmpW",
+      "ordinal": 1667,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcmpi",
+      "ordinal": 1668,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcmpiA",
+      "ordinal": 1669,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcmpiW",
+      "ordinal": 1670,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcpy",
+      "ordinal": 1671,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcpyA",
+      "ordinal": 1672,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcpyW",
+      "ordinal": 1673,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcpyn",
+      "ordinal": 1674,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcpynA",
+      "ordinal": 1675,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrcpynW",
+      "ordinal": 1676,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrlen",
+      "ordinal": 1677,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrlenA",
+      "ordinal": 1678,
+      "is_forwarder": false
+    },
+    {
+      "name": "lstrlenW",
+      "ordinal": 1679,
+      "is_forwarder": false
+    },
+    {
+      "name": "timeBeginPeriod",
+      "ordinal": 1680,
+      "is_forwarder": false
+    },
+    {
+      "name": "timeEndPeriod",
+      "ordinal": 1681,
+      "is_forwarder": false
+    },
+    {
+      "name": "timeGetDevCaps",
+      "ordinal": 1682,
+      "is_forwarder": false
+    },
+    {
+      "name": "timeGetSystemTime",
+      "ordinal": 1683,
+      "is_forwarder": false
+    },
+    {
+      "name": "timeGetTime",
+      "ordinal": 1684,
+      "is_forwarder": false
+    },
+    {
+      "name": "uaw_lstrcmpW",
+      "ordinal": 1685,
+      "is_forwarder": false
+    },
+    {
+      "name": "uaw_lstrcmpiW",
+      "ordinal": 1686,
+      "is_forwarder": false
+    },
+    {
+      "name": "uaw_lstrlenW",
+      "ordinal": 1687,
+      "is_forwarder": false
+    },
+    {
+      "name": "uaw_wcschr",
+      "ordinal": 1688,
+      "is_forwarder": false
+    },
+    {
+      "name": "uaw_wcscpy",
+      "ordinal": 1689,
+      "is_forwarder": false
+    },
+    {
+      "name": "uaw_wcsicmp",
+      "ordinal": 1690,
+      "is_forwarder": false
+    },
+    {
+      "name": "uaw_wcslen",
+      "ordinal": 1691,
+      "is_forwarder": false
+    },
+    {
+      "name": "uaw_wcsrchr",
+      "ordinal": 1692,
+      "is_forwarder": false
+    }
+  ]
+}

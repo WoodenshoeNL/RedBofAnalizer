@@ -1,0 +1,4260 @@
+{
+  "dll": "advapi32.dll",
+  "exports": [
+    {
+      "name": "NTDLL.A_SHAFinal)",
+      "ordinal": 1002,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.A_SHAInit)",
+      "ordinal": 1003,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.A_SHAUpdate)",
+      "ordinal": 1004,
+      "is_forwarder": true
+    },
+    {
+      "name": "AbortSystemShutdownA",
+      "ordinal": 1005,
+      "is_forwarder": false
+    },
+    {
+      "name": "AbortSystemShutdownW",
+      "ordinal": 1006,
+      "is_forwarder": false
+    },
+    {
+      "name": "AccessCheck",
+      "ordinal": 1007,
+      "is_forwarder": false
+    },
+    {
+      "name": "AccessCheckAndAuditAlarmA",
+      "ordinal": 1008,
+      "is_forwarder": false
+    },
+    {
+      "name": "AccessCheckAndAuditAlarmW",
+      "ordinal": 1009,
+      "is_forwarder": false
+    },
+    {
+      "name": "AccessCheckByType",
+      "ordinal": 1010,
+      "is_forwarder": false
+    },
+    {
+      "name": "AccessCheckByTypeAndAuditAlarmA",
+      "ordinal": 1011,
+      "is_forwarder": false
+    },
+    {
+      "name": "AccessCheckByTypeAndAuditAlarmW",
+      "ordinal": 1012,
+      "is_forwarder": false
+    },
+    {
+      "name": "AccessCheckByTypeResultList",
+      "ordinal": 1013,
+      "is_forwarder": false
+    },
+    {
+      "name": "AccessCheckByTypeResultListAndAuditAlarmA",
+      "ordinal": 1014,
+      "is_forwarder": false
+    },
+    {
+      "name": "AccessCheckByTypeResultListAndAuditAlarmByHandleA",
+      "ordinal": 1015,
+      "is_forwarder": false
+    },
+    {
+      "name": "AccessCheckByTypeResultListAndAuditAlarmByHandleW",
+      "ordinal": 1016,
+      "is_forwarder": false
+    },
+    {
+      "name": "AccessCheckByTypeResultListAndAuditAlarmW",
+      "ordinal": 1017,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddAccessAllowedAce",
+      "ordinal": 1018,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddAccessAllowedAceEx",
+      "ordinal": 1019,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddAccessAllowedObjectAce",
+      "ordinal": 1020,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddAccessDeniedAce",
+      "ordinal": 1021,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddAccessDeniedAceEx",
+      "ordinal": 1022,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddAccessDeniedObjectAce",
+      "ordinal": 1023,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddAce",
+      "ordinal": 1024,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddAuditAccessAce",
+      "ordinal": 1025,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddAuditAccessAceEx",
+      "ordinal": 1026,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddAuditAccessObjectAce",
+      "ordinal": 1027,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddConditionalAce",
+      "ordinal": 1028,
+      "is_forwarder": false
+    },
+    {
+      "name": "KERNELBASE.AddMandatoryAce)",
+      "ordinal": 1029,
+      "is_forwarder": true
+    },
+    {
+      "name": "AddUsersToEncryptedFile",
+      "ordinal": 1030,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddUsersToEncryptedFileEx",
+      "ordinal": 1031,
+      "is_forwarder": false
+    },
+    {
+      "name": "AdjustTokenGroups",
+      "ordinal": 1032,
+      "is_forwarder": false
+    },
+    {
+      "name": "AdjustTokenPrivileges",
+      "ordinal": 1033,
+      "is_forwarder": false
+    },
+    {
+      "name": "AllocateAndInitializeSid",
+      "ordinal": 1034,
+      "is_forwarder": false
+    },
+    {
+      "name": "AllocateLocallyUniqueId",
+      "ordinal": 1035,
+      "is_forwarder": false
+    },
+    {
+      "name": "AreAllAccessesGranted",
+      "ordinal": 1036,
+      "is_forwarder": false
+    },
+    {
+      "name": "AreAnyAccessesGranted",
+      "ordinal": 1037,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditComputeEffectivePolicyBySid",
+      "ordinal": 1038,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditComputeEffectivePolicyByToken",
+      "ordinal": 1039,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditEnumerateCategories",
+      "ordinal": 1040,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditEnumeratePerUserPolicy",
+      "ordinal": 1041,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditEnumerateSubCategories",
+      "ordinal": 1042,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditFree",
+      "ordinal": 1043,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditLookupCategoryGuidFromCategoryId",
+      "ordinal": 1044,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditLookupCategoryIdFromCategoryGuid",
+      "ordinal": 1045,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditLookupCategoryNameA",
+      "ordinal": 1046,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditLookupCategoryNameW",
+      "ordinal": 1047,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditLookupSubCategoryNameA",
+      "ordinal": 1048,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditLookupSubCategoryNameW",
+      "ordinal": 1049,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditQueryGlobalSaclA",
+      "ordinal": 1050,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditQueryGlobalSaclW",
+      "ordinal": 1051,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditQueryPerUserPolicy",
+      "ordinal": 1052,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditQuerySecurity",
+      "ordinal": 1053,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditQuerySystemPolicy",
+      "ordinal": 1054,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditSetGlobalSaclA",
+      "ordinal": 1055,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditSetGlobalSaclW",
+      "ordinal": 1056,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditSetPerUserPolicy",
+      "ordinal": 1057,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditSetSecurity",
+      "ordinal": 1058,
+      "is_forwarder": false
+    },
+    {
+      "name": "AuditSetSystemPolicy",
+      "ordinal": 1059,
+      "is_forwarder": false
+    },
+    {
+      "name": "BackupEventLogA",
+      "ordinal": 1060,
+      "is_forwarder": false
+    },
+    {
+      "name": "BackupEventLogW",
+      "ordinal": 1061,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseRegCloseKey",
+      "ordinal": 1062,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseRegCreateKey",
+      "ordinal": 1063,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseRegDeleteKeyEx",
+      "ordinal": 1064,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseRegDeleteValue",
+      "ordinal": 1065,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseRegFlushKey",
+      "ordinal": 1066,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseRegGetVersion",
+      "ordinal": 1067,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseRegLoadKey",
+      "ordinal": 1068,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseRegOpenKey",
+      "ordinal": 1069,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseRegRestoreKey",
+      "ordinal": 1070,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseRegSaveKeyEx",
+      "ordinal": 1071,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseRegSetKeySecurity",
+      "ordinal": 1072,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseRegSetValue",
+      "ordinal": 1073,
+      "is_forwarder": false
+    },
+    {
+      "name": "BaseRegUnLoadKey",
+      "ordinal": 1074,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildExplicitAccessWithNameA",
+      "ordinal": 1075,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildExplicitAccessWithNameW",
+      "ordinal": 1076,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildImpersonateExplicitAccessWithNameA",
+      "ordinal": 1077,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildImpersonateExplicitAccessWithNameW",
+      "ordinal": 1078,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildImpersonateTrusteeA",
+      "ordinal": 1079,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildImpersonateTrusteeW",
+      "ordinal": 1080,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildSecurityDescriptorA",
+      "ordinal": 1081,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildSecurityDescriptorW",
+      "ordinal": 1082,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildTrusteeWithNameA",
+      "ordinal": 1083,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildTrusteeWithNameW",
+      "ordinal": 1084,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildTrusteeWithObjectsAndNameA",
+      "ordinal": 1085,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildTrusteeWithObjectsAndNameW",
+      "ordinal": 1086,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildTrusteeWithObjectsAndSidA",
+      "ordinal": 1087,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildTrusteeWithObjectsAndSidW",
+      "ordinal": 1088,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildTrusteeWithSidA",
+      "ordinal": 1089,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildTrusteeWithSidW",
+      "ordinal": 1090,
+      "is_forwarder": false
+    },
+    {
+      "name": "CancelOverlappedAccess",
+      "ordinal": 1091,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChangeServiceConfig2A",
+      "ordinal": 1092,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChangeServiceConfig2W",
+      "ordinal": 1093,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChangeServiceConfigA",
+      "ordinal": 1094,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChangeServiceConfigW",
+      "ordinal": 1095,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckForHiberboot",
+      "ordinal": 1096,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckTokenMembership",
+      "ordinal": 1097,
+      "is_forwarder": false
+    },
+    {
+      "name": "ClearEventLogA",
+      "ordinal": 1098,
+      "is_forwarder": false
+    },
+    {
+      "name": "ClearEventLogW",
+      "ordinal": 1099,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseCodeAuthzLevel",
+      "ordinal": 1100,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseEncryptedFileRaw",
+      "ordinal": 1101,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseEventLog",
+      "ordinal": 1102,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseServiceHandle",
+      "ordinal": 1103,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseThreadWaitChainSession",
+      "ordinal": 1104,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseTrace",
+      "ordinal": 1105,
+      "is_forwarder": false
+    },
+    {
+      "name": "CommandLineFromMsiDescriptor",
+      "ordinal": 1106,
+      "is_forwarder": false
+    },
+    {
+      "name": "ComputeAccessTokenFromCodeAuthzLevel",
+      "ordinal": 1107,
+      "is_forwarder": false
+    },
+    {
+      "name": "ControlService",
+      "ordinal": 1108,
+      "is_forwarder": false
+    },
+    {
+      "name": "ControlServiceExA",
+      "ordinal": 1109,
+      "is_forwarder": false
+    },
+    {
+      "name": "ControlServiceExW",
+      "ordinal": 1110,
+      "is_forwarder": false
+    },
+    {
+      "name": "ControlTraceA",
+      "ordinal": 1111,
+      "is_forwarder": false
+    },
+    {
+      "name": "ControlTraceW",
+      "ordinal": 1112,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertAccessToSecurityDescriptorA",
+      "ordinal": 1113,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertAccessToSecurityDescriptorW",
+      "ordinal": 1114,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertSDToStringSDDomainW",
+      "ordinal": 1115,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertSDToStringSDRootDomainA",
+      "ordinal": 1116,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertSDToStringSDRootDomainW",
+      "ordinal": 1117,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertSecurityDescriptorToAccessA",
+      "ordinal": 1118,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertSecurityDescriptorToAccessNamedA",
+      "ordinal": 1119,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertSecurityDescriptorToAccessNamedW",
+      "ordinal": 1120,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertSecurityDescriptorToAccessW",
+      "ordinal": 1121,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertSecurityDescriptorToStringSecurityDescriptorA",
+      "ordinal": 1122,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertSecurityDescriptorToStringSecurityDescriptorW",
+      "ordinal": 1123,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertSidToStringSidA",
+      "ordinal": 1124,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertSidToStringSidW",
+      "ordinal": 1125,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertStringSDToSDDomainA",
+      "ordinal": 1126,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertStringSDToSDDomainW",
+      "ordinal": 1127,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertStringSDToSDRootDomainA",
+      "ordinal": 1128,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertStringSDToSDRootDomainW",
+      "ordinal": 1129,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertStringSecurityDescriptorToSecurityDescriptorA",
+      "ordinal": 1130,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertStringSecurityDescriptorToSecurityDescriptorW",
+      "ordinal": 1131,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertStringSidToSidA",
+      "ordinal": 1132,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertStringSidToSidW",
+      "ordinal": 1133,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertToAutoInheritPrivateObjectSecurity",
+      "ordinal": 1134,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopySid",
+      "ordinal": 1135,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateCodeAuthzLevel",
+      "ordinal": 1136,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreatePrivateObjectSecurity",
+      "ordinal": 1137,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreatePrivateObjectSecurityEx",
+      "ordinal": 1138,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreatePrivateObjectSecurityWithMultipleInheritance",
+      "ordinal": 1139,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateProcessAsUserA",
+      "ordinal": 1140,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateProcessAsUserW",
+      "ordinal": 1141,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateProcessWithLogonW",
+      "ordinal": 1142,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateProcessWithTokenW",
+      "ordinal": 1143,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateRestrictedToken",
+      "ordinal": 1144,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateServiceA",
+      "ordinal": 1145,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateServiceEx",
+      "ordinal": 1146,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateServiceW",
+      "ordinal": 1147,
+      "is_forwarder": false
+    },
+    {
+      "name": "ntdll.EtwCreateTraceInstanceId)",
+      "ordinal": 1148,
+      "is_forwarder": true
+    },
+    {
+      "name": "CreateWellKnownSid",
+      "ordinal": 1149,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredBackupCredentials",
+      "ordinal": 1150,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredDeleteA",
+      "ordinal": 1151,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredDeleteW",
+      "ordinal": 1152,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredEncryptAndMarshalBinaryBlob",
+      "ordinal": 1153,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredEnumerateA",
+      "ordinal": 1154,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredEnumerateW",
+      "ordinal": 1155,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredFindBestCredentialA",
+      "ordinal": 1156,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredFindBestCredentialW",
+      "ordinal": 1157,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredFree",
+      "ordinal": 1158,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredGetSessionTypes",
+      "ordinal": 1159,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredGetTargetInfoA",
+      "ordinal": 1160,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredGetTargetInfoW",
+      "ordinal": 1161,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredIsMarshaledCredentialA",
+      "ordinal": 1162,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredIsMarshaledCredentialW",
+      "ordinal": 1163,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredIsProtectedA",
+      "ordinal": 1164,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredIsProtectedW",
+      "ordinal": 1165,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredMarshalCredentialA",
+      "ordinal": 1166,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredMarshalCredentialW",
+      "ordinal": 1167,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredProfileLoaded",
+      "ordinal": 1168,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredProfileLoadedEx",
+      "ordinal": 1169,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredProfileUnloaded",
+      "ordinal": 1170,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredProtectA",
+      "ordinal": 1171,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredProtectW",
+      "ordinal": 1172,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredReadA",
+      "ordinal": 1173,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredReadByTokenHandle",
+      "ordinal": 1174,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredReadDomainCredentialsA",
+      "ordinal": 1175,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredReadDomainCredentialsW",
+      "ordinal": 1176,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredReadW",
+      "ordinal": 1177,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredRenameA",
+      "ordinal": 1178,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredRenameW",
+      "ordinal": 1179,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredRestoreCredentials",
+      "ordinal": 1180,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredUnmarshalCredentialA",
+      "ordinal": 1181,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredUnmarshalCredentialW",
+      "ordinal": 1182,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredUnprotectA",
+      "ordinal": 1183,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredUnprotectW",
+      "ordinal": 1184,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredWriteA",
+      "ordinal": 1185,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredWriteDomainCredentialsA",
+      "ordinal": 1186,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredWriteDomainCredentialsW",
+      "ordinal": 1187,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredWriteW",
+      "ordinal": 1188,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredpConvertCredential",
+      "ordinal": 1189,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredpConvertOneCredentialSize",
+      "ordinal": 1190,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredpConvertTargetInfo",
+      "ordinal": 1191,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredpDecodeCredential",
+      "ordinal": 1192,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredpEncodeCredential",
+      "ordinal": 1193,
+      "is_forwarder": false
+    },
+    {
+      "name": "CredpEncodeSecret",
+      "ordinal": 1194,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptAcquireContextA",
+      "ordinal": 1195,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptAcquireContextW",
+      "ordinal": 1196,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptContextAddRef",
+      "ordinal": 1197,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptCreateHash",
+      "ordinal": 1198,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptDecrypt",
+      "ordinal": 1199,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptDeriveKey",
+      "ordinal": 1200,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptDestroyHash",
+      "ordinal": 1201,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptDestroyKey",
+      "ordinal": 1202,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptDuplicateHash",
+      "ordinal": 1203,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptDuplicateKey",
+      "ordinal": 1204,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptEncrypt",
+      "ordinal": 1205,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptEnumProviderTypesA",
+      "ordinal": 1206,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptEnumProviderTypesW",
+      "ordinal": 1207,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptEnumProvidersA",
+      "ordinal": 1208,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptEnumProvidersW",
+      "ordinal": 1209,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptExportKey",
+      "ordinal": 1210,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGenKey",
+      "ordinal": 1211,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGenRandom",
+      "ordinal": 1212,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGetDefaultProviderA",
+      "ordinal": 1213,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGetDefaultProviderW",
+      "ordinal": 1214,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGetHashParam",
+      "ordinal": 1215,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGetKeyParam",
+      "ordinal": 1216,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGetProvParam",
+      "ordinal": 1217,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptGetUserKey",
+      "ordinal": 1218,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptHashData",
+      "ordinal": 1219,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptHashSessionKey",
+      "ordinal": 1220,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptImportKey",
+      "ordinal": 1221,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptReleaseContext",
+      "ordinal": 1222,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSetHashParam",
+      "ordinal": 1223,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSetKeyParam",
+      "ordinal": 1224,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSetProvParam",
+      "ordinal": 1225,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSetProviderA",
+      "ordinal": 1226,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSetProviderExA",
+      "ordinal": 1227,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSetProviderExW",
+      "ordinal": 1228,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSetProviderW",
+      "ordinal": 1229,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSignHashA",
+      "ordinal": 1230,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptSignHashW",
+      "ordinal": 1231,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptVerifySignatureA",
+      "ordinal": 1232,
+      "is_forwarder": false
+    },
+    {
+      "name": "CryptVerifySignatureW",
+      "ordinal": 1233,
+      "is_forwarder": false
+    },
+    {
+      "name": "KERNELBASE.CveEventWrite)",
+      "ordinal": 1234,
+      "is_forwarder": true
+    },
+    {
+      "name": "DecryptFileA",
+      "ordinal": 1235,
+      "is_forwarder": false
+    },
+    {
+      "name": "DecryptFileW",
+      "ordinal": 1236,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteAce",
+      "ordinal": 1237,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteService",
+      "ordinal": 1238,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeregisterEventSource",
+      "ordinal": 1239,
+      "is_forwarder": false
+    },
+    {
+      "name": "DestroyPrivateObjectSecurity",
+      "ordinal": 1240,
+      "is_forwarder": false
+    },
+    {
+      "name": "DuplicateEncryptionInfoFile",
+      "ordinal": 1241,
+      "is_forwarder": false
+    },
+    {
+      "name": "DuplicateToken",
+      "ordinal": 1242,
+      "is_forwarder": false
+    },
+    {
+      "name": "DuplicateTokenEx",
+      "ordinal": 1243,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnableTrace",
+      "ordinal": 1244,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnableTraceEx",
+      "ordinal": 1245,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnableTraceEx2",
+      "ordinal": 1246,
+      "is_forwarder": false
+    },
+    {
+      "name": "EncryptFileA",
+      "ordinal": 1247,
+      "is_forwarder": false
+    },
+    {
+      "name": "EncryptFileW",
+      "ordinal": 1248,
+      "is_forwarder": false
+    },
+    {
+      "name": "EncryptedFileKeyInfo",
+      "ordinal": 1249,
+      "is_forwarder": false
+    },
+    {
+      "name": "EncryptionDisable",
+      "ordinal": 1250,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDependentServicesA",
+      "ordinal": 1251,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDependentServicesW",
+      "ordinal": 1252,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDynamicTimeZoneInformation",
+      "ordinal": 1253,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumServiceGroupW",
+      "ordinal": 1254,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumServicesStatusA",
+      "ordinal": 1255,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumServicesStatusExA",
+      "ordinal": 1256,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumServicesStatusExW",
+      "ordinal": 1257,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumServicesStatusW",
+      "ordinal": 1258,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumerateTraceGuids",
+      "ordinal": 1259,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumerateTraceGuidsEx",
+      "ordinal": 1260,
+      "is_forwarder": false
+    },
+    {
+      "name": "EqualDomainSid",
+      "ordinal": 1261,
+      "is_forwarder": false
+    },
+    {
+      "name": "EqualPrefixSid",
+      "ordinal": 1262,
+      "is_forwarder": false
+    },
+    {
+      "name": "EqualSid",
+      "ordinal": 1263,
+      "is_forwarder": false
+    },
+    {
+      "name": "EventAccessControl",
+      "ordinal": 1264,
+      "is_forwarder": false
+    },
+    {
+      "name": "EventAccessQuery",
+      "ordinal": 1265,
+      "is_forwarder": false
+    },
+    {
+      "name": "EventAccessRemove",
+      "ordinal": 1266,
+      "is_forwarder": false
+    },
+    {
+      "name": "ntdll.EtwEventActivityIdControl)",
+      "ordinal": 1267,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwEventEnabled)",
+      "ordinal": 1268,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwEventProviderEnabled)",
+      "ordinal": 1269,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwEventRegister)",
+      "ordinal": 1270,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwEventSetInformation)",
+      "ordinal": 1271,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwEventUnregister)",
+      "ordinal": 1272,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwEventWrite)",
+      "ordinal": 1273,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwEventWriteEndScenario)",
+      "ordinal": 1274,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwEventWriteEx)",
+      "ordinal": 1275,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwEventWriteStartScenario)",
+      "ordinal": 1276,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwEventWriteString)",
+      "ordinal": 1277,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwEventWriteTransfer)",
+      "ordinal": 1278,
+      "is_forwarder": true
+    },
+    {
+      "name": "FileEncryptionStatusA",
+      "ordinal": 1279,
+      "is_forwarder": false
+    },
+    {
+      "name": "FileEncryptionStatusW",
+      "ordinal": 1280,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindFirstFreeAce",
+      "ordinal": 1281,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlushEfsCache",
+      "ordinal": 1282,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlushTraceA",
+      "ordinal": 1283,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlushTraceW",
+      "ordinal": 1284,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeEncryptedFileKeyInfo",
+      "ordinal": 1285,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeEncryptedFileMetadata",
+      "ordinal": 1286,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeEncryptionCertificateHashList",
+      "ordinal": 1287,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeInheritedFromArray",
+      "ordinal": 1288,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeSid",
+      "ordinal": 1289,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAccessPermissionsForObjectA",
+      "ordinal": 1290,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAccessPermissionsForObjectW",
+      "ordinal": 1291,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAce",
+      "ordinal": 1292,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAclInformation",
+      "ordinal": 1293,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAuditedPermissionsFromAclA",
+      "ordinal": 1294,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAuditedPermissionsFromAclW",
+      "ordinal": 1295,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentHwProfileA",
+      "ordinal": 1296,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentHwProfileW",
+      "ordinal": 1297,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDynamicTimeZoneInformationEffectiveYears",
+      "ordinal": 1298,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetEffectiveRightsFromAclA",
+      "ordinal": 1299,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetEffectiveRightsFromAclW",
+      "ordinal": 1300,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetEncryptedFileMetadata",
+      "ordinal": 1301,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetEventLogInformation",
+      "ordinal": 1302,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetExplicitEntriesFromAclA",
+      "ordinal": 1303,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetExplicitEntriesFromAclW",
+      "ordinal": 1304,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileSecurityA",
+      "ordinal": 1305,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileSecurityW",
+      "ordinal": 1306,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInformationCodeAuthzLevelW",
+      "ordinal": 1307,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInformationCodeAuthzPolicyW",
+      "ordinal": 1308,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInheritanceSourceA",
+      "ordinal": 1309,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInheritanceSourceW",
+      "ordinal": 1310,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetKernelObjectSecurity",
+      "ordinal": 1311,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLengthSid",
+      "ordinal": 1312,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLocalManagedApplicationData",
+      "ordinal": 1313,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLocalManagedApplications",
+      "ordinal": 1314,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetManagedApplicationCategories",
+      "ordinal": 1315,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetManagedApplications",
+      "ordinal": 1316,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMultipleTrusteeA",
+      "ordinal": 1317,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMultipleTrusteeOperationA",
+      "ordinal": 1318,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMultipleTrusteeOperationW",
+      "ordinal": 1319,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMultipleTrusteeW",
+      "ordinal": 1320,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNamedSecurityInfoA",
+      "ordinal": 1321,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNamedSecurityInfoExA",
+      "ordinal": 1322,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNamedSecurityInfoExW",
+      "ordinal": 1323,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNamedSecurityInfoW",
+      "ordinal": 1324,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumberOfEventLogRecords",
+      "ordinal": 1325,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetOldestEventLogRecord",
+      "ordinal": 1326,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetOverlappedAccessResults",
+      "ordinal": 1327,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPrivateObjectSecurity",
+      "ordinal": 1328,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSecurityDescriptorControl",
+      "ordinal": 1329,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSecurityDescriptorDacl",
+      "ordinal": 1330,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSecurityDescriptorGroup",
+      "ordinal": 1331,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSecurityDescriptorLength",
+      "ordinal": 1332,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSecurityDescriptorOwner",
+      "ordinal": 1333,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSecurityDescriptorRMControl",
+      "ordinal": 1334,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSecurityDescriptorSacl",
+      "ordinal": 1335,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSecurityInfo",
+      "ordinal": 1336,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSecurityInfoExA",
+      "ordinal": 1337,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSecurityInfoExW",
+      "ordinal": 1338,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetServiceDisplayNameA",
+      "ordinal": 1339,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetServiceDisplayNameW",
+      "ordinal": 1340,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetServiceKeyNameA",
+      "ordinal": 1341,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetServiceKeyNameW",
+      "ordinal": 1342,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSidIdentifierAuthority",
+      "ordinal": 1343,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSidLengthRequired",
+      "ordinal": 1344,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSidSubAuthority",
+      "ordinal": 1345,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSidSubAuthorityCount",
+      "ordinal": 1346,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetStringConditionFromBinary",
+      "ordinal": 1347,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadWaitChain",
+      "ordinal": 1348,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTokenInformation",
+      "ordinal": 1349,
+      "is_forwarder": false
+    },
+    {
+      "name": "ntdll.EtwGetTraceEnableFlags)",
+      "ordinal": 1350,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwGetTraceEnableLevel)",
+      "ordinal": 1351,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwGetTraceLoggerHandle)",
+      "ordinal": 1352,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetTrusteeFormA",
+      "ordinal": 1353,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTrusteeFormW",
+      "ordinal": 1354,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTrusteeNameA",
+      "ordinal": 1355,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTrusteeNameW",
+      "ordinal": 1356,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTrusteeTypeA",
+      "ordinal": 1357,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTrusteeTypeW",
+      "ordinal": 1358,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUserNameA",
+      "ordinal": 1359,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUserNameW",
+      "ordinal": 1360,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowsAccountDomainSid",
+      "ordinal": 1361,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-service-private-l1-1-0.I_QueryTagInformation)",
+      "ordinal": 1362,
+      "is_forwarder": true
+    },
+    {
+      "name": "I_ScGetCurrentGroupStateW",
+      "ordinal": 1001,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-service-private-l1-1-0.I_ScIsSecurityProcess)",
+      "ordinal": 1363,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-service-private-l1-1-0.I_ScPnPGetServiceName)",
+      "ordinal": 1364,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-service-private-l1-1-0.I_ScQueryServiceConfig)",
+      "ordinal": 1365,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-service-private-l1-1-1.I_ScRegisterPreshutdownRestart)",
+      "ordinal": 1366,
+      "is_forwarder": true
+    },
+    {
+      "name": "I_ScReparseServiceDatabase",
+      "ordinal": 1367,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-service-private-l1-1-0.I_ScSendPnPMessage)",
+      "ordinal": 1368,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-service-private-l1-1-0.I_ScSendTSMessage)",
+      "ordinal": 1369,
+      "is_forwarder": true
+    },
+    {
+      "name": "I_ScSetServiceBitsA",
+      "ordinal": 1370,
+      "is_forwarder": false
+    },
+    {
+      "name": "I_ScSetServiceBitsW",
+      "ordinal": 1371,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-service-private-l1-1-0.I_ScValidatePnPService)",
+      "ordinal": 1372,
+      "is_forwarder": true
+    },
+    {
+      "name": "IdentifyCodeAuthzLevelW",
+      "ordinal": 1373,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImpersonateAnonymousToken",
+      "ordinal": 1374,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImpersonateLoggedOnUser",
+      "ordinal": 1375,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImpersonateNamedPipeClient",
+      "ordinal": 1376,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImpersonateSelf",
+      "ordinal": 1377,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeAcl",
+      "ordinal": 1378,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeSecurityDescriptor",
+      "ordinal": 1379,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeSid",
+      "ordinal": 1380,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitiateShutdownA",
+      "ordinal": 1381,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitiateShutdownW",
+      "ordinal": 1382,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitiateSystemShutdownA",
+      "ordinal": 1383,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitiateSystemShutdownExA",
+      "ordinal": 1384,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitiateSystemShutdownExW",
+      "ordinal": 1385,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitiateSystemShutdownW",
+      "ordinal": 1386,
+      "is_forwarder": false
+    },
+    {
+      "name": "InstallApplication",
+      "ordinal": 1387,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsTextUnicode",
+      "ordinal": 1388,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsTokenRestricted",
+      "ordinal": 1389,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsTokenUntrusted",
+      "ordinal": 1390,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsValidAcl",
+      "ordinal": 1391,
+      "is_forwarder": false
+    },
+    {
+      "name": "KERNELBASE.IsValidRelativeSecurityDescriptor)",
+      "ordinal": 1392,
+      "is_forwarder": true
+    },
+    {
+      "name": "IsValidSecurityDescriptor",
+      "ordinal": 1393,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsValidSid",
+      "ordinal": 1394,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsWellKnownSid",
+      "ordinal": 1395,
+      "is_forwarder": false
+    },
+    {
+      "name": "LockServiceDatabase",
+      "ordinal": 1396,
+      "is_forwarder": false
+    },
+    {
+      "name": "LogonUserA",
+      "ordinal": 1397,
+      "is_forwarder": false
+    },
+    {
+      "name": "LogonUserExA",
+      "ordinal": 1398,
+      "is_forwarder": false
+    },
+    {
+      "name": "LogonUserExExW",
+      "ordinal": 1399,
+      "is_forwarder": false
+    },
+    {
+      "name": "LogonUserExW",
+      "ordinal": 1400,
+      "is_forwarder": false
+    },
+    {
+      "name": "LogonUserW",
+      "ordinal": 1401,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupAccountNameA",
+      "ordinal": 1402,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupAccountNameW",
+      "ordinal": 1403,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupAccountSidA",
+      "ordinal": 1404,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupAccountSidW",
+      "ordinal": 1405,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupPrivilegeDisplayNameA",
+      "ordinal": 1406,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupPrivilegeDisplayNameW",
+      "ordinal": 1407,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupPrivilegeNameA",
+      "ordinal": 1408,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupPrivilegeNameW",
+      "ordinal": 1409,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupPrivilegeValueA",
+      "ordinal": 1410,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupPrivilegeValueW",
+      "ordinal": 1411,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupSecurityDescriptorPartsA",
+      "ordinal": 1412,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupSecurityDescriptorPartsW",
+      "ordinal": 1413,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaAddAccountRights",
+      "ordinal": 1414,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaAddPrivilegesToAccount",
+      "ordinal": 1415,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaClearAuditLog",
+      "ordinal": 1416,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaClose",
+      "ordinal": 1417,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaConfigureAutoLogonCredentials",
+      "ordinal": 1418,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaCreateAccount",
+      "ordinal": 1419,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaCreateSecret",
+      "ordinal": 1420,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaCreateTrustedDomain",
+      "ordinal": 1421,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaCreateTrustedDomainEx",
+      "ordinal": 1422,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaDelete",
+      "ordinal": 1423,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaDeleteTrustedDomain",
+      "ordinal": 1424,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaDisableUserArso",
+      "ordinal": 1425,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaEnableUserArso",
+      "ordinal": 1426,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaEnumerateAccountRights",
+      "ordinal": 1427,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaEnumerateAccounts",
+      "ordinal": 1428,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaEnumerateAccountsWithUserRight",
+      "ordinal": 1429,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaEnumeratePrivileges",
+      "ordinal": 1430,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaEnumeratePrivilegesOfAccount",
+      "ordinal": 1431,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaEnumerateTrustedDomains",
+      "ordinal": 1432,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaEnumerateTrustedDomainsEx",
+      "ordinal": 1433,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaFreeMemory",
+      "ordinal": 1434,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaGetAppliedCAPIDs",
+      "ordinal": 1435,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaGetDeviceRegistrationInfo",
+      "ordinal": 1436,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaGetQuotasForAccount",
+      "ordinal": 1437,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaGetRemoteUserName",
+      "ordinal": 1438,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaGetSystemAccessAccount",
+      "ordinal": 1439,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaGetUserName",
+      "ordinal": 1440,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaICLookupNames",
+      "ordinal": 1441,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaICLookupNamesWithCreds",
+      "ordinal": 1442,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaICLookupSids",
+      "ordinal": 1443,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaICLookupSidsWithCreds",
+      "ordinal": 1444,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaInvokeTrustScanner",
+      "ordinal": 1445,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaIsUserArsoAllowed",
+      "ordinal": 1446,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaIsUserArsoEnabled",
+      "ordinal": 1447,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaLookupNames",
+      "ordinal": 1448,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaLookupNames2",
+      "ordinal": 1449,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaLookupPrivilegeDisplayName",
+      "ordinal": 1450,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaLookupPrivilegeName",
+      "ordinal": 1451,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaLookupPrivilegeValue",
+      "ordinal": 1452,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaLookupSids",
+      "ordinal": 1453,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaLookupSids2",
+      "ordinal": 1454,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaManageSidNameMapping",
+      "ordinal": 1455,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaNtStatusToWinError",
+      "ordinal": 1456,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaOpenAccount",
+      "ordinal": 1457,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaOpenPolicy",
+      "ordinal": 1458,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaOpenPolicySce",
+      "ordinal": 1459,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaOpenSecret",
+      "ordinal": 1460,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaOpenTrustedDomain",
+      "ordinal": 1461,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaOpenTrustedDomainByName",
+      "ordinal": 1462,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaProfileDeleted",
+      "ordinal": 1463,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaPurgeLocalSystemAccessTable",
+      "ordinal": 1464,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaQueryCAPs",
+      "ordinal": 1465,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaQueryDomainInformationPolicy",
+      "ordinal": 1466,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaQueryForestTrustInformation",
+      "ordinal": 1467,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaQueryForestTrustInformation2",
+      "ordinal": 1468,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaQueryInfoTrustedDomain",
+      "ordinal": 1469,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaQueryInformationPolicy",
+      "ordinal": 1470,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaQueryLocalSystemAccess",
+      "ordinal": 1471,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaQueryLocalSystemAccessAll",
+      "ordinal": 1472,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaQuerySecret",
+      "ordinal": 1473,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaQuerySecurityObject",
+      "ordinal": 1474,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaQueryTrustedDomainInfo",
+      "ordinal": 1475,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaQueryTrustedDomainInfoByName",
+      "ordinal": 1476,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaRemoveAccountRights",
+      "ordinal": 1477,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaRemovePrivilegesFromAccount",
+      "ordinal": 1478,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaRetrievePrivateData",
+      "ordinal": 1479,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaSetCAPs",
+      "ordinal": 1480,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaSetDomainInformationPolicy",
+      "ordinal": 1481,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaSetForestTrustInformation",
+      "ordinal": 1482,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaSetForestTrustInformation2",
+      "ordinal": 1483,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaSetInformationPolicy",
+      "ordinal": 1484,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaSetInformationTrustedDomain",
+      "ordinal": 1485,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaSetLocalSystemAccess",
+      "ordinal": 1486,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaSetQuotasForAccount",
+      "ordinal": 1487,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaSetSecret",
+      "ordinal": 1488,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaSetSecurityObject",
+      "ordinal": 1489,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaSetSystemAccessAccount",
+      "ordinal": 1490,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaSetTrustedDomainInfoByName",
+      "ordinal": 1491,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaSetTrustedDomainInformation",
+      "ordinal": 1492,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaStorePrivateData",
+      "ordinal": 1493,
+      "is_forwarder": false
+    },
+    {
+      "name": "LsaValidateProcUniqueLuid",
+      "ordinal": 1494,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.MD4Final)",
+      "ordinal": 1495,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.MD4Init)",
+      "ordinal": 1496,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.MD4Update)",
+      "ordinal": 1497,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.MD5Final)",
+      "ordinal": 1498,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.MD5Init)",
+      "ordinal": 1499,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.MD5Update)",
+      "ordinal": 1500,
+      "is_forwarder": true
+    },
+    {
+      "name": "MIDL_user_free_Ext",
+      "ordinal": 1501,
+      "is_forwarder": false
+    },
+    {
+      "name": "MSChapSrvChangePassword",
+      "ordinal": 1502,
+      "is_forwarder": false
+    },
+    {
+      "name": "MSChapSrvChangePassword2",
+      "ordinal": 1503,
+      "is_forwarder": false
+    },
+    {
+      "name": "MakeAbsoluteSD",
+      "ordinal": 1504,
+      "is_forwarder": false
+    },
+    {
+      "name": "MakeAbsoluteSD2",
+      "ordinal": 1505,
+      "is_forwarder": false
+    },
+    {
+      "name": "MakeSelfRelativeSD",
+      "ordinal": 1506,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapGenericMask",
+      "ordinal": 1507,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyBootConfigStatus",
+      "ordinal": 1508,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyChangeEventLog",
+      "ordinal": 1509,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyServiceStatusChange",
+      "ordinal": 1510,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyServiceStatusChangeA",
+      "ordinal": 1511,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyServiceStatusChangeW",
+      "ordinal": 1512,
+      "is_forwarder": false
+    },
+    {
+      "name": "NpGetUserName",
+      "ordinal": 1513,
+      "is_forwarder": false
+    },
+    {
+      "name": "ObjectCloseAuditAlarmA",
+      "ordinal": 1514,
+      "is_forwarder": false
+    },
+    {
+      "name": "ObjectCloseAuditAlarmW",
+      "ordinal": 1515,
+      "is_forwarder": false
+    },
+    {
+      "name": "ObjectDeleteAuditAlarmA",
+      "ordinal": 1516,
+      "is_forwarder": false
+    },
+    {
+      "name": "ObjectDeleteAuditAlarmW",
+      "ordinal": 1517,
+      "is_forwarder": false
+    },
+    {
+      "name": "ObjectOpenAuditAlarmA",
+      "ordinal": 1518,
+      "is_forwarder": false
+    },
+    {
+      "name": "ObjectOpenAuditAlarmW",
+      "ordinal": 1519,
+      "is_forwarder": false
+    },
+    {
+      "name": "ObjectPrivilegeAuditAlarmA",
+      "ordinal": 1520,
+      "is_forwarder": false
+    },
+    {
+      "name": "ObjectPrivilegeAuditAlarmW",
+      "ordinal": 1521,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenBackupEventLogA",
+      "ordinal": 1522,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenBackupEventLogW",
+      "ordinal": 1523,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenEncryptedFileRawA",
+      "ordinal": 1524,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenEncryptedFileRawW",
+      "ordinal": 1525,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenEventLogA",
+      "ordinal": 1526,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenEventLogW",
+      "ordinal": 1527,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenProcessToken",
+      "ordinal": 1528,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenSCManagerA",
+      "ordinal": 1529,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenSCManagerW",
+      "ordinal": 1530,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenServiceA",
+      "ordinal": 1531,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenServiceW",
+      "ordinal": 1532,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenThreadToken",
+      "ordinal": 1533,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenThreadWaitChainSession",
+      "ordinal": 1534,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenTraceA",
+      "ordinal": 1535,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenTraceW",
+      "ordinal": 1536,
+      "is_forwarder": false
+    },
+    {
+      "name": "OperationEnd",
+      "ordinal": 1537,
+      "is_forwarder": false
+    },
+    {
+      "name": "OperationStart",
+      "ordinal": 1538,
+      "is_forwarder": false
+    },
+    {
+      "name": "PerfAddCounters",
+      "ordinal": 1539,
+      "is_forwarder": false
+    },
+    {
+      "name": "PerfCloseQueryHandle",
+      "ordinal": 1540,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-perfcounters-l1-2-0.PerfCreateInstance)",
+      "ordinal": 1541,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-perfcounters-l1-2-0.PerfDecrementULongCounterValue)",
+      "ordinal": 1542,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-perfcounters-l1-2-0.PerfDecrementULongLongCounterValue)",
+      "ordinal": 1543,
+      "is_forwarder": true
+    },
+    {
+      "name": "PerfDeleteCounters",
+      "ordinal": 1544,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-perfcounters-l1-2-0.PerfDeleteInstance)",
+      "ordinal": 1545,
+      "is_forwarder": true
+    },
+    {
+      "name": "PerfEnumerateCounterSet",
+      "ordinal": 1546,
+      "is_forwarder": false
+    },
+    {
+      "name": "PerfEnumerateCounterSetInstances",
+      "ordinal": 1547,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-perfcounters-l1-2-0.PerfIncrementULongCounterValue)",
+      "ordinal": 1548,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-perfcounters-l1-2-0.PerfIncrementULongLongCounterValue)",
+      "ordinal": 1549,
+      "is_forwarder": true
+    },
+    {
+      "name": "PerfOpenQueryHandle",
+      "ordinal": 1550,
+      "is_forwarder": false
+    },
+    {
+      "name": "PerfQueryCounterData",
+      "ordinal": 1551,
+      "is_forwarder": false
+    },
+    {
+      "name": "PerfQueryCounterInfo",
+      "ordinal": 1552,
+      "is_forwarder": false
+    },
+    {
+      "name": "PerfQueryCounterSetRegistrationInfo",
+      "ordinal": 1553,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-perfcounters-l1-2-0.PerfQueryInstance)",
+      "ordinal": 1554,
+      "is_forwarder": true
+    },
+    {
+      "name": "PerfRegCloseKey",
+      "ordinal": 1555,
+      "is_forwarder": false
+    },
+    {
+      "name": "PerfRegEnumKey",
+      "ordinal": 1556,
+      "is_forwarder": false
+    },
+    {
+      "name": "PerfRegEnumValue",
+      "ordinal": 1557,
+      "is_forwarder": false
+    },
+    {
+      "name": "PerfRegQueryInfoKey",
+      "ordinal": 1558,
+      "is_forwarder": false
+    },
+    {
+      "name": "PerfRegQueryValue",
+      "ordinal": 1559,
+      "is_forwarder": false
+    },
+    {
+      "name": "PerfRegSetValue",
+      "ordinal": 1560,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-perfcounters-l1-2-0.PerfSetCounterRefValue)",
+      "ordinal": 1561,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-perfcounters-l1-2-0.PerfSetCounterSetInfo)",
+      "ordinal": 1562,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-perfcounters-l1-2-0.PerfSetULongCounterValue)",
+      "ordinal": 1563,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-perfcounters-l1-2-0.PerfSetULongLongCounterValue)",
+      "ordinal": 1564,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-perfcounters-l1-2-0.PerfStartProvider)",
+      "ordinal": 1565,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-perfcounters-l1-2-0.PerfStartProviderEx)",
+      "ordinal": 1566,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-perfcounters-l1-2-0.PerfStopProvider)",
+      "ordinal": 1567,
+      "is_forwarder": true
+    },
+    {
+      "name": "PrivilegeCheck",
+      "ordinal": 1568,
+      "is_forwarder": false
+    },
+    {
+      "name": "PrivilegedServiceAuditAlarmA",
+      "ordinal": 1569,
+      "is_forwarder": false
+    },
+    {
+      "name": "PrivilegedServiceAuditAlarmW",
+      "ordinal": 1570,
+      "is_forwarder": false
+    },
+    {
+      "name": "ProcessIdleTasks",
+      "ordinal": 1571,
+      "is_forwarder": false
+    },
+    {
+      "name": "ProcessIdleTasksW",
+      "ordinal": 1572,
+      "is_forwarder": false
+    },
+    {
+      "name": "ProcessTrace",
+      "ordinal": 1573,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryAllTracesA",
+      "ordinal": 1574,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryAllTracesW",
+      "ordinal": 1575,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryLocalUserServiceName",
+      "ordinal": 1576,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryRecoveryAgentsOnEncryptedFile",
+      "ordinal": 1577,
+      "is_forwarder": false
+    },
+    {
+      "name": "QuerySecurityAccessMask",
+      "ordinal": 1578,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryServiceConfig2A",
+      "ordinal": 1579,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryServiceConfig2W",
+      "ordinal": 1580,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryServiceConfigA",
+      "ordinal": 1581,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryServiceConfigW",
+      "ordinal": 1582,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryServiceDynamicInformation",
+      "ordinal": 1583,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryServiceLockStatusA",
+      "ordinal": 1584,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryServiceLockStatusW",
+      "ordinal": 1585,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryServiceObjectSecurity",
+      "ordinal": 1586,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryServiceStatus",
+      "ordinal": 1587,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryServiceStatusEx",
+      "ordinal": 1588,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryTraceA",
+      "ordinal": 1589,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryTraceProcessingHandle",
+      "ordinal": 1590,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryTraceW",
+      "ordinal": 1591,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryUserServiceName",
+      "ordinal": 1592,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryUserServiceNameForContext",
+      "ordinal": 1593,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryUsersOnEncryptedFile",
+      "ordinal": 1594,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadEncryptedFileRaw",
+      "ordinal": 1595,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadEventLogA",
+      "ordinal": 1596,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadEventLogW",
+      "ordinal": 1597,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegCloseKey",
+      "ordinal": 1598,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegConnectRegistryA",
+      "ordinal": 1599,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegConnectRegistryExA",
+      "ordinal": 1600,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegConnectRegistryExW",
+      "ordinal": 1601,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegConnectRegistryW",
+      "ordinal": 1602,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegCopyTreeA",
+      "ordinal": 1603,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegCopyTreeW",
+      "ordinal": 1604,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegCreateKeyA",
+      "ordinal": 1605,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegCreateKeyExA",
+      "ordinal": 1606,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegCreateKeyExW",
+      "ordinal": 1607,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegCreateKeyTransactedA",
+      "ordinal": 1608,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegCreateKeyTransactedW",
+      "ordinal": 1609,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegCreateKeyW",
+      "ordinal": 1610,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteKeyA",
+      "ordinal": 1611,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteKeyExA",
+      "ordinal": 1612,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteKeyExW",
+      "ordinal": 1613,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteKeyTransactedA",
+      "ordinal": 1614,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteKeyTransactedW",
+      "ordinal": 1615,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteKeyValueA",
+      "ordinal": 1616,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteKeyValueW",
+      "ordinal": 1617,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteKeyW",
+      "ordinal": 1618,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteTreeA",
+      "ordinal": 1619,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteTreeW",
+      "ordinal": 1620,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteValueA",
+      "ordinal": 1621,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDeleteValueW",
+      "ordinal": 1622,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDisablePredefinedCache",
+      "ordinal": 1623,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDisablePredefinedCacheEx",
+      "ordinal": 1624,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegDisableReflectionKey",
+      "ordinal": 1625,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegEnableReflectionKey",
+      "ordinal": 1626,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegEnumKeyA",
+      "ordinal": 1627,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegEnumKeyExA",
+      "ordinal": 1628,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegEnumKeyExW",
+      "ordinal": 1629,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegEnumKeyW",
+      "ordinal": 1630,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegEnumValueA",
+      "ordinal": 1631,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegEnumValueW",
+      "ordinal": 1632,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegFlushKey",
+      "ordinal": 1633,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegGetKeySecurity",
+      "ordinal": 1634,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegGetValueA",
+      "ordinal": 1635,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegGetValueW",
+      "ordinal": 1636,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegLoadAppKeyA",
+      "ordinal": 1637,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegLoadAppKeyW",
+      "ordinal": 1638,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegLoadKeyA",
+      "ordinal": 1639,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegLoadKeyW",
+      "ordinal": 1640,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegLoadMUIStringA",
+      "ordinal": 1641,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegLoadMUIStringW",
+      "ordinal": 1642,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegNotifyChangeKeyValue",
+      "ordinal": 1643,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegOpenCurrentUser",
+      "ordinal": 1644,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegOpenKeyA",
+      "ordinal": 1645,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegOpenKeyExA",
+      "ordinal": 1646,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegOpenKeyExW",
+      "ordinal": 1647,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegOpenKeyTransactedA",
+      "ordinal": 1648,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegOpenKeyTransactedW",
+      "ordinal": 1649,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegOpenKeyW",
+      "ordinal": 1650,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegOpenUserClassesRoot",
+      "ordinal": 1651,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegOverridePredefKey",
+      "ordinal": 1652,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegQueryInfoKeyA",
+      "ordinal": 1653,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegQueryInfoKeyW",
+      "ordinal": 1654,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegQueryMultipleValuesA",
+      "ordinal": 1655,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegQueryMultipleValuesW",
+      "ordinal": 1656,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegQueryReflectionKey",
+      "ordinal": 1657,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegQueryValueA",
+      "ordinal": 1658,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegQueryValueExA",
+      "ordinal": 1659,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegQueryValueExW",
+      "ordinal": 1660,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegQueryValueW",
+      "ordinal": 1661,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegRenameKey",
+      "ordinal": 1662,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegReplaceKeyA",
+      "ordinal": 1663,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegReplaceKeyW",
+      "ordinal": 1664,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegRestoreKeyA",
+      "ordinal": 1665,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegRestoreKeyW",
+      "ordinal": 1666,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSaveKeyA",
+      "ordinal": 1667,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSaveKeyExA",
+      "ordinal": 1668,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSaveKeyExW",
+      "ordinal": 1669,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSaveKeyW",
+      "ordinal": 1670,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSetKeySecurity",
+      "ordinal": 1671,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSetKeyValueA",
+      "ordinal": 1672,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSetKeyValueW",
+      "ordinal": 1673,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSetValueA",
+      "ordinal": 1674,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSetValueExA",
+      "ordinal": 1675,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSetValueExW",
+      "ordinal": 1676,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegSetValueW",
+      "ordinal": 1677,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegUnLoadKeyA",
+      "ordinal": 1678,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegUnLoadKeyW",
+      "ordinal": 1679,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterEventSourceA",
+      "ordinal": 1680,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterEventSourceW",
+      "ordinal": 1681,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterIdleTask",
+      "ordinal": 1682,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterServiceCtrlHandlerA",
+      "ordinal": 1683,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterServiceCtrlHandlerExA",
+      "ordinal": 1684,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterServiceCtrlHandlerExW",
+      "ordinal": 1685,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterServiceCtrlHandlerW",
+      "ordinal": 1686,
+      "is_forwarder": false
+    },
+    {
+      "name": "ntdll.EtwRegisterTraceGuidsA)",
+      "ordinal": 1687,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwRegisterTraceGuidsW)",
+      "ordinal": 1688,
+      "is_forwarder": true
+    },
+    {
+      "name": "RegisterWaitChainCOMCallback",
+      "ordinal": 1689,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoteRegEnumKeyWrapper",
+      "ordinal": 1690,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoteRegEnumValueWrapper",
+      "ordinal": 1691,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoteRegQueryInfoKeyWrapper",
+      "ordinal": 1692,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoteRegQueryMultipleValues2Wrapper",
+      "ordinal": 1693,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoteRegQueryMultipleValuesWrapper",
+      "ordinal": 1694,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoteRegQueryValueWrapper",
+      "ordinal": 1695,
+      "is_forwarder": false
+    },
+    {
+      "name": "sechost.RemoveTraceCallback)",
+      "ordinal": 1696,
+      "is_forwarder": true
+    },
+    {
+      "name": "RemoveUsersFromEncryptedFile",
+      "ordinal": 1697,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReportEventA",
+      "ordinal": 1698,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReportEventW",
+      "ordinal": 1699,
+      "is_forwarder": false
+    },
+    {
+      "name": "RevertToSelf",
+      "ordinal": 1700,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeBaseRegGetKeySecurity",
+      "ordinal": 1701,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferCloseLevel",
+      "ordinal": 1702,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferComputeTokenFromLevel",
+      "ordinal": 1703,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferCreateLevel",
+      "ordinal": 1704,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferGetLevelInformation",
+      "ordinal": 1705,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferGetPolicyInformation",
+      "ordinal": 1706,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferIdentifyLevel",
+      "ordinal": 1707,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferRecordEventLogEntry",
+      "ordinal": 1708,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferSetLevelInformation",
+      "ordinal": 1709,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferSetPolicyInformation",
+      "ordinal": 1710,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferiChangeRegistryScope",
+      "ordinal": 1711,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferiCompareTokenLevels",
+      "ordinal": 1712,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferiIsDllAllowed",
+      "ordinal": 1713,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferiIsExecutableFileType",
+      "ordinal": 1714,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferiPopulateDefaultsInRegistry",
+      "ordinal": 1715,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferiRecordEventLogEntry",
+      "ordinal": 1716,
+      "is_forwarder": false
+    },
+    {
+      "name": "SaferiSearchMatchingHashRules",
+      "ordinal": 1717,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetAclInformation",
+      "ordinal": 1718,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetEncryptedFileMetadata",
+      "ordinal": 1719,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetEntriesInAccessListA",
+      "ordinal": 1720,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetEntriesInAccessListW",
+      "ordinal": 1721,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetEntriesInAclA",
+      "ordinal": 1722,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetEntriesInAclW",
+      "ordinal": 1723,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetEntriesInAuditListA",
+      "ordinal": 1724,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetEntriesInAuditListW",
+      "ordinal": 1725,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileSecurityA",
+      "ordinal": 1726,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFileSecurityW",
+      "ordinal": 1727,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetInformationCodeAuthzLevelW",
+      "ordinal": 1728,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetInformationCodeAuthzPolicyW",
+      "ordinal": 1729,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetKernelObjectSecurity",
+      "ordinal": 1730,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetNamedSecurityInfoA",
+      "ordinal": 1731,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetNamedSecurityInfoExA",
+      "ordinal": 1732,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetNamedSecurityInfoExW",
+      "ordinal": 1733,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetNamedSecurityInfoW",
+      "ordinal": 1734,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetPrivateObjectSecurity",
+      "ordinal": 1735,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetPrivateObjectSecurityEx",
+      "ordinal": 1736,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSecurityAccessMask",
+      "ordinal": 1737,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSecurityDescriptorControl",
+      "ordinal": 1738,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSecurityDescriptorDacl",
+      "ordinal": 1739,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSecurityDescriptorGroup",
+      "ordinal": 1740,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSecurityDescriptorOwner",
+      "ordinal": 1741,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSecurityDescriptorRMControl",
+      "ordinal": 1742,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSecurityDescriptorSacl",
+      "ordinal": 1743,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSecurityInfo",
+      "ordinal": 1744,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSecurityInfoExA",
+      "ordinal": 1745,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSecurityInfoExW",
+      "ordinal": 1746,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetServiceBits",
+      "ordinal": 1747,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetServiceObjectSecurity",
+      "ordinal": 1748,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetServiceStatus",
+      "ordinal": 1749,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadToken",
+      "ordinal": 1750,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetTokenInformation",
+      "ordinal": 1751,
+      "is_forwarder": false
+    },
+    {
+      "name": "sechost.SetTraceCallback)",
+      "ordinal": 1752,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetUserFileEncryptionKey",
+      "ordinal": 1753,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetUserFileEncryptionKeyEx",
+      "ordinal": 1754,
+      "is_forwarder": false
+    },
+    {
+      "name": "StartServiceA",
+      "ordinal": 1755,
+      "is_forwarder": false
+    },
+    {
+      "name": "StartServiceCtrlDispatcherA",
+      "ordinal": 1756,
+      "is_forwarder": false
+    },
+    {
+      "name": "StartServiceCtrlDispatcherW",
+      "ordinal": 1757,
+      "is_forwarder": false
+    },
+    {
+      "name": "StartServiceW",
+      "ordinal": 1758,
+      "is_forwarder": false
+    },
+    {
+      "name": "StartTraceA",
+      "ordinal": 1759,
+      "is_forwarder": false
+    },
+    {
+      "name": "StartTraceW",
+      "ordinal": 1760,
+      "is_forwarder": false
+    },
+    {
+      "name": "StopTraceA",
+      "ordinal": 1761,
+      "is_forwarder": false
+    },
+    {
+      "name": "StopTraceW",
+      "ordinal": 1762,
+      "is_forwarder": false
+    },
+    {
+      "name": "CRYPTBASE.SystemFunction001)",
+      "ordinal": 1763,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTBASE.SystemFunction002)",
+      "ordinal": 1764,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTBASE.SystemFunction003)",
+      "ordinal": 1765,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTBASE.SystemFunction004)",
+      "ordinal": 1766,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTBASE.SystemFunction005)",
+      "ordinal": 1767,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction006)",
+      "ordinal": 1768,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction007)",
+      "ordinal": 1769,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction008)",
+      "ordinal": 1770,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction009)",
+      "ordinal": 1771,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction010)",
+      "ordinal": 1772,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction011)",
+      "ordinal": 1773,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction012)",
+      "ordinal": 1774,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction013)",
+      "ordinal": 1775,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction014)",
+      "ordinal": 1776,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction015)",
+      "ordinal": 1777,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction016)",
+      "ordinal": 1778,
+      "is_forwarder": true
+    },
+    {
+      "name": "SystemFunction017",
+      "ordinal": 1779,
+      "is_forwarder": false
+    },
+    {
+      "name": "CRYPTSP.SystemFunction018)",
+      "ordinal": 1780,
+      "is_forwarder": true
+    },
+    {
+      "name": "SystemFunction019",
+      "ordinal": 1781,
+      "is_forwarder": false
+    },
+    {
+      "name": "CRYPTSP.SystemFunction020)",
+      "ordinal": 1782,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction021)",
+      "ordinal": 1783,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction022)",
+      "ordinal": 1784,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction023)",
+      "ordinal": 1785,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction024)",
+      "ordinal": 1786,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction025)",
+      "ordinal": 1787,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction026)",
+      "ordinal": 1788,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction027)",
+      "ordinal": 1789,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTBASE.SystemFunction028)",
+      "ordinal": 1790,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTBASE.SystemFunction029)",
+      "ordinal": 1791,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction030)",
+      "ordinal": 1792,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction031)",
+      "ordinal": 1793,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction032)",
+      "ordinal": 1794,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.SystemFunction033)",
+      "ordinal": 1795,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTBASE.SystemFunction034)",
+      "ordinal": 1796,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTSP.CheckSignatureInFile)",
+      "ordinal": 1797,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTBASE.SystemFunction036)",
+      "ordinal": 1798,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTBASE.SystemFunction040)",
+      "ordinal": 1799,
+      "is_forwarder": true
+    },
+    {
+      "name": "CRYPTBASE.SystemFunction041)",
+      "ordinal": 1800,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwLogTraceEvent)",
+      "ordinal": 1801,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwTraceEventInstance)",
+      "ordinal": 1802,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwTraceMessage)",
+      "ordinal": 1803,
+      "is_forwarder": true
+    },
+    {
+      "name": "ntdll.EtwTraceMessageVa)",
+      "ordinal": 1804,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-eventing-controller-l1-1-0.TraceQueryInformation)",
+      "ordinal": 1805,
+      "is_forwarder": true
+    },
+    {
+      "name": "TraceSetInformation",
+      "ordinal": 1806,
+      "is_forwarder": false
+    },
+    {
+      "name": "TreeResetNamedSecurityInfoA",
+      "ordinal": 1807,
+      "is_forwarder": false
+    },
+    {
+      "name": "TreeResetNamedSecurityInfoW",
+      "ordinal": 1808,
+      "is_forwarder": false
+    },
+    {
+      "name": "TreeSetNamedSecurityInfoA",
+      "ordinal": 1809,
+      "is_forwarder": false
+    },
+    {
+      "name": "TreeSetNamedSecurityInfoW",
+      "ordinal": 1810,
+      "is_forwarder": false
+    },
+    {
+      "name": "TrusteeAccessToObjectA",
+      "ordinal": 1811,
+      "is_forwarder": false
+    },
+    {
+      "name": "TrusteeAccessToObjectW",
+      "ordinal": 1812,
+      "is_forwarder": false
+    },
+    {
+      "name": "UninstallApplication",
+      "ordinal": 1813,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnlockServiceDatabase",
+      "ordinal": 1814,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterIdleTask",
+      "ordinal": 1815,
+      "is_forwarder": false
+    },
+    {
+      "name": "ntdll.EtwUnregisterTraceGuids)",
+      "ordinal": 1816,
+      "is_forwarder": true
+    },
+    {
+      "name": "UpdateTraceA",
+      "ordinal": 1817,
+      "is_forwarder": false
+    },
+    {
+      "name": "UpdateTraceW",
+      "ordinal": 1818,
+      "is_forwarder": false
+    },
+    {
+      "name": "UsePinForEncryptedFilesA",
+      "ordinal": 1819,
+      "is_forwarder": false
+    },
+    {
+      "name": "UsePinForEncryptedFilesW",
+      "ordinal": 1820,
+      "is_forwarder": false
+    },
+    {
+      "name": "WaitServiceState",
+      "ordinal": 1821,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiCloseBlock",
+      "ordinal": 1822,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiDevInstToInstanceNameA",
+      "ordinal": 1823,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiDevInstToInstanceNameW",
+      "ordinal": 1824,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiEnumerateGuids",
+      "ordinal": 1825,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiExecuteMethodA",
+      "ordinal": 1826,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiExecuteMethodW",
+      "ordinal": 1827,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiFileHandleToInstanceNameA",
+      "ordinal": 1828,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiFileHandleToInstanceNameW",
+      "ordinal": 1829,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiFreeBuffer",
+      "ordinal": 1830,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiMofEnumerateResourcesA",
+      "ordinal": 1831,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiMofEnumerateResourcesW",
+      "ordinal": 1832,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiNotificationRegistrationA",
+      "ordinal": 1833,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiNotificationRegistrationW",
+      "ordinal": 1834,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiOpenBlock",
+      "ordinal": 1835,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiQueryAllDataA",
+      "ordinal": 1836,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiQueryAllDataMultipleA",
+      "ordinal": 1837,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiQueryAllDataMultipleW",
+      "ordinal": 1838,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiQueryAllDataW",
+      "ordinal": 1839,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiQueryGuidInformation",
+      "ordinal": 1840,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiQuerySingleInstanceA",
+      "ordinal": 1841,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiQuerySingleInstanceMultipleA",
+      "ordinal": 1842,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiQuerySingleInstanceMultipleW",
+      "ordinal": 1843,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiQuerySingleInstanceW",
+      "ordinal": 1844,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiReceiveNotificationsA",
+      "ordinal": 1845,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiReceiveNotificationsW",
+      "ordinal": 1846,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiSetSingleInstanceA",
+      "ordinal": 1847,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiSetSingleInstanceW",
+      "ordinal": 1848,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiSetSingleItemA",
+      "ordinal": 1849,
+      "is_forwarder": false
+    },
+    {
+      "name": "WmiSetSingleItemW",
+      "ordinal": 1850,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteEncryptedFileRaw",
+      "ordinal": 1851,
+      "is_forwarder": false
+    }
+  ]
+}

@@ -1,0 +1,2130 @@
+{
+  "dll": "oleaut32.dll",
+  "exports": [
+    {
+      "name": "BSTR_UserFree",
+      "ordinal": 286,
+      "is_forwarder": false
+    },
+    {
+      "name": "BSTR_UserFree64",
+      "ordinal": 144,
+      "is_forwarder": false
+    },
+    {
+      "name": "BSTR_UserMarshal",
+      "ordinal": 284,
+      "is_forwarder": false
+    },
+    {
+      "name": "BSTR_UserMarshal64",
+      "ordinal": 145,
+      "is_forwarder": false
+    },
+    {
+      "name": "BSTR_UserSize",
+      "ordinal": 283,
+      "is_forwarder": false
+    },
+    {
+      "name": "BSTR_UserSize64",
+      "ordinal": 151,
+      "is_forwarder": false
+    },
+    {
+      "name": "BSTR_UserUnmarshal",
+      "ordinal": 285,
+      "is_forwarder": false
+    },
+    {
+      "name": "BSTR_UserUnmarshal64",
+      "ordinal": 300,
+      "is_forwarder": false
+    },
+    {
+      "name": "BstrFromVector",
+      "ordinal": 414,
+      "is_forwarder": false
+    },
+    {
+      "name": "ClearCustData",
+      "ordinal": 171,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDispTypeInfo",
+      "ordinal": 31,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateErrorInfo",
+      "ordinal": 202,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateStdDispatch",
+      "ordinal": 32,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateTypeLib",
+      "ordinal": 160,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateTypeLib2",
+      "ordinal": 180,
+      "is_forwarder": false
+    },
+    {
+      "name": "DispCallFunc",
+      "ordinal": 146,
+      "is_forwarder": false
+    },
+    {
+      "name": "DispGetIDsOfNames",
+      "ordinal": 29,
+      "is_forwarder": false
+    },
+    {
+      "name": "DispGetParam",
+      "ordinal": 28,
+      "is_forwarder": false
+    },
+    {
+      "name": "DispInvoke",
+      "ordinal": 30,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllCanUnloadNow",
+      "ordinal": 301,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllGetClassObject",
+      "ordinal": 302,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllRegisterServer",
+      "ordinal": 320,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllUnregisterServer",
+      "ordinal": 321,
+      "is_forwarder": false
+    },
+    {
+      "name": "DosDateTimeToVariantTime",
+      "ordinal": 14,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetActiveObject",
+      "ordinal": 35,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAltMonthNames",
+      "ordinal": 332,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetErrorInfo",
+      "ordinal": 200,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetRecordInfoFromGuids",
+      "ordinal": 322,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetRecordInfoFromTypeInfo",
+      "ordinal": 323,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetVarConversionLocaleSetting",
+      "ordinal": 326,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.HWND_UserFree)",
+      "ordinal": 445,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HWND_UserFree64)",
+      "ordinal": 449,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HWND_UserMarshal)",
+      "ordinal": 446,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HWND_UserMarshal64)",
+      "ordinal": 450,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HWND_UserSize)",
+      "ordinal": 447,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HWND_UserSize64)",
+      "ordinal": 451,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HWND_UserUnmarshal)",
+      "ordinal": 448,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HWND_UserUnmarshal64)",
+      "ordinal": 452,
+      "is_forwarder": true
+    },
+    {
+      "name": "LHashValOfNameSys",
+      "ordinal": 165,
+      "is_forwarder": false
+    },
+    {
+      "name": "LHashValOfNameSysA",
+      "ordinal": 166,
+      "is_forwarder": false
+    },
+    {
+      "name": "LPSAFEARRAY_Marshal",
+      "ordinal": 296,
+      "is_forwarder": false
+    },
+    {
+      "name": "LPSAFEARRAY_Size",
+      "ordinal": 295,
+      "is_forwarder": false
+    },
+    {
+      "name": "LPSAFEARRAY_Unmarshal",
+      "ordinal": 297,
+      "is_forwarder": false
+    },
+    {
+      "name": "LPSAFEARRAY_UserFree",
+      "ordinal": 294,
+      "is_forwarder": false
+    },
+    {
+      "name": "LPSAFEARRAY_UserFree64",
+      "ordinal": 324,
+      "is_forwarder": false
+    },
+    {
+      "name": "LPSAFEARRAY_UserMarshal",
+      "ordinal": 292,
+      "is_forwarder": false
+    },
+    {
+      "name": "LPSAFEARRAY_UserMarshal64",
+      "ordinal": 328,
+      "is_forwarder": false
+    },
+    {
+      "name": "LPSAFEARRAY_UserSize",
+      "ordinal": 291,
+      "is_forwarder": false
+    },
+    {
+      "name": "LPSAFEARRAY_UserSize64",
+      "ordinal": 350,
+      "is_forwarder": false
+    },
+    {
+      "name": "LPSAFEARRAY_UserUnmarshal",
+      "ordinal": 293,
+      "is_forwarder": false
+    },
+    {
+      "name": "LPSAFEARRAY_UserUnmarshal64",
+      "ordinal": 351,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadRegTypeLib",
+      "ordinal": 162,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadTypeLib",
+      "ordinal": 161,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadTypeLibEx",
+      "ordinal": 183,
+      "is_forwarder": false
+    },
+    {
+      "name": "OACleanup",
+      "ordinal": 500,
+      "is_forwarder": false
+    },
+    {
+      "name": "OACreateTypeLib2",
+      "ordinal": 352,
+      "is_forwarder": false
+    },
+    {
+      "name": "OaBuildVersion",
+      "ordinal": 170,
+      "is_forwarder": false
+    },
+    {
+      "name": "OaEnablePerUserTLibRegistration",
+      "ordinal": 444,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateFontIndirect",
+      "ordinal": 420,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreatePictureIndirect",
+      "ordinal": 419,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreatePropertyFrame",
+      "ordinal": 417,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreatePropertyFrameIndirect",
+      "ordinal": 416,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleIconToCursor",
+      "ordinal": 415,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleLoadPicture",
+      "ordinal": 418,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleLoadPictureEx",
+      "ordinal": 401,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleLoadPictureFile",
+      "ordinal": 422,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleLoadPictureFileEx",
+      "ordinal": 402,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleLoadPicturePath",
+      "ordinal": 424,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleSavePictureFile",
+      "ordinal": 423,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleTranslateColor",
+      "ordinal": 421,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryPathOfRegTypeLib",
+      "ordinal": 164,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterActiveObject",
+      "ordinal": 33,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterTypeLib",
+      "ordinal": 163,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterTypeLibForUser",
+      "ordinal": 442,
+      "is_forwarder": false
+    },
+    {
+      "name": "RevokeActiveObject",
+      "ordinal": 34,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayAccessData",
+      "ordinal": 23,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayAddRef",
+      "ordinal": 353,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayAllocData",
+      "ordinal": 37,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayAllocDescriptor",
+      "ordinal": 36,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayAllocDescriptorEx",
+      "ordinal": 41,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayCopy",
+      "ordinal": 27,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayCopyData",
+      "ordinal": 412,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayCreate",
+      "ordinal": 15,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayCreateEx",
+      "ordinal": 42,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayCreateVector",
+      "ordinal": 411,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayCreateVectorEx",
+      "ordinal": 43,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayDestroy",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayDestroyData",
+      "ordinal": 39,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayDestroyDescriptor",
+      "ordinal": 38,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayGetDim",
+      "ordinal": 17,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayGetElement",
+      "ordinal": 25,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayGetElemsize",
+      "ordinal": 18,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayGetIID",
+      "ordinal": 67,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayGetLBound",
+      "ordinal": 20,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayGetRecordInfo",
+      "ordinal": 45,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayGetUBound",
+      "ordinal": 19,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayGetVartype",
+      "ordinal": 77,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayLock",
+      "ordinal": 21,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayPtrOfIndex",
+      "ordinal": 148,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayPutElement",
+      "ordinal": 26,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayRedim",
+      "ordinal": 40,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayReleaseData",
+      "ordinal": 354,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayReleaseDescriptor",
+      "ordinal": 355,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArraySetIID",
+      "ordinal": 57,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArraySetRecordInfo",
+      "ordinal": 44,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayUnaccessData",
+      "ordinal": 24,
+      "is_forwarder": false
+    },
+    {
+      "name": "SafeArrayUnlock",
+      "ordinal": 22,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetErrorInfo",
+      "ordinal": 201,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetOaNoCache",
+      "ordinal": 327,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetVarConversionLocaleSetting",
+      "ordinal": 325,
+      "is_forwarder": false
+    },
+    {
+      "name": "SysAddRefString",
+      "ordinal": 356,
+      "is_forwarder": false
+    },
+    {
+      "name": "SysAllocString",
+      "ordinal": 2,
+      "is_forwarder": false
+    },
+    {
+      "name": "SysAllocStringByteLen",
+      "ordinal": 150,
+      "is_forwarder": false
+    },
+    {
+      "name": "SysAllocStringLen",
+      "ordinal": 4,
+      "is_forwarder": false
+    },
+    {
+      "name": "SysFreeString",
+      "ordinal": 6,
+      "is_forwarder": false
+    },
+    {
+      "name": "SysReAllocString",
+      "ordinal": 3,
+      "is_forwarder": false
+    },
+    {
+      "name": "SysReAllocStringLen",
+      "ordinal": 5,
+      "is_forwarder": false
+    },
+    {
+      "name": "SysReleaseString",
+      "ordinal": 357,
+      "is_forwarder": false
+    },
+    {
+      "name": "SysStringByteLen",
+      "ordinal": 149,
+      "is_forwarder": false
+    },
+    {
+      "name": "SysStringLen",
+      "ordinal": 7,
+      "is_forwarder": false
+    },
+    {
+      "name": "SystemTimeToVariantTime",
+      "ordinal": 184,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnRegisterTypeLib",
+      "ordinal": 186,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnRegisterTypeLibForUser",
+      "ordinal": 443,
+      "is_forwarder": false
+    },
+    {
+      "name": "VARIANT_UserFree",
+      "ordinal": 290,
+      "is_forwarder": false
+    },
+    {
+      "name": "VARIANT_UserFree64",
+      "ordinal": 358,
+      "is_forwarder": false
+    },
+    {
+      "name": "VARIANT_UserMarshal",
+      "ordinal": 288,
+      "is_forwarder": false
+    },
+    {
+      "name": "VARIANT_UserMarshal64",
+      "ordinal": 359,
+      "is_forwarder": false
+    },
+    {
+      "name": "VARIANT_UserSize",
+      "ordinal": 287,
+      "is_forwarder": false
+    },
+    {
+      "name": "VARIANT_UserSize64",
+      "ordinal": 380,
+      "is_forwarder": false
+    },
+    {
+      "name": "VARIANT_UserUnmarshal",
+      "ordinal": 289,
+      "is_forwarder": false
+    },
+    {
+      "name": "VARIANT_UserUnmarshal64",
+      "ordinal": 381,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarAbs",
+      "ordinal": 168,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarAdd",
+      "ordinal": 141,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarAnd",
+      "ordinal": 142,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromCy",
+      "ordinal": 124,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromDate",
+      "ordinal": 123,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromDec",
+      "ordinal": 236,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromDisp",
+      "ordinal": 126,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromI1",
+      "ordinal": 233,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromI2",
+      "ordinal": 119,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromI4",
+      "ordinal": 120,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromI8",
+      "ordinal": 370,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromR4",
+      "ordinal": 121,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromR8",
+      "ordinal": 122,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromStr",
+      "ordinal": 125,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromUI1",
+      "ordinal": 118,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromUI2",
+      "ordinal": 234,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromUI4",
+      "ordinal": 235,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBoolFromUI8",
+      "ordinal": 371,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrCat",
+      "ordinal": 313,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrCmp",
+      "ordinal": 314,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromBool",
+      "ordinal": 116,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromCy",
+      "ordinal": 113,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromDate",
+      "ordinal": 114,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromDec",
+      "ordinal": 232,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromDisp",
+      "ordinal": 115,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromI1",
+      "ordinal": 229,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromI2",
+      "ordinal": 109,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromI4",
+      "ordinal": 110,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromI8",
+      "ordinal": 368,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromR4",
+      "ordinal": 111,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromR8",
+      "ordinal": 112,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromUI1",
+      "ordinal": 108,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromUI2",
+      "ordinal": 230,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromUI4",
+      "ordinal": 231,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarBstrFromUI8",
+      "ordinal": 369,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCat",
+      "ordinal": 318,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCmp",
+      "ordinal": 176,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyAbs",
+      "ordinal": 306,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyAdd",
+      "ordinal": 299,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyCmp",
+      "ordinal": 311,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyCmpR8",
+      "ordinal": 312,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFix",
+      "ordinal": 307,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromBool",
+      "ordinal": 106,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromDate",
+      "ordinal": 103,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromDec",
+      "ordinal": 228,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromDisp",
+      "ordinal": 105,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromI1",
+      "ordinal": 225,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromI2",
+      "ordinal": 99,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromI4",
+      "ordinal": 100,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromI8",
+      "ordinal": 366,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromR4",
+      "ordinal": 101,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromR8",
+      "ordinal": 102,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromStr",
+      "ordinal": 104,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromUI1",
+      "ordinal": 98,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromUI2",
+      "ordinal": 226,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromUI4",
+      "ordinal": 227,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyFromUI8",
+      "ordinal": 367,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyInt",
+      "ordinal": 308,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyMul",
+      "ordinal": 303,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyMulI4",
+      "ordinal": 304,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyMulI8",
+      "ordinal": 329,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyNeg",
+      "ordinal": 309,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCyRound",
+      "ordinal": 310,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarCySub",
+      "ordinal": 305,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromBool",
+      "ordinal": 96,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromCy",
+      "ordinal": 93,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromDec",
+      "ordinal": 224,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromDisp",
+      "ordinal": 95,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromI1",
+      "ordinal": 221,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromI2",
+      "ordinal": 89,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromI4",
+      "ordinal": 90,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromI8",
+      "ordinal": 364,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromR4",
+      "ordinal": 91,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromR8",
+      "ordinal": 92,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromStr",
+      "ordinal": 94,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromUI1",
+      "ordinal": 88,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromUI2",
+      "ordinal": 222,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromUI4",
+      "ordinal": 223,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromUI8",
+      "ordinal": 365,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromUdate",
+      "ordinal": 330,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDateFromUdateEx",
+      "ordinal": 319,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecAbs",
+      "ordinal": 182,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecAdd",
+      "ordinal": 177,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecCmp",
+      "ordinal": 204,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecCmpR8",
+      "ordinal": 298,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecDiv",
+      "ordinal": 178,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFix",
+      "ordinal": 187,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromBool",
+      "ordinal": 199,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromCy",
+      "ordinal": 196,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromDate",
+      "ordinal": 195,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromDisp",
+      "ordinal": 198,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromI1",
+      "ordinal": 241,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromI2",
+      "ordinal": 191,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromI4",
+      "ordinal": 192,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromI8",
+      "ordinal": 374,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromR4",
+      "ordinal": 193,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromR8",
+      "ordinal": 194,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromStr",
+      "ordinal": 197,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromUI1",
+      "ordinal": 190,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromUI2",
+      "ordinal": 242,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromUI4",
+      "ordinal": 243,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecFromUI8",
+      "ordinal": 375,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecInt",
+      "ordinal": 188,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecMul",
+      "ordinal": 179,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecNeg",
+      "ordinal": 189,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecRound",
+      "ordinal": 203,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDecSub",
+      "ordinal": 181,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarDiv",
+      "ordinal": 143,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarEqv",
+      "ordinal": 152,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarFix",
+      "ordinal": 169,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarFormat",
+      "ordinal": 87,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarFormatCurrency",
+      "ordinal": 127,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarFormatDateTime",
+      "ordinal": 97,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarFormatFromTokens",
+      "ordinal": 139,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarFormatNumber",
+      "ordinal": 107,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarFormatPercent",
+      "ordinal": 117,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromBool",
+      "ordinal": 253,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromCy",
+      "ordinal": 250,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromDate",
+      "ordinal": 249,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromDec",
+      "ordinal": 256,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromDisp",
+      "ordinal": 252,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromI2",
+      "ordinal": 245,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromI4",
+      "ordinal": 246,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromI8",
+      "ordinal": 376,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromR4",
+      "ordinal": 247,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromR8",
+      "ordinal": 248,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromStr",
+      "ordinal": 251,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromUI1",
+      "ordinal": 244,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromUI2",
+      "ordinal": 254,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromUI4",
+      "ordinal": 255,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI1FromUI8",
+      "ordinal": 377,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromBool",
+      "ordinal": 56,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromCy",
+      "ordinal": 52,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromDate",
+      "ordinal": 53,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromDec",
+      "ordinal": 208,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromDisp",
+      "ordinal": 55,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromI1",
+      "ordinal": 205,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromI4",
+      "ordinal": 49,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromI8",
+      "ordinal": 346,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromR4",
+      "ordinal": 50,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromR8",
+      "ordinal": 51,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromStr",
+      "ordinal": 54,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromUI1",
+      "ordinal": 48,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromUI2",
+      "ordinal": 206,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromUI4",
+      "ordinal": 207,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI2FromUI8",
+      "ordinal": 347,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromBool",
+      "ordinal": 66,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromCy",
+      "ordinal": 62,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromDate",
+      "ordinal": 63,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromDec",
+      "ordinal": 212,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromDisp",
+      "ordinal": 65,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromI1",
+      "ordinal": 209,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromI2",
+      "ordinal": 59,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromI8",
+      "ordinal": 348,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromR4",
+      "ordinal": 60,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromR8",
+      "ordinal": 61,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromStr",
+      "ordinal": 64,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromUI1",
+      "ordinal": 58,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromUI2",
+      "ordinal": 210,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromUI4",
+      "ordinal": 211,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI4FromUI8",
+      "ordinal": 349,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI8FromBool",
+      "ordinal": 341,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI8FromCy",
+      "ordinal": 337,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI8FromDate",
+      "ordinal": 338,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI8FromDec",
+      "ordinal": 345,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI8FromDisp",
+      "ordinal": 340,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI8FromI1",
+      "ordinal": 342,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI8FromI2",
+      "ordinal": 334,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI8FromR4",
+      "ordinal": 335,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI8FromR8",
+      "ordinal": 336,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI8FromStr",
+      "ordinal": 339,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI8FromUI1",
+      "ordinal": 333,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI8FromUI2",
+      "ordinal": 343,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI8FromUI4",
+      "ordinal": 344,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarI8FromUI8",
+      "ordinal": 427,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarIdiv",
+      "ordinal": 153,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarImp",
+      "ordinal": 154,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarInt",
+      "ordinal": 172,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarMod",
+      "ordinal": 155,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarMonthName",
+      "ordinal": 129,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarMul",
+      "ordinal": 156,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarNeg",
+      "ordinal": 173,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarNot",
+      "ordinal": 174,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarNumFromParseNum",
+      "ordinal": 47,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarOr",
+      "ordinal": 157,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarParseNumFromStr",
+      "ordinal": 46,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarPow",
+      "ordinal": 158,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4CmpR8",
+      "ordinal": 316,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromBool",
+      "ordinal": 76,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromCy",
+      "ordinal": 72,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromDate",
+      "ordinal": 73,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromDec",
+      "ordinal": 216,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromDisp",
+      "ordinal": 75,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromI1",
+      "ordinal": 213,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromI2",
+      "ordinal": 69,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromI4",
+      "ordinal": 70,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromI8",
+      "ordinal": 360,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromR8",
+      "ordinal": 71,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromStr",
+      "ordinal": 74,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromUI1",
+      "ordinal": 68,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromUI2",
+      "ordinal": 214,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromUI4",
+      "ordinal": 215,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR4FromUI8",
+      "ordinal": 361,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromBool",
+      "ordinal": 86,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromCy",
+      "ordinal": 82,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromDate",
+      "ordinal": 83,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromDec",
+      "ordinal": 220,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromDisp",
+      "ordinal": 85,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromI1",
+      "ordinal": 217,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromI2",
+      "ordinal": 79,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromI4",
+      "ordinal": 80,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromI8",
+      "ordinal": 362,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromR4",
+      "ordinal": 81,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromStr",
+      "ordinal": 84,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromUI1",
+      "ordinal": 78,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromUI2",
+      "ordinal": 218,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromUI4",
+      "ordinal": 219,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8FromUI8",
+      "ordinal": 363,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8Pow",
+      "ordinal": 315,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarR8Round",
+      "ordinal": 317,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarRound",
+      "ordinal": 175,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarSub",
+      "ordinal": 159,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarTokenizeFormatString",
+      "ordinal": 140,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromBool",
+      "ordinal": 138,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromCy",
+      "ordinal": 134,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromDate",
+      "ordinal": 135,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromDec",
+      "ordinal": 240,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromDisp",
+      "ordinal": 137,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromI1",
+      "ordinal": 237,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromI2",
+      "ordinal": 130,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromI4",
+      "ordinal": 131,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromI8",
+      "ordinal": 372,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromR4",
+      "ordinal": 132,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromR8",
+      "ordinal": 133,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromStr",
+      "ordinal": 136,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromUI2",
+      "ordinal": 238,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromUI4",
+      "ordinal": 239,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI1FromUI8",
+      "ordinal": 373,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromBool",
+      "ordinal": 266,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromCy",
+      "ordinal": 263,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromDate",
+      "ordinal": 262,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromDec",
+      "ordinal": 269,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromDisp",
+      "ordinal": 265,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromI1",
+      "ordinal": 267,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromI2",
+      "ordinal": 258,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromI4",
+      "ordinal": 259,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromI8",
+      "ordinal": 378,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromR4",
+      "ordinal": 260,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromR8",
+      "ordinal": 261,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromStr",
+      "ordinal": 264,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromUI1",
+      "ordinal": 257,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromUI4",
+      "ordinal": 268,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI2FromUI8",
+      "ordinal": 379,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromBool",
+      "ordinal": 279,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromCy",
+      "ordinal": 276,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromDate",
+      "ordinal": 275,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromDec",
+      "ordinal": 282,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromDisp",
+      "ordinal": 278,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromI1",
+      "ordinal": 280,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromI2",
+      "ordinal": 271,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromI4",
+      "ordinal": 272,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromI8",
+      "ordinal": 425,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromR4",
+      "ordinal": 273,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromR8",
+      "ordinal": 274,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromStr",
+      "ordinal": 277,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromUI1",
+      "ordinal": 270,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromUI2",
+      "ordinal": 281,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI4FromUI8",
+      "ordinal": 426,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI8FromBool",
+      "ordinal": 437,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI8FromCy",
+      "ordinal": 433,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI8FromDate",
+      "ordinal": 434,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI8FromDec",
+      "ordinal": 441,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI8FromDisp",
+      "ordinal": 436,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI8FromI1",
+      "ordinal": 438,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI8FromI2",
+      "ordinal": 430,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI8FromI8",
+      "ordinal": 428,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI8FromR4",
+      "ordinal": 431,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI8FromR8",
+      "ordinal": 432,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI8FromStr",
+      "ordinal": 435,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI8FromUI1",
+      "ordinal": 429,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI8FromUI2",
+      "ordinal": 439,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUI8FromUI4",
+      "ordinal": 440,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarUdateFromDate",
+      "ordinal": 331,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarWeekdayName",
+      "ordinal": 128,
+      "is_forwarder": false
+    },
+    {
+      "name": "VarXor",
+      "ordinal": 167,
+      "is_forwarder": false
+    },
+    {
+      "name": "VariantChangeType",
+      "ordinal": 12,
+      "is_forwarder": false
+    },
+    {
+      "name": "VariantChangeTypeEx",
+      "ordinal": 147,
+      "is_forwarder": false
+    },
+    {
+      "name": "VariantClear",
+      "ordinal": 9,
+      "is_forwarder": false
+    },
+    {
+      "name": "VariantCopy",
+      "ordinal": 10,
+      "is_forwarder": false
+    },
+    {
+      "name": "VariantCopyInd",
+      "ordinal": 11,
+      "is_forwarder": false
+    },
+    {
+      "name": "VariantInit",
+      "ordinal": 8,
+      "is_forwarder": false
+    },
+    {
+      "name": "VariantTimeToDosDateTime",
+      "ordinal": 13,
+      "is_forwarder": false
+    },
+    {
+      "name": "VariantTimeToSystemTime",
+      "ordinal": 185,
+      "is_forwarder": false
+    },
+    {
+      "name": "VectorFromBstr",
+      "ordinal": 413,
+      "is_forwarder": false
+    }
+  ]
+}

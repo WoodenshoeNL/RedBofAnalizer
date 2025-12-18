@@ -1,0 +1,1790 @@
+{
+  "dll": "dnsapi.dll",
+  "exports": [
+    {
+      "name": "AdaptiveTimeout_ClearInterfaceSpecificConfiguration",
+      "ordinal": 11,
+      "is_forwarder": false
+    },
+    {
+      "name": "AdaptiveTimeout_ResetAdaptiveTimeout",
+      "ordinal": 12,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddRefQueryBlobEx",
+      "ordinal": 13,
+      "is_forwarder": false
+    },
+    {
+      "name": "BreakRecordsIntoBlob",
+      "ordinal": 14,
+      "is_forwarder": false
+    },
+    {
+      "name": "Coalesce_UpdateNetVersion",
+      "ordinal": 15,
+      "is_forwarder": false
+    },
+    {
+      "name": "CombineRecordsInBlob",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateSendBlob",
+      "ordinal": 17,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeRefQueryBlobEx",
+      "ordinal": 18,
+      "is_forwarder": false
+    },
+    {
+      "name": "DelaySortDAServerlist",
+      "ordinal": 19,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsAcquireContextHandle_A",
+      "ordinal": 20,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsAcquireContextHandle_W",
+      "ordinal": 21,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsAddrArrayAddAddr",
+      "ordinal": 22,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsAddrArrayAddIp4",
+      "ordinal": 23,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsAddrArrayCreate",
+      "ordinal": 24,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsAddrBuildFromDnsRecord",
+      "ordinal": 25,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsAllocateRecord",
+      "ordinal": 26,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsApiAlloc",
+      "ordinal": 27,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsApiAllocZero",
+      "ordinal": 28,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsApiFree",
+      "ordinal": 29,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsApiHeapReset",
+      "ordinal": 30,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsApiOnNetworkChange",
+      "ordinal": 31,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsApiRealloc",
+      "ordinal": 32,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsApiSetDebugGlobals",
+      "ordinal": 33,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsAsyncRegisterHostAddrs",
+      "ordinal": 34,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsAsyncRegisterInit",
+      "ordinal": 35,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsAsyncRegisterTerm",
+      "ordinal": 36,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsBuildDotHost",
+      "ordinal": 37,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsCancelQuery",
+      "ordinal": 38,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsCancelQueryRaw",
+      "ordinal": 39,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsCheckNrptRuleIntegrity",
+      "ordinal": 40,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsCheckNrptRules",
+      "ordinal": 41,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsCleanupTcpConnections",
+      "ordinal": 42,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionDeletePolicyEntries",
+      "ordinal": 43,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionDeletePolicyEntriesPrivate",
+      "ordinal": 44,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionDeleteProxyInfo",
+      "ordinal": 45,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionFreeNameList",
+      "ordinal": 46,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionFreeProxyInfo",
+      "ordinal": 47,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionFreeProxyInfoEx",
+      "ordinal": 48,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionFreeProxyList",
+      "ordinal": 49,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionGetHandleForHostUrlPrivate",
+      "ordinal": 50,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionGetNameList",
+      "ordinal": 51,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionGetProxyInfo",
+      "ordinal": 52,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionGetProxyInfoForHostUrl",
+      "ordinal": 53,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionGetProxyInfoForHostUrlEx",
+      "ordinal": 54,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionGetProxyList",
+      "ordinal": 55,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionSetPolicyEntries",
+      "ordinal": 56,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionSetPolicyEntriesPrivate",
+      "ordinal": 57,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionSetProxyInfo",
+      "ordinal": 58,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsConnectionUpdateIfIndexTable",
+      "ordinal": 59,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsCopyStringEx",
+      "ordinal": 60,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsCreateReverseNameStringForIpAddress",
+      "ordinal": 61,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsCreateStandardDnsNameCopy",
+      "ordinal": 62,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsCreateStringCopy",
+      "ordinal": 63,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDeRegisterLocal",
+      "ordinal": 64,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDeleteSettings",
+      "ordinal": 65,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDeleteWellKnownServerProperty",
+      "ordinal": 66,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDeleteZtRules",
+      "ordinal": 67,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDhcpRegisterAddrs",
+      "ordinal": 68,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDhcpRegisterHostAddrs",
+      "ordinal": 69,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDhcpRegisterInit",
+      "ordinal": 70,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDhcpRegisterTerm",
+      "ordinal": 71,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDhcpRemoveRegistrations",
+      "ordinal": 72,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDhcpSrvRegisterHostAddr",
+      "ordinal": 73,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDhcpSrvRegisterHostAddrEx",
+      "ordinal": 74,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDhcpSrvRegisterHostName",
+      "ordinal": 75,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDhcpSrvRegisterHostNameEx",
+      "ordinal": 76,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDhcpSrvRegisterInit",
+      "ordinal": 77,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDhcpSrvRegisterInitEx",
+      "ordinal": 78,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDhcpSrvRegisterInitialize",
+      "ordinal": 79,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDhcpSrvRegisterTerm",
+      "ordinal": 80,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDisableIdnEncoding",
+      "ordinal": 81,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsDowncaseDnsNameLabel",
+      "ordinal": 82,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsExtractRecordsFromMessage_UTF8",
+      "ordinal": 83,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsExtractRecordsFromMessage_W",
+      "ordinal": 84,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFindAuthoritativeZone",
+      "ordinal": 85,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFlushResolverCache",
+      "ordinal": 86,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFlushResolverCacheEntry_A",
+      "ordinal": 87,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFlushResolverCacheEntry_UTF8",
+      "ordinal": 88,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFlushResolverCacheEntry_W",
+      "ordinal": 89,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFree",
+      "ordinal": 90,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeAdaptersInfo",
+      "ordinal": 91,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeConfigStructure",
+      "ordinal": 92,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeCustomServers",
+      "ordinal": 93,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeNetworkServers",
+      "ordinal": 94,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeNrptRule",
+      "ordinal": 95,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeNrptRuleNamesList",
+      "ordinal": 96,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreePolicyConfig",
+      "ordinal": 97,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeProxyName",
+      "ordinal": 98,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeWellKnownServerProperty",
+      "ordinal": 99,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeWellKnownServerPropertyEx",
+      "ordinal": 100,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeWellKnownServers",
+      "ordinal": 101,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeZtClientCertConfig",
+      "ordinal": 102,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeZtConfig",
+      "ordinal": 103,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeZtRules",
+      "ordinal": 104,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeZtSettings",
+      "ordinal": 105,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeZtTrustedCa",
+      "ordinal": 106,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsFreeZtTrustedServers",
+      "ordinal": 107,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetAdaptersInfo",
+      "ordinal": 108,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetApplicationIdentifier",
+      "ordinal": 109,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetApplicationSettings",
+      "ordinal": 110,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetBufferLengthForStringCopy",
+      "ordinal": 111,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetCacheDataTable",
+      "ordinal": 112,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetCacheDataTableEx",
+      "ordinal": 113,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetCacheRecords",
+      "ordinal": 114,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetDdrInfo",
+      "ordinal": 115,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetDdrInfoCancel",
+      "ordinal": 116,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetDdrInfoInternal",
+      "ordinal": 117,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetDnsServerList",
+      "ordinal": 118,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetDomainName",
+      "ordinal": 119,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetInterfaceSettings",
+      "ordinal": 120,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetInterfaceSettingsInProc",
+      "ordinal": 121,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetLastFailedUpdateInfo",
+      "ordinal": 122,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetNetworkServers",
+      "ordinal": 123,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetNrptRule",
+      "ordinal": 124,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetNrptRuleNamesList",
+      "ordinal": 125,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetPolicyTableInfo",
+      "ordinal": 126,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetPolicyTableInfoPrivate",
+      "ordinal": 127,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetPrimaryDomainName_A",
+      "ordinal": 128,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetProxyInfoPrivate",
+      "ordinal": 129,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetProxyInformation",
+      "ordinal": 130,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetProxyInformationEx",
+      "ordinal": 131,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetQueryRetryTimeouts",
+      "ordinal": 132,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetSettings",
+      "ordinal": 133,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetWellKnownServerProperty",
+      "ordinal": 134,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetWellKnownServers",
+      "ordinal": 135,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetZtClientCertConfig",
+      "ordinal": 136,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetZtConfig",
+      "ordinal": 137,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetZtFilterIds",
+      "ordinal": 138,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetZtRules",
+      "ordinal": 139,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetZtTrustedCa",
+      "ordinal": 140,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGetZtTrustedServers",
+      "ordinal": 141,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsGlobals",
+      "ordinal": 142,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsIp6AddressToReverseNameW",
+      "ordinal": 143,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsIp6ReverseNameToAddressW",
+      "ordinal": 144,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsIpv6AddressToString",
+      "ordinal": 145,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsIpv6StringToAddress",
+      "ordinal": 146,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsIsAMailboxType",
+      "ordinal": 147,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsIsFlatRecord",
+      "ordinal": 148,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsIsNSECType",
+      "ordinal": 149,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsIsStatusRcode",
+      "ordinal": 150,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsIsStringCountValidForTextType",
+      "ordinal": 151,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsIsZtEnabled",
+      "ordinal": 10,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsLogEvent",
+      "ordinal": 152,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsMapRcodeToStatus",
+      "ordinal": 153,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsModifyRecordsInSet_A",
+      "ordinal": 154,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsModifyRecordsInSet_UTF8",
+      "ordinal": 155,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsModifyRecordsInSet_W",
+      "ordinal": 156,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsNameCompareEx_A",
+      "ordinal": 157,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsNameCompareEx_UTF8",
+      "ordinal": 158,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsNameCompareEx_W",
+      "ordinal": 159,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsNameCompare_A",
+      "ordinal": 160,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsNameCompare_UTF8",
+      "ordinal": 161,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsNameCompare_W",
+      "ordinal": 162,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsNameCopy",
+      "ordinal": 163,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsNameCopyAllocate",
+      "ordinal": 164,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsNetworkInfo_CreateFromFAZ",
+      "ordinal": 165,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsNetworkInformation_CreateFromFAZ",
+      "ordinal": 166,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsNotifyProxyConfigChangePrivate",
+      "ordinal": 167,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsNotifyResolver",
+      "ordinal": 168,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsNotifyResolverClusterIp",
+      "ordinal": 169,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsNotifyResolverEx",
+      "ordinal": 170,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsQueryConfig",
+      "ordinal": 171,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsQueryConfigAllocEx",
+      "ordinal": 172,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsQueryConfigDword",
+      "ordinal": 173,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsQueryEx",
+      "ordinal": 174,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsQueryExA",
+      "ordinal": 175,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsQueryExUTF8",
+      "ordinal": 176,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsQueryExW",
+      "ordinal": 177,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsQueryRaw",
+      "ordinal": 178,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsQueryRawResultFree",
+      "ordinal": 179,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsQuery_A",
+      "ordinal": 180,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsQuery_UTF8",
+      "ordinal": 181,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsQuery_W",
+      "ordinal": 182,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRecordBuild_UTF8",
+      "ordinal": 183,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRecordBuild_W",
+      "ordinal": 184,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRecordCompare",
+      "ordinal": 185,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRecordCopyEx",
+      "ordinal": 186,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRecordListFree",
+      "ordinal": 187,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRecordListUnmapV4MappedAAAAInPlace",
+      "ordinal": 188,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRecordSetCompare",
+      "ordinal": 189,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRecordSetCopyEx",
+      "ordinal": 190,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRecordSetDetach",
+      "ordinal": 191,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRecordStringForType",
+      "ordinal": 192,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRecordStringForWritableType",
+      "ordinal": 193,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRecordTypeForName",
+      "ordinal": 194,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRegisterLocal",
+      "ordinal": 195,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsReleaseContextHandle",
+      "ordinal": 196,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRemoveNrptRule",
+      "ordinal": 197,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsRemoveRegistrations",
+      "ordinal": 198,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsReplaceRecordSetA",
+      "ordinal": 199,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsReplaceRecordSetUTF8",
+      "ordinal": 200,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsReplaceRecordSetW",
+      "ordinal": 201,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsResetQueryRetryTimeouts",
+      "ordinal": 202,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsResolverOp",
+      "ordinal": 203,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsResolverQueryHvsi",
+      "ordinal": 204,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsScreenLocalAddrsForRegistration",
+      "ordinal": 205,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsServiceBrowse",
+      "ordinal": 206,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsServiceBrowseCancel",
+      "ordinal": 207,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsServiceConstructInstance",
+      "ordinal": 208,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsServiceCopyInstance",
+      "ordinal": 209,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsServiceDeRegister",
+      "ordinal": 210,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsServiceFreeInstance",
+      "ordinal": 211,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsServiceRegister",
+      "ordinal": 212,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsServiceRegisterCancel",
+      "ordinal": 213,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsServiceResolve",
+      "ordinal": 214,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsServiceResolveCancel",
+      "ordinal": 215,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetApplicationSettings",
+      "ordinal": 216,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetConfigDword",
+      "ordinal": 217,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetConfigValue",
+      "ordinal": 218,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetInterfaceSettings",
+      "ordinal": 219,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetNrptRule",
+      "ordinal": 220,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetNrptRules",
+      "ordinal": 221,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetQueryRetryTimeouts",
+      "ordinal": 222,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetSettings",
+      "ordinal": 223,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetWellKnownServerProperty",
+      "ordinal": 224,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetZtClientCertConfig",
+      "ordinal": 225,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetZtConfig",
+      "ordinal": 226,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetZtRules",
+      "ordinal": 227,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetZtSettings",
+      "ordinal": 228,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetZtTrustedCa",
+      "ordinal": 229,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSetZtTrustedServers",
+      "ordinal": 230,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsSplitDotHost",
+      "ordinal": 231,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsStartMulticastQuery",
+      "ordinal": 232,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsStatusString",
+      "ordinal": 233,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsStopMulticastQuery",
+      "ordinal": 234,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsStringCopyAllocateEx",
+      "ordinal": 235,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsStringToAddress",
+      "ordinal": 236,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsTraceServerConfig",
+      "ordinal": 237,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsUnicodeToUtf8",
+      "ordinal": 238,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsUpdate",
+      "ordinal": 239,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsUpdateCaptivePortalPresence",
+      "ordinal": 240,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsUpdateMachinePresence",
+      "ordinal": 241,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsUpdateTest_A",
+      "ordinal": 242,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsUpdateTest_UTF8",
+      "ordinal": 243,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsUpdateTest_W",
+      "ordinal": 244,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsUtf8ToUnicode",
+      "ordinal": 245,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsValidateNameOrIp_TempW",
+      "ordinal": 246,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsValidateName_A",
+      "ordinal": 247,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsValidateName_UTF8",
+      "ordinal": 248,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsValidateName_W",
+      "ordinal": 249,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsValidateServerArray_A",
+      "ordinal": 250,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsValidateServerArray_W",
+      "ordinal": 251,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsValidateServerStatus",
+      "ordinal": 252,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsValidateServer_A",
+      "ordinal": 253,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsValidateServer_W",
+      "ordinal": 254,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsValidateUtf8Byte",
+      "ordinal": 255,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsWriteQuestionToBuffer_UTF8",
+      "ordinal": 256,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsWriteQuestionToBuffer_W",
+      "ordinal": 257,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsWriteReverseNameStringForIpAddress",
+      "ordinal": 258,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsWriteReverseNameStringForIpAddressW",
+      "ordinal": 259,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsZtHelperGetSettings",
+      "ordinal": 260,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsZtHelperProcessClientCerts",
+      "ordinal": 261,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsZtHelperPromoteConfig",
+      "ordinal": 262,
+      "is_forwarder": false
+    },
+    {
+      "name": "DnsZtNotifyDnscache",
+      "ordinal": 263,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_AddRecordsToMessage",
+      "ordinal": 264,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_AllocateMsgBuf",
+      "ordinal": 265,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_BuildPacket",
+      "ordinal": 266,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_CacheServiceCleanup",
+      "ordinal": 267,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_CacheServiceInit",
+      "ordinal": 268,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_CacheServiceInitEx",
+      "ordinal": 269,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_CacheServiceStopIssued",
+      "ordinal": 270,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_CleanupWinsock",
+      "ordinal": 271,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_CloseConnection",
+      "ordinal": 272,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_CloseSocket",
+      "ordinal": 273,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_CreateMulticastSocket",
+      "ordinal": 274,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_CreateSocket",
+      "ordinal": 275,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_CreateSocketEx",
+      "ordinal": 276,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_ExtractRecordsFromMessage",
+      "ordinal": 277,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_FindAuthoritativeZoneLib",
+      "ordinal": 278,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_FreeMsgBuf",
+      "ordinal": 279,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_GetRandomXid",
+      "ordinal": 280,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_InitializeMsgBuf",
+      "ordinal": 281,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_InitializeMsgRemoteSockaddr",
+      "ordinal": 282,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_InitializeWinsock",
+      "ordinal": 283,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_OpenTcpConnectionAndSend",
+      "ordinal": 284,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_ParseMessage",
+      "ordinal": 285,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_ParsePacketRecord",
+      "ordinal": 286,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_PingAdapterServers",
+      "ordinal": 287,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_ReadPacketName",
+      "ordinal": 288,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_ReadPacketNameAllocate",
+      "ordinal": 289,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_ReadRecordStructureFromPacket",
+      "ordinal": 290,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_RecvTcp",
+      "ordinal": 291,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_ResetNetworkInfo",
+      "ordinal": 292,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_SendAndRecvUdp",
+      "ordinal": 293,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_SendEx",
+      "ordinal": 294,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_SetRecordDatalength",
+      "ordinal": 295,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_SetRecordsScopeId",
+      "ordinal": 296,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_SetRecordsSection",
+      "ordinal": 297,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_SetRecordsTtl",
+      "ordinal": 298,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_SkipPacketName",
+      "ordinal": 299,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_SkipToRecord",
+      "ordinal": 300,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_UpdateLib",
+      "ordinal": 301,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_UpdateLibEx",
+      "ordinal": 302,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_WriteDottedNameToPacket",
+      "ordinal": 303,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_WriteQuestionToMessage",
+      "ordinal": 304,
+      "is_forwarder": false
+    },
+    {
+      "name": "Dns_WriteRecordStructureToPacketEx",
+      "ordinal": 305,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExtraInfo_Init",
+      "ordinal": 306,
+      "is_forwarder": false
+    },
+    {
+      "name": "Faz_AreServerListsInSameNameSpace",
+      "ordinal": 307,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlushDnsPolicyUnreachableStatus",
+      "ordinal": 308,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentTimeInSeconds",
+      "ordinal": 309,
+      "is_forwarder": false
+    },
+    {
+      "name": "HostsFile_Close",
+      "ordinal": 310,
+      "is_forwarder": false
+    },
+    {
+      "name": "HostsFile_Open",
+      "ordinal": 311,
+      "is_forwarder": false
+    },
+    {
+      "name": "HostsFile_ReadLine",
+      "ordinal": 312,
+      "is_forwarder": false
+    },
+    {
+      "name": "IpHelp_IsAddrOnLink",
+      "ordinal": 313,
+      "is_forwarder": false
+    },
+    {
+      "name": "Local_GetRecordsForLocalName",
+      "ordinal": 314,
+      "is_forwarder": false
+    },
+    {
+      "name": "Local_GetRecordsForLocalNameEx",
+      "ordinal": 315,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_Build",
+      "ordinal": 316,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_BuildEx",
+      "ordinal": 317,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_Clean",
+      "ordinal": 318,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_Copy",
+      "ordinal": 319,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_CopyNetworkIndex",
+      "ordinal": 320,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_CreatePerNetworkNetinfo",
+      "ordinal": 321,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_Free",
+      "ordinal": 322,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_GetAdapterByAddress",
+      "ordinal": 323,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_GetAdapterByInterfaceIndex",
+      "ordinal": 324,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_GetAdapterByName",
+      "ordinal": 325,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_IsAddrConfig",
+      "ordinal": 326,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_IsForUpdate",
+      "ordinal": 327,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_IsTcpipConfigChange",
+      "ordinal": 328,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_ResetServerPriorities",
+      "ordinal": 329,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_UpdateDnsInterfaceConfigChange",
+      "ordinal": 330,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_UpdateNetworkProperties",
+      "ordinal": 331,
+      "is_forwarder": false
+    },
+    {
+      "name": "NetInfo_UpdateServerReachability",
+      "ordinal": 332,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryDirectEx",
+      "ordinal": 333,
+      "is_forwarder": false
+    },
+    {
+      "name": "Query_Cancel",
+      "ordinal": 334,
+      "is_forwarder": false
+    },
+    {
+      "name": "Query_InProcSetCompletion",
+      "ordinal": 335,
+      "is_forwarder": false
+    },
+    {
+      "name": "Query_Main",
+      "ordinal": 336,
+      "is_forwarder": false
+    },
+    {
+      "name": "Reg_FreeUpdateInfo",
+      "ordinal": 337,
+      "is_forwarder": false
+    },
+    {
+      "name": "Reg_GetValueEx",
+      "ordinal": 338,
+      "is_forwarder": false
+    },
+    {
+      "name": "Reg_ReadGlobalsEx",
+      "ordinal": 339,
+      "is_forwarder": false
+    },
+    {
+      "name": "Reg_ReadUpdateInfo",
+      "ordinal": 340,
+      "is_forwarder": false
+    },
+    {
+      "name": "Security_ContextListTimeout",
+      "ordinal": 341,
+      "is_forwarder": false
+    },
+    {
+      "name": "Send_AndRecvUdpWithParam",
+      "ordinal": 342,
+      "is_forwarder": false
+    },
+    {
+      "name": "Send_MessagePrivate",
+      "ordinal": 343,
+      "is_forwarder": false
+    },
+    {
+      "name": "Send_MessagePrivateEx",
+      "ordinal": 344,
+      "is_forwarder": false
+    },
+    {
+      "name": "Send_OpenTcpConnectionAndSend",
+      "ordinal": 345,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_CacheCleanup",
+      "ordinal": 346,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_CacheInit",
+      "ordinal": 347,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_CleanupWinsock",
+      "ordinal": 348,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_ClearMessageSockets",
+      "ordinal": 349,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_CloseEx",
+      "ordinal": 350,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_CloseMessageSockets",
+      "ordinal": 351,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_Create",
+      "ordinal": 352,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_CreateMulticast",
+      "ordinal": 353,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_InitWinsock",
+      "ordinal": 354,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_JoinMulticast",
+      "ordinal": 355,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_RecvFrom",
+      "ordinal": 356,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_SetMulticastInterface",
+      "ordinal": 357,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_SetMulticastLoopBack",
+      "ordinal": 358,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_SetTtl",
+      "ordinal": 359,
+      "is_forwarder": false
+    },
+    {
+      "name": "Socket_TcpListen",
+      "ordinal": 360,
+      "is_forwarder": false
+    },
+    {
+      "name": "ThreadPool_QueueWork",
+      "ordinal": 361,
+      "is_forwarder": false
+    },
+    {
+      "name": "Trace_Reset",
+      "ordinal": 362,
+      "is_forwarder": false
+    },
+    {
+      "name": "Update_ReplaceAddressRecordsW",
+      "ordinal": 363,
+      "is_forwarder": false
+    },
+    {
+      "name": "Util_IsIp6Running",
+      "ordinal": 364,
+      "is_forwarder": false
+    },
+    {
+      "name": "Util_IsRunningOnXboxOne",
+      "ordinal": 365,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteDnsNrptRulesToRegistry",
+      "ordinal": 366,
+      "is_forwarder": false
+    }
+  ]
+}

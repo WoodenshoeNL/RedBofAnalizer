@@ -1,0 +1,3220 @@
+{
+  "dll": "shell32.dll",
+  "exports": [
+    {
+      "name": "AppCompat_RunDLLW",
+      "ordinal": 255,
+      "is_forwarder": false
+    },
+    {
+      "name": "AssocCreateForClasses",
+      "ordinal": 263,
+      "is_forwarder": false
+    },
+    {
+      "name": "AssocElemCreateForKey",
+      "ordinal": 267,
+      "is_forwarder": false
+    },
+    {
+      "name": "AssocGetDetailsOfPropKey",
+      "ordinal": 268,
+      "is_forwarder": false
+    },
+    {
+      "name": "CDefFolderMenu_Create2",
+      "ordinal": 701,
+      "is_forwarder": false
+    },
+    {
+      "name": "CIDLData_CreateFromIDArray",
+      "ordinal": 83,
+      "is_forwarder": false
+    },
+    {
+      "name": "CStorageItem_GetValidatedStorageItemObject",
+      "ordinal": 937,
+      "is_forwarder": false
+    },
+    {
+      "name": "CallFileCopyHook",
+      "ordinal": 269,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckEscapesW",
+      "ordinal": 272,
+      "is_forwarder": false
+    },
+    {
+      "name": "CommandLineToArgvW",
+      "ordinal": 273,
+      "is_forwarder": false
+    },
+    {
+      "name": "Control_RunDLL",
+      "ordinal": 274,
+      "is_forwarder": false
+    },
+    {
+      "name": "Control_RunDLLA",
+      "ordinal": 275,
+      "is_forwarder": false
+    },
+    {
+      "name": "Control_RunDLLAsUserW",
+      "ordinal": 276,
+      "is_forwarder": false
+    },
+    {
+      "name": "Control_RunDLLW",
+      "ordinal": 277,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateStorageItemFromPath_FullTrustCaller",
+      "ordinal": 935,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateStorageItemFromPath_FullTrustCaller_ForPackage",
+      "ordinal": 936,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateStorageItemFromPath_PartialTrustCaller",
+      "ordinal": 920,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateStorageItemFromShellItem_FullTrustCaller",
+      "ordinal": 921,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateStorageItemFromShellItem_FullTrustCaller_ForPackage",
+      "ordinal": 925,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateStorageItemFromShellItem_FullTrustCaller_ForPackage_WithProcessHandle",
+      "ordinal": 929,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateStorageItemFromShellItem_FullTrustCaller_UseImplicitFlagsAndPackage",
+      "ordinal": 931,
+      "is_forwarder": false
+    },
+    {
+      "name": "DAD_AutoScroll",
+      "ordinal": 129,
+      "is_forwarder": false
+    },
+    {
+      "name": "DAD_DragEnterEx",
+      "ordinal": 131,
+      "is_forwarder": false
+    },
+    {
+      "name": "DAD_DragEnterEx2",
+      "ordinal": 22,
+      "is_forwarder": false
+    },
+    {
+      "name": "DAD_DragLeave",
+      "ordinal": 132,
+      "is_forwarder": false
+    },
+    {
+      "name": "DAD_DragMove",
+      "ordinal": 134,
+      "is_forwarder": false
+    },
+    {
+      "name": "DAD_SetDragImage",
+      "ordinal": 136,
+      "is_forwarder": false
+    },
+    {
+      "name": "DAD_ShowDragImage",
+      "ordinal": 137,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllCanUnloadNow",
+      "ordinal": 278,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllGetActivationFactory",
+      "ordinal": 279,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllGetClassObject",
+      "ordinal": 280,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllGetVersion",
+      "ordinal": 281,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllInstall",
+      "ordinal": 282,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllRegisterServer",
+      "ordinal": 283,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllUnregisterServer",
+      "ordinal": 284,
+      "is_forwarder": false
+    },
+    {
+      "name": "DoEnvironmentSubstA",
+      "ordinal": 285,
+      "is_forwarder": false
+    },
+    {
+      "name": "DoEnvironmentSubstW",
+      "ordinal": 286,
+      "is_forwarder": false
+    },
+    {
+      "name": "DragAcceptFiles",
+      "ordinal": 287,
+      "is_forwarder": false
+    },
+    {
+      "name": "DragFinish",
+      "ordinal": 288,
+      "is_forwarder": false
+    },
+    {
+      "name": "DragQueryFile",
+      "ordinal": 289,
+      "is_forwarder": false
+    },
+    {
+      "name": "DragQueryFileA",
+      "ordinal": 290,
+      "is_forwarder": false
+    },
+    {
+      "name": "DragQueryFileAorW",
+      "ordinal": 291,
+      "is_forwarder": false
+    },
+    {
+      "name": "DragQueryFileW",
+      "ordinal": 292,
+      "is_forwarder": false
+    },
+    {
+      "name": "DragQueryPoint",
+      "ordinal": 293,
+      "is_forwarder": false
+    },
+    {
+      "name": "DriveType",
+      "ordinal": 64,
+      "is_forwarder": false
+    },
+    {
+      "name": "DuplicateIcon",
+      "ordinal": 294,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExtractAssociatedIconA",
+      "ordinal": 295,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExtractAssociatedIconExA",
+      "ordinal": 296,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExtractAssociatedIconExW",
+      "ordinal": 297,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExtractAssociatedIconW",
+      "ordinal": 298,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExtractIconA",
+      "ordinal": 299,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExtractIconEx",
+      "ordinal": 300,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExtractIconExA",
+      "ordinal": 301,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExtractIconExW",
+      "ordinal": 302,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExtractIconW",
+      "ordinal": 303,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindExecutableA",
+      "ordinal": 304,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindExecutableW",
+      "ordinal": 305,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeIconList",
+      "ordinal": 306,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentProcessExplicitAppUserModelID",
+      "ordinal": 307,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileNameFromBrowse",
+      "ordinal": 63,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemPersistedStorageItemList",
+      "ordinal": 919,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILAppendID",
+      "ordinal": 154,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILClone",
+      "ordinal": 18,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILCloneFirst",
+      "ordinal": 19,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILCombine",
+      "ordinal": 25,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILCreateFromPath",
+      "ordinal": 157,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILCreateFromPathA",
+      "ordinal": 189,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILCreateFromPathW",
+      "ordinal": 190,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILFindChild",
+      "ordinal": 24,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILFindLastID",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILFree",
+      "ordinal": 155,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILGetNext",
+      "ordinal": 153,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILGetSize",
+      "ordinal": 152,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILIsEqual",
+      "ordinal": 21,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILIsParent",
+      "ordinal": 23,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILLoadFromStreamEx",
+      "ordinal": 846,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILRemoveLastID",
+      "ordinal": 17,
+      "is_forwarder": false
+    },
+    {
+      "name": "ILSaveToStream",
+      "ordinal": 27,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitNetworkAddressControl",
+      "ordinal": 308,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalExtractIconListA",
+      "ordinal": 309,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalExtractIconListW",
+      "ordinal": 310,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsDesktopExplorerProcess",
+      "ordinal": 942,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsLFNDrive",
+      "ordinal": 119,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsLFNDriveA",
+      "ordinal": 41,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsLFNDriveW",
+      "ordinal": 42,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsNetDrive",
+      "ordinal": 66,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsProcessAnExplorer",
+      "ordinal": 941,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsUserAnAdmin",
+      "ordinal": 680,
+      "is_forwarder": false
+    },
+    {
+      "name": "LaunchMSHelp_RunDLLW",
+      "ordinal": 311,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenAs_RunDLL",
+      "ordinal": 81,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenAs_RunDLLA",
+      "ordinal": 125,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenAs_RunDLLW",
+      "ordinal": 133,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenRegStream",
+      "ordinal": 85,
+      "is_forwarder": false
+    },
+    {
+      "name": "Options_RunDLL",
+      "ordinal": 312,
+      "is_forwarder": false
+    },
+    {
+      "name": "Options_RunDLLA",
+      "ordinal": 313,
+      "is_forwarder": false
+    },
+    {
+      "name": "Options_RunDLLW",
+      "ordinal": 314,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathCleanupSpec",
+      "ordinal": 171,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathGetShortPath",
+      "ordinal": 92,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsExe",
+      "ordinal": 43,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsSlowA",
+      "ordinal": 240,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsSlowW",
+      "ordinal": 239,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathMakeUniqueName",
+      "ordinal": 47,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathQualify",
+      "ordinal": 49,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathResolve",
+      "ordinal": 51,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathYetAnotherMakeUniqueName",
+      "ordinal": 75,
+      "is_forwarder": false
+    },
+    {
+      "name": "PickIconDlg",
+      "ordinal": 62,
+      "is_forwarder": false
+    },
+    {
+      "name": "PifMgr_CloseProperties",
+      "ordinal": 13,
+      "is_forwarder": false
+    },
+    {
+      "name": "PifMgr_GetProperties",
+      "ordinal": 10,
+      "is_forwarder": false
+    },
+    {
+      "name": "PifMgr_OpenProperties",
+      "ordinal": 9,
+      "is_forwarder": false
+    },
+    {
+      "name": "PifMgr_SetProperties",
+      "ordinal": 11,
+      "is_forwarder": false
+    },
+    {
+      "name": "PrepareDiscForBurnRunDllW",
+      "ordinal": 135,
+      "is_forwarder": false
+    },
+    {
+      "name": "PrintersGetCommand_RunDLL",
+      "ordinal": 138,
+      "is_forwarder": false
+    },
+    {
+      "name": "PrintersGetCommand_RunDLLA",
+      "ordinal": 139,
+      "is_forwarder": false
+    },
+    {
+      "name": "PrintersGetCommand_RunDLLW",
+      "ordinal": 150,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadCabinetState",
+      "ordinal": 654,
+      "is_forwarder": false
+    },
+    {
+      "name": "RealDriveType",
+      "ordinal": 524,
+      "is_forwarder": false
+    },
+    {
+      "name": "RealShellExecuteA",
+      "ordinal": 199,
+      "is_forwarder": false
+    },
+    {
+      "name": "RealShellExecuteExA",
+      "ordinal": 207,
+      "is_forwarder": false
+    },
+    {
+      "name": "RealShellExecuteExW",
+      "ordinal": 208,
+      "is_forwarder": false
+    },
+    {
+      "name": "RealShellExecuteW",
+      "ordinal": 226,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegenerateUserEnvironment",
+      "ordinal": 315,
+      "is_forwarder": false
+    },
+    {
+      "name": "RestartDialog",
+      "ordinal": 59,
+      "is_forwarder": false
+    },
+    {
+      "name": "RestartDialogEx",
+      "ordinal": 730,
+      "is_forwarder": false
+    },
+    {
+      "name": "RunAsNewUser_RunDLLW",
+      "ordinal": 316,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHAddDefaultPropertiesByExt",
+      "ordinal": 317,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHAddFromPropSheetExtArray",
+      "ordinal": 167,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHAddToRecentDocs",
+      "ordinal": 318,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHAlloc",
+      "ordinal": 196,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHAppBarMessage",
+      "ordinal": 319,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHAssocEnumHandlers",
+      "ordinal": 320,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHAssocEnumHandlersForProtocolByApplication",
+      "ordinal": 321,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHBindToFolderIDListParent",
+      "ordinal": 322,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHBindToFolderIDListParentEx",
+      "ordinal": 323,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHBindToObject",
+      "ordinal": 324,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHBindToParent",
+      "ordinal": 325,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHBrowseForFolder",
+      "ordinal": 326,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHBrowseForFolderA",
+      "ordinal": 327,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHBrowseForFolderW",
+      "ordinal": 328,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCLSIDFromString",
+      "ordinal": 147,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHChangeNotification_Lock",
+      "ordinal": 644,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHChangeNotification_Unlock",
+      "ordinal": 645,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHChangeNotify",
+      "ordinal": 329,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHChangeNotifyDeregister",
+      "ordinal": 4,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHChangeNotifyRegister",
+      "ordinal": 2,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHChangeNotifyRegisterThread",
+      "ordinal": 330,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHChangeNotifySuspendResume",
+      "ordinal": 331,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCloneSpecialIDList",
+      "ordinal": 89,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-shell-shellcom-l1-1-0.SHCoCreateInstance)",
+      "ordinal": 102,
+      "is_forwarder": true
+    },
+    {
+      "name": "ext-ms-win-shell32-shellcom-l1-1-0.SHCoCreateInstanceWorker)",
+      "ordinal": 332,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCreateAssociationRegistration",
+      "ordinal": 333,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateCategoryEnum",
+      "ordinal": 334,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateDataObject",
+      "ordinal": 335,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateDefaultContextMenu",
+      "ordinal": 336,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateDefaultExtractIcon",
+      "ordinal": 337,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateDefaultPropertiesOp",
+      "ordinal": 338,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateDirectory",
+      "ordinal": 165,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateDirectoryExA",
+      "ordinal": 339,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateDirectoryExW",
+      "ordinal": 340,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateDrvExtIcon",
+      "ordinal": 341,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateFileExtractIconW",
+      "ordinal": 743,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateItemFromIDList",
+      "ordinal": 342,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateItemFromParsingName",
+      "ordinal": 343,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateItemFromRelativeName",
+      "ordinal": 344,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateItemInKnownFolder",
+      "ordinal": 345,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateItemWithParent",
+      "ordinal": 346,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateLocalServerRunDll",
+      "ordinal": 347,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateProcessAsUserW",
+      "ordinal": 348,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreatePropSheetExtArray",
+      "ordinal": 168,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateQueryCancelAutoPlayMoniker",
+      "ordinal": 349,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateShellFolderView",
+      "ordinal": 256,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateShellFolderViewEx",
+      "ordinal": 174,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateShellItem",
+      "ordinal": 350,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateShellItemArray",
+      "ordinal": 351,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateShellItemArrayFromDataObject",
+      "ordinal": 352,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateShellItemArrayFromIDLists",
+      "ordinal": 353,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateShellItemArrayFromShellItem",
+      "ordinal": 354,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateStdEnumFmtEtc",
+      "ordinal": 74,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHDefExtractIconA",
+      "ordinal": 3,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHDefExtractIconW",
+      "ordinal": 6,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHDestroyPropSheetExtArray",
+      "ordinal": 169,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHDoDragDrop",
+      "ordinal": 88,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_AddToBackIconTable",
+      "ordinal": 355,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_AddToFrontIconTable",
+      "ordinal": 356,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_AreAllItemsAvailable",
+      "ordinal": 357,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CCommonPlacesFolder_CreateInstance",
+      "ordinal": 358,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDBurn_CloseSession",
+      "ordinal": 359,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDBurn_DriveSupportedForDataBurn",
+      "ordinal": 360,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDBurn_Erase",
+      "ordinal": 361,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDBurn_GetCDInfo",
+      "ordinal": 362,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDBurn_GetLiveFSDiscInfo",
+      "ordinal": 363,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDBurn_GetStagingPathOrNormalPath",
+      "ordinal": 364,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDBurn_GetTaskInfo",
+      "ordinal": 365,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDBurn_IsBlankDisc",
+      "ordinal": 366,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDBurn_IsBlankDisc2",
+      "ordinal": 367,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDBurn_IsLiveFS",
+      "ordinal": 368,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDBurn_OnDeviceChange",
+      "ordinal": 369,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDBurn_OnEject",
+      "ordinal": 370,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDBurn_OnMediaChange",
+      "ordinal": 371,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDefFolderMenu_Create2",
+      "ordinal": 372,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDefFolderMenu_Create2Ex",
+      "ordinal": 373,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDefFolderMenu_MergeMenu",
+      "ordinal": 374,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDrivesContextMenu_Create",
+      "ordinal": 375,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDrivesDropTarget_Create",
+      "ordinal": 376,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CDrives_CreateSFVCB",
+      "ordinal": 377,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CFSDropTarget_CreateInstance",
+      "ordinal": 378,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CFSFolderCallback_Create",
+      "ordinal": 379,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CFillPropertiesTask_CreateInstance",
+      "ordinal": 380,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CLibraryDropTarget_CreateInstance",
+      "ordinal": 381,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CLocationContextMenu_Create",
+      "ordinal": 382,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CLocationFolderUI_CreateInstance",
+      "ordinal": 383,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CMountPoint_DoAutorun",
+      "ordinal": 384,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CMountPoint_DoAutorunPrompt",
+      "ordinal": 385,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CMountPoint_IsAutoRunDriveAndEnabledByPolicy",
+      "ordinal": 386,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CMountPoint_ProcessAutoRunFile",
+      "ordinal": 387,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CMountPoint_WantAutorunUI",
+      "ordinal": 388,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CMountPoint_WantAutorunUIGetReady",
+      "ordinal": 389,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CNetFolderUI_CreateInstance",
+      "ordinal": 390,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CPL_CategoryIdArrayFromVariant",
+      "ordinal": 391,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CPL_IsLegacyCanonicalNameListedUnderKey",
+      "ordinal": 392,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CPL_ModifyWowDisplayName",
+      "ordinal": 393,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CRecentDocsContextMenu_CreateInstance",
+      "ordinal": 394,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CTransferConfirmation_CreateInstance",
+      "ordinal": 395,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CallFileCopyHooks",
+      "ordinal": 396,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CanDisplayWin8CopyDialog",
+      "ordinal": 397,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CloseAutoplayPrompt",
+      "ordinal": 398,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CommandLineFromMsiDescriptor",
+      "ordinal": 399,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CopySecondaryTiles",
+      "ordinal": 400,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CreateConfirmationInterrupt",
+      "ordinal": 401,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CreateConflictInterrupt",
+      "ordinal": 402,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CreateDefaultOperationDataProvider",
+      "ordinal": 403,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CreateFileFolderContextMenu",
+      "ordinal": 404,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CreateLinkInfoW",
+      "ordinal": 405,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CreateQosRecorder",
+      "ordinal": 406,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_CreateSharePointView",
+      "ordinal": 407,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_Create_IEnumUICommand",
+      "ordinal": 408,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_DestroyLinkInfo",
+      "ordinal": 409,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_EncryptDirectory",
+      "ordinal": 410,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_EncryptedFileKeyInfo",
+      "ordinal": 411,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_EnumCommonTasks",
+      "ordinal": 412,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_FreeEncryptedFileKeyInfo",
+      "ordinal": 413,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_GenerateAppID",
+      "ordinal": 414,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_GetAppIDRoot",
+      "ordinal": 415,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_GetCommandProviderForFolderType",
+      "ordinal": 416,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_GetDPIAdjustedLogicalSize",
+      "ordinal": 417,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_GetDiskCleanupPath",
+      "ordinal": 418,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_GetFileNameFromBrowse",
+      "ordinal": 419,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_GetIconOverlayManager",
+      "ordinal": 420,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_GetLinkInfoData",
+      "ordinal": 421,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_GetRatingBucket",
+      "ordinal": 422,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_GetSqmableFileName",
+      "ordinal": 423,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_GetThumbnailAdornerFromFactory",
+      "ordinal": 424,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_GetThumbnailAdornerFromFactory2",
+      "ordinal": 425,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_HandleUnrecognizedFileSystem",
+      "ordinal": 426,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_IconCacheCreate",
+      "ordinal": 427,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_IconCacheDestroy",
+      "ordinal": 428,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_IconCacheHandleAssociationChanged",
+      "ordinal": 429,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_IconCacheRestore",
+      "ordinal": 430,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_IconCache_AboutToExtractIcons",
+      "ordinal": 431,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_IconCache_DoneExtractingIcons",
+      "ordinal": 432,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_IconCache_ExpandEnvAndSearchPath",
+      "ordinal": 433,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_IconCache_RememberRecentlyExtractedIconsW",
+      "ordinal": 434,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_IconOverlayManagerInit",
+      "ordinal": 435,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_IsGetKeyboardLayoutPresent",
+      "ordinal": 436,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_IsSystemUpgradeInProgress",
+      "ordinal": 437,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_IsValidLinkInfo",
+      "ordinal": 438,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_LegacyEnumSpecialTasksByType",
+      "ordinal": 439,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_LegacyEnumTasks",
+      "ordinal": 440,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_LookupBackIconIndex",
+      "ordinal": 441,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_LookupFrontIconIndex",
+      "ordinal": 442,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_NormalizeRating",
+      "ordinal": 443,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_NotifyLinkTrackingServiceOfMove",
+      "ordinal": 444,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_PifMgr_CloseProperties",
+      "ordinal": 445,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_PifMgr_GetProperties",
+      "ordinal": 446,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_PifMgr_OpenProperties",
+      "ordinal": 447,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_PifMgr_SetProperties",
+      "ordinal": 448,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_Printers_CreateBindInfo",
+      "ordinal": 449,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_Printjob_GetPidl",
+      "ordinal": 450,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_PurgeSystemIcon",
+      "ordinal": 451,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_RefreshOverlayImages",
+      "ordinal": 452,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_ResolveLinkInfoW",
+      "ordinal": 453,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHAddSparseIcon",
+      "ordinal": 454,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHCreateByValueOperationInterrupt",
+      "ordinal": 455,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHCreateDefaultContextMenu",
+      "ordinal": 456,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHCreateLocalServer",
+      "ordinal": 457,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHCreateShellFolderView",
+      "ordinal": 458,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHDuplicateEncryptionInfoFile",
+      "ordinal": 459,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHEncryptFile",
+      "ordinal": 460,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHFormatDriveAsync",
+      "ordinal": 461,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHGetThreadUndoManager",
+      "ordinal": 462,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHGetUserNameW",
+      "ordinal": 463,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHIsVirtualDevice",
+      "ordinal": 464,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHLaunchPropSheet",
+      "ordinal": 465,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHLogILFromFSIL",
+      "ordinal": 466,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHOpenWithDialog",
+      "ordinal": 467,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHStartNetConnectionDialogW",
+      "ordinal": 468,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SHUICommandFromGUID",
+      "ordinal": 469,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SendToMenu_InvokeTargetedCommand",
+      "ordinal": 470,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SendToMenu_VerifyTargetedCommand",
+      "ordinal": 471,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_ShowHideIconOnlyOnDesktop",
+      "ordinal": 472,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SimpleRatingToFilterCondition",
+      "ordinal": 473,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_StampIconForFile",
+      "ordinal": 474,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_SuspendUndo",
+      "ordinal": 475,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_TryVirtualDiscImageDriveEject",
+      "ordinal": 476,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHELL32_VerifySaferTrust",
+      "ordinal": 477,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHEmptyRecycleBinA",
+      "ordinal": 478,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHEmptyRecycleBinW",
+      "ordinal": 479,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHEnableServiceObject",
+      "ordinal": 480,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHEnumerateUnreadMailAccountsW",
+      "ordinal": 481,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHEvaluateSystemCommandTemplate",
+      "ordinal": 482,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHExecuteErrorMessageBox",
+      "ordinal": 483,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHExtractIconsW",
+      "ordinal": 484,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHFileOperation",
+      "ordinal": 485,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHFileOperationA",
+      "ordinal": 486,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHFileOperationW",
+      "ordinal": 487,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHFindFiles",
+      "ordinal": 90,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHFind_InitMenuPopup",
+      "ordinal": 149,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHFlushSFCache",
+      "ordinal": 526,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHFormatDrive",
+      "ordinal": 488,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHFree",
+      "ordinal": 195,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHFreeNameMappings",
+      "ordinal": 489,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetAttributesFromDataObject",
+      "ordinal": 750,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetDataFromIDListA",
+      "ordinal": 490,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetDataFromIDListW",
+      "ordinal": 491,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetDesktopFolder",
+      "ordinal": 492,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetDiskFreeSpaceA",
+      "ordinal": 493,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetDiskFreeSpaceExA",
+      "ordinal": 494,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetDiskFreeSpaceExW",
+      "ordinal": 495,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetDriveMedia",
+      "ordinal": 496,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetFileInfo",
+      "ordinal": 497,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetFileInfoA",
+      "ordinal": 498,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetFileInfoW",
+      "ordinal": 499,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetFolderLocation",
+      "ordinal": 500,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetFolderPathA",
+      "ordinal": 501,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetFolderPathAndSubDirA",
+      "ordinal": 502,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetFolderPathAndSubDirW",
+      "ordinal": 503,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetFolderPathEx",
+      "ordinal": 504,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetFolderPathW",
+      "ordinal": 505,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetIDListFromObject",
+      "ordinal": 506,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetIconOverlayIndexA",
+      "ordinal": 507,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetIconOverlayIndexW",
+      "ordinal": 508,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetImageList",
+      "ordinal": 727,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetInstanceExplorer",
+      "ordinal": 509,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetItemFromDataObject",
+      "ordinal": 510,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetItemFromObject",
+      "ordinal": 511,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetKnownFolderIDList",
+      "ordinal": 512,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetKnownFolderItem",
+      "ordinal": 513,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetKnownFolderPath",
+      "ordinal": 514,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetLocalizedName",
+      "ordinal": 515,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetMalloc",
+      "ordinal": 516,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetNameFromIDList",
+      "ordinal": 517,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetNewLinkInfo",
+      "ordinal": 518,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetNewLinkInfoA",
+      "ordinal": 179,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetNewLinkInfoW",
+      "ordinal": 180,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetPathFromIDList",
+      "ordinal": 519,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetPathFromIDListA",
+      "ordinal": 527,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetPathFromIDListEx",
+      "ordinal": 528,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetPathFromIDListW",
+      "ordinal": 529,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetPropertyStoreForWindow",
+      "ordinal": 530,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetPropertyStoreFromIDList",
+      "ordinal": 531,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetPropertyStoreFromParsingName",
+      "ordinal": 532,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetRealIDL",
+      "ordinal": 98,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetSetFolderCustomSettings",
+      "ordinal": 709,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetSetSettings",
+      "ordinal": 68,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetSettings",
+      "ordinal": 533,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetSpecialFolderLocation",
+      "ordinal": 534,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetSpecialFolderPathA",
+      "ordinal": 535,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetSpecialFolderPathW",
+      "ordinal": 536,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetStockIconInfo",
+      "ordinal": 537,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetTemporaryPropertyForItem",
+      "ordinal": 538,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetUnreadMailCountW",
+      "ordinal": 539,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHHandleUpdateImage",
+      "ordinal": 193,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHHelpShortcuts_RunDLL",
+      "ordinal": 228,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHHelpShortcuts_RunDLLA",
+      "ordinal": 229,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHHelpShortcuts_RunDLLW",
+      "ordinal": 238,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHILCreateFromPath",
+      "ordinal": 28,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHInvokePrinterCommandA",
+      "ordinal": 540,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHInvokePrinterCommandW",
+      "ordinal": 541,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHIsFileAvailableOffline",
+      "ordinal": 542,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHLimitInputEdit",
+      "ordinal": 747,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHLoadInProc",
+      "ordinal": 543,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHLoadNonloadedIconOverlayIdentifiers",
+      "ordinal": 544,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHMapPIDLToSystemImageListIndex",
+      "ordinal": 77,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHMultiFileProperties",
+      "ordinal": 716,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHObjectProperties",
+      "ordinal": 178,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHOpenFolderAndSelectItems",
+      "ordinal": 545,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHOpenOrGetFolderView",
+      "ordinal": 546,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHOpenPropSheetW",
+      "ordinal": 80,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHOpenWithDialog",
+      "ordinal": 547,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHParseDisplayName",
+      "ordinal": 548,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHPathPrepareForWriteA",
+      "ordinal": 549,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHPathPrepareForWriteW",
+      "ordinal": 550,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHPropStgCreate",
+      "ordinal": 685,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHPropStgReadMultiple",
+      "ordinal": 688,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHPropStgWriteMultiple",
+      "ordinal": 689,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHQueryRecycleBinA",
+      "ordinal": 551,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHQueryRecycleBinW",
+      "ordinal": 552,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHQueryUserNotificationState",
+      "ordinal": 553,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRemoveLocalizedName",
+      "ordinal": 554,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHReplaceFromPropSheetExtArray",
+      "ordinal": 170,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHResolveLibrary",
+      "ordinal": 555,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRestricted",
+      "ordinal": 100,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSetDefaultProperties",
+      "ordinal": 556,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSetFolderPathA",
+      "ordinal": 231,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSetFolderPathW",
+      "ordinal": 232,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSetInstanceExplorer",
+      "ordinal": 176,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSetKnownFolderPath",
+      "ordinal": 557,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSetLocalizedName",
+      "ordinal": 558,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSetTemporaryPropertyForItem",
+      "ordinal": 559,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSetUnreadMailCountW",
+      "ordinal": 560,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHShellFolderView_Message",
+      "ordinal": 73,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHShowManageLibraryUI",
+      "ordinal": 561,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSimpleIDListFromPath",
+      "ordinal": 162,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHStartNetConnectionDialogW",
+      "ordinal": 14,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHTestTokenMembership",
+      "ordinal": 245,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHUpdateImageA",
+      "ordinal": 191,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHUpdateImageW",
+      "ordinal": 192,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHUpdateRecycleBinIcon",
+      "ordinal": 562,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHValidateUNC",
+      "ordinal": 173,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCurrentProcessExplicitAppUserModelID",
+      "ordinal": 563,
+      "is_forwarder": false
+    },
+    {
+      "name": "SheChangeDirA",
+      "ordinal": 564,
+      "is_forwarder": false
+    },
+    {
+      "name": "SheChangeDirExW",
+      "ordinal": 565,
+      "is_forwarder": false
+    },
+    {
+      "name": "SheGetDirA",
+      "ordinal": 566,
+      "is_forwarder": false
+    },
+    {
+      "name": "SheSetCurDrive",
+      "ordinal": 567,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellAboutA",
+      "ordinal": 568,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellAboutW",
+      "ordinal": 569,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellExec_RunDLL",
+      "ordinal": 570,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellExec_RunDLLA",
+      "ordinal": 571,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellExec_RunDLLW",
+      "ordinal": 572,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellExecuteA",
+      "ordinal": 573,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellExecuteEx",
+      "ordinal": 574,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellExecuteExA",
+      "ordinal": 575,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellExecuteExW",
+      "ordinal": 576,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellExecuteW",
+      "ordinal": 577,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellHookProc",
+      "ordinal": 578,
+      "is_forwarder": false
+    },
+    {
+      "name": "shlwapi.ShellMessageBoxA)",
+      "ordinal": 183,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.ShellMessageBoxW)",
+      "ordinal": 182,
+      "is_forwarder": true
+    },
+    {
+      "name": "Shell_GetCachedImageIndex",
+      "ordinal": 72,
+      "is_forwarder": false
+    },
+    {
+      "name": "Shell_GetCachedImageIndexA",
+      "ordinal": 579,
+      "is_forwarder": false
+    },
+    {
+      "name": "Shell_GetCachedImageIndexW",
+      "ordinal": 580,
+      "is_forwarder": false
+    },
+    {
+      "name": "Shell_GetImageLists",
+      "ordinal": 71,
+      "is_forwarder": false
+    },
+    {
+      "name": "Shell_MergeMenus",
+      "ordinal": 67,
+      "is_forwarder": false
+    },
+    {
+      "name": "Shell_NotifyIcon",
+      "ordinal": 581,
+      "is_forwarder": false
+    },
+    {
+      "name": "Shell_NotifyIconA",
+      "ordinal": 582,
+      "is_forwarder": false
+    },
+    {
+      "name": "Shell_NotifyIconGetRect",
+      "ordinal": 583,
+      "is_forwarder": false
+    },
+    {
+      "name": "Shell_NotifyIconW",
+      "ordinal": 584,
+      "is_forwarder": false
+    },
+    {
+      "name": "SignalFileOpen",
+      "ordinal": 103,
+      "is_forwarder": false
+    },
+    {
+      "name": "StateRepoNewMenuCache_EnsureCacheAsync",
+      "ordinal": 585,
+      "is_forwarder": false
+    },
+    {
+      "name": "StateRepoNewMenuCache_RebuildCacheAsync",
+      "ordinal": 586,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgMakeUniqueName",
+      "ordinal": 682,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrChrA",
+      "ordinal": 587,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrChrIA",
+      "ordinal": 588,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrChrIW",
+      "ordinal": 589,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrChrW",
+      "ordinal": 590,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpNA",
+      "ordinal": 591,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpNIA",
+      "ordinal": 592,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpNIW",
+      "ordinal": 593,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpNW",
+      "ordinal": 594,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrNCmpA",
+      "ordinal": 595,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrNCmpIA",
+      "ordinal": 596,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrNCmpIW",
+      "ordinal": 597,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrNCmpW",
+      "ordinal": 598,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRChrA",
+      "ordinal": 599,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRChrIA",
+      "ordinal": 600,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRChrIW",
+      "ordinal": 601,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRChrW",
+      "ordinal": 602,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRStrA",
+      "ordinal": 603,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRStrIA",
+      "ordinal": 604,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRStrIW",
+      "ordinal": 605,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRStrW",
+      "ordinal": 606,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrStrA",
+      "ordinal": 607,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrStrIA",
+      "ordinal": 608,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrStrIW",
+      "ordinal": 609,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrStrW",
+      "ordinal": 610,
+      "is_forwarder": false
+    },
+    {
+      "name": "UsersLibrariesFolderUI_CreateInstance",
+      "ordinal": 611,
+      "is_forwarder": false
+    },
+    {
+      "name": "WOWShellExecute",
+      "ordinal": 612,
+      "is_forwarder": false
+    },
+    {
+      "name": "WaitForExplorerRestartW",
+      "ordinal": 613,
+      "is_forwarder": false
+    },
+    {
+      "name": "Win32DeleteFile",
+      "ordinal": 164,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteCabinetState",
+      "ordinal": 652,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHUNIMPL.#35)",
+      "ordinal": 5,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#192)",
+      "ordinal": 7,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#193)",
+      "ordinal": 8,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#36)",
+      "ordinal": 26,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathBuildRootW)",
+      "ordinal": 30,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathFindExtensionW)",
+      "ordinal": 31,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathAddBackslashW)",
+      "ordinal": 32,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathRemoveBlanksW)",
+      "ordinal": 33,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathFindFileNameW)",
+      "ordinal": 34,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathCombineW)",
+      "ordinal": 37,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathStripPathW)",
+      "ordinal": 38,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathIsUNCW)",
+      "ordinal": 39,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathIsRelativeW)",
+      "ordinal": 40,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathMatchSpecW)",
+      "ordinal": 46,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathSetDlgItemPathW)",
+      "ordinal": 48,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathStripToRootW)",
+      "ordinal": 50,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathGetArgsW)",
+      "ordinal": 52,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#388)",
+      "ordinal": 53,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathQuoteSpacesW)",
+      "ordinal": 55,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathUnquoteSpacesW)",
+      "ordinal": 56,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathGetDriveNumberW)",
+      "ordinal": 57,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#37)",
+      "ordinal": 78,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#38)",
+      "ordinal": 79,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#39)",
+      "ordinal": 82,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#40)",
+      "ordinal": 84,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#41)",
+      "ordinal": 86,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#42)",
+      "ordinal": 87,
+      "is_forwarder": true
+    },
+    {
+      "name": "shcore.Win32CreateDirectory)",
+      "ordinal": 93,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#43)",
+      "ordinal": 96,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#1)",
+      "ordinal": 101,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#2)",
+      "ordinal": 104,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#3)",
+      "ordinal": 105,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#4)",
+      "ordinal": 106,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#5)",
+      "ordinal": 107,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#6)",
+      "ordinal": 108,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#7)",
+      "ordinal": 109,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#8)",
+      "ordinal": 110,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#9)",
+      "ordinal": 111,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#10)",
+      "ordinal": 112,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#11)",
+      "ordinal": 113,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#12)",
+      "ordinal": 114,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#13)",
+      "ordinal": 115,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#14)",
+      "ordinal": 116,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#15)",
+      "ordinal": 117,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#16)",
+      "ordinal": 118,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#17)",
+      "ordinal": 120,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#44)",
+      "ordinal": 121,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#45)",
+      "ordinal": 122,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#46)",
+      "ordinal": 123,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#18)",
+      "ordinal": 124,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#47)",
+      "ordinal": 126,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#371)",
+      "ordinal": 127,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#48)",
+      "ordinal": 130,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#19)",
+      "ordinal": 140,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#20)",
+      "ordinal": 141,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#21)",
+      "ordinal": 142,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#22)",
+      "ordinal": 143,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#23)",
+      "ordinal": 144,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathFindOnPathW)",
+      "ordinal": 145,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#49)",
+      "ordinal": 146,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#50)",
+      "ordinal": 148,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#51)",
+      "ordinal": 151,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#389)",
+      "ordinal": 158,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathIsDirectoryW)",
+      "ordinal": 159,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#214)",
+      "ordinal": 161,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#52)",
+      "ordinal": 163,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#53)",
+      "ordinal": 166,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#54)",
+      "ordinal": 177,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#390)",
+      "ordinal": 185,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#235)",
+      "ordinal": 187,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#55)",
+      "ordinal": 197,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#56)",
+      "ordinal": 198,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#57)",
+      "ordinal": 202,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#24)",
+      "ordinal": 216,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#25)",
+      "ordinal": 217,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#26)",
+      "ordinal": 218,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#27)",
+      "ordinal": 219,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#28)",
+      "ordinal": 220,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#29)",
+      "ordinal": 221,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#30)",
+      "ordinal": 222,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#31)",
+      "ordinal": 223,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#32)",
+      "ordinal": 224,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#33)",
+      "ordinal": 225,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#34)",
+      "ordinal": 227,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#372)",
+      "ordinal": 230,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#58)",
+      "ordinal": 233,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#59)",
+      "ordinal": 234,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#212)",
+      "ordinal": 235,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#373)",
+      "ordinal": 242,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#374)",
+      "ordinal": 243,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#375)",
+      "ordinal": 246,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#376)",
+      "ordinal": 247,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#377)",
+      "ordinal": 248,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathParseIconLocationW)",
+      "ordinal": 249,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathRemoveExtensionW)",
+      "ordinal": 250,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathRemoveArgsW)",
+      "ordinal": 251,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-url-l1-1-0.PathIsURLW)",
+      "ordinal": 252,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#378)",
+      "ordinal": 253,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#60)",
+      "ordinal": 520,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#61)",
+      "ordinal": 521,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#62)",
+      "ordinal": 522,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#63)",
+      "ordinal": 523,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#234)",
+      "ordinal": 525,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#64)",
+      "ordinal": 640,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#65)",
+      "ordinal": 641,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#66)",
+      "ordinal": 643,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#67)",
+      "ordinal": 646,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#379)",
+      "ordinal": 648,
+      "is_forwarder": true
+    },
+    {
+      "name": "shlwapi.PathIsSameRootW)",
+      "ordinal": 650,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#68)",
+      "ordinal": 653,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#428)",
+      "ordinal": 681,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#216)",
+      "ordinal": 691,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#380)",
+      "ordinal": 700,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHLWAPI.#269)",
+      "ordinal": 703,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHLWAPI.#270)",
+      "ordinal": 704,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#69)",
+      "ordinal": 707,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#70)",
+      "ordinal": 708,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#71)",
+      "ordinal": 712,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#191)",
+      "ordinal": 715,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#478)",
+      "ordinal": 719,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#72)",
+      "ordinal": 720,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#73)",
+      "ordinal": 721,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#236)",
+      "ordinal": 722,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#381)",
+      "ordinal": 724,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#74)",
+      "ordinal": 725,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#75)",
+      "ordinal": 726,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#479)",
+      "ordinal": 731,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#480)",
+      "ordinal": 732,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#382)",
+      "ordinal": 745,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#76)",
+      "ordinal": 749,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#77)",
+      "ordinal": 756,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#383)",
+      "ordinal": 762,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#385)",
+      "ordinal": 766,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#237)",
+      "ordinal": 786,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#249)",
+      "ordinal": 820,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#250)",
+      "ordinal": 821,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#251)",
+      "ordinal": 822,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#252)",
+      "ordinal": 826,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#253)",
+      "ordinal": 827,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#387)",
+      "ordinal": 832,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#254)",
+      "ordinal": 834,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#255)",
+      "ordinal": 835,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#256)",
+      "ordinal": 836,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#257)",
+      "ordinal": 837,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#258)",
+      "ordinal": 838,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#259)",
+      "ordinal": 839,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#424)",
+      "ordinal": 841,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#425)",
+      "ordinal": 842,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#386)",
+      "ordinal": 843,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#391)",
+      "ordinal": 852,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#260)",
+      "ordinal": 854,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#423)",
+      "ordinal": 856,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#426)",
+      "ordinal": 857,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#392)",
+      "ordinal": 858,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#261)",
+      "ordinal": 861,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#262)",
+      "ordinal": 863,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#263)",
+      "ordinal": 867,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#264)",
+      "ordinal": 868,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#384)",
+      "ordinal": 869,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#265)",
+      "ordinal": 872,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#474)",
+      "ordinal": 889,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#475)",
+      "ordinal": 890,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#476)",
+      "ordinal": 892,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#473)",
+      "ordinal": 902,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#477)",
+      "ordinal": 909,
+      "is_forwarder": true
+    }
+  ]
+}

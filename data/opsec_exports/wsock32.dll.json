@@ -1,0 +1,380 @@
+{
+  "dll": "wsock32.dll",
+  "exports": [
+    {
+      "name": "MSWSOCK.AcceptEx)",
+      "ordinal": 1141,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.EnumProtocolsA)",
+      "ordinal": 1111,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.EnumProtocolsW)",
+      "ordinal": 1112,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.GetAcceptExSockaddrs)",
+      "ordinal": 1142,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.GetAddressByNameA)",
+      "ordinal": 1109,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.GetAddressByNameW)",
+      "ordinal": 1110,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.GetNameByTypeA)",
+      "ordinal": 1115,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.GetNameByTypeW)",
+      "ordinal": 1116,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.GetServiceA)",
+      "ordinal": 1119,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.GetServiceW)",
+      "ordinal": 1120,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.GetTypeByNameA)",
+      "ordinal": 1113,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.GetTypeByNameW)",
+      "ordinal": 1114,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.MigrateWinsockConfiguration)",
+      "ordinal": 24,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.NPLoadNameSpaces)",
+      "ordinal": 1130,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.SetServiceA)",
+      "ordinal": 1117,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.SetServiceW)",
+      "ordinal": 1118,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.TransmitFile)",
+      "ordinal": 1140,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WEP)",
+      "ordinal": 500,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSAAsyncGetHostByAddr)",
+      "ordinal": 102,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSAAsyncGetHostByName)",
+      "ordinal": 103,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSAAsyncGetProtoByName)",
+      "ordinal": 105,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSAAsyncGetProtoByNumber)",
+      "ordinal": 104,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSAAsyncGetServByName)",
+      "ordinal": 107,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSAAsyncGetServByPort)",
+      "ordinal": 106,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSAAsyncSelect)",
+      "ordinal": 101,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSACancelAsyncRequest)",
+      "ordinal": 108,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSACancelBlockingCall)",
+      "ordinal": 113,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSACleanup)",
+      "ordinal": 116,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSAGetLastError)",
+      "ordinal": 111,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSAIsBlocking)",
+      "ordinal": 114,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.WSARecvEx)",
+      "ordinal": 1107,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSASetBlockingHook)",
+      "ordinal": 109,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSASetLastError)",
+      "ordinal": 112,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSAStartup)",
+      "ordinal": 115,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSAUnhookBlockingHook)",
+      "ordinal": 110,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.WSApSetPostRoutine)",
+      "ordinal": 1000,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.__WSAFDIsSet)",
+      "ordinal": 151,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.accept)",
+      "ordinal": 1,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.bind)",
+      "ordinal": 2,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.closesocket)",
+      "ordinal": 3,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.connect)",
+      "ordinal": 4,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.dn_expand)",
+      "ordinal": 1106,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.gethostbyaddr)",
+      "ordinal": 51,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.gethostbyname)",
+      "ordinal": 52,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.gethostname)",
+      "ordinal": 57,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.getnetbyname)",
+      "ordinal": 1101,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.getpeername)",
+      "ordinal": 5,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.getprotobyname)",
+      "ordinal": 53,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.getprotobynumber)",
+      "ordinal": 54,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.getservbyname)",
+      "ordinal": 55,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.getservbyport)",
+      "ordinal": 56,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.getsockname)",
+      "ordinal": 6,
+      "is_forwarder": true
+    },
+    {
+      "name": "getsockopt",
+      "ordinal": 7,
+      "is_forwarder": false
+    },
+    {
+      "name": "ws2_32.htonl)",
+      "ordinal": 8,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.htons)",
+      "ordinal": 9,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.inet_addr)",
+      "ordinal": 10,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.inet_network)",
+      "ordinal": 1100,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.inet_ntoa)",
+      "ordinal": 11,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.ioctlsocket)",
+      "ordinal": 12,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.listen)",
+      "ordinal": 13,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.ntohl)",
+      "ordinal": 14,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.ntohs)",
+      "ordinal": 15,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.rcmd)",
+      "ordinal": 1102,
+      "is_forwarder": true
+    },
+    {
+      "name": "recv",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "recvfrom",
+      "ordinal": 17,
+      "is_forwarder": false
+    },
+    {
+      "name": "MSWSOCK.rexec)",
+      "ordinal": 1103,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.rresvport)",
+      "ordinal": 1104,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.s_perror)",
+      "ordinal": 1108,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.select)",
+      "ordinal": 18,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.send)",
+      "ordinal": 19,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.sendto)",
+      "ordinal": 20,
+      "is_forwarder": true
+    },
+    {
+      "name": "MSWSOCK.sethostname)",
+      "ordinal": 1105,
+      "is_forwarder": true
+    },
+    {
+      "name": "setsockopt",
+      "ordinal": 21,
+      "is_forwarder": false
+    },
+    {
+      "name": "ws2_32.shutdown)",
+      "ordinal": 22,
+      "is_forwarder": true
+    },
+    {
+      "name": "ws2_32.socket)",
+      "ordinal": 23,
+      "is_forwarder": true
+    }
+  ]
+}

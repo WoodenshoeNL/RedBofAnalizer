@@ -1,0 +1,2750 @@
+{
+  "dll": "ole32.dll",
+  "exports": [
+    {
+      "name": "BindMoniker",
+      "ordinal": 836,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.CLIPFORMAT_UserFree)",
+      "ordinal": 837,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.CLIPFORMAT_UserFree64)",
+      "ordinal": 838,
+      "is_forwarder": true
+    },
+    {
+      "name": "CLIPFORMAT_UserFreeExt",
+      "ordinal": 805,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.CLIPFORMAT_UserMarshal)",
+      "ordinal": 839,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.CLIPFORMAT_UserMarshal64)",
+      "ordinal": 840,
+      "is_forwarder": true
+    },
+    {
+      "name": "CLIPFORMAT_UserMarshalExt",
+      "ordinal": 806,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.CLIPFORMAT_UserSize)",
+      "ordinal": 841,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.CLIPFORMAT_UserSize64)",
+      "ordinal": 842,
+      "is_forwarder": true
+    },
+    {
+      "name": "CLIPFORMAT_UserSizeExt",
+      "ordinal": 807,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.CLIPFORMAT_UserUnmarshal)",
+      "ordinal": 843,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.CLIPFORMAT_UserUnmarshal64)",
+      "ordinal": 844,
+      "is_forwarder": true
+    },
+    {
+      "name": "CLIPFORMAT_UserUnmarshalExt",
+      "ordinal": 808,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CLSIDFromOle1Class)",
+      "ordinal": 845,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CLSIDFromProgID)",
+      "ordinal": 846,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-2.CLSIDFromProgIDEx)",
+      "ordinal": 847,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CLSIDFromString)",
+      "ordinal": 848,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.CStdAsyncStubBuffer2_Connect)",
+      "ordinal": 849,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.CStdAsyncStubBuffer2_Disconnect)",
+      "ordinal": 850,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.CStdAsyncStubBuffer2_Release)",
+      "ordinal": 851,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.CStdAsyncStubBuffer_AddRef)",
+      "ordinal": 852,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.CStdAsyncStubBuffer_Connect)",
+      "ordinal": 853,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.CStdAsyncStubBuffer_Disconnect)",
+      "ordinal": 854,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.CStdAsyncStubBuffer_Invoke)",
+      "ordinal": 855,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.CStdAsyncStubBuffer_QueryInterface)",
+      "ordinal": 856,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.CStdAsyncStubBuffer_Release)",
+      "ordinal": 857,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.CStdStubBuffer2_Connect)",
+      "ordinal": 858,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.CStdStubBuffer2_CountRefs)",
+      "ordinal": 859,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.CStdStubBuffer2_Disconnect)",
+      "ordinal": 860,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.CStdStubBuffer2_QueryInterface)",
+      "ordinal": 861,
+      "is_forwarder": true
+    },
+    {
+      "name": "CheckInitDde",
+      "ordinal": 862,
+      "is_forwarder": false
+    },
+    {
+      "name": "CleanROTForApartment",
+      "ordinal": 863,
+      "is_forwarder": false
+    },
+    {
+      "name": "ClipboardProcessUninitialize",
+      "ordinal": 809,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoAddRefServerProcess)",
+      "ordinal": 864,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoAicGetTokenForCOM",
+      "ordinal": 865,
+      "is_forwarder": false
+    },
+    {
+      "name": "CoAllowSetForegroundWindow",
+      "ordinal": 866,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoAllowUnmarshalerCLSID)",
+      "ordinal": 867,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoBuildVersion",
+      "ordinal": 868,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoCancelCall)",
+      "ordinal": 869,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoCheckElevationEnabled",
+      "ordinal": 870,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoCopyProxy)",
+      "ordinal": 871,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoCreateFreeThreadedMarshaler)",
+      "ordinal": 872,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoCreateGuid)",
+      "ordinal": 873,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoCreateInstance)",
+      "ordinal": 874,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoCreateInstanceEx)",
+      "ordinal": 875,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoCreateInstanceFromApp)",
+      "ordinal": 876,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoCreateObjectInContext)",
+      "ordinal": 877,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoDeactivateObject)",
+      "ordinal": 878,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoDecodeProxy)",
+      "ordinal": 879,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoDecrementMTAUsage)",
+      "ordinal": 880,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoDisableCallCancellation)",
+      "ordinal": 881,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoDisconnectContext)",
+      "ordinal": 882,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoDisconnectObject)",
+      "ordinal": 883,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoDosDateTimeToFileTime",
+      "ordinal": 884,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoEnableCallCancellation)",
+      "ordinal": 885,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-2.CoFileTimeNow)",
+      "ordinal": 886,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoFileTimeToDosDateTime",
+      "ordinal": 887,
+      "is_forwarder": false
+    },
+    {
+      "name": "CoFreeAllLibraries",
+      "ordinal": 888,
+      "is_forwarder": false
+    },
+    {
+      "name": "CoFreeLibrary",
+      "ordinal": 889,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoFreeUnusedLibraries)",
+      "ordinal": 890,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoFreeUnusedLibrariesEx)",
+      "ordinal": 891,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoGetActivationState)",
+      "ordinal": 892,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoGetApartmentID)",
+      "ordinal": 893,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetApartmentType)",
+      "ordinal": 894,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetCallContext)",
+      "ordinal": 895,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoGetCallState)",
+      "ordinal": 896,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetCallerTID)",
+      "ordinal": 897,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetCancelObject)",
+      "ordinal": 898,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetClassObject)",
+      "ordinal": 899,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoGetClassVersion)",
+      "ordinal": 900,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.GetCatalogHelper)",
+      "ordinal": 901,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetContextToken)",
+      "ordinal": 902,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetCurrentLogicalThreadId)",
+      "ordinal": 903,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetCurrentProcess)",
+      "ordinal": 904,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetDefaultContext)",
+      "ordinal": 905,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoGetInstanceFromFile)",
+      "ordinal": 906,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoGetInstanceFromIStorage)",
+      "ordinal": 907,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoGetInterceptor",
+      "ordinal": 908,
+      "is_forwarder": false
+    },
+    {
+      "name": "CoGetInterceptorForOle32",
+      "ordinal": 909,
+      "is_forwarder": false
+    },
+    {
+      "name": "CoGetInterceptorFromTypeInfo",
+      "ordinal": 910,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetInterfaceAndReleaseStream)",
+      "ordinal": 911,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetMalloc)",
+      "ordinal": 912,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetMarshalSizeMax)",
+      "ordinal": 913,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoGetModuleType)",
+      "ordinal": 914,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoGetObject",
+      "ordinal": 915,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetObjectContext)",
+      "ordinal": 916,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetPSClsid)",
+      "ordinal": 917,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoGetProcessIdentifier)",
+      "ordinal": 918,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetStandardMarshal)",
+      "ordinal": 919,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetStdMarshalEx)",
+      "ordinal": 920,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoGetSystemSecurityPermissions)",
+      "ordinal": 921,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoGetSystemWow64DirectoryW",
+      "ordinal": 922,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoGetTreatAsClass)",
+      "ordinal": 923,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.#111)",
+      "ordinal": 924,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoImpersonateClient)",
+      "ordinal": 925,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoIncrementMTAUsage)",
+      "ordinal": 926,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoInitialize",
+      "ordinal": 927,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoInitializeEx)",
+      "ordinal": 928,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoInitializeSecurity)",
+      "ordinal": 929,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoInitializeWOW",
+      "ordinal": 930,
+      "is_forwarder": false
+    },
+    {
+      "name": "CoInstall",
+      "ordinal": 931,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoInvalidateRemoteMachineBindings)",
+      "ordinal": 932,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoIsHandlerConnected)",
+      "ordinal": 933,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-3-1.CoIsOle1Class)",
+      "ordinal": 934,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoLoadLibrary",
+      "ordinal": 935,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoLockObjectExternal)",
+      "ordinal": 936,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoMarshalHresult)",
+      "ordinal": 937,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoMarshalInterThreadInterfaceInStream)",
+      "ordinal": 938,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoMarshalInterface)",
+      "ordinal": 939,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoPopServiceDomain)",
+      "ordinal": 940,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoPushServiceDomain)",
+      "ordinal": 941,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoQueryAuthenticationServices)",
+      "ordinal": 942,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoQueryClientBlanket)",
+      "ordinal": 943,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoQueryProxyBlanket)",
+      "ordinal": 944,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoQueryReleaseObject",
+      "ordinal": 945,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoReactivateObject)",
+      "ordinal": 946,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoRegisterActivationFilter)",
+      "ordinal": 947,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.#112)",
+      "ordinal": 948,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoRegisterClassObject)",
+      "ordinal": 949,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoRegisterInitializeSpy)",
+      "ordinal": 950,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoRegisterMallocSpy)",
+      "ordinal": 951,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoRegisterMessageFilter",
+      "ordinal": 952,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoRegisterPSClsid)",
+      "ordinal": 953,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoRegisterSurrogate)",
+      "ordinal": 954,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoRegisterSurrogateEx",
+      "ordinal": 955,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoReleaseMarshalData)",
+      "ordinal": 956,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoReleaseServerProcess)",
+      "ordinal": 957,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoResumeClassObjects)",
+      "ordinal": 958,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoRetireServer)",
+      "ordinal": 959,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoRevertToSelf)",
+      "ordinal": 960,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoRevokeClassObject)",
+      "ordinal": 961,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoRevokeInitializeSpy)",
+      "ordinal": 962,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoRevokeMallocSpy)",
+      "ordinal": 963,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoSetCancelObject)",
+      "ordinal": 964,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.#110)",
+      "ordinal": 965,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoSetProxyBlanket)",
+      "ordinal": 966,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoSetState",
+      "ordinal": 967,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoSuspendClassObjects)",
+      "ordinal": 968,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoSwitchCallContext)",
+      "ordinal": 969,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoTaskMemAlloc)",
+      "ordinal": 970,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoTaskMemFree)",
+      "ordinal": 971,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoTaskMemRealloc)",
+      "ordinal": 972,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoTestCancel)",
+      "ordinal": 973,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-3-1.CoTreatAsClass)",
+      "ordinal": 974,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoTryGetInterceptorForAppModelVirtualization",
+      "ordinal": 975,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoUninitialize)",
+      "ordinal": 976,
+      "is_forwarder": true
+    },
+    {
+      "name": "CoUnloadingWOW",
+      "ordinal": 977,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoUnmarshalHresult)",
+      "ordinal": 978,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoUnmarshalInterface)",
+      "ordinal": 979,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoVrfCheckThreadState)",
+      "ordinal": 980,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoVrfGetThreadState)",
+      "ordinal": 981,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoVrfReleaseThreadState)",
+      "ordinal": 982,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoWaitForMultipleHandles)",
+      "ordinal": 983,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CoWaitForMultipleObjects)",
+      "ordinal": 984,
+      "is_forwarder": true
+    },
+    {
+      "name": "ComPs_NdrDllCanUnloadNow",
+      "ordinal": 985,
+      "is_forwarder": false
+    },
+    {
+      "name": "ComPs_NdrDllGetClassObject",
+      "ordinal": 986,
+      "is_forwarder": false
+    },
+    {
+      "name": "ComPs_NdrDllRegisterProxy",
+      "ordinal": 987,
+      "is_forwarder": false
+    },
+    {
+      "name": "ComPs_NdrDllUnregisterProxy",
+      "ordinal": 988,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateAntiMoniker",
+      "ordinal": 989,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateBindCtx",
+      "ordinal": 990,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateClassMoniker",
+      "ordinal": 991,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDataAdviseHolder",
+      "ordinal": 992,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDataCache",
+      "ordinal": 993,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoCreateErrorInfo)",
+      "ordinal": 994,
+      "is_forwarder": true
+    },
+    {
+      "name": "CreateFileMoniker",
+      "ordinal": 995,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateGenericComposite",
+      "ordinal": 996,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateILockBytesOnHGlobal",
+      "ordinal": 997,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateItemMoniker",
+      "ordinal": 998,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateObjrefMoniker",
+      "ordinal": 999,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateOleAdviseHolder",
+      "ordinal": 1000,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreatePointerMoniker",
+      "ordinal": 1001,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateStdProgressIndicator",
+      "ordinal": 1002,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.CreateStreamOnHGlobal)",
+      "ordinal": 1003,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.DcomChannelSetHResult)",
+      "ordinal": 1004,
+      "is_forwarder": true
+    },
+    {
+      "name": "DdeBindToObject",
+      "ordinal": 1005,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeletePatternAndExtensionTables",
+      "ordinal": 1006,
+      "is_forwarder": false
+    },
+    {
+      "name": "DestroyRunningObjectTable",
+      "ordinal": 1007,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.DllDebugObjectRPCHook)",
+      "ordinal": 1008,
+      "is_forwarder": true
+    },
+    {
+      "name": "DllGetClassObject",
+      "ordinal": 1009,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllGetClassObjectWOW",
+      "ordinal": 1010,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllRegisterServer",
+      "ordinal": 1011,
+      "is_forwarder": false
+    },
+    {
+      "name": "DoDragDrop",
+      "ordinal": 1012,
+      "is_forwarder": false
+    },
+    {
+      "name": "DragDropSetFDT",
+      "ordinal": 1013,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.EnableHookObject)",
+      "ordinal": 1014,
+      "is_forwarder": true
+    },
+    {
+      "name": "FindExt",
+      "ordinal": 1015,
+      "is_forwarder": false
+    },
+    {
+      "name": "FmtIdToPropStgName",
+      "ordinal": 1016,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.FreePropVariantArray)",
+      "ordinal": 1017,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetActiveObjectExt",
+      "ordinal": 1018,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClassFile",
+      "ordinal": 1019,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetConvertStg",
+      "ordinal": 1020,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDocumentBitStg",
+      "ordinal": 1021,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoGetErrorInfo)",
+      "ordinal": 1022,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetHGlobalFromILockBytes",
+      "ordinal": 1023,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.GetHGlobalFromStream)",
+      "ordinal": 1024,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.GetHookInterface)",
+      "ordinal": 1025,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetObjectFromRotByPath",
+      "ordinal": 1026,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetRunningObjectTable",
+      "ordinal": 1027,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.HACCEL_UserFree)",
+      "ordinal": 1028,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HACCEL_UserFree64)",
+      "ordinal": 1029,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HACCEL_UserMarshal)",
+      "ordinal": 1030,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HACCEL_UserMarshal64)",
+      "ordinal": 1031,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HACCEL_UserSize)",
+      "ordinal": 1032,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HACCEL_UserSize64)",
+      "ordinal": 1033,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HACCEL_UserUnmarshal)",
+      "ordinal": 1034,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HACCEL_UserUnmarshal64)",
+      "ordinal": 1035,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBITMAP_UserFree)",
+      "ordinal": 1036,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBITMAP_UserFree64)",
+      "ordinal": 1037,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBITMAP_UserMarshal)",
+      "ordinal": 1038,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBITMAP_UserMarshal64)",
+      "ordinal": 1039,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBITMAP_UserSize)",
+      "ordinal": 1040,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBITMAP_UserSize64)",
+      "ordinal": 1041,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBITMAP_UserUnmarshal)",
+      "ordinal": 1042,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBITMAP_UserUnmarshal64)",
+      "ordinal": 1043,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBRUSH_UserFree)",
+      "ordinal": 1044,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBRUSH_UserFree64)",
+      "ordinal": 1045,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBRUSH_UserMarshal)",
+      "ordinal": 1046,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBRUSH_UserMarshal64)",
+      "ordinal": 1047,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBRUSH_UserSize)",
+      "ordinal": 1048,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBRUSH_UserSize64)",
+      "ordinal": 1049,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBRUSH_UserUnmarshal)",
+      "ordinal": 1050,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HBRUSH_UserUnmarshal64)",
+      "ordinal": 1051,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HDC_UserFree)",
+      "ordinal": 1052,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HDC_UserFree64)",
+      "ordinal": 1053,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HDC_UserMarshal)",
+      "ordinal": 1054,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HDC_UserMarshal64)",
+      "ordinal": 1055,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HDC_UserSize)",
+      "ordinal": 1056,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HDC_UserSize64)",
+      "ordinal": 1057,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HDC_UserUnmarshal)",
+      "ordinal": 1058,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HDC_UserUnmarshal64)",
+      "ordinal": 1059,
+      "is_forwarder": true
+    },
+    {
+      "name": "HENHMETAFILE_UserFree",
+      "ordinal": 1060,
+      "is_forwarder": false
+    },
+    {
+      "name": "HENHMETAFILE_UserFree64",
+      "ordinal": 1061,
+      "is_forwarder": false
+    },
+    {
+      "name": "HENHMETAFILE_UserMarshal",
+      "ordinal": 1062,
+      "is_forwarder": false
+    },
+    {
+      "name": "HENHMETAFILE_UserMarshal64",
+      "ordinal": 1063,
+      "is_forwarder": false
+    },
+    {
+      "name": "HENHMETAFILE_UserSize",
+      "ordinal": 1064,
+      "is_forwarder": false
+    },
+    {
+      "name": "HENHMETAFILE_UserSize64",
+      "ordinal": 1065,
+      "is_forwarder": false
+    },
+    {
+      "name": "HENHMETAFILE_UserUnmarshal",
+      "ordinal": 1066,
+      "is_forwarder": false
+    },
+    {
+      "name": "HENHMETAFILE_UserUnmarshal64",
+      "ordinal": 1067,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.HGLOBAL_UserFree)",
+      "ordinal": 1068,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HGLOBAL_UserFree64)",
+      "ordinal": 1069,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HGLOBAL_UserMarshal)",
+      "ordinal": 1070,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HGLOBAL_UserMarshal64)",
+      "ordinal": 1071,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HGLOBAL_UserSize)",
+      "ordinal": 1072,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HGLOBAL_UserSize64)",
+      "ordinal": 1073,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HGLOBAL_UserUnmarshal)",
+      "ordinal": 1074,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HGLOBAL_UserUnmarshal64)",
+      "ordinal": 1075,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HICON_UserFree)",
+      "ordinal": 1076,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HICON_UserFree64)",
+      "ordinal": 1077,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HICON_UserMarshal)",
+      "ordinal": 1078,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HICON_UserMarshal64)",
+      "ordinal": 1079,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HICON_UserSize)",
+      "ordinal": 1080,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HICON_UserSize64)",
+      "ordinal": 1081,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HICON_UserUnmarshal)",
+      "ordinal": 1082,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HICON_UserUnmarshal64)",
+      "ordinal": 1083,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMENU_UserFree)",
+      "ordinal": 1084,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMENU_UserFree64)",
+      "ordinal": 1085,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMENU_UserMarshal)",
+      "ordinal": 1086,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMENU_UserMarshal64)",
+      "ordinal": 1087,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMENU_UserSize)",
+      "ordinal": 1088,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMENU_UserSize64)",
+      "ordinal": 1089,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMENU_UserUnmarshal)",
+      "ordinal": 1090,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMENU_UserUnmarshal64)",
+      "ordinal": 1091,
+      "is_forwarder": true
+    },
+    {
+      "name": "HMETAFILEPICT_UserFree",
+      "ordinal": 1092,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILEPICT_UserFree64",
+      "ordinal": 1093,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILEPICT_UserMarshal",
+      "ordinal": 1094,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILEPICT_UserMarshal64",
+      "ordinal": 1095,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILEPICT_UserSize",
+      "ordinal": 1096,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILEPICT_UserSize64",
+      "ordinal": 1097,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILEPICT_UserUnmarshal",
+      "ordinal": 1098,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILEPICT_UserUnmarshal64",
+      "ordinal": 1099,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILE_UserFree",
+      "ordinal": 1100,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILE_UserFree64",
+      "ordinal": 1101,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILE_UserMarshal",
+      "ordinal": 1102,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILE_UserMarshal64",
+      "ordinal": 1103,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILE_UserSize",
+      "ordinal": 1104,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILE_UserSize64",
+      "ordinal": 1105,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILE_UserUnmarshal",
+      "ordinal": 1106,
+      "is_forwarder": false
+    },
+    {
+      "name": "HMETAFILE_UserUnmarshal64",
+      "ordinal": 1107,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.HMONITOR_UserFree)",
+      "ordinal": 1108,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMONITOR_UserFree64)",
+      "ordinal": 1109,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMONITOR_UserMarshal)",
+      "ordinal": 1110,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMONITOR_UserMarshal64)",
+      "ordinal": 1111,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMONITOR_UserSize)",
+      "ordinal": 1112,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMONITOR_UserSize64)",
+      "ordinal": 1113,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMONITOR_UserUnmarshal)",
+      "ordinal": 1114,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HMONITOR_UserUnmarshal64)",
+      "ordinal": 1115,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HPALETTE_UserFree)",
+      "ordinal": 1116,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HPALETTE_UserFree64)",
+      "ordinal": 1117,
+      "is_forwarder": true
+    },
+    {
+      "name": "HPALETTE_UserFreeExt",
+      "ordinal": 810,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.HPALETTE_UserMarshal)",
+      "ordinal": 1118,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HPALETTE_UserMarshal64)",
+      "ordinal": 1119,
+      "is_forwarder": true
+    },
+    {
+      "name": "HPALETTE_UserMarshalExt",
+      "ordinal": 811,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.HPALETTE_UserSize)",
+      "ordinal": 1120,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HPALETTE_UserSize64)",
+      "ordinal": 1121,
+      "is_forwarder": true
+    },
+    {
+      "name": "HPALETTE_UserSizeExt",
+      "ordinal": 812,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.HPALETTE_UserUnmarshal)",
+      "ordinal": 1122,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HPALETTE_UserUnmarshal64)",
+      "ordinal": 1123,
+      "is_forwarder": true
+    },
+    {
+      "name": "HPALETTE_UserUnmarshalExt",
+      "ordinal": 813,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.HRGN_UserFree)",
+      "ordinal": 1124,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HRGN_UserMarshal)",
+      "ordinal": 1125,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HRGN_UserSize)",
+      "ordinal": 1126,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HRGN_UserUnmarshal)",
+      "ordinal": 1127,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HWND_UserFree)",
+      "ordinal": 1128,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HWND_UserFree64)",
+      "ordinal": 1129,
+      "is_forwarder": true
+    },
+    {
+      "name": "HWND_UserFree64Ext",
+      "ordinal": 814,
+      "is_forwarder": false
+    },
+    {
+      "name": "HWND_UserFreeExt",
+      "ordinal": 815,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.HWND_UserMarshal)",
+      "ordinal": 1130,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HWND_UserMarshal64)",
+      "ordinal": 1131,
+      "is_forwarder": true
+    },
+    {
+      "name": "HWND_UserMarshal64Ext",
+      "ordinal": 816,
+      "is_forwarder": false
+    },
+    {
+      "name": "HWND_UserMarshalExt",
+      "ordinal": 817,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.HWND_UserSize)",
+      "ordinal": 1132,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HWND_UserSize64)",
+      "ordinal": 1133,
+      "is_forwarder": true
+    },
+    {
+      "name": "HWND_UserSize64Ext",
+      "ordinal": 818,
+      "is_forwarder": false
+    },
+    {
+      "name": "HWND_UserSizeExt",
+      "ordinal": 819,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.HWND_UserUnmarshal)",
+      "ordinal": 1134,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.HWND_UserUnmarshal64)",
+      "ordinal": 1135,
+      "is_forwarder": true
+    },
+    {
+      "name": "HWND_UserUnmarshal64Ext",
+      "ordinal": 824,
+      "is_forwarder": false
+    },
+    {
+      "name": "HWND_UserUnmarshalExt",
+      "ordinal": 825,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.HkOleRegisterObject)",
+      "ordinal": 1136,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.IIDFromString)",
+      "ordinal": 1137,
+      "is_forwarder": true
+    },
+    {
+      "name": "IsAccelerator",
+      "ordinal": 1138,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsEqualGUID",
+      "ordinal": 1139,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsRoInitializeASTAAllowedInDesktop",
+      "ordinal": 1140,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsValidIid",
+      "ordinal": 1141,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsValidInterface",
+      "ordinal": 1142,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsValidPtrIn",
+      "ordinal": 1143,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsValidPtrOut",
+      "ordinal": 1144,
+      "is_forwarder": false
+    },
+    {
+      "name": "MkParseDisplayName",
+      "ordinal": 1145,
+      "is_forwarder": false
+    },
+    {
+      "name": "MonikerCommonPrefixWith",
+      "ordinal": 1146,
+      "is_forwarder": false
+    },
+    {
+      "name": "MonikerLoadTypeLib",
+      "ordinal": 826,
+      "is_forwarder": false
+    },
+    {
+      "name": "MonikerRelativePathTo",
+      "ordinal": 1147,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.NdrOleInitializeExtension)",
+      "ordinal": 1148,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction10)",
+      "ordinal": 1149,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction11)",
+      "ordinal": 1150,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction12)",
+      "ordinal": 1151,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction13)",
+      "ordinal": 1152,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction14)",
+      "ordinal": 1153,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction15)",
+      "ordinal": 1154,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction16)",
+      "ordinal": 1155,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction17)",
+      "ordinal": 1156,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction18)",
+      "ordinal": 1157,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction19)",
+      "ordinal": 1158,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction20)",
+      "ordinal": 1159,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction21)",
+      "ordinal": 1160,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction22)",
+      "ordinal": 1161,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction23)",
+      "ordinal": 1162,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction24)",
+      "ordinal": 1163,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction25)",
+      "ordinal": 1164,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction26)",
+      "ordinal": 1165,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction27)",
+      "ordinal": 1166,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction28)",
+      "ordinal": 1167,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction29)",
+      "ordinal": 1168,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction3)",
+      "ordinal": 1169,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction30)",
+      "ordinal": 1170,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction31)",
+      "ordinal": 1171,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction32)",
+      "ordinal": 1172,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction4)",
+      "ordinal": 1173,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction5)",
+      "ordinal": 1174,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction6)",
+      "ordinal": 1175,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction7)",
+      "ordinal": 1176,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction8)",
+      "ordinal": 1177,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.NdrProxyForwardingFunction9)",
+      "ordinal": 1178,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient10)",
+      "ordinal": 1179,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient11)",
+      "ordinal": 1180,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient12)",
+      "ordinal": 1181,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient13)",
+      "ordinal": 1182,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient14)",
+      "ordinal": 1183,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient15)",
+      "ordinal": 1184,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient16)",
+      "ordinal": 1185,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient17)",
+      "ordinal": 1186,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient18)",
+      "ordinal": 1187,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient19)",
+      "ordinal": 1188,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient20)",
+      "ordinal": 1189,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient21)",
+      "ordinal": 1190,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient22)",
+      "ordinal": 1191,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient23)",
+      "ordinal": 1192,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient24)",
+      "ordinal": 1193,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient25)",
+      "ordinal": 1194,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient26)",
+      "ordinal": 1195,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient27)",
+      "ordinal": 1196,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient28)",
+      "ordinal": 1197,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient29)",
+      "ordinal": 1198,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient3)",
+      "ordinal": 1199,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient30)",
+      "ordinal": 1200,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient31)",
+      "ordinal": 1201,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient32)",
+      "ordinal": 1202,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient4)",
+      "ordinal": 1203,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient5)",
+      "ordinal": 1204,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient6)",
+      "ordinal": 1205,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient7)",
+      "ordinal": 1206,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient8)",
+      "ordinal": 1207,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-midlproxystub-l1-1-0.ObjectStublessClient9)",
+      "ordinal": 1208,
+      "is_forwarder": true
+    },
+    {
+      "name": "Ole32DllGetClassObject",
+      "ordinal": 1209,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleBuildVersion",
+      "ordinal": 1210,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleConvertIStorageToOLESTREAM",
+      "ordinal": 1211,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleConvertIStorageToOLESTREAMEx",
+      "ordinal": 1212,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleConvertOLESTREAMToIStorage",
+      "ordinal": 1213,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleConvertOLESTREAMToIStorage2",
+      "ordinal": 1214,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleConvertOLESTREAMToIStorageEx",
+      "ordinal": 1215,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleConvertOLESTREAMToIStorageEx2",
+      "ordinal": 1216,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreate",
+      "ordinal": 1217,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateDefaultHandler",
+      "ordinal": 1218,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateEmbeddingHelper",
+      "ordinal": 1219,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateEx",
+      "ordinal": 1220,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateFontIndirectExt",
+      "ordinal": 1221,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateFromData",
+      "ordinal": 1222,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateFromDataEx",
+      "ordinal": 1223,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateFromFile",
+      "ordinal": 1224,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateFromFileEx",
+      "ordinal": 1225,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateLink",
+      "ordinal": 1226,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateLinkEx",
+      "ordinal": 1227,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateLinkFromData",
+      "ordinal": 1228,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateLinkFromDataEx",
+      "ordinal": 1229,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateLinkToFile",
+      "ordinal": 1230,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateLinkToFileEx",
+      "ordinal": 1231,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateMenuDescriptor",
+      "ordinal": 1232,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreatePictureIndirectExt",
+      "ordinal": 1233,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreatePropertyFrameIndirectExt",
+      "ordinal": 1234,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleCreateStaticFromData",
+      "ordinal": 1235,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleDestroyMenuDescriptor",
+      "ordinal": 1236,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleDoAutoConvert",
+      "ordinal": 1237,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleDraw",
+      "ordinal": 1238,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleDuplicateData",
+      "ordinal": 1239,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleFlushClipboard",
+      "ordinal": 1240,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleGetAutoConvert",
+      "ordinal": 1241,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleGetClipboard",
+      "ordinal": 1242,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleGetClipboardWithEnterpriseInfo",
+      "ordinal": 1243,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleGetIconOfClass",
+      "ordinal": 1244,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleGetIconOfFile",
+      "ordinal": 1245,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleGetPackageClipboardOwner",
+      "ordinal": 802,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleIconToCursorExt",
+      "ordinal": 1246,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleInitialize",
+      "ordinal": 1247,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleInitializeWOW",
+      "ordinal": 1248,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleIsCurrentClipboard",
+      "ordinal": 1249,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleIsRunning",
+      "ordinal": 1250,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleLoad",
+      "ordinal": 1251,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleLoadFromStream",
+      "ordinal": 1252,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleLoadPictureExt",
+      "ordinal": 1253,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleLoadPictureFileExt",
+      "ordinal": 1254,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleLoadPicturePathExt",
+      "ordinal": 1255,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleLockRunning",
+      "ordinal": 1256,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleMetafilePictFromIconAndLabel",
+      "ordinal": 1257,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleNoteObjectVisible",
+      "ordinal": 1258,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleQueryCreateFromData",
+      "ordinal": 1259,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleQueryLinkFromData",
+      "ordinal": 1260,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleRegEnumFormatEtc",
+      "ordinal": 1261,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleRegEnumVerbs",
+      "ordinal": 1262,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleRegGetMiscStatus",
+      "ordinal": 1263,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleRegGetUserType",
+      "ordinal": 1264,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleReleaseEnumVerbCache",
+      "ordinal": 1265,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleRun",
+      "ordinal": 1266,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleSave",
+      "ordinal": 1267,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleSavePictureFileExt",
+      "ordinal": 1268,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleSaveToStream",
+      "ordinal": 1269,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleSetAutoConvert",
+      "ordinal": 1270,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleSetClipboard",
+      "ordinal": 1271,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleSetContainedObject",
+      "ordinal": 1272,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleSetMenuDescriptor",
+      "ordinal": 1273,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleTranslateAccelerator",
+      "ordinal": 1274,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleTranslateColorExt",
+      "ordinal": 1275,
+      "is_forwarder": false
+    },
+    {
+      "name": "OleUninitialize",
+      "ordinal": 1276,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenOrCreateStream",
+      "ordinal": 1277,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.ProgIDFromCLSID)",
+      "ordinal": 1278,
+      "is_forwarder": true
+    },
+    {
+      "name": "PropStgNameToFmtId",
+      "ordinal": 1279,
+      "is_forwarder": false
+    },
+    {
+      "name": "PropSysAllocString",
+      "ordinal": 1280,
+      "is_forwarder": false
+    },
+    {
+      "name": "PropSysFreeString",
+      "ordinal": 1281,
+      "is_forwarder": false
+    },
+    {
+      "name": "PropVariantChangeType",
+      "ordinal": 1282,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.PropVariantClear)",
+      "ordinal": 1283,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.PropVariantCopy)",
+      "ordinal": 1284,
+      "is_forwarder": true
+    },
+    {
+      "name": "ReadClassStg",
+      "ordinal": 1285,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadClassStm",
+      "ordinal": 1286,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadFmtUserTypeStg",
+      "ordinal": 1287,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadOleStg",
+      "ordinal": 1288,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadStorageProperties",
+      "ordinal": 827,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReadStringStream",
+      "ordinal": 1289,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterActiveObjectExt",
+      "ordinal": 1290,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterDragDrop",
+      "ordinal": 1291,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReleaseStgMedium",
+      "ordinal": 1292,
+      "is_forwarder": false
+    },
+    {
+      "name": "RevokeActiveObjectExt",
+      "ordinal": 1293,
+      "is_forwarder": false
+    },
+    {
+      "name": "RevokeDragDrop",
+      "ordinal": 1294,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-1.RoGetAgileReference)",
+      "ordinal": 1295,
+      "is_forwarder": true
+    },
+    {
+      "name": "SNB_UserFree",
+      "ordinal": 1296,
+      "is_forwarder": false
+    },
+    {
+      "name": "SNB_UserFree64",
+      "ordinal": 1297,
+      "is_forwarder": false
+    },
+    {
+      "name": "SNB_UserMarshal",
+      "ordinal": 1298,
+      "is_forwarder": false
+    },
+    {
+      "name": "SNB_UserMarshal64",
+      "ordinal": 1299,
+      "is_forwarder": false
+    },
+    {
+      "name": "SNB_UserSize",
+      "ordinal": 1300,
+      "is_forwarder": false
+    },
+    {
+      "name": "SNB_UserSize64",
+      "ordinal": 1301,
+      "is_forwarder": false
+    },
+    {
+      "name": "SNB_UserUnmarshal",
+      "ordinal": 1302,
+      "is_forwarder": false
+    },
+    {
+      "name": "SNB_UserUnmarshal64",
+      "ordinal": 1303,
+      "is_forwarder": false
+    },
+    {
+      "name": "STGMEDIUM_UserFree",
+      "ordinal": 1304,
+      "is_forwarder": false
+    },
+    {
+      "name": "STGMEDIUM_UserFree64",
+      "ordinal": 1305,
+      "is_forwarder": false
+    },
+    {
+      "name": "STGMEDIUM_UserFreeExt",
+      "ordinal": 828,
+      "is_forwarder": false
+    },
+    {
+      "name": "STGMEDIUM_UserMarshal",
+      "ordinal": 1306,
+      "is_forwarder": false
+    },
+    {
+      "name": "STGMEDIUM_UserMarshal64",
+      "ordinal": 1307,
+      "is_forwarder": false
+    },
+    {
+      "name": "STGMEDIUM_UserMarshalExt",
+      "ordinal": 829,
+      "is_forwarder": false
+    },
+    {
+      "name": "STGMEDIUM_UserSize",
+      "ordinal": 1308,
+      "is_forwarder": false
+    },
+    {
+      "name": "STGMEDIUM_UserSize64",
+      "ordinal": 1309,
+      "is_forwarder": false
+    },
+    {
+      "name": "STGMEDIUM_UserSizeExt",
+      "ordinal": 830,
+      "is_forwarder": false
+    },
+    {
+      "name": "STGMEDIUM_UserUnmarshal",
+      "ordinal": 1310,
+      "is_forwarder": false
+    },
+    {
+      "name": "STGMEDIUM_UserUnmarshal64",
+      "ordinal": 1311,
+      "is_forwarder": false
+    },
+    {
+      "name": "STGMEDIUM_UserUnmarshalExt",
+      "ordinal": 831,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetConvertStg",
+      "ordinal": 1312,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDocumentBitStg",
+      "ordinal": 1313,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.CoSetErrorInfo)",
+      "ordinal": 1314,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetOleautModule",
+      "ordinal": 832,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWOWThunkGlobalPtr",
+      "ordinal": 1315,
+      "is_forwarder": false
+    },
+    {
+      "name": "StdTypesGetClassObject",
+      "ordinal": 833,
+      "is_forwarder": false
+    },
+    {
+      "name": "StdTypesRegisterServer",
+      "ordinal": 834,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgConvertPropertyToVariant",
+      "ordinal": 1316,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgConvertVariantToProperty",
+      "ordinal": 1317,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgCreateDocfile",
+      "ordinal": 1318,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgCreateDocfileOnILockBytes",
+      "ordinal": 1319,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgCreatePropSetStg",
+      "ordinal": 1320,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgCreatePropStg",
+      "ordinal": 1321,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgCreateStorageEx",
+      "ordinal": 1322,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgGetIFillLockBytesOnFile",
+      "ordinal": 1323,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgGetIFillLockBytesOnILockBytes",
+      "ordinal": 1324,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgIsStorageFile",
+      "ordinal": 1325,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgIsStorageILockBytes",
+      "ordinal": 1326,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgOpenAsyncDocfileOnIFillLockBytes",
+      "ordinal": 1327,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgOpenPropStg",
+      "ordinal": 1328,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgOpenStorage",
+      "ordinal": 1329,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgOpenStorageEx",
+      "ordinal": 1330,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgOpenStorageOnHandle",
+      "ordinal": 1331,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgOpenStorageOnILockBytes",
+      "ordinal": 1332,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgPropertyLengthAsVariant",
+      "ordinal": 1333,
+      "is_forwarder": false
+    },
+    {
+      "name": "StgSetTimes",
+      "ordinal": 1334,
+      "is_forwarder": false
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.StringFromCLSID)",
+      "ordinal": 1335,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.StringFromGUID2)",
+      "ordinal": 1336,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-l1-1-0.StringFromIID)",
+      "ordinal": 1337,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.UpdateDCOMSettings)",
+      "ordinal": 1338,
+      "is_forwarder": true
+    },
+    {
+      "name": "api-ms-win-core-com-private-l1-1-1.UpdateProcessTracing)",
+      "ordinal": 1339,
+      "is_forwarder": true
+    },
+    {
+      "name": "UtConvertDvtd16toDvtd32",
+      "ordinal": 1340,
+      "is_forwarder": false
+    },
+    {
+      "name": "UtConvertDvtd32toDvtd16",
+      "ordinal": 1341,
+      "is_forwarder": false
+    },
+    {
+      "name": "UtGetDvtd16Info",
+      "ordinal": 1342,
+      "is_forwarder": false
+    },
+    {
+      "name": "UtGetDvtd32Info",
+      "ordinal": 1343,
+      "is_forwarder": false
+    },
+    {
+      "name": "COMBASE.WdtpInterfacePointer_UserFree)",
+      "ordinal": 1344,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.WdtpInterfacePointer_UserFree64)",
+      "ordinal": 1345,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.WdtpInterfacePointer_UserMarshal)",
+      "ordinal": 1346,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.WdtpInterfacePointer_UserMarshal64)",
+      "ordinal": 1347,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.WdtpInterfacePointer_UserSize)",
+      "ordinal": 1348,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.WdtpInterfacePointer_UserSize64)",
+      "ordinal": 1349,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.WdtpInterfacePointer_UserUnmarshal)",
+      "ordinal": 1350,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMBASE.WdtpInterfacePointer_UserUnmarshal64)",
+      "ordinal": 1351,
+      "is_forwarder": true
+    },
+    {
+      "name": "WriteClassStg",
+      "ordinal": 1352,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteClassStm",
+      "ordinal": 1353,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteFmtUserTypeStg",
+      "ordinal": 1354,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteOleStg",
+      "ordinal": 1355,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteStorageProperties",
+      "ordinal": 835,
+      "is_forwarder": false
+    },
+    {
+      "name": "WriteStringStream",
+      "ordinal": 1356,
+      "is_forwarder": false
+    }
+  ]
+}

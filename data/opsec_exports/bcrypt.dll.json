@@ -1,0 +1,305 @@
+{
+  "dll": "bcrypt.dll",
+  "exports": [
+    {
+      "name": "BCryptAddContextFunction",
+      "ordinal": 1,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptAddContextFunctionProvider",
+      "ordinal": 2,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptCloseAlgorithmProvider",
+      "ordinal": 3,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptConfigureContext",
+      "ordinal": 4,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptConfigureContextFunction",
+      "ordinal": 5,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptCreateContext",
+      "ordinal": 6,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptCreateHash",
+      "ordinal": 7,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptCreateMultiHash",
+      "ordinal": 8,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptDecapsulate",
+      "ordinal": 9,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptDecrypt",
+      "ordinal": 10,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptDeleteContext",
+      "ordinal": 11,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptDeriveKey",
+      "ordinal": 12,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptDeriveKeyCapi",
+      "ordinal": 13,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptDeriveKeyPBKDF2",
+      "ordinal": 14,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptDestroyHash",
+      "ordinal": 15,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptDestroyKey",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptDestroySecret",
+      "ordinal": 17,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptDuplicateHash",
+      "ordinal": 18,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptDuplicateKey",
+      "ordinal": 19,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptEncapsulate",
+      "ordinal": 20,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptEncrypt",
+      "ordinal": 21,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptEnumAlgorithms",
+      "ordinal": 22,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptEnumContextFunctionProviders",
+      "ordinal": 23,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptEnumContextFunctions",
+      "ordinal": 24,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptEnumContexts",
+      "ordinal": 25,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptEnumProviders",
+      "ordinal": 26,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptEnumRegisteredProviders",
+      "ordinal": 27,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptExportKey",
+      "ordinal": 28,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptFinalizeKeyPair",
+      "ordinal": 29,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptFinishHash",
+      "ordinal": 30,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptFreeBuffer",
+      "ordinal": 31,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptGenRandom",
+      "ordinal": 32,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptGenerateKeyPair",
+      "ordinal": 33,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptGenerateSymmetricKey",
+      "ordinal": 34,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptGetFipsAlgorithmMode",
+      "ordinal": 35,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptGetProperty",
+      "ordinal": 36,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptHash",
+      "ordinal": 37,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptHashData",
+      "ordinal": 38,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptImportKey",
+      "ordinal": 39,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptImportKeyPair",
+      "ordinal": 40,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptKeyDerivation",
+      "ordinal": 41,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptOpenAlgorithmProvider",
+      "ordinal": 42,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptProcessMultiOperations",
+      "ordinal": 43,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptQueryContextConfiguration",
+      "ordinal": 44,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptQueryContextFunctionConfiguration",
+      "ordinal": 45,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptQueryContextFunctionProperty",
+      "ordinal": 46,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptQueryProviderRegistration",
+      "ordinal": 47,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptRegisterConfigChangeNotify",
+      "ordinal": 48,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptRegisterProvider",
+      "ordinal": 49,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptRemoveContextFunction",
+      "ordinal": 50,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptRemoveContextFunctionProvider",
+      "ordinal": 51,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptResolveProviders",
+      "ordinal": 52,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptSecretAgreement",
+      "ordinal": 53,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptSetAuditingInterface",
+      "ordinal": 54,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptSetContextFunctionProperty",
+      "ordinal": 55,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptSetProperty",
+      "ordinal": 56,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptSignHash",
+      "ordinal": 57,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptUnregisterConfigChangeNotify",
+      "ordinal": 58,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptUnregisterProvider",
+      "ordinal": 59,
+      "is_forwarder": false
+    },
+    {
+      "name": "BCryptVerifySignature",
+      "ordinal": 60,
+      "is_forwarder": false
+    }
+  ]
+}

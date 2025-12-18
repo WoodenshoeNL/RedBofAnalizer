@@ -1,0 +1,140 @@
+{
+  "dll": "psapi.dll",
+  "exports": [
+    {
+      "name": "EmptyWorkingSet",
+      "ordinal": 1,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDeviceDrivers",
+      "ordinal": 2,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumPageFilesA",
+      "ordinal": 3,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumPageFilesW",
+      "ordinal": 4,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumProcessModules",
+      "ordinal": 5,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumProcessModulesEx",
+      "ordinal": 6,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumProcesses",
+      "ordinal": 7,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDeviceDriverBaseNameA",
+      "ordinal": 8,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDeviceDriverBaseNameW",
+      "ordinal": 9,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDeviceDriverFileNameA",
+      "ordinal": 10,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDeviceDriverFileNameW",
+      "ordinal": 11,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMappedFileNameA",
+      "ordinal": 12,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMappedFileNameW",
+      "ordinal": 13,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetModuleBaseNameA",
+      "ordinal": 14,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetModuleBaseNameW",
+      "ordinal": 15,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetModuleFileNameExA",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetModuleFileNameExW",
+      "ordinal": 17,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetModuleInformation",
+      "ordinal": 18,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPerformanceInfo",
+      "ordinal": 19,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessImageFileNameA",
+      "ordinal": 20,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessImageFileNameW",
+      "ordinal": 21,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessMemoryInfo",
+      "ordinal": 22,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWsChanges",
+      "ordinal": 23,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWsChangesEx",
+      "ordinal": 24,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeProcessForWsWatch",
+      "ordinal": 25,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryWorkingSet",
+      "ordinal": 26,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryWorkingSetEx",
+      "ordinal": 27,
+      "is_forwarder": false
+    }
+  ]
+}

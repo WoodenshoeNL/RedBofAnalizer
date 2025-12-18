@@ -1,0 +1,26 @@
+# Canonical DLL names (one per line) for OpSec export helper.
+# These are the DLLs whose exports will be dumped into JSON.
+kernel32.dll
+msvcrt.dll
+iphlpapi.dll
+netapi32.dll
+ole32.dll
+advapi32.dll
+crypt32.dll
+oleaut32.dll
+user32.dll
+imagehlp.dll
+wtsapi32.dll
+shlwapi.dll
+bcrypt.dll
+secur32.dll
+dnsapi.dll
+wldap32.dll
+version.dll
+psapi.dll
+ws2_32.dll
+winhttp.dll
+wsock32.dll
+shell32.dll
+
+

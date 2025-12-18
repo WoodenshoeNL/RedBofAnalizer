@@ -1,0 +1,90 @@
+{
+  "dll": "version.dll",
+  "exports": [
+    {
+      "name": "GetFileVersionInfoA",
+      "ordinal": 1,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileVersionInfoByHandle",
+      "ordinal": 2,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileVersionInfoExA",
+      "ordinal": 3,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileVersionInfoExW",
+      "ordinal": 4,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileVersionInfoSizeA",
+      "ordinal": 5,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileVersionInfoSizeExA",
+      "ordinal": 6,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileVersionInfoSizeExW",
+      "ordinal": 7,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileVersionInfoSizeW",
+      "ordinal": 8,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFileVersionInfoW",
+      "ordinal": 9,
+      "is_forwarder": false
+    },
+    {
+      "name": "VerFindFileA",
+      "ordinal": 10,
+      "is_forwarder": false
+    },
+    {
+      "name": "VerFindFileW",
+      "ordinal": 11,
+      "is_forwarder": false
+    },
+    {
+      "name": "VerInstallFileA",
+      "ordinal": 12,
+      "is_forwarder": false
+    },
+    {
+      "name": "VerInstallFileW",
+      "ordinal": 13,
+      "is_forwarder": false
+    },
+    {
+      "name": "KERNEL32.VerLanguageNameA)",
+      "ordinal": 14,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.VerLanguageNameW)",
+      "ordinal": 15,
+      "is_forwarder": true
+    },
+    {
+      "name": "VerQueryValueA",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "VerQueryValueW",
+      "ordinal": 17,
+      "is_forwarder": false
+    }
+  ]
+}

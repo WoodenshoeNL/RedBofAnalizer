@@ -1,0 +1,3565 @@
+{
+  "dll": "shlwapi.dll",
+  "exports": [
+    {
+      "name": "AssocCreate",
+      "ordinal": 579,
+      "is_forwarder": false
+    },
+    {
+      "name": "AssocGetPerceivedType",
+      "ordinal": 584,
+      "is_forwarder": false
+    },
+    {
+      "name": "AssocIsDangerous",
+      "ordinal": 585,
+      "is_forwarder": false
+    },
+    {
+      "name": "AssocQueryKeyA",
+      "ordinal": 586,
+      "is_forwarder": false
+    },
+    {
+      "name": "AssocQueryKeyW",
+      "ordinal": 587,
+      "is_forwarder": false
+    },
+    {
+      "name": "AssocQueryStringA",
+      "ordinal": 588,
+      "is_forwarder": false
+    },
+    {
+      "name": "AssocQueryStringByKeyA",
+      "ordinal": 589,
+      "is_forwarder": false
+    },
+    {
+      "name": "AssocQueryStringByKeyW",
+      "ordinal": 590,
+      "is_forwarder": false
+    },
+    {
+      "name": "AssocQueryStringW",
+      "ordinal": 591,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChrCmpIA",
+      "ordinal": 592,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChrCmpIW",
+      "ordinal": 593,
+      "is_forwarder": false
+    },
+    {
+      "name": "ColorAdjustLuma",
+      "ordinal": 594,
+      "is_forwarder": false
+    },
+    {
+      "name": "ColorHLSToRGB",
+      "ordinal": 595,
+      "is_forwarder": false
+    },
+    {
+      "name": "ColorRGBToHLS",
+      "ordinal": 607,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConnectToConnectionPoint",
+      "ordinal": 168,
+      "is_forwarder": false
+    },
+    {
+      "name": "DelayLoadFailureHook",
+      "ordinal": 569,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllGetClassObject",
+      "ordinal": 608,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllGetVersion",
+      "ordinal": 609,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCORE.#200)",
+      "ordinal": 270,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetAcceptLanguagesA",
+      "ordinal": 14,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAcceptLanguagesW",
+      "ordinal": 15,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenuPosFromID",
+      "ordinal": 610,
+      "is_forwarder": false
+    },
+    {
+      "name": "HashData",
+      "ordinal": 612,
+      "is_forwarder": false
+    },
+    {
+      "name": "IStream_Copy",
+      "ordinal": 568,
+      "is_forwarder": false
+    },
+    {
+      "name": "IStream_Read",
+      "ordinal": 184,
+      "is_forwarder": false
+    },
+    {
+      "name": "IStream_ReadPidl",
+      "ordinal": 512,
+      "is_forwarder": false
+    },
+    {
+      "name": "IStream_ReadStr",
+      "ordinal": 596,
+      "is_forwarder": false
+    },
+    {
+      "name": "IStream_Reset",
+      "ordinal": 213,
+      "is_forwarder": false
+    },
+    {
+      "name": "IStream_Size",
+      "ordinal": 214,
+      "is_forwarder": false
+    },
+    {
+      "name": "IStream_Write",
+      "ordinal": 212,
+      "is_forwarder": false
+    },
+    {
+      "name": "IStream_WritePidl",
+      "ordinal": 513,
+      "is_forwarder": false
+    },
+    {
+      "name": "IStream_WriteStr",
+      "ordinal": 597,
+      "is_forwarder": false
+    },
+    {
+      "name": "IUnknown_AtomicRelease",
+      "ordinal": 169,
+      "is_forwarder": false
+    },
+    {
+      "name": "IUnknown_Exec",
+      "ordinal": 164,
+      "is_forwarder": false
+    },
+    {
+      "name": "IUnknown_GetSite",
+      "ordinal": 256,
+      "is_forwarder": false
+    },
+    {
+      "name": "IUnknown_GetWindow",
+      "ordinal": 172,
+      "is_forwarder": false
+    },
+    {
+      "name": "IUnknown_QueryService",
+      "ordinal": 176,
+      "is_forwarder": false
+    },
+    {
+      "name": "IUnknown_QueryStatus",
+      "ordinal": 163,
+      "is_forwarder": false
+    },
+    {
+      "name": "IUnknown_Set",
+      "ordinal": 199,
+      "is_forwarder": false
+    },
+    {
+      "name": "IUnknown_SetSite",
+      "ordinal": 174,
+      "is_forwarder": false
+    },
+    {
+      "name": "IntlStrEqWorkerA",
+      "ordinal": 620,
+      "is_forwarder": false
+    },
+    {
+      "name": "IntlStrEqWorkerW",
+      "ordinal": 622,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsCharSpaceA",
+      "ordinal": 623,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsCharSpaceW",
+      "ordinal": 29,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsInternetESCEnabled",
+      "ordinal": 553,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsOS",
+      "ordinal": 437,
+      "is_forwarder": false
+    },
+    {
+      "name": "MLLoadLibraryA",
+      "ordinal": 377,
+      "is_forwarder": false
+    },
+    {
+      "name": "MLLoadLibraryW",
+      "ordinal": 378,
+      "is_forwarder": false
+    },
+    {
+      "name": "ParseURLA",
+      "ordinal": 1,
+      "is_forwarder": false
+    },
+    {
+      "name": "ParseURLW",
+      "ordinal": 2,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathAddBackslashA",
+      "ordinal": 624,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathAddBackslashW",
+      "ordinal": 625,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathAddExtensionA",
+      "ordinal": 649,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathAddExtensionW",
+      "ordinal": 650,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathAppendA",
+      "ordinal": 651,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathAppendW",
+      "ordinal": 652,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathBuildRootA",
+      "ordinal": 653,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathBuildRootW",
+      "ordinal": 654,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathCanonicalizeA",
+      "ordinal": 655,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathCanonicalizeW",
+      "ordinal": 656,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathCombineA",
+      "ordinal": 657,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathCombineW",
+      "ordinal": 658,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathCommonPrefixA",
+      "ordinal": 659,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathCommonPrefixW",
+      "ordinal": 660,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathCompactPathA",
+      "ordinal": 661,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathCompactPathExA",
+      "ordinal": 662,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathCompactPathExW",
+      "ordinal": 663,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathCompactPathW",
+      "ordinal": 664,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathCreateFromUrlA",
+      "ordinal": 665,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathCreateFromUrlAlloc",
+      "ordinal": 666,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathCreateFromUrlW",
+      "ordinal": 667,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathFileExistsA",
+      "ordinal": 668,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathFileExistsAndAttributesW",
+      "ordinal": 446,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathFileExistsW",
+      "ordinal": 669,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathFindExtensionA",
+      "ordinal": 670,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathFindExtensionW",
+      "ordinal": 671,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathFindFileNameA",
+      "ordinal": 672,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathFindFileNameW",
+      "ordinal": 673,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathFindNextComponentA",
+      "ordinal": 674,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathFindNextComponentW",
+      "ordinal": 675,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathFindOnPathA",
+      "ordinal": 676,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathFindOnPathW",
+      "ordinal": 677,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathFindSuffixArrayA",
+      "ordinal": 678,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathFindSuffixArrayW",
+      "ordinal": 679,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathGetArgsA",
+      "ordinal": 680,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathGetArgsW",
+      "ordinal": 681,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathGetCharTypeA",
+      "ordinal": 682,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathGetCharTypeW",
+      "ordinal": 683,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathGetDriveNumberA",
+      "ordinal": 684,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathGetDriveNumberW",
+      "ordinal": 685,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsContentTypeA",
+      "ordinal": 686,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsContentTypeW",
+      "ordinal": 687,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsDirectoryA",
+      "ordinal": 688,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsDirectoryEmptyA",
+      "ordinal": 689,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsDirectoryEmptyW",
+      "ordinal": 690,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsDirectoryW",
+      "ordinal": 691,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsFileSpecA",
+      "ordinal": 692,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsFileSpecW",
+      "ordinal": 693,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsLFNFileSpecA",
+      "ordinal": 694,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsLFNFileSpecW",
+      "ordinal": 695,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsNetworkPathA",
+      "ordinal": 696,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsNetworkPathW",
+      "ordinal": 697,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsPrefixA",
+      "ordinal": 698,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsPrefixW",
+      "ordinal": 699,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsRelativeA",
+      "ordinal": 700,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsRelativeW",
+      "ordinal": 701,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsRootA",
+      "ordinal": 702,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsRootW",
+      "ordinal": 703,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsSameRootA",
+      "ordinal": 704,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsSameRootW",
+      "ordinal": 705,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsSystemFolderA",
+      "ordinal": 706,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsSystemFolderW",
+      "ordinal": 707,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsUNCA",
+      "ordinal": 708,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsUNCServerA",
+      "ordinal": 709,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsUNCServerShareA",
+      "ordinal": 710,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsUNCServerShareW",
+      "ordinal": 711,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsUNCServerW",
+      "ordinal": 712,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsUNCW",
+      "ordinal": 713,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsURLA",
+      "ordinal": 714,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathIsURLW",
+      "ordinal": 715,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathMakePrettyA",
+      "ordinal": 716,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathMakePrettyW",
+      "ordinal": 717,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathMakeSystemFolderA",
+      "ordinal": 718,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathMakeSystemFolderW",
+      "ordinal": 719,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathMatchSpecA",
+      "ordinal": 720,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathMatchSpecExA",
+      "ordinal": 721,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathMatchSpecExW",
+      "ordinal": 722,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathMatchSpecW",
+      "ordinal": 723,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathParseIconLocationA",
+      "ordinal": 724,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathParseIconLocationW",
+      "ordinal": 725,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathQuoteSpacesA",
+      "ordinal": 726,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathQuoteSpacesW",
+      "ordinal": 727,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathRelativePathToA",
+      "ordinal": 728,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathRelativePathToW",
+      "ordinal": 729,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathRemoveArgsA",
+      "ordinal": 730,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathRemoveArgsW",
+      "ordinal": 731,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathRemoveBackslashA",
+      "ordinal": 732,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathRemoveBackslashW",
+      "ordinal": 733,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathRemoveBlanksA",
+      "ordinal": 734,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathRemoveBlanksW",
+      "ordinal": 735,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathRemoveExtensionA",
+      "ordinal": 736,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathRemoveExtensionW",
+      "ordinal": 737,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathRemoveFileSpecA",
+      "ordinal": 738,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathRemoveFileSpecW",
+      "ordinal": 739,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathRenameExtensionA",
+      "ordinal": 740,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathRenameExtensionW",
+      "ordinal": 741,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathSearchAndQualifyA",
+      "ordinal": 742,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathSearchAndQualifyW",
+      "ordinal": 743,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathSetDlgItemPathA",
+      "ordinal": 744,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathSetDlgItemPathW",
+      "ordinal": 745,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathSkipRootA",
+      "ordinal": 746,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathSkipRootW",
+      "ordinal": 747,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathStripPathA",
+      "ordinal": 748,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathStripPathW",
+      "ordinal": 749,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathStripToRootA",
+      "ordinal": 750,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathStripToRootW",
+      "ordinal": 751,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathUnExpandEnvStringsA",
+      "ordinal": 752,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathUnExpandEnvStringsW",
+      "ordinal": 753,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathUndecorateA",
+      "ordinal": 754,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathUndecorateW",
+      "ordinal": 755,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathUnmakeSystemFolderA",
+      "ordinal": 756,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathUnmakeSystemFolderW",
+      "ordinal": 757,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathUnquoteSpacesA",
+      "ordinal": 758,
+      "is_forwarder": false
+    },
+    {
+      "name": "PathUnquoteSpacesW",
+      "ordinal": 759,
+      "is_forwarder": false
+    },
+    {
+      "name": "QISearch",
+      "ordinal": 219,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHAllocShared",
+      "ordinal": 7,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHAnsiToAnsi",
+      "ordinal": 345,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHAnsiToUnicode",
+      "ordinal": 215,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHAutoComplete",
+      "ordinal": 760,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCopyKeyA",
+      "ordinal": 761,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCopyKeyW",
+      "ordinal": 762,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateMemStream",
+      "ordinal": 12,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateShellPalette",
+      "ordinal": 763,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateStreamOnFileA",
+      "ordinal": 764,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateStreamOnFileEx",
+      "ordinal": 765,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateStreamOnFileW",
+      "ordinal": 766,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHUNIMPL.#471)",
+      "ordinal": 767,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCreateThread",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateThreadRef",
+      "ordinal": 768,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateThreadWithHandle",
+      "ordinal": 615,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCreateWorkerWindowW",
+      "ordinal": 278,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHDeleteEmptyKeyA",
+      "ordinal": 769,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHDeleteEmptyKeyW",
+      "ordinal": 770,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHDeleteKeyA",
+      "ordinal": 771,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHDeleteKeyW",
+      "ordinal": 772,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHUNIMPL.#446)",
+      "ordinal": 773,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#447)",
+      "ordinal": 774,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHDeleteValueA",
+      "ordinal": 775,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHDeleteValueW",
+      "ordinal": 776,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHEnumKeyExA",
+      "ordinal": 777,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHEnumKeyExW",
+      "ordinal": 778,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHEnumValueA",
+      "ordinal": 779,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHEnumValueW",
+      "ordinal": 780,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHFormatDateTimeA",
+      "ordinal": 353,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHFormatDateTimeW",
+      "ordinal": 354,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHFreeShared",
+      "ordinal": 10,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetInverseCMAP",
+      "ordinal": 781,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetThreadRef",
+      "ordinal": 782,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetValueA",
+      "ordinal": 783,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetValueW",
+      "ordinal": 784,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHGetViewStatePropertyBag",
+      "ordinal": 515,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHIsChildOrSelf",
+      "ordinal": 204,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHIsLowMemoryMachine",
+      "ordinal": 785,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHLoadIndirectString",
+      "ordinal": 487,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHLockShared",
+      "ordinal": 8,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHMessageBoxCheckA",
+      "ordinal": 185,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHMessageBoxCheckW",
+      "ordinal": 191,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHOpenRegStream2A",
+      "ordinal": 786,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHOpenRegStream2W",
+      "ordinal": 787,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHOpenRegStreamA",
+      "ordinal": 788,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHOpenRegStreamW",
+      "ordinal": 789,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHPackDispParamsV",
+      "ordinal": 281,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHPinDllOfCLSID",
+      "ordinal": 236,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHPropertyBag_ReadStrAlloc",
+      "ordinal": 567,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHPropertyBag_WriteBSTR",
+      "ordinal": 570,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHQueryInfoKeyA",
+      "ordinal": 790,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHQueryInfoKeyW",
+      "ordinal": 791,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHQueryValueExA",
+      "ordinal": 792,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHQueryValueExW",
+      "ordinal": 793,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegCloseUSKey",
+      "ordinal": 794,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegCreateUSKeyA",
+      "ordinal": 795,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegCreateUSKeyW",
+      "ordinal": 796,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegDeleteEmptyUSKeyA",
+      "ordinal": 797,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegDeleteEmptyUSKeyW",
+      "ordinal": 798,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegDeleteUSValueA",
+      "ordinal": 799,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegDeleteUSValueW",
+      "ordinal": 800,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegDuplicateHKey",
+      "ordinal": 801,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegEnumUSKeyA",
+      "ordinal": 802,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegEnumUSKeyW",
+      "ordinal": 803,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegEnumUSValueA",
+      "ordinal": 804,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegEnumUSValueW",
+      "ordinal": 805,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegGetBoolUSValueA",
+      "ordinal": 806,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegGetBoolUSValueW",
+      "ordinal": 807,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegGetBoolValueFromHKCUHKLM",
+      "ordinal": 630,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegGetIntW",
+      "ordinal": 280,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegGetPathA",
+      "ordinal": 808,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegGetPathW",
+      "ordinal": 809,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegGetUSValueA",
+      "ordinal": 810,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegGetUSValueW",
+      "ordinal": 811,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegGetValueA",
+      "ordinal": 812,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegGetValueFromHKCUHKLM",
+      "ordinal": 629,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegGetValueW",
+      "ordinal": 813,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegOpenUSKeyA",
+      "ordinal": 814,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegOpenUSKeyW",
+      "ordinal": 815,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegQueryInfoUSKeyA",
+      "ordinal": 816,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegQueryInfoUSKeyW",
+      "ordinal": 817,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegQueryUSValueA",
+      "ordinal": 818,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegQueryUSValueW",
+      "ordinal": 819,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegSetPathA",
+      "ordinal": 820,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegSetPathW",
+      "ordinal": 821,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegSetUSValueA",
+      "ordinal": 822,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegSetUSValueW",
+      "ordinal": 823,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegWriteUSValueA",
+      "ordinal": 824,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegWriteUSValueW",
+      "ordinal": 825,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRegisterValidateTemplate",
+      "ordinal": 826,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHReleaseThreadRef",
+      "ordinal": 827,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHRunIndirectRegClientCommand",
+      "ordinal": 467,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSendMessageBroadcastA",
+      "ordinal": 432,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSendMessageBroadcastW",
+      "ordinal": 433,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSetThreadRef",
+      "ordinal": 828,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSetValueA",
+      "ordinal": 829,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSetValueW",
+      "ordinal": 830,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHSkipJunction",
+      "ordinal": 831,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHStrDupA",
+      "ordinal": 832,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHStrDupW",
+      "ordinal": 833,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHStripMneumonicA",
+      "ordinal": 203,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHStripMneumonicW",
+      "ordinal": 225,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHUnicodeToAnsi",
+      "ordinal": 217,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHCORE.#151)",
+      "ordinal": 218,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUnicodeToUnicode",
+      "ordinal": 346,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHUnlockShared",
+      "ordinal": 9,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellMessageBoxA",
+      "ordinal": 834,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellMessageBoxInternal",
+      "ordinal": 835,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellMessageBoxW",
+      "ordinal": 388,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCSpnA",
+      "ordinal": 836,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCSpnIA",
+      "ordinal": 837,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCSpnIW",
+      "ordinal": 838,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCSpnW",
+      "ordinal": 839,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCatBuffA",
+      "ordinal": 840,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCatBuffW",
+      "ordinal": 841,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCatChainW",
+      "ordinal": 842,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCatW",
+      "ordinal": 843,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrChrA",
+      "ordinal": 844,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrChrIA",
+      "ordinal": 845,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrChrIW",
+      "ordinal": 846,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrChrNIW",
+      "ordinal": 847,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrChrNW",
+      "ordinal": 848,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrChrW",
+      "ordinal": 849,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpCA",
+      "ordinal": 155,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpCW",
+      "ordinal": 156,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpICA",
+      "ordinal": 157,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpICW",
+      "ordinal": 158,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpIW",
+      "ordinal": 850,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpLogicalW",
+      "ordinal": 851,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpNA",
+      "ordinal": 852,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpNCA",
+      "ordinal": 151,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpNCW",
+      "ordinal": 152,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpNIA",
+      "ordinal": 853,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpNICA",
+      "ordinal": 153,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpNICW",
+      "ordinal": 154,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpNIW",
+      "ordinal": 854,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpNW",
+      "ordinal": 855,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCmpW",
+      "ordinal": 856,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCpyNW",
+      "ordinal": 857,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrCpyW",
+      "ordinal": 858,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrDupA",
+      "ordinal": 859,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrDupW",
+      "ordinal": 860,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrFormatByteSize64A",
+      "ordinal": 861,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrFormatByteSizeA",
+      "ordinal": 862,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrFormatByteSizeEx",
+      "ordinal": 863,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrFormatByteSizeW",
+      "ordinal": 864,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrFormatKBSizeA",
+      "ordinal": 865,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrFormatKBSizeW",
+      "ordinal": 866,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrFromTimeIntervalA",
+      "ordinal": 867,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrFromTimeIntervalW",
+      "ordinal": 868,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrIsIntlEqualA",
+      "ordinal": 869,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrIsIntlEqualW",
+      "ordinal": 870,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrNCatA",
+      "ordinal": 871,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrNCatW",
+      "ordinal": 872,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrPBrkA",
+      "ordinal": 873,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrPBrkW",
+      "ordinal": 874,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRChrA",
+      "ordinal": 875,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRChrIA",
+      "ordinal": 876,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRChrIW",
+      "ordinal": 877,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRChrW",
+      "ordinal": 878,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRStrIA",
+      "ordinal": 879,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRStrIW",
+      "ordinal": 880,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRetToBSTR",
+      "ordinal": 881,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRetToBufA",
+      "ordinal": 882,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRetToBufW",
+      "ordinal": 883,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRetToStrA",
+      "ordinal": 884,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrRetToStrW",
+      "ordinal": 885,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrSpnA",
+      "ordinal": 886,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrSpnW",
+      "ordinal": 887,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrStrA",
+      "ordinal": 888,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrStrIA",
+      "ordinal": 889,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrStrIW",
+      "ordinal": 890,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrStrNIW",
+      "ordinal": 891,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrStrNW",
+      "ordinal": 892,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrStrW",
+      "ordinal": 893,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrToInt64ExA",
+      "ordinal": 894,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrToInt64ExW",
+      "ordinal": 895,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrToIntA",
+      "ordinal": 896,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrToIntExA",
+      "ordinal": 897,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrToIntExW",
+      "ordinal": 898,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrToIntW",
+      "ordinal": 899,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrTrimA",
+      "ordinal": 900,
+      "is_forwarder": false
+    },
+    {
+      "name": "StrTrimW",
+      "ordinal": 901,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlApplySchemeA",
+      "ordinal": 902,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlApplySchemeW",
+      "ordinal": 903,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlCanonicalizeA",
+      "ordinal": 904,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlCanonicalizeW",
+      "ordinal": 905,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlCombineA",
+      "ordinal": 906,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlCombineW",
+      "ordinal": 907,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlCompareA",
+      "ordinal": 908,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlCompareW",
+      "ordinal": 909,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlCreateFromPathA",
+      "ordinal": 910,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlCreateFromPathW",
+      "ordinal": 911,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlEscapeA",
+      "ordinal": 912,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlEscapeW",
+      "ordinal": 913,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlFixupW",
+      "ordinal": 462,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlGetLocationA",
+      "ordinal": 914,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlGetLocationW",
+      "ordinal": 915,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlGetPartA",
+      "ordinal": 916,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlGetPartW",
+      "ordinal": 917,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlHashA",
+      "ordinal": 918,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlHashW",
+      "ordinal": 919,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlIsA",
+      "ordinal": 920,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlIsNoHistoryA",
+      "ordinal": 921,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlIsNoHistoryW",
+      "ordinal": 922,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlIsOpaqueA",
+      "ordinal": 923,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlIsOpaqueW",
+      "ordinal": 924,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlIsW",
+      "ordinal": 925,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlUnescapeA",
+      "ordinal": 926,
+      "is_forwarder": false
+    },
+    {
+      "name": "UrlUnescapeW",
+      "ordinal": 927,
+      "is_forwarder": false
+    },
+    {
+      "name": "WhichPlatform",
+      "ordinal": 276,
+      "is_forwarder": false
+    },
+    {
+      "name": "wnsprintfA",
+      "ordinal": 928,
+      "is_forwarder": false
+    },
+    {
+      "name": "wnsprintfW",
+      "ordinal": 929,
+      "is_forwarder": false
+    },
+    {
+      "name": "wvnsprintfA",
+      "ordinal": 930,
+      "is_forwarder": false
+    },
+    {
+      "name": "wvnsprintfW",
+      "ordinal": 931,
+      "is_forwarder": false
+    },
+    {
+      "name": "SHUNIMPL.#429)",
+      "ordinal": 13,
+      "is_forwarder": true
+    },
+    {
+      "name": "user32.IsCharAlphaW)",
+      "ordinal": 25,
+      "is_forwarder": true
+    },
+    {
+      "name": "user32.IsCharUpperW)",
+      "ordinal": 26,
+      "is_forwarder": true
+    },
+    {
+      "name": "user32.IsCharLowerW)",
+      "ordinal": 27,
+      "is_forwarder": true
+    },
+    {
+      "name": "user32.IsCharAlphaNumericW)",
+      "ordinal": 28,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.AppendMenuW)",
+      "ordinal": 36,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.CallWindowProcW)",
+      "ordinal": 37,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.CharLowerW)",
+      "ordinal": 38,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.CharLowerBuffW)",
+      "ordinal": 39,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.CharNextW)",
+      "ordinal": 40,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.CharPrevW)",
+      "ordinal": 41,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.CharToOemW)",
+      "ordinal": 42,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.CharUpperW)",
+      "ordinal": 43,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.CharUpperBuffW)",
+      "ordinal": 44,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.CompareStringW)",
+      "ordinal": 45,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.CopyAcceleratorTableW)",
+      "ordinal": 46,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.CreateAcceleratorTableW)",
+      "ordinal": 47,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.CreateDCW)",
+      "ordinal": 48,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.CreateDialogParamW)",
+      "ordinal": 49,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.CreateDirectoryW)",
+      "ordinal": 50,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.CreateEventW)",
+      "ordinal": 51,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.CreateFileW)",
+      "ordinal": 52,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.CreateFontIndirectW)",
+      "ordinal": 53,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.CreateICW)",
+      "ordinal": 54,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.CreateWindowExW)",
+      "ordinal": 55,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.DefWindowProcW)",
+      "ordinal": 56,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.DeleteFileW)",
+      "ordinal": 57,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.DialogBoxIndirectParamW)",
+      "ordinal": 58,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.DialogBoxParamW)",
+      "ordinal": 59,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.DispatchMessageW)",
+      "ordinal": 60,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.DrawTextW)",
+      "ordinal": 61,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.EnumFontFamiliesW)",
+      "ordinal": 62,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.EnumFontFamiliesExW)",
+      "ordinal": 63,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.EnumResourceNamesW)",
+      "ordinal": 64,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.FindFirstFileW)",
+      "ordinal": 65,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.FindResourceW)",
+      "ordinal": 66,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.FindWindowW)",
+      "ordinal": 67,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.FormatMessageW)",
+      "ordinal": 68,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.GetClassInfoW)",
+      "ordinal": 69,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.GetClassLongW)",
+      "ordinal": 70,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.GetClassNameW)",
+      "ordinal": 71,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.GetClipboardFormatNameW)",
+      "ordinal": 72,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetCurrentDirectoryW)",
+      "ordinal": 73,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.GetDlgItemTextW)",
+      "ordinal": 74,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetFileAttributesW)",
+      "ordinal": 75,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetFullPathNameW)",
+      "ordinal": 76,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetLocaleInfoW)",
+      "ordinal": 77,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.GetMenuStringW)",
+      "ordinal": 78,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.GetMessageW)",
+      "ordinal": 79,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetModuleFileNameW)",
+      "ordinal": 80,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetSystemDirectoryW)",
+      "ordinal": 81,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.SearchPathW)",
+      "ordinal": 82,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetModuleHandleW)",
+      "ordinal": 83,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.GetObjectW)",
+      "ordinal": 84,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetPrivateProfileIntW)",
+      "ordinal": 85,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetProfileStringW)",
+      "ordinal": 86,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.GetPropW)",
+      "ordinal": 87,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetStringTypeExW)",
+      "ordinal": 88,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetTempFileNameW)",
+      "ordinal": 89,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetTempPathW)",
+      "ordinal": 90,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.GetTextExtentPoint32W)",
+      "ordinal": 91,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.GetTextFaceW)",
+      "ordinal": 92,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.GetTextMetricsW)",
+      "ordinal": 93,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.GetWindowLongW)",
+      "ordinal": 94,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.GetWindowTextW)",
+      "ordinal": 95,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.GetWindowTextLengthW)",
+      "ordinal": 96,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetWindowsDirectoryW)",
+      "ordinal": 97,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.InsertMenuW)",
+      "ordinal": 98,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.IsDialogMessageW)",
+      "ordinal": 99,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.LoadAcceleratorsW)",
+      "ordinal": 100,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.LoadBitmapW)",
+      "ordinal": 101,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.LoadCursorW)",
+      "ordinal": 102,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.LoadIconW)",
+      "ordinal": 103,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.LoadImageW)",
+      "ordinal": 104,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.LoadLibraryExW)",
+      "ordinal": 105,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.LoadMenuW)",
+      "ordinal": 106,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.LoadStringW)",
+      "ordinal": 107,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.MessageBoxIndirectW)",
+      "ordinal": 108,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.ModifyMenuW)",
+      "ordinal": 109,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.GetCharWidth32W)",
+      "ordinal": 110,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.GetCharacterPlacementW)",
+      "ordinal": 111,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.CopyFileW)",
+      "ordinal": 112,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.MoveFileW)",
+      "ordinal": 113,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.OemToCharW)",
+      "ordinal": 114,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.OutputDebugStringW)",
+      "ordinal": 115,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.PeekMessageW)",
+      "ordinal": 116,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.PostMessageW)",
+      "ordinal": 117,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.PostThreadMessageW)",
+      "ordinal": 118,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#448)",
+      "ordinal": 119,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#449)",
+      "ordinal": 122,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#450)",
+      "ordinal": 129,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.RegisterClassW)",
+      "ordinal": 131,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.RegisterClipboardFormatW)",
+      "ordinal": 132,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.RegisterWindowMessageW)",
+      "ordinal": 133,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.RemovePropW)",
+      "ordinal": 134,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.SendDlgItemMessageW)",
+      "ordinal": 135,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.SendMessageW)",
+      "ordinal": 136,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.SetCurrentDirectoryW)",
+      "ordinal": 137,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.SetDlgItemTextW)",
+      "ordinal": 138,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.SetMenuItemInfoW)",
+      "ordinal": 139,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.SetPropW)",
+      "ordinal": 140,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.SetWindowLongW)",
+      "ordinal": 141,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.SetWindowsHookExW)",
+      "ordinal": 142,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.SetWindowTextW)",
+      "ordinal": 143,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.StartDocW)",
+      "ordinal": 144,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.SystemParametersInfoW)",
+      "ordinal": 145,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.TranslateAcceleratorW)",
+      "ordinal": 146,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.UnregisterClassW)",
+      "ordinal": 147,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.VkKeyScanW)",
+      "ordinal": 148,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.WinHelpW)",
+      "ordinal": 149,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.wvsprintfW)",
+      "ordinal": 150,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.CompareStringW)",
+      "ordinal": 159,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#472)",
+      "ordinal": 161,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#102)",
+      "ordinal": 166,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#246)",
+      "ordinal": 171,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#142)",
+      "ordinal": 175,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#451)",
+      "ordinal": 188,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#452)",
+      "ordinal": 189,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#160)",
+      "ordinal": 194,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#243)",
+      "ordinal": 196,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#124)",
+      "ordinal": 205,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#125)",
+      "ordinal": 206,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#453)",
+      "ordinal": 207,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#150)",
+      "ordinal": 216,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#139)",
+      "ordinal": 222,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#140)",
+      "ordinal": 223,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#141)",
+      "ordinal": 224,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#244)",
+      "ordinal": 226,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#245)",
+      "ordinal": 227,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#142)",
+      "ordinal": 241,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#143)",
+      "ordinal": 242,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#144)",
+      "ordinal": 243,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#145)",
+      "ordinal": 244,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#146)",
+      "ordinal": 245,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#147)",
+      "ordinal": 246,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#148)",
+      "ordinal": 247,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#149)",
+      "ordinal": 248,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#150)",
+      "ordinal": 249,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#152)",
+      "ordinal": 250,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#153)",
+      "ordinal": 251,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#154)",
+      "ordinal": 252,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#155)",
+      "ordinal": 253,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#156)",
+      "ordinal": 254,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#157)",
+      "ordinal": 255,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#158)",
+      "ordinal": 258,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#159)",
+      "ordinal": 259,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#162)",
+      "ordinal": 260,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#160)",
+      "ordinal": 261,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#161)",
+      "ordinal": 262,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#162)",
+      "ordinal": 264,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#163)",
+      "ordinal": 272,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#164)",
+      "ordinal": 273,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#316)",
+      "ordinal": 274,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#317)",
+      "ordinal": 275,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#240)",
+      "ordinal": 277,
+      "is_forwarder": true
+    },
+    {
+      "name": "WINMM.PlaySoundW)",
+      "ordinal": 289,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#247)",
+      "ordinal": 290,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#165)",
+      "ordinal": 293,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#314)",
+      "ordinal": 296,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#315)",
+      "ordinal": 297,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.WritePrivateProfileStringW)",
+      "ordinal": 298,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.ExtTextOutW)",
+      "ordinal": 299,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.CreateFontW)",
+      "ordinal": 300,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.DrawTextExW)",
+      "ordinal": 301,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.GetMenuItemInfoW)",
+      "ordinal": 302,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.InsertMenuItemW)",
+      "ordinal": 303,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.CreateMetaFileW)",
+      "ordinal": 304,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.CreateMutexW)",
+      "ordinal": 305,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.ExpandEnvironmentStringsW)",
+      "ordinal": 306,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.CreateSemaphoreW)",
+      "ordinal": 307,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.IsBadStringPtrW)",
+      "ordinal": 308,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.LoadLibraryW)",
+      "ordinal": 309,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetTimeFormatW)",
+      "ordinal": 310,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetDateFormatW)",
+      "ordinal": 311,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetPrivateProfileStringW)",
+      "ordinal": 312,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHELL32.SHGetFileInfoW)",
+      "ordinal": 313,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.RegisterClassExW)",
+      "ordinal": 314,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.GetClassInfoExW)",
+      "ordinal": 315,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHELL32.DragQueryFileW)",
+      "ordinal": 318,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.FindWindowExW)",
+      "ordinal": 319,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#454)",
+      "ordinal": 320,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#455)",
+      "ordinal": 321,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#456)",
+      "ordinal": 322,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#457)",
+      "ordinal": 323,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#458)",
+      "ordinal": 324,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#459)",
+      "ordinal": 325,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#460)",
+      "ordinal": 326,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#461)",
+      "ordinal": 327,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#462)",
+      "ordinal": 328,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#463)",
+      "ordinal": 329,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#464)",
+      "ordinal": 330,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.CallMsgFilterW)",
+      "ordinal": 332,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHELL32.SHBrowseForFolderW)",
+      "ordinal": 333,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHELL32.SHGetPathFromIDListW)",
+      "ordinal": 334,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHELL32.ShellExecuteExW)",
+      "ordinal": 335,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHELL32.SHFileOperationW)",
+      "ordinal": 336,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHELL32.ExtractIconExW)",
+      "ordinal": 337,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.SetFileAttributesW)",
+      "ordinal": 338,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetNumberFormatW)",
+      "ordinal": 339,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.MessageBoxW)",
+      "ordinal": 340,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.FindNextFileW)",
+      "ordinal": 341,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#166)",
+      "ordinal": 343,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#167)",
+      "ordinal": 356,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHELL32.SHGetNewLinkInfoW)",
+      "ordinal": 357,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHELL32.SHDefExtractIconW)",
+      "ordinal": 358,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.OpenEventW)",
+      "ordinal": 359,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.RemoveDirectoryW)",
+      "ordinal": 360,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetShortPathNameW)",
+      "ordinal": 361,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#465)",
+      "ordinal": 362,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.WritePrivateProfileStructW)",
+      "ordinal": 367,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetPrivateProfileStructW)",
+      "ordinal": 368,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.CreateProcessW)",
+      "ordinal": 369,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHELL32.ExtractIconW)",
+      "ordinal": 370,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.DdeInitializeW)",
+      "ordinal": 371,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.DdeCreateStringHandleW)",
+      "ordinal": 372,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.DdeQueryStringW)",
+      "ordinal": 373,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#344)",
+      "ordinal": 374,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#345)",
+      "ordinal": 375,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetThreadUILanguage)",
+      "ordinal": 376,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHELL32.Shell_GetCachedImageIndexW)",
+      "ordinal": 379,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHELL32.Shell_GetCachedImageIndexA)",
+      "ordinal": 380,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#338)",
+      "ordinal": 385,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#339)",
+      "ordinal": 386,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#340)",
+      "ordinal": 387,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMDLG32.GetSaveFileNameW)",
+      "ordinal": 389,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#209)",
+      "ordinal": 390,
+      "is_forwarder": true
+    },
+    {
+      "name": "MPR.WNetGetLastErrorW)",
+      "ordinal": 391,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.EndDialog)",
+      "ordinal": 392,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.CreateDialogIndirectParamW)",
+      "ordinal": 393,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHELL32.SHChangeNotify)",
+      "ordinal": 394,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.WinHelpA)",
+      "ordinal": 395,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#320)",
+      "ordinal": 396,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.WinHelpW)",
+      "ordinal": 397,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#321)",
+      "ordinal": 398,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMDLG32.PageSetupDlgW)",
+      "ordinal": 401,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMDLG32.PrintDlgW)",
+      "ordinal": 402,
+      "is_forwarder": true
+    },
+    {
+      "name": "COMDLG32.GetOpenFileNameW)",
+      "ordinal": 403,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#313)",
+      "ordinal": 404,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#466)",
+      "ordinal": 405,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#467)",
+      "ordinal": 406,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#238)",
+      "ordinal": 411,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#239)",
+      "ordinal": 412,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#323)",
+      "ordinal": 414,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#322)",
+      "ordinal": 415,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#325)",
+      "ordinal": 416,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#324)",
+      "ordinal": 417,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#468)",
+      "ordinal": 418,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHELL32.SHFlushSFCache)",
+      "ordinal": 419,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#241)",
+      "ordinal": 420,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#242)",
+      "ordinal": 421,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#168)",
+      "ordinal": 422,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#169)",
+      "ordinal": 423,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#170)",
+      "ordinal": 424,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.DeleteMenu)",
+      "ordinal": 425,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.DestroyMenu)",
+      "ordinal": 426,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.TrackPopupMenu)",
+      "ordinal": 427,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.TrackPopupMenuEx)",
+      "ordinal": 428,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#331)",
+      "ordinal": 429,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#332)",
+      "ordinal": 430,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#333)",
+      "ordinal": 431,
+      "is_forwarder": true
+    },
+    {
+      "name": "USER32.SendMessageTimeoutW)",
+      "ordinal": 434,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#126)",
+      "ordinal": 439,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#469)",
+      "ordinal": 440,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#470)",
+      "ordinal": 441,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetEnvironmentVariableW)",
+      "ordinal": 442,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetSystemWindowsDirectoryA)",
+      "ordinal": 443,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetSystemWindowsDirectoryW)",
+      "ordinal": 444,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetLongPathNameW)",
+      "ordinal": 457,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GetLongPathNameA)",
+      "ordinal": 458,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#428)",
+      "ordinal": 461,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#346)",
+      "ordinal": 470,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#171)",
+      "ordinal": 473,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#172)",
+      "ordinal": 474,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#211)",
+      "ordinal": 475,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#193)",
+      "ordinal": 476,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#341)",
+      "ordinal": 480,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#369)",
+      "ordinal": 482,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#370)",
+      "ordinal": 483,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#103)",
+      "ordinal": 485,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#104)",
+      "ordinal": 486,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#347)",
+      "ordinal": 488,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GlobalAddAtomW)",
+      "ordinal": 489,
+      "is_forwarder": true
+    },
+    {
+      "name": "KERNEL32.GlobalFindAtomW)",
+      "ordinal": 490,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#357)",
+      "ordinal": 492,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#348)",
+      "ordinal": 498,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#210)",
+      "ordinal": 500,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#211)",
+      "ordinal": 501,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#212)",
+      "ordinal": 502,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#213)",
+      "ordinal": 503,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#140)",
+      "ordinal": 514,
+      "is_forwarder": true
+    },
+    {
+      "name": "GDI32.CreateColorSpaceW)",
+      "ordinal": 543,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#173)",
+      "ordinal": 547,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#174)",
+      "ordinal": 550,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#175)",
+      "ordinal": 551,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#176)",
+      "ordinal": 552,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#177)",
+      "ordinal": 554,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#178)",
+      "ordinal": 555,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#179)",
+      "ordinal": 556,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#180)",
+      "ordinal": 557,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#181)",
+      "ordinal": 558,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#443)",
+      "ordinal": 559,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#191)",
+      "ordinal": 560,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#167)",
+      "ordinal": 563,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#182)",
+      "ordinal": 564,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#183)",
+      "ordinal": 565,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#180)",
+      "ordinal": 566,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#349)",
+      "ordinal": 573,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#350)",
+      "ordinal": 574,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#127)",
+      "ordinal": 576,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#210)",
+      "ordinal": 598,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#152)",
+      "ordinal": 599,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#153)",
+      "ordinal": 600,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#352)",
+      "ordinal": 601,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#351)",
+      "ordinal": 602,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#353)",
+      "ordinal": 603,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#354)",
+      "ordinal": 604,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#355)",
+      "ordinal": 605,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#356)",
+      "ordinal": 606,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#141)",
+      "ordinal": 611,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#190)",
+      "ordinal": 618,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#192)",
+      "ordinal": 619,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#110)",
+      "ordinal": 627,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#109)",
+      "ordinal": 628,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#130)",
+      "ordinal": 632,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#131)",
+      "ordinal": 633,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#132)",
+      "ordinal": 634,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHUNIMPL.#442)",
+      "ordinal": 642,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#107)",
+      "ordinal": 644,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#108)",
+      "ordinal": 645,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#101)",
+      "ordinal": 646,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#100)",
+      "ordinal": 647,
+      "is_forwarder": true
+    },
+    {
+      "name": "SHCORE.#161)",
+      "ordinal": 648,
+      "is_forwarder": true
+    }
+  ]
+}

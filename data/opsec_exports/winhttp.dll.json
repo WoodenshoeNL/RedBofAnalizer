@@ -1,0 +1,460 @@
+{
+  "dll": "winhttp.dll",
+  "exports": [
+    {
+      "name": "DllCanUnloadNow",
+      "ordinal": 1,
+      "is_forwarder": false
+    },
+    {
+      "name": "DllGetClassObject",
+      "ordinal": 2,
+      "is_forwarder": false
+    },
+    {
+      "name": "Private1",
+      "ordinal": 3,
+      "is_forwarder": false
+    },
+    {
+      "name": "SvchostPushServiceGlobals",
+      "ordinal": 4,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpAddRequestHeaders",
+      "ordinal": 5,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpAddRequestHeadersEx",
+      "ordinal": 6,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpAutoProxySvcMain",
+      "ordinal": 7,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpCheckPlatform",
+      "ordinal": 8,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpCloseHandle",
+      "ordinal": 9,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnect",
+      "ordinal": 10,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnectionDeletePolicyEntries",
+      "ordinal": 11,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnectionDeleteProxyInfo",
+      "ordinal": 12,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnectionFreeNameList",
+      "ordinal": 13,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnectionFreeProxyInfo",
+      "ordinal": 14,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnectionFreeProxyList",
+      "ordinal": 15,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnectionGetNameList",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnectionGetProxyInfo",
+      "ordinal": 17,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnectionGetProxyList",
+      "ordinal": 18,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnectionOnlyConvert",
+      "ordinal": 19,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnectionOnlyReceive",
+      "ordinal": 20,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnectionOnlySend",
+      "ordinal": 21,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnectionSetPolicyEntries",
+      "ordinal": 22,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnectionSetProxyInfo",
+      "ordinal": 23,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpConnectionUpdateIfIndexTable",
+      "ordinal": 24,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpCrackUrl",
+      "ordinal": 25,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpCreateProxyList",
+      "ordinal": 26,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpCreateProxyManager",
+      "ordinal": 27,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpCreateProxyResolver",
+      "ordinal": 28,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpCreateProxyResult",
+      "ordinal": 29,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpCreateUiCompatibleProxyString",
+      "ordinal": 30,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpCreateUrl",
+      "ordinal": 31,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpDetectAutoProxyConfigUrl",
+      "ordinal": 32,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpFreeProxyResult",
+      "ordinal": 33,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpFreeProxyResultEx",
+      "ordinal": 34,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpFreeProxySettings",
+      "ordinal": 35,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpFreeProxySettingsEx",
+      "ordinal": 36,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpFreeQueryConnectionGroupResult",
+      "ordinal": 37,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpGetDefaultProxyConfiguration",
+      "ordinal": 38,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpGetIEProxyConfigForCurrentUser",
+      "ordinal": 39,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpGetProxyForUrl",
+      "ordinal": 40,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpGetProxyForUrlEx",
+      "ordinal": 41,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpGetProxyForUrlEx2",
+      "ordinal": 42,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpGetProxyForUrlHvsi",
+      "ordinal": 43,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpGetProxyResult",
+      "ordinal": 44,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpGetProxyResultEx",
+      "ordinal": 45,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpGetProxySettingsEx",
+      "ordinal": 46,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpGetProxySettingsResultEx",
+      "ordinal": 47,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpGetProxySettingsVersion",
+      "ordinal": 48,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpGetTunnelSocket",
+      "ordinal": 49,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpOpen",
+      "ordinal": 50,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpOpenRequest",
+      "ordinal": 51,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpPacJsWorkerMain",
+      "ordinal": 52,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpProbeConnectivity",
+      "ordinal": 53,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpProtocolCompleteUpgrade",
+      "ordinal": 54,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpProtocolReceive",
+      "ordinal": 55,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpProtocolSend",
+      "ordinal": 56,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpQueryAuthSchemes",
+      "ordinal": 57,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpQueryConnectionGroup",
+      "ordinal": 58,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpQueryDataAvailable",
+      "ordinal": 59,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpQueryHeaders",
+      "ordinal": 60,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpQueryHeadersEx",
+      "ordinal": 61,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpQueryOption",
+      "ordinal": 62,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpReadData",
+      "ordinal": 63,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpReadDataEx",
+      "ordinal": 64,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpReadProxySettings",
+      "ordinal": 65,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpReadProxySettingsHvsi",
+      "ordinal": 66,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpReceiveResponse",
+      "ordinal": 67,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpRefreshProxySettings",
+      "ordinal": 68,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpRegisterProxyChangeNotification",
+      "ordinal": 69,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpResetAutoProxy",
+      "ordinal": 70,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpResolverGetProxyForUrl",
+      "ordinal": 71,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpSaveProxyCredentials",
+      "ordinal": 72,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpSendRequest",
+      "ordinal": 73,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpSetCredentials",
+      "ordinal": 74,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpSetDefaultProxyConfiguration",
+      "ordinal": 75,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpSetOption",
+      "ordinal": 76,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpSetProxySettingsPerUser",
+      "ordinal": 77,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpSetSecureLegacyServersAppCompat",
+      "ordinal": 78,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpSetStatusCallback",
+      "ordinal": 79,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpSetTimeouts",
+      "ordinal": 80,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpTimeFromSystemTime",
+      "ordinal": 81,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpTimeToSystemTime",
+      "ordinal": 82,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpUnregisterProxyChangeNotification",
+      "ordinal": 83,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpWebSocketClose",
+      "ordinal": 84,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpWebSocketCompleteUpgrade",
+      "ordinal": 85,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpWebSocketQueryCloseStatus",
+      "ordinal": 86,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpWebSocketReceive",
+      "ordinal": 87,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpWebSocketSend",
+      "ordinal": 88,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpWebSocketShutdown",
+      "ordinal": 89,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpWriteData",
+      "ordinal": 90,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHttpWriteProxySettings",
+      "ordinal": 91,
+      "is_forwarder": false
+    }
+  ]
+}

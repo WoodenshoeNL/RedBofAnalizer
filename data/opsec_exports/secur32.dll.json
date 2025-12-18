@@ -1,0 +1,495 @@
+{
+  "dll": "secur32.dll",
+  "exports": [
+    {
+      "name": "SSPICLI.AcceptSecurityContext)",
+      "ordinal": 1,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.AcquireCredentialsHandleA)",
+      "ordinal": 2,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.AcquireCredentialsHandleW)",
+      "ordinal": 3,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.AddCredentialsA)",
+      "ordinal": 4,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.AddCredentialsW)",
+      "ordinal": 5,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.AddSecurityPackageA)",
+      "ordinal": 6,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.AddSecurityPackageW)",
+      "ordinal": 7,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.ApplyControlToken)",
+      "ordinal": 8,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.ChangeAccountPasswordA)",
+      "ordinal": 9,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.ChangeAccountPasswordW)",
+      "ordinal": 10,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.CompleteAuthToken)",
+      "ordinal": 11,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.CredMarshalTargetInfo)",
+      "ordinal": 12,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.CredUnmarshalTargetInfo)",
+      "ordinal": 13,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.DecryptMessage)",
+      "ordinal": 14,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.DeleteSecurityContext)",
+      "ordinal": 15,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.DeleteSecurityPackageA)",
+      "ordinal": 16,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.DeleteSecurityPackageW)",
+      "ordinal": 17,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.EncryptMessage)",
+      "ordinal": 18,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.EnumerateSecurityPackagesA)",
+      "ordinal": 19,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.EnumerateSecurityPackagesW)",
+      "ordinal": 20,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.ExportSecurityContext)",
+      "ordinal": 21,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.FreeContextBuffer)",
+      "ordinal": 22,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.FreeCredentialsHandle)",
+      "ordinal": 23,
+      "is_forwarder": true
+    },
+    {
+      "name": "GetComputerObjectNameA",
+      "ordinal": 24,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetComputerObjectNameW",
+      "ordinal": 25,
+      "is_forwarder": false
+    },
+    {
+      "name": "SSPICLI.GetSecurityUserInfo)",
+      "ordinal": 26,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.GetUserNameExA)",
+      "ordinal": 27,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.GetUserNameExW)",
+      "ordinal": 28,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.ImpersonateSecurityContext)",
+      "ordinal": 29,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.ImportSecurityContextA)",
+      "ordinal": 30,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.ImportSecurityContextW)",
+      "ordinal": 31,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.InitSecurityInterfaceA)",
+      "ordinal": 32,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.InitSecurityInterfaceW)",
+      "ordinal": 33,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.InitializeSecurityContextA)",
+      "ordinal": 34,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.InitializeSecurityContextW)",
+      "ordinal": 35,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.LsaCallAuthenticationPackage)",
+      "ordinal": 36,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.LsaConnectUntrusted)",
+      "ordinal": 37,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.LsaDeregisterLogonProcess)",
+      "ordinal": 38,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.LsaEnumerateLogonSessions)",
+      "ordinal": 39,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.LsaFreeReturnBuffer)",
+      "ordinal": 40,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.LsaGetLogonSessionData)",
+      "ordinal": 41,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.LsaLogonUser)",
+      "ordinal": 42,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.LsaLookupAuthenticationPackage)",
+      "ordinal": 43,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.LsaRegisterLogonProcess)",
+      "ordinal": 44,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.LsaRegisterPolicyChangeNotification)",
+      "ordinal": 45,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.LsaUnregisterPolicyChangeNotification)",
+      "ordinal": 46,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.MakeSignature)",
+      "ordinal": 47,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.QueryContextAttributesA)",
+      "ordinal": 48,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.QueryContextAttributesW)",
+      "ordinal": 49,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.QueryCredentialsAttributesA)",
+      "ordinal": 50,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.QueryCredentialsAttributesW)",
+      "ordinal": 51,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.QuerySecurityContextToken)",
+      "ordinal": 52,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.QuerySecurityPackageInfoA)",
+      "ordinal": 53,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.QuerySecurityPackageInfoW)",
+      "ordinal": 54,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.RevertSecurityContext)",
+      "ordinal": 55,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SaslAcceptSecurityContext)",
+      "ordinal": 56,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SaslEnumerateProfilesA)",
+      "ordinal": 57,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SaslEnumerateProfilesW)",
+      "ordinal": 58,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SaslGetContextOption)",
+      "ordinal": 59,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SaslGetProfilePackageA)",
+      "ordinal": 60,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SaslGetProfilePackageW)",
+      "ordinal": 61,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SaslIdentifyPackageA)",
+      "ordinal": 62,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SaslIdentifyPackageW)",
+      "ordinal": 63,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SaslInitializeSecurityContextA)",
+      "ordinal": 64,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SaslInitializeSecurityContextW)",
+      "ordinal": 65,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SaslSetContextOption)",
+      "ordinal": 66,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SealMessage)",
+      "ordinal": 67,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SeciAllocateAndSetCallFlags)",
+      "ordinal": 68,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SeciAllocateAndSetIPAddress)",
+      "ordinal": 69,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SeciFreeCallContext)",
+      "ordinal": 70,
+      "is_forwarder": true
+    },
+    {
+      "name": "SecpFreeMemory",
+      "ordinal": 71,
+      "is_forwarder": false
+    },
+    {
+      "name": "SecpTranslateName",
+      "ordinal": 72,
+      "is_forwarder": false
+    },
+    {
+      "name": "SecpTranslateNameEx",
+      "ordinal": 73,
+      "is_forwarder": false
+    },
+    {
+      "name": "SSPICLI.SetContextAttributesA)",
+      "ordinal": 74,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SetContextAttributesW)",
+      "ordinal": 75,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SetCredentialsAttributesA)",
+      "ordinal": 76,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SetCredentialsAttributesW)",
+      "ordinal": 77,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiCompareAuthIdentities)",
+      "ordinal": 78,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiCopyAuthIdentity)",
+      "ordinal": 79,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiDecryptAuthIdentity)",
+      "ordinal": 80,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiEncodeAuthIdentityAsStrings)",
+      "ordinal": 81,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiEncodeStringsAsAuthIdentity)",
+      "ordinal": 82,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiEncryptAuthIdentity)",
+      "ordinal": 83,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiExcludePackage)",
+      "ordinal": 84,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiFreeAuthIdentity)",
+      "ordinal": 85,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiGetTargetHostName)",
+      "ordinal": 86,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiIsAuthIdentityEncrypted)",
+      "ordinal": 87,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiLocalFree)",
+      "ordinal": 88,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiMarshalAuthIdentity)",
+      "ordinal": 89,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiPrepareForCredRead)",
+      "ordinal": 90,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiPrepareForCredWrite)",
+      "ordinal": 91,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiUnmarshalAuthIdentity)",
+      "ordinal": 92,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiValidateAuthIdentity)",
+      "ordinal": 93,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.SspiZeroAuthIdentity)",
+      "ordinal": 94,
+      "is_forwarder": true
+    },
+    {
+      "name": "TranslateNameA",
+      "ordinal": 95,
+      "is_forwarder": false
+    },
+    {
+      "name": "TranslateNameW",
+      "ordinal": 96,
+      "is_forwarder": false
+    },
+    {
+      "name": "SSPICLI.UnsealMessage)",
+      "ordinal": 97,
+      "is_forwarder": true
+    },
+    {
+      "name": "SSPICLI.VerifySignature)",
+      "ordinal": 98,
+      "is_forwarder": true
+    }
+  ]
+}

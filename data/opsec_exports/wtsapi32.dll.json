@@ -1,0 +1,385 @@
+{
+  "dll": "wtsapi32.dll",
+  "exports": [
+    {
+      "name": "IsInteractiveUserSession",
+      "ordinal": 1,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryActiveSession",
+      "ordinal": 2,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryUserToken",
+      "ordinal": 3,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterUsertokenForNoWinlogon",
+      "ordinal": 4,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSActiveSessionExists",
+      "ordinal": 5,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSCloseServer",
+      "ordinal": 6,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSCloudAuthClose",
+      "ordinal": 7,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSCloudAuthConvertAssertionToSerializedUserCredential",
+      "ordinal": 8,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSCloudAuthDuplicateSerializedUserCredential",
+      "ordinal": 9,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSCloudAuthGetServerNonce",
+      "ordinal": 10,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSCloudAuthNetworkLogonWithSerializedCredential",
+      "ordinal": 11,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSCloudAuthOpen",
+      "ordinal": 12,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSConnectSessionA",
+      "ordinal": 13,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSConnectSessionW",
+      "ordinal": 14,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSCreateListenerA",
+      "ordinal": 15,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSCreateListenerW",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSDisconnectSession",
+      "ordinal": 17,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSEnableChildSessions",
+      "ordinal": 18,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSEnumerateListenersA",
+      "ordinal": 19,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSEnumerateListenersW",
+      "ordinal": 20,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSEnumerateProcessesA",
+      "ordinal": 21,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSEnumerateProcessesExA",
+      "ordinal": 22,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSEnumerateProcessesExW",
+      "ordinal": 23,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSEnumerateProcessesW",
+      "ordinal": 24,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSEnumerateServersA",
+      "ordinal": 25,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSEnumerateServersW",
+      "ordinal": 26,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSEnumerateSessionsA",
+      "ordinal": 27,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSEnumerateSessionsExA",
+      "ordinal": 28,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSEnumerateSessionsExW",
+      "ordinal": 29,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSEnumerateSessionsW",
+      "ordinal": 30,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSFreeMemory",
+      "ordinal": 31,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSFreeMemoryExA",
+      "ordinal": 32,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSFreeMemoryExW",
+      "ordinal": 33,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSGetChildSessionId",
+      "ordinal": 34,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSGetListenerSecurityA",
+      "ordinal": 35,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSGetListenerSecurityW",
+      "ordinal": 36,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSIsChildSessionsEnabled",
+      "ordinal": 37,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSLogoffSession",
+      "ordinal": 38,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSOpenServerA",
+      "ordinal": 39,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSOpenServerExA",
+      "ordinal": 40,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSOpenServerExW",
+      "ordinal": 41,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSOpenServerW",
+      "ordinal": 42,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSQueryListenerConfigA",
+      "ordinal": 43,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSQueryListenerConfigW",
+      "ordinal": 44,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSQuerySessionInformationA",
+      "ordinal": 45,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSQuerySessionInformationW",
+      "ordinal": 46,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSQueryUserConfigA",
+      "ordinal": 47,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSQueryUserConfigW",
+      "ordinal": 48,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSQueryUserToken",
+      "ordinal": 49,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSRegisterSessionNotification",
+      "ordinal": 50,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSRegisterSessionNotificationEx",
+      "ordinal": 51,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSSendMessageA",
+      "ordinal": 52,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSSendMessageW",
+      "ordinal": 53,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSSetListenerSecurityA",
+      "ordinal": 54,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSSetListenerSecurityW",
+      "ordinal": 55,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSSetRenderHint",
+      "ordinal": 56,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSSetSessionInformationA",
+      "ordinal": 57,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSSetSessionInformationW",
+      "ordinal": 58,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSSetUserConfigA",
+      "ordinal": 59,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSSetUserConfigW",
+      "ordinal": 60,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSShutdownSystem",
+      "ordinal": 61,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSStartRemoteControlSessionA",
+      "ordinal": 62,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSStartRemoteControlSessionW",
+      "ordinal": 63,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSStopRemoteControlSession",
+      "ordinal": 64,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSTerminateProcess",
+      "ordinal": 65,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSUnRegisterSessionNotification",
+      "ordinal": 66,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSUnRegisterSessionNotificationEx",
+      "ordinal": 67,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSVirtualChannelClose",
+      "ordinal": 68,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSVirtualChannelOpen",
+      "ordinal": 69,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSVirtualChannelOpenEx",
+      "ordinal": 70,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSVirtualChannelPurgeInput",
+      "ordinal": 71,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSVirtualChannelPurgeOutput",
+      "ordinal": 72,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSVirtualChannelQuery",
+      "ordinal": 73,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSVirtualChannelRead",
+      "ordinal": 74,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSVirtualChannelWrite",
+      "ordinal": 75,
+      "is_forwarder": false
+    },
+    {
+      "name": "WTSWaitSystemEvent",
+      "ordinal": 76,
+      "is_forwarder": false
+    }
+  ]
+}

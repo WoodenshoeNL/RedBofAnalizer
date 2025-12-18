@@ -2668,6 +2668,38 @@ impl RedBofApp {
         }
         
         if let Some(bof) = &self.bof_file {
+            // -----------------------------------------------------------------
+            // Architecture compatibility check (GUI-side guard)
+            // -----------------------------------------------------------------
+            let process_arch_bits: u32 = if cfg!(target_pointer_width = "64") { 64 } else { 32 };
+            let bof_arch_bits: u32 = match bof.header.machine {
+                crate::core::models::bof::MachineType::X64 => 64,
+                crate::core::models::bof::MachineType::X86 => 32,
+                crate::core::models::bof::MachineType::Unknown(val) => {
+                    self.execution_output.push(format!(
+                        "Error: This BOF uses an unknown or unsupported machine type (0x{:04X}) and cannot be executed.",
+                        val
+                    ));
+                    return;
+                }
+            };
+
+            if bof_arch_bits != process_arch_bits {
+                let bof_arch_str = if bof_arch_bits == 64 { "x64" } else { "x86" };
+                let proc_arch_str = if process_arch_bits == 64 { "x64" } else { "x86" };
+
+                self.execution_output.push(format!(
+                    "Warning: BOF architecture is not compatible with this redbofanalyzer build.\n\
+                     - BOF architecture: {}\n\
+                     - Process/tool architecture: {}\n\
+                     The BOF was **not** executed to avoid a crash.\n\
+                     Use a 32-bit build to execute x86 BOFs, or a 64-bit build to execute x64 BOFs.",
+                    bof_arch_str,
+                    proc_arch_str
+                ));
+                return;
+            }
+
             // Parse arguments with selected mode
             // CS Compatible mode only applies to the default "go" entry point
             // Alternative entry points typically use standard Beacon API format

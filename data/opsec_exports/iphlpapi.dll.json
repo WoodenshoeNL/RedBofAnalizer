@@ -1,0 +1,1570 @@
+{
+  "dll": "iphlpapi.dll",
+  "exports": [
+    {
+      "name": "AddIPAddress",
+      "ordinal": 1,
+      "is_forwarder": false
+    },
+    {
+      "name": "AllocateAndGetInterfaceInfoFromStack",
+      "ordinal": 2,
+      "is_forwarder": false
+    },
+    {
+      "name": "AllocateAndGetIpAddrTableFromStack",
+      "ordinal": 3,
+      "is_forwarder": false
+    },
+    {
+      "name": "CancelIPChangeNotify",
+      "ordinal": 4,
+      "is_forwarder": false
+    },
+    {
+      "name": "CancelIfTimestampConfigChange",
+      "ordinal": 5,
+      "is_forwarder": false
+    },
+    {
+      "name": "CancelMibChangeNotify2",
+      "ordinal": 6,
+      "is_forwarder": false
+    },
+    {
+      "name": "CaptureInterfaceHardwareCrossTimestamp",
+      "ordinal": 7,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseCompartment",
+      "ordinal": 8,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseGetIPPhysicalInterfaceForDestination",
+      "ordinal": 9,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertCompartmentGuidToId",
+      "ordinal": 10,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertCompartmentIdToGuid",
+      "ordinal": 11,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertGuidToStringA",
+      "ordinal": 12,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertGuidToStringW",
+      "ordinal": 13,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertInterfaceAliasToLuid",
+      "ordinal": 14,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertInterfaceGuidToLuid",
+      "ordinal": 15,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertInterfaceIndexToLuid",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertInterfaceLuidToAlias",
+      "ordinal": 17,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertInterfaceLuidToGuid",
+      "ordinal": 18,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertInterfaceLuidToIndex",
+      "ordinal": 19,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertInterfaceLuidToNameA",
+      "ordinal": 20,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertInterfaceLuidToNameW",
+      "ordinal": 21,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertInterfaceNameToLuidA",
+      "ordinal": 22,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertInterfaceNameToLuidW",
+      "ordinal": 23,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertInterfacePhysicalAddressToLuid",
+      "ordinal": 24,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertIpv4MaskToLength",
+      "ordinal": 25,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertLengthToIpv4Mask",
+      "ordinal": 26,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertRemoteInterfaceAliasToLuid",
+      "ordinal": 27,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertRemoteInterfaceGuidToLuid",
+      "ordinal": 28,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertRemoteInterfaceIndexToLuid",
+      "ordinal": 29,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertRemoteInterfaceLuidToAlias",
+      "ordinal": 30,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertRemoteInterfaceLuidToGuid",
+      "ordinal": 31,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertRemoteInterfaceLuidToIndex",
+      "ordinal": 32,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertStringToGuidA",
+      "ordinal": 33,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertStringToGuidW",
+      "ordinal": 34,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertStringToInterfacePhysicalAddress",
+      "ordinal": 35,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateAnycastIpAddressEntry",
+      "ordinal": 36,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateCompartment",
+      "ordinal": 37,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateFlVirtualInterface",
+      "ordinal": 38,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateIpForwardEntry",
+      "ordinal": 39,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateIpForwardEntry2",
+      "ordinal": 40,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateIpNetEntry",
+      "ordinal": 41,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateIpNetEntry2",
+      "ordinal": 42,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreatePersistentTcpPortReservation",
+      "ordinal": 43,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreatePersistentUdpPortReservation",
+      "ordinal": 44,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateProxyArpEntry",
+      "ordinal": 45,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateSortedAddressPairs",
+      "ordinal": 46,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateUnicastIpAddressEntry",
+      "ordinal": 47,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteAnycastIpAddressEntry",
+      "ordinal": 48,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteCompartment",
+      "ordinal": 49,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteFlVirtualInterface",
+      "ordinal": 50,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteIPAddress",
+      "ordinal": 51,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteIpForwardEntry",
+      "ordinal": 52,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteIpForwardEntry2",
+      "ordinal": 53,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteIpNetEntry",
+      "ordinal": 54,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteIpNetEntry2",
+      "ordinal": 55,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeletePersistentTcpPortReservation",
+      "ordinal": 56,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeletePersistentUdpPortReservation",
+      "ordinal": 57,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteProxyArpEntry",
+      "ordinal": 58,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteUnicastIpAddressEntry",
+      "ordinal": 59,
+      "is_forwarder": false
+    },
+    {
+      "name": "DisableMediaSense",
+      "ordinal": 60,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnableRouter",
+      "ordinal": 61,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlushIpNetTable",
+      "ordinal": 62,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlushIpNetTable2",
+      "ordinal": 63,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlushIpPathTable",
+      "ordinal": 64,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeDnsSettings",
+      "ordinal": 65,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeInterfaceDnsSettings",
+      "ordinal": 66,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeMibTable",
+      "ordinal": 67,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAdapterIndex",
+      "ordinal": 68,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAdapterOrderMap",
+      "ordinal": 69,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAdaptersAddresses",
+      "ordinal": 70,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAdaptersInfo",
+      "ordinal": 71,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAnycastIpAddressEntry",
+      "ordinal": 72,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAnycastIpAddressTable",
+      "ordinal": 73,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetBestInterface",
+      "ordinal": 74,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetBestInterfaceEx",
+      "ordinal": 75,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetBestRoute",
+      "ordinal": 76,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetBestRoute2",
+      "ordinal": 77,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentThreadCompartmentId",
+      "ordinal": 78,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentThreadCompartmentScope",
+      "ordinal": 79,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDefaultCompartmentId",
+      "ordinal": 80,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDnsSettings",
+      "ordinal": 81,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetExtendedTcpTable",
+      "ordinal": 82,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetExtendedUdpTable",
+      "ordinal": 83,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFlVirtualInterface",
+      "ordinal": 84,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFlVirtualInterfaceTable",
+      "ordinal": 85,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFriendlyIfIndex",
+      "ordinal": 86,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIcmpStatistics",
+      "ordinal": 87,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIcmpStatisticsEx",
+      "ordinal": 88,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIfEntry",
+      "ordinal": 89,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIfEntry2",
+      "ordinal": 90,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIfEntry2Ex",
+      "ordinal": 91,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIfStackTable",
+      "ordinal": 92,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIfTable",
+      "ordinal": 93,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIfTable2",
+      "ordinal": 94,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIfTable2Ex",
+      "ordinal": 95,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInterfaceActiveTimestampCapabilities",
+      "ordinal": 96,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInterfaceCompartmentId",
+      "ordinal": 97,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInterfaceCurrentTimestampCapabilities",
+      "ordinal": 98,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInterfaceDnsSettings",
+      "ordinal": 99,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInterfaceHardwareTimestampCapabilities",
+      "ordinal": 100,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInterfaceInfo",
+      "ordinal": 101,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInterfaceSupportedTimestampCapabilities",
+      "ordinal": 102,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInvertedIfStackTable",
+      "ordinal": 103,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpAddrTable",
+      "ordinal": 104,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpErrorString",
+      "ordinal": 105,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpForwardEntry2",
+      "ordinal": 106,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpForwardTable",
+      "ordinal": 107,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpForwardTable2",
+      "ordinal": 108,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpInterfaceEntry",
+      "ordinal": 109,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpInterfaceTable",
+      "ordinal": 110,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpNetEntry2",
+      "ordinal": 111,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpNetTable",
+      "ordinal": 112,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpNetTable2",
+      "ordinal": 113,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpNetworkConnectionBandwidthEstimates",
+      "ordinal": 114,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpPathEntry",
+      "ordinal": 115,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpPathTable",
+      "ordinal": 116,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpStatistics",
+      "ordinal": 117,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIpStatisticsEx",
+      "ordinal": 118,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetJobCompartmentId",
+      "ordinal": 119,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMulticastIpAddressEntry",
+      "ordinal": 120,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMulticastIpAddressTable",
+      "ordinal": 121,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNetworkConnectivityHint",
+      "ordinal": 122,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNetworkConnectivityHintForInterface",
+      "ordinal": 123,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNetworkInformation",
+      "ordinal": 124,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNetworkParams",
+      "ordinal": 125,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNumberOfInterfaces",
+      "ordinal": 126,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetOwnerModuleFromPidAndInfo",
+      "ordinal": 127,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetOwnerModuleFromTcp6Entry",
+      "ordinal": 128,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetOwnerModuleFromTcpEntry",
+      "ordinal": 129,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetOwnerModuleFromUdp6Entry",
+      "ordinal": 130,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetOwnerModuleFromUdpEntry",
+      "ordinal": 131,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPerAdapterInfo",
+      "ordinal": 132,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPerTcp6ConnectionEStats",
+      "ordinal": 133,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPerTcp6ConnectionStats",
+      "ordinal": 134,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPerTcpConnectionEStats",
+      "ordinal": 135,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPerTcpConnectionStats",
+      "ordinal": 136,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetRTTAndHopCount",
+      "ordinal": 137,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSessionCompartmentId",
+      "ordinal": 138,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTcp6Table",
+      "ordinal": 139,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTcp6Table2",
+      "ordinal": 140,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTcpStatistics",
+      "ordinal": 141,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTcpStatisticsEx",
+      "ordinal": 142,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTcpStatisticsEx2",
+      "ordinal": 143,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTcpTable",
+      "ordinal": 144,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTcpTable2",
+      "ordinal": 145,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTeredoPort",
+      "ordinal": 146,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUdp6Table",
+      "ordinal": 147,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUdpStatistics",
+      "ordinal": 148,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUdpStatisticsEx",
+      "ordinal": 149,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUdpStatisticsEx2",
+      "ordinal": 150,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUdpTable",
+      "ordinal": 151,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUniDirectionalAdapterInfo",
+      "ordinal": 152,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUnicastIpAddressEntry",
+      "ordinal": 153,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUnicastIpAddressTable",
+      "ordinal": 154,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWPAOACSupportLevel",
+      "ordinal": 155,
+      "is_forwarder": false
+    },
+    {
+      "name": "Icmp6CreateFile",
+      "ordinal": 156,
+      "is_forwarder": false
+    },
+    {
+      "name": "Icmp6ParseReplies",
+      "ordinal": 157,
+      "is_forwarder": false
+    },
+    {
+      "name": "Icmp6SendEcho2",
+      "ordinal": 158,
+      "is_forwarder": false
+    },
+    {
+      "name": "IcmpCloseHandle",
+      "ordinal": 159,
+      "is_forwarder": false
+    },
+    {
+      "name": "IcmpCreateFile",
+      "ordinal": 160,
+      "is_forwarder": false
+    },
+    {
+      "name": "IcmpParseReplies",
+      "ordinal": 161,
+      "is_forwarder": false
+    },
+    {
+      "name": "IcmpSendEcho",
+      "ordinal": 162,
+      "is_forwarder": false
+    },
+    {
+      "name": "IcmpSendEcho2",
+      "ordinal": 163,
+      "is_forwarder": false
+    },
+    {
+      "name": "IcmpSendEcho2Ex",
+      "ordinal": 164,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeCompartmentEntry",
+      "ordinal": 165,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeFlVirtualInterfaceEntry",
+      "ordinal": 166,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeIpForwardEntry",
+      "ordinal": 167,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeIpInterfaceEntry",
+      "ordinal": 168,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeUnicastIpAddressEntry",
+      "ordinal": 169,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalCleanupPersistentStore",
+      "ordinal": 170,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalCreateAnycastIpAddressEntry",
+      "ordinal": 171,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalCreateIpForwardEntry",
+      "ordinal": 172,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalCreateIpForwardEntry2",
+      "ordinal": 173,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalCreateIpNetEntry",
+      "ordinal": 174,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalCreateIpNetEntry2",
+      "ordinal": 175,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalCreateOrRefIpForwardEntry2",
+      "ordinal": 176,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalCreateUnicastIpAddressEntry",
+      "ordinal": 177,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalDeleteAnycastIpAddressEntry",
+      "ordinal": 178,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalDeleteIpForwardEntry",
+      "ordinal": 179,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalDeleteIpForwardEntry2",
+      "ordinal": 180,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalDeleteIpNetEntry",
+      "ordinal": 181,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalDeleteIpNetEntry2",
+      "ordinal": 182,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalDeleteUnicastIpAddressEntry",
+      "ordinal": 183,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalFindInterfaceByAddress",
+      "ordinal": 184,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetAnycastIpAddressEntry",
+      "ordinal": 185,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetAnycastIpAddressTable",
+      "ordinal": 186,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetBoundTcp6EndpointTable",
+      "ordinal": 187,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetBoundTcpEndpointTable",
+      "ordinal": 188,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetForwardIpTable2",
+      "ordinal": 189,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetIPPhysicalInterfaceForDestination",
+      "ordinal": 190,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetIfEntry2",
+      "ordinal": 191,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetIfTable",
+      "ordinal": 192,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetIfTable2",
+      "ordinal": 193,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetIpAddrTable",
+      "ordinal": 194,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetIpForwardEntry2",
+      "ordinal": 195,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetIpForwardTable",
+      "ordinal": 196,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetIpInterfaceEntry",
+      "ordinal": 197,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetIpInterfaceTable",
+      "ordinal": 198,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetIpNetEntry2",
+      "ordinal": 199,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetIpNetTable",
+      "ordinal": 200,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetIpNetTable2",
+      "ordinal": 201,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetMulticastIpAddressEntry",
+      "ordinal": 202,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetMulticastIpAddressTable",
+      "ordinal": 203,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetRtcSlotInformation",
+      "ordinal": 204,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetTcp6Table2",
+      "ordinal": 205,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetTcp6TableWithOwnerModule",
+      "ordinal": 206,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetTcp6TableWithOwnerPid",
+      "ordinal": 207,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetTcpDynamicPortRange",
+      "ordinal": 208,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetTcpTable",
+      "ordinal": 209,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetTcpTable2",
+      "ordinal": 210,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetTcpTableEx",
+      "ordinal": 211,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetTcpTableWithOwnerModule",
+      "ordinal": 212,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetTcpTableWithOwnerPid",
+      "ordinal": 213,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetTunnelPhysicalAdapter",
+      "ordinal": 214,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetUdp6Table2",
+      "ordinal": 215,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetUdp6TableWithOwnerModule",
+      "ordinal": 216,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetUdp6TableWithOwnerPid",
+      "ordinal": 217,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetUdpDynamicPortRange",
+      "ordinal": 218,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetUdpTable",
+      "ordinal": 219,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetUdpTable2",
+      "ordinal": 220,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetUdpTableEx",
+      "ordinal": 221,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetUdpTableWithOwnerModule",
+      "ordinal": 222,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetUdpTableWithOwnerPid",
+      "ordinal": 223,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetUnicastIpAddressEntry",
+      "ordinal": 224,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetUnicastIpAddressTable",
+      "ordinal": 225,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalIcmpCreateFileEx",
+      "ordinal": 226,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalSetIfEntry",
+      "ordinal": 227,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalSetIpForwardEntry",
+      "ordinal": 228,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalSetIpForwardEntry2",
+      "ordinal": 229,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalSetIpInterfaceEntry",
+      "ordinal": 230,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalSetIpNetEntry",
+      "ordinal": 231,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalSetIpNetEntry2",
+      "ordinal": 232,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalSetIpStats",
+      "ordinal": 233,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalSetTcpDynamicPortRange",
+      "ordinal": 234,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalSetTcpEntry",
+      "ordinal": 235,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalSetTeredoPort",
+      "ordinal": 236,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalSetUdpDynamicPortRange",
+      "ordinal": 237,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalSetUnicastIpAddressEntry",
+      "ordinal": 238,
+      "is_forwarder": false
+    },
+    {
+      "name": "IpReleaseAddress",
+      "ordinal": 239,
+      "is_forwarder": false
+    },
+    {
+      "name": "IpRenewAddress",
+      "ordinal": 240,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupPersistentTcpPortReservation",
+      "ordinal": 241,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupPersistentUdpPortReservation",
+      "ordinal": 242,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTPTimeToNTFileTime",
+      "ordinal": 243,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTTimeToNTPTime",
+      "ordinal": 244,
+      "is_forwarder": false
+    },
+    {
+      "name": "NhGetGuidFromInterfaceName",
+      "ordinal": 245,
+      "is_forwarder": false
+    },
+    {
+      "name": "NhGetInterfaceDescriptionFromGuid",
+      "ordinal": 246,
+      "is_forwarder": false
+    },
+    {
+      "name": "NhGetInterfaceNameFromDeviceGuid",
+      "ordinal": 247,
+      "is_forwarder": false
+    },
+    {
+      "name": "NhGetInterfaceNameFromGuid",
+      "ordinal": 248,
+      "is_forwarder": false
+    },
+    {
+      "name": "NhpAllocateAndGetInterfaceInfoFromStack",
+      "ordinal": 249,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyAddrChange",
+      "ordinal": 250,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyCompartmentChange",
+      "ordinal": 251,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyIfTimestampConfigChange",
+      "ordinal": 252,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyIpInterfaceChange",
+      "ordinal": 253,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyNetworkConnectivityHintChange",
+      "ordinal": 254,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyRouteChange",
+      "ordinal": 255,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyRouteChange2",
+      "ordinal": 256,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyStableUnicastIpAddressTable",
+      "ordinal": 257,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyTeredoPortChange",
+      "ordinal": 258,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyUnicastIpAddressChange",
+      "ordinal": 259,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenCompartment",
+      "ordinal": 260,
+      "is_forwarder": false
+    },
+    {
+      "name": "ParseNetworkString",
+      "ordinal": 261,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfAddFiltersToInterface",
+      "ordinal": 262,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfAddGlobalFilterToInterface",
+      "ordinal": 263,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfBindInterfaceToIPAddress",
+      "ordinal": 264,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfBindInterfaceToIndex",
+      "ordinal": 265,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfCreateInterface",
+      "ordinal": 266,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfDeleteInterface",
+      "ordinal": 267,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfDeleteLog",
+      "ordinal": 268,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfGetInterfaceStatistics",
+      "ordinal": 269,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfMakeLog",
+      "ordinal": 270,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfRebindFilters",
+      "ordinal": 271,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfRemoveFilterHandles",
+      "ordinal": 272,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfRemoveFiltersFromInterface",
+      "ordinal": 273,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfRemoveGlobalFilterFromInterface",
+      "ordinal": 274,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfSetLogBuffer",
+      "ordinal": 275,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfTestPacket",
+      "ordinal": 276,
+      "is_forwarder": false
+    },
+    {
+      "name": "PfUnBindInterface",
+      "ordinal": 277,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterInterfaceTimestampConfigChange",
+      "ordinal": 278,
+      "is_forwarder": false
+    },
+    {
+      "name": "ResolveIpNetEntry2",
+      "ordinal": 279,
+      "is_forwarder": false
+    },
+    {
+      "name": "ResolveNeighbor",
+      "ordinal": 280,
+      "is_forwarder": false
+    },
+    {
+      "name": "RestoreMediaSense",
+      "ordinal": 281,
+      "is_forwarder": false
+    },
+    {
+      "name": "SendARP",
+      "ordinal": 282,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetAdapterIpAddress",
+      "ordinal": 283,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCurrentThreadCompartmentId",
+      "ordinal": 284,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCurrentThreadCompartmentScope",
+      "ordinal": 285,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDnsSettings",
+      "ordinal": 286,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFlVirtualInterface",
+      "ordinal": 287,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetIfEntry",
+      "ordinal": 288,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetInterfaceDnsSettings",
+      "ordinal": 289,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetIpForwardEntry",
+      "ordinal": 290,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetIpForwardEntry2",
+      "ordinal": 291,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetIpInterfaceEntry",
+      "ordinal": 292,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetIpNetEntry",
+      "ordinal": 293,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetIpNetEntry2",
+      "ordinal": 294,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetIpStatistics",
+      "ordinal": 295,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetIpStatisticsEx",
+      "ordinal": 296,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetIpTTL",
+      "ordinal": 297,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetJobCompartmentId",
+      "ordinal": 298,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetNetworkInformation",
+      "ordinal": 299,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetPerTcp6ConnectionEStats",
+      "ordinal": 300,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetPerTcp6ConnectionStats",
+      "ordinal": 301,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetPerTcpConnectionEStats",
+      "ordinal": 302,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetPerTcpConnectionStats",
+      "ordinal": 303,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSessionCompartmentId",
+      "ordinal": 304,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetTcpEntry",
+      "ordinal": 305,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetUnicastIpAddressEntry",
+      "ordinal": 306,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnenableRouter",
+      "ordinal": 307,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterInterfaceTimestampConfigChange",
+      "ordinal": 308,
+      "is_forwarder": false
+    },
+    {
+      "name": "do_echo_rep",
+      "ordinal": 309,
+      "is_forwarder": false
+    },
+    {
+      "name": "do_echo_req",
+      "ordinal": 310,
+      "is_forwarder": false
+    },
+    {
+      "name": "if_indextoname",
+      "ordinal": 311,
+      "is_forwarder": false
+    },
+    {
+      "name": "if_nametoindex",
+      "ordinal": 312,
+      "is_forwarder": false
+    },
+    {
+      "name": "register_icmp",
+      "ordinal": 313,
+      "is_forwarder": false
+    }
+  ]
+}

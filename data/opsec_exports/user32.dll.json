@@ -1,0 +1,5210 @@
+{
+  "dll": "user32.dll",
+  "exports": [
+    {
+      "name": "ActivateKeyboardLayout",
+      "ordinal": 1504,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddClipboardFormatListener",
+      "ordinal": 1505,
+      "is_forwarder": false
+    },
+    {
+      "name": "AddVisualIdentifier",
+      "ordinal": 1506,
+      "is_forwarder": false
+    },
+    {
+      "name": "AdjustWindowRect",
+      "ordinal": 1507,
+      "is_forwarder": false
+    },
+    {
+      "name": "AdjustWindowRectEx",
+      "ordinal": 1508,
+      "is_forwarder": false
+    },
+    {
+      "name": "AdjustWindowRectExForDpi",
+      "ordinal": 1509,
+      "is_forwarder": false
+    },
+    {
+      "name": "AlignRects",
+      "ordinal": 1510,
+      "is_forwarder": false
+    },
+    {
+      "name": "AllowForegroundActivation",
+      "ordinal": 1511,
+      "is_forwarder": false
+    },
+    {
+      "name": "AllowSetForegroundWindow",
+      "ordinal": 1512,
+      "is_forwarder": false
+    },
+    {
+      "name": "AnimateWindow",
+      "ordinal": 1513,
+      "is_forwarder": false
+    },
+    {
+      "name": "AnyPopup",
+      "ordinal": 1514,
+      "is_forwarder": false
+    },
+    {
+      "name": "AppendMenuA",
+      "ordinal": 1515,
+      "is_forwarder": false
+    },
+    {
+      "name": "AppendMenuW",
+      "ordinal": 1516,
+      "is_forwarder": false
+    },
+    {
+      "name": "ApplyWindowAction",
+      "ordinal": 2681,
+      "is_forwarder": false
+    },
+    {
+      "name": "AreDpiAwarenessContextsEqual",
+      "ordinal": 1517,
+      "is_forwarder": false
+    },
+    {
+      "name": "ArrangeIconicWindows",
+      "ordinal": 1518,
+      "is_forwarder": false
+    },
+    {
+      "name": "AttachThreadInput",
+      "ordinal": 1519,
+      "is_forwarder": false
+    },
+    {
+      "name": "BeginDeferWindowPos",
+      "ordinal": 1520,
+      "is_forwarder": false
+    },
+    {
+      "name": "BeginPaint",
+      "ordinal": 1521,
+      "is_forwarder": false
+    },
+    {
+      "name": "BlockInput",
+      "ordinal": 1522,
+      "is_forwarder": false
+    },
+    {
+      "name": "BringWindowToTop",
+      "ordinal": 1523,
+      "is_forwarder": false
+    },
+    {
+      "name": "BroadcastSystemMessage",
+      "ordinal": 1524,
+      "is_forwarder": false
+    },
+    {
+      "name": "BroadcastSystemMessageA",
+      "ordinal": 1525,
+      "is_forwarder": false
+    },
+    {
+      "name": "BroadcastSystemMessageExA",
+      "ordinal": 1526,
+      "is_forwarder": false
+    },
+    {
+      "name": "BroadcastSystemMessageExW",
+      "ordinal": 1527,
+      "is_forwarder": false
+    },
+    {
+      "name": "BroadcastSystemMessageW",
+      "ordinal": 1528,
+      "is_forwarder": false
+    },
+    {
+      "name": "BuildReasonArray",
+      "ordinal": 1529,
+      "is_forwarder": false
+    },
+    {
+      "name": "CalcMenuBar",
+      "ordinal": 1530,
+      "is_forwarder": false
+    },
+    {
+      "name": "CalculatePopupWindowPosition",
+      "ordinal": 1531,
+      "is_forwarder": false
+    },
+    {
+      "name": "CallMsgFilter",
+      "ordinal": 1532,
+      "is_forwarder": false
+    },
+    {
+      "name": "CallMsgFilterA",
+      "ordinal": 1533,
+      "is_forwarder": false
+    },
+    {
+      "name": "CallMsgFilterW",
+      "ordinal": 1534,
+      "is_forwarder": false
+    },
+    {
+      "name": "CallNextHookEx",
+      "ordinal": 1535,
+      "is_forwarder": false
+    },
+    {
+      "name": "CallWindowProcA",
+      "ordinal": 1536,
+      "is_forwarder": false
+    },
+    {
+      "name": "CallWindowProcW",
+      "ordinal": 1537,
+      "is_forwarder": false
+    },
+    {
+      "name": "CancelShutdown",
+      "ordinal": 1538,
+      "is_forwarder": false
+    },
+    {
+      "name": "CascadeChildWindows",
+      "ordinal": 1539,
+      "is_forwarder": false
+    },
+    {
+      "name": "CascadeWindows",
+      "ordinal": 1540,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChangeClipboardChain",
+      "ordinal": 1541,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChangeDisplaySettingsA",
+      "ordinal": 1542,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChangeDisplaySettingsExA",
+      "ordinal": 1543,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChangeDisplaySettingsExW",
+      "ordinal": 1544,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChangeDisplaySettingsW",
+      "ordinal": 1545,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChangeMenuA",
+      "ordinal": 1546,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChangeMenuW",
+      "ordinal": 1547,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChangeWindowMessageFilter",
+      "ordinal": 1548,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChangeWindowMessageFilterEx",
+      "ordinal": 1549,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharLowerA",
+      "ordinal": 1555,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharLowerBuffA",
+      "ordinal": 1556,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharLowerBuffW",
+      "ordinal": 1557,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharLowerW",
+      "ordinal": 1558,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharNextA",
+      "ordinal": 1559,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharNextExA",
+      "ordinal": 1560,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharNextW",
+      "ordinal": 1561,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharPrevA",
+      "ordinal": 1562,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharPrevExA",
+      "ordinal": 1563,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharPrevW",
+      "ordinal": 1564,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharToOemA",
+      "ordinal": 1565,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharToOemBuffA",
+      "ordinal": 1566,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharToOemBuffW",
+      "ordinal": 1567,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharToOemW",
+      "ordinal": 1568,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharUpperA",
+      "ordinal": 1569,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharUpperBuffA",
+      "ordinal": 1570,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharUpperBuffW",
+      "ordinal": 1571,
+      "is_forwarder": false
+    },
+    {
+      "name": "CharUpperW",
+      "ordinal": 1572,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckBannedOneCoreTransformApi",
+      "ordinal": 1573,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckDBCSEnabledExt",
+      "ordinal": 1574,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckDlgButton",
+      "ordinal": 1575,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckMenuItem",
+      "ordinal": 1576,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckMenuRadioItem",
+      "ordinal": 1577,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckProcessForClipboardAccess",
+      "ordinal": 1578,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckProcessSession",
+      "ordinal": 1579,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckRadioButton",
+      "ordinal": 1580,
+      "is_forwarder": false
+    },
+    {
+      "name": "CheckWindowThreadDesktop",
+      "ordinal": 1581,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChildWindowFromPoint",
+      "ordinal": 1582,
+      "is_forwarder": false
+    },
+    {
+      "name": "ChildWindowFromPointEx",
+      "ordinal": 1583,
+      "is_forwarder": false
+    },
+    {
+      "name": "CliImmSetHotKey",
+      "ordinal": 1584,
+      "is_forwarder": false
+    },
+    {
+      "name": "ClientThreadSetup",
+      "ordinal": 1585,
+      "is_forwarder": false
+    },
+    {
+      "name": "ClientToScreen",
+      "ordinal": 1586,
+      "is_forwarder": false
+    },
+    {
+      "name": "ClipCursor",
+      "ordinal": 1587,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseClipboard",
+      "ordinal": 1588,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseDesktop",
+      "ordinal": 1589,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseGestureInfoHandle",
+      "ordinal": 1590,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseTouchInputHandle",
+      "ordinal": 1591,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseWindow",
+      "ordinal": 1592,
+      "is_forwarder": false
+    },
+    {
+      "name": "CloseWindowStation",
+      "ordinal": 1593,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConsoleControl",
+      "ordinal": 1594,
+      "is_forwarder": false
+    },
+    {
+      "name": "ControlMagnification",
+      "ordinal": 1595,
+      "is_forwarder": false
+    },
+    {
+      "name": "ConvertToInterceptWindow",
+      "ordinal": 2675,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopyAcceleratorTableA",
+      "ordinal": 1596,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopyAcceleratorTableW",
+      "ordinal": 1597,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopyIcon",
+      "ordinal": 1598,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopyImage",
+      "ordinal": 1599,
+      "is_forwarder": false
+    },
+    {
+      "name": "CopyRect",
+      "ordinal": 1600,
+      "is_forwarder": false
+    },
+    {
+      "name": "CountClipboardFormats",
+      "ordinal": 1601,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateAcceleratorTableA",
+      "ordinal": 1602,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateAcceleratorTableW",
+      "ordinal": 1603,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateCaret",
+      "ordinal": 1604,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateCursor",
+      "ordinal": 1605,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDCompositionHwndTarget",
+      "ordinal": 1606,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDesktopA",
+      "ordinal": 1607,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDesktopExA",
+      "ordinal": 1608,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDesktopExW",
+      "ordinal": 1609,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDesktopW",
+      "ordinal": 1610,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDialogIndirectParamA",
+      "ordinal": 1611,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDialogIndirectParamAorW",
+      "ordinal": 1612,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDialogIndirectParamW",
+      "ordinal": 1613,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDialogParamA",
+      "ordinal": 1614,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateDialogParamW",
+      "ordinal": 1615,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateIcon",
+      "ordinal": 1616,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateIconFromResource",
+      "ordinal": 1617,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateIconFromResourceEx",
+      "ordinal": 1618,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateIconIndirect",
+      "ordinal": 1619,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateMDIWindowA",
+      "ordinal": 1620,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateMDIWindowW",
+      "ordinal": 1621,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateMenu",
+      "ordinal": 1622,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreatePopupMenu",
+      "ordinal": 1623,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateSyntheticPointerDevice",
+      "ordinal": 1624,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateSyntheticPointerDevice2",
+      "ordinal": 2690,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateSystemThreads",
+      "ordinal": 1625,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateWindowExA",
+      "ordinal": 1626,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateWindowExW",
+      "ordinal": 1627,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateWindowInBand",
+      "ordinal": 1628,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateWindowInBandEx",
+      "ordinal": 1629,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateWindowIndirect",
+      "ordinal": 1630,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateWindowStationA",
+      "ordinal": 1631,
+      "is_forwarder": false
+    },
+    {
+      "name": "CreateWindowStationW",
+      "ordinal": 1632,
+      "is_forwarder": false
+    },
+    {
+      "name": "CsrBroadcastSystemMessageExW",
+      "ordinal": 1633,
+      "is_forwarder": false
+    },
+    {
+      "name": "CtxInitUser32",
+      "ordinal": 1634,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeAbandonTransaction",
+      "ordinal": 1635,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeAccessData",
+      "ordinal": 1636,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeAddData",
+      "ordinal": 1637,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeClientTransaction",
+      "ordinal": 1638,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeCmpStringHandles",
+      "ordinal": 1639,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeConnect",
+      "ordinal": 1640,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeConnectList",
+      "ordinal": 1641,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeCreateDataHandle",
+      "ordinal": 1642,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeCreateStringHandleA",
+      "ordinal": 1643,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeCreateStringHandleW",
+      "ordinal": 1644,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeDisconnect",
+      "ordinal": 1645,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeDisconnectList",
+      "ordinal": 1646,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeEnableCallback",
+      "ordinal": 1647,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeFreeDataHandle",
+      "ordinal": 1648,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeFreeStringHandle",
+      "ordinal": 1649,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeGetData",
+      "ordinal": 1650,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeGetLastError",
+      "ordinal": 1651,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeGetQualityOfService",
+      "ordinal": 1652,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeImpersonateClient",
+      "ordinal": 1653,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeInitializeA",
+      "ordinal": 1654,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeInitializeW",
+      "ordinal": 1655,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeKeepStringHandle",
+      "ordinal": 1656,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeNameService",
+      "ordinal": 1657,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdePostAdvise",
+      "ordinal": 1658,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeQueryConvInfo",
+      "ordinal": 1659,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeQueryNextServer",
+      "ordinal": 1660,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeQueryStringA",
+      "ordinal": 1661,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeQueryStringW",
+      "ordinal": 1662,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeReconnect",
+      "ordinal": 1663,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeSetQualityOfService",
+      "ordinal": 1664,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeSetUserHandle",
+      "ordinal": 1665,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeUnaccessData",
+      "ordinal": 1666,
+      "is_forwarder": false
+    },
+    {
+      "name": "DdeUninitialize",
+      "ordinal": 1667,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.NtdllDialogWndProc_A)",
+      "ordinal": 1668,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.NtdllDialogWndProc_W)",
+      "ordinal": 1669,
+      "is_forwarder": true
+    },
+    {
+      "name": "DefFrameProcA",
+      "ordinal": 1670,
+      "is_forwarder": false
+    },
+    {
+      "name": "DefFrameProcW",
+      "ordinal": 1671,
+      "is_forwarder": false
+    },
+    {
+      "name": "DefMDIChildProcA",
+      "ordinal": 1672,
+      "is_forwarder": false
+    },
+    {
+      "name": "DefMDIChildProcW",
+      "ordinal": 1673,
+      "is_forwarder": false
+    },
+    {
+      "name": "DefRawInputProc",
+      "ordinal": 1674,
+      "is_forwarder": false
+    },
+    {
+      "name": "NTDLL.NtdllDefWindowProc_A)",
+      "ordinal": 1675,
+      "is_forwarder": true
+    },
+    {
+      "name": "NTDLL.NtdllDefWindowProc_W)",
+      "ordinal": 1676,
+      "is_forwarder": true
+    },
+    {
+      "name": "DeferWindowPos",
+      "ordinal": 1677,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeferWindowPosAndBand",
+      "ordinal": 1678,
+      "is_forwarder": false
+    },
+    {
+      "name": "DelegateInput",
+      "ordinal": 2503,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeleteMenu",
+      "ordinal": 1679,
+      "is_forwarder": false
+    },
+    {
+      "name": "DeregisterShellHookWindow",
+      "ordinal": 1680,
+      "is_forwarder": false
+    },
+    {
+      "name": "DestroyAcceleratorTable",
+      "ordinal": 1681,
+      "is_forwarder": false
+    },
+    {
+      "name": "DestroyCaret",
+      "ordinal": 1682,
+      "is_forwarder": false
+    },
+    {
+      "name": "DestroyCursor",
+      "ordinal": 1683,
+      "is_forwarder": false
+    },
+    {
+      "name": "DestroyDCompositionHwndTarget",
+      "ordinal": 1684,
+      "is_forwarder": false
+    },
+    {
+      "name": "DestroyIcon",
+      "ordinal": 1685,
+      "is_forwarder": false
+    },
+    {
+      "name": "DestroyMenu",
+      "ordinal": 1686,
+      "is_forwarder": false
+    },
+    {
+      "name": "DestroyReasons",
+      "ordinal": 1687,
+      "is_forwarder": false
+    },
+    {
+      "name": "DestroySyntheticPointerDevice",
+      "ordinal": 1688,
+      "is_forwarder": false
+    },
+    {
+      "name": "DestroyWindow",
+      "ordinal": 1689,
+      "is_forwarder": false
+    },
+    {
+      "name": "DialogBoxIndirectParamA",
+      "ordinal": 1690,
+      "is_forwarder": false
+    },
+    {
+      "name": "DialogBoxIndirectParamAorW",
+      "ordinal": 1691,
+      "is_forwarder": false
+    },
+    {
+      "name": "DialogBoxIndirectParamW",
+      "ordinal": 1692,
+      "is_forwarder": false
+    },
+    {
+      "name": "DialogBoxParamA",
+      "ordinal": 1693,
+      "is_forwarder": false
+    },
+    {
+      "name": "DialogBoxParamW",
+      "ordinal": 1694,
+      "is_forwarder": false
+    },
+    {
+      "name": "DisableProcessWindowsGhosting",
+      "ordinal": 1695,
+      "is_forwarder": false
+    },
+    {
+      "name": "DispatchMessageA",
+      "ordinal": 1696,
+      "is_forwarder": false
+    },
+    {
+      "name": "DispatchMessageW",
+      "ordinal": 1697,
+      "is_forwarder": false
+    },
+    {
+      "name": "DisplayConfigGetDeviceInfo",
+      "ordinal": 1698,
+      "is_forwarder": false
+    },
+    {
+      "name": "DisplayConfigSetDeviceInfo",
+      "ordinal": 1699,
+      "is_forwarder": false
+    },
+    {
+      "name": "DisplayExitWindowsWarnings",
+      "ordinal": 1700,
+      "is_forwarder": false
+    },
+    {
+      "name": "DlgDirListA",
+      "ordinal": 1701,
+      "is_forwarder": false
+    },
+    {
+      "name": "DlgDirListComboBoxA",
+      "ordinal": 1702,
+      "is_forwarder": false
+    },
+    {
+      "name": "DlgDirListComboBoxW",
+      "ordinal": 1703,
+      "is_forwarder": false
+    },
+    {
+      "name": "DlgDirListW",
+      "ordinal": 1704,
+      "is_forwarder": false
+    },
+    {
+      "name": "DlgDirSelectComboBoxExA",
+      "ordinal": 1705,
+      "is_forwarder": false
+    },
+    {
+      "name": "DlgDirSelectComboBoxExW",
+      "ordinal": 1706,
+      "is_forwarder": false
+    },
+    {
+      "name": "DlgDirSelectExA",
+      "ordinal": 1707,
+      "is_forwarder": false
+    },
+    {
+      "name": "DlgDirSelectExW",
+      "ordinal": 1708,
+      "is_forwarder": false
+    },
+    {
+      "name": "DoSoundConnect",
+      "ordinal": 1709,
+      "is_forwarder": false
+    },
+    {
+      "name": "DoSoundDisconnect",
+      "ordinal": 1710,
+      "is_forwarder": false
+    },
+    {
+      "name": "DragDetect",
+      "ordinal": 1711,
+      "is_forwarder": false
+    },
+    {
+      "name": "DragObject",
+      "ordinal": 1712,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawAnimatedRects",
+      "ordinal": 1713,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawCaption",
+      "ordinal": 1714,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawCaptionTempA",
+      "ordinal": 1715,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawCaptionTempW",
+      "ordinal": 1716,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawEdge",
+      "ordinal": 1717,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawFocusRect",
+      "ordinal": 1718,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawFrame",
+      "ordinal": 1719,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawFrameControl",
+      "ordinal": 1720,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawIcon",
+      "ordinal": 1721,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawIconEx",
+      "ordinal": 1722,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawMenuBar",
+      "ordinal": 1723,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawMenuBarTemp",
+      "ordinal": 1724,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawStateA",
+      "ordinal": 1725,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawStateW",
+      "ordinal": 1726,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawTextA",
+      "ordinal": 1727,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawTextExA",
+      "ordinal": 1728,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawTextExW",
+      "ordinal": 1729,
+      "is_forwarder": false
+    },
+    {
+      "name": "DrawTextW",
+      "ordinal": 1730,
+      "is_forwarder": false
+    },
+    {
+      "name": "DwmGetDxRgn",
+      "ordinal": 1553,
+      "is_forwarder": false
+    },
+    {
+      "name": "DwmGetDxSharedSurface",
+      "ordinal": 1731,
+      "is_forwarder": false
+    },
+    {
+      "name": "DwmGetRemoteSessionOcclusionEvent",
+      "ordinal": 1732,
+      "is_forwarder": false
+    },
+    {
+      "name": "DwmGetRemoteSessionOcclusionState",
+      "ordinal": 1733,
+      "is_forwarder": false
+    },
+    {
+      "name": "DwmKernelShutdown",
+      "ordinal": 1734,
+      "is_forwarder": false
+    },
+    {
+      "name": "DwmKernelStartup",
+      "ordinal": 1735,
+      "is_forwarder": false
+    },
+    {
+      "name": "DwmLockScreenUpdates",
+      "ordinal": 1736,
+      "is_forwarder": false
+    },
+    {
+      "name": "DwmValidateWindow",
+      "ordinal": 1737,
+      "is_forwarder": false
+    },
+    {
+      "name": "DwmWindowNotificationsEnabled",
+      "ordinal": 2680,
+      "is_forwarder": false
+    },
+    {
+      "name": "EditWndProc",
+      "ordinal": 1738,
+      "is_forwarder": false
+    },
+    {
+      "name": "EmptyClipboard",
+      "ordinal": 1739,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnableMenuItem",
+      "ordinal": 1740,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnableMouseInPointer",
+      "ordinal": 1741,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnableNonClientDpiScaling",
+      "ordinal": 1742,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnableOneCoreTransformMode",
+      "ordinal": 1743,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnableScrollBar",
+      "ordinal": 1744,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnableSessionForMMCSS",
+      "ordinal": 1745,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnableWindow",
+      "ordinal": 1746,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnableWindowShellWindowManagementBehavior",
+      "ordinal": 2804,
+      "is_forwarder": false
+    },
+    {
+      "name": "EndDeferWindowPos",
+      "ordinal": 1747,
+      "is_forwarder": false
+    },
+    {
+      "name": "EndDeferWindowPosEx",
+      "ordinal": 1748,
+      "is_forwarder": false
+    },
+    {
+      "name": "EndDialog",
+      "ordinal": 1749,
+      "is_forwarder": false
+    },
+    {
+      "name": "EndMenu",
+      "ordinal": 1750,
+      "is_forwarder": false
+    },
+    {
+      "name": "EndPaint",
+      "ordinal": 1751,
+      "is_forwarder": false
+    },
+    {
+      "name": "EndTask",
+      "ordinal": 1752,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnterMoveSizeLoop",
+      "ordinal": 2686,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnterReaderModeHelper",
+      "ordinal": 1753,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumChildWindows",
+      "ordinal": 1754,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumClipboardFormats",
+      "ordinal": 1755,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDesktopWindows",
+      "ordinal": 1756,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDesktopsA",
+      "ordinal": 1757,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDesktopsW",
+      "ordinal": 1758,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDisplayDevicesA",
+      "ordinal": 1759,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDisplayDevicesW",
+      "ordinal": 1760,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDisplayMonitors",
+      "ordinal": 1761,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDisplaySettingsA",
+      "ordinal": 1762,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDisplaySettingsExA",
+      "ordinal": 1763,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDisplaySettingsExW",
+      "ordinal": 1764,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumDisplaySettingsW",
+      "ordinal": 1765,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumPropsA",
+      "ordinal": 1766,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumPropsExA",
+      "ordinal": 1767,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumPropsExW",
+      "ordinal": 1768,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumPropsW",
+      "ordinal": 1769,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumThreadWindows",
+      "ordinal": 1770,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumWindowStationsA",
+      "ordinal": 1771,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumWindowStationsW",
+      "ordinal": 1772,
+      "is_forwarder": false
+    },
+    {
+      "name": "EnumWindows",
+      "ordinal": 1773,
+      "is_forwarder": false
+    },
+    {
+      "name": "EqualRect",
+      "ordinal": 1774,
+      "is_forwarder": false
+    },
+    {
+      "name": "EvaluateProximityToPolygon",
+      "ordinal": 1775,
+      "is_forwarder": false
+    },
+    {
+      "name": "EvaluateProximityToRect",
+      "ordinal": 1776,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExcludeUpdateRgn",
+      "ordinal": 1777,
+      "is_forwarder": false
+    },
+    {
+      "name": "ExitWindowsEx",
+      "ordinal": 1778,
+      "is_forwarder": false
+    },
+    {
+      "name": "FillRect",
+      "ordinal": 1779,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindWindowA",
+      "ordinal": 1780,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindWindowExA",
+      "ordinal": 1781,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindWindowExW",
+      "ordinal": 1782,
+      "is_forwarder": false
+    },
+    {
+      "name": "FindWindowW",
+      "ordinal": 1783,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlashWindow",
+      "ordinal": 1784,
+      "is_forwarder": false
+    },
+    {
+      "name": "FlashWindowEx",
+      "ordinal": 1785,
+      "is_forwarder": false
+    },
+    {
+      "name": "FrameRect",
+      "ordinal": 1786,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeDDElParam",
+      "ordinal": 1787,
+      "is_forwarder": false
+    },
+    {
+      "name": "FrostCrashedWindow",
+      "ordinal": 1788,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetActiveWindow",
+      "ordinal": 1789,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAltTabInfo",
+      "ordinal": 1790,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAltTabInfoA",
+      "ordinal": 1791,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAltTabInfoW",
+      "ordinal": 1792,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAncestor",
+      "ordinal": 1793,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAppCompatFlags",
+      "ordinal": 1794,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAppCompatFlags2",
+      "ordinal": 1795,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAsyncKeyState",
+      "ordinal": 1796,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAutoRotationState",
+      "ordinal": 1797,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAwarenessFromDpiAwarenessContext",
+      "ordinal": 1798,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCIMSSM",
+      "ordinal": 1799,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCapture",
+      "ordinal": 1800,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCaretBlinkTime",
+      "ordinal": 1801,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCaretPos",
+      "ordinal": 1802,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClassInfoA",
+      "ordinal": 1803,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClassInfoExA",
+      "ordinal": 1804,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClassInfoExW",
+      "ordinal": 1805,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClassInfoW",
+      "ordinal": 1806,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClassLongA",
+      "ordinal": 1807,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClassLongPtrA",
+      "ordinal": 1808,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClassLongPtrW",
+      "ordinal": 1809,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClassLongW",
+      "ordinal": 1810,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClassNameA",
+      "ordinal": 1811,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClassNameW",
+      "ordinal": 1812,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClassWord",
+      "ordinal": 1813,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClientRect",
+      "ordinal": 1814,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClipCursor",
+      "ordinal": 1815,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClipboardAccessToken",
+      "ordinal": 1816,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClipboardData",
+      "ordinal": 1817,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClipboardFormatNameA",
+      "ordinal": 1818,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClipboardFormatNameW",
+      "ordinal": 1819,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClipboardMetadata",
+      "ordinal": 2668,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClipboardOwner",
+      "ordinal": 1820,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClipboardSequenceNumber",
+      "ordinal": 1821,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetClipboardViewer",
+      "ordinal": 1822,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetComboBoxInfo",
+      "ordinal": 1823,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentInputMessageSource",
+      "ordinal": 1824,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCurrentMonitorTopologyId",
+      "ordinal": 2683,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCursor",
+      "ordinal": 1825,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCursorFrameInfo",
+      "ordinal": 1826,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCursorInfo",
+      "ordinal": 1827,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetCursorPos",
+      "ordinal": 1828,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDC",
+      "ordinal": 1829,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDCEx",
+      "ordinal": 1830,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDCompositionHwndBitmap",
+      "ordinal": 1831,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDesktopID",
+      "ordinal": 1832,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDesktopWindow",
+      "ordinal": 1833,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDialogBaseUnits",
+      "ordinal": 1834,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDialogControlDpiChangeBehavior",
+      "ordinal": 1835,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDialogDpiChangeBehavior",
+      "ordinal": 1836,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDisplayAutoRotationPreferences",
+      "ordinal": 1837,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDisplayConfigBufferSizes",
+      "ordinal": 1838,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDlgCtrlID",
+      "ordinal": 1839,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDlgItem",
+      "ordinal": 1840,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDlgItemInt",
+      "ordinal": 1841,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDlgItemTextA",
+      "ordinal": 1842,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDlgItemTextW",
+      "ordinal": 1843,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDoubleClickTime",
+      "ordinal": 1844,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDpiAwarenessContextForProcess",
+      "ordinal": 1845,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDpiForMonitorInternal",
+      "ordinal": 1846,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDpiForSystem",
+      "ordinal": 1847,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDpiForWindow",
+      "ordinal": 1848,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetDpiFromDpiAwarenessContext",
+      "ordinal": 1849,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetExtendedPointerDeviceProperty",
+      "ordinal": 1850,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetFocus",
+      "ordinal": 1851,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetForegroundWindow",
+      "ordinal": 1852,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetGUIThreadInfo",
+      "ordinal": 1853,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetGestureConfig",
+      "ordinal": 1854,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetGestureExtraArgs",
+      "ordinal": 1855,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetGestureInfo",
+      "ordinal": 1856,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetGuiResources",
+      "ordinal": 1857,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIconInfo",
+      "ordinal": 1858,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIconInfoExA",
+      "ordinal": 1859,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetIconInfoExW",
+      "ordinal": 1860,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInputDesktop",
+      "ordinal": 1861,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInputLocaleInfo",
+      "ordinal": 1862,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInputState",
+      "ordinal": 1863,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetInternalWindowPos",
+      "ordinal": 1864,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetKBCodePage",
+      "ordinal": 1865,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetKeyNameTextA",
+      "ordinal": 1866,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetKeyNameTextW",
+      "ordinal": 1867,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetKeyState",
+      "ordinal": 1868,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetKeyboardLayout",
+      "ordinal": 1869,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetKeyboardLayoutList",
+      "ordinal": 1870,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetKeyboardLayoutNameA",
+      "ordinal": 1871,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetKeyboardLayoutNameW",
+      "ordinal": 1872,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetKeyboardState",
+      "ordinal": 1873,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetKeyboardType",
+      "ordinal": 1874,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLastActivePopup",
+      "ordinal": 1875,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLastInputInfo",
+      "ordinal": 1876,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetLayeredWindowAttributes",
+      "ordinal": 1877,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetListBoxInfo",
+      "ordinal": 1878,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMagnificationDesktopColorEffect",
+      "ordinal": 1879,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMagnificationDesktopMagnification",
+      "ordinal": 1880,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMagnificationDesktopSamplingMode",
+      "ordinal": 1881,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMagnificationLensCtxInformation",
+      "ordinal": 1882,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenu",
+      "ordinal": 1883,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenuBarInfo",
+      "ordinal": 1884,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenuCheckMarkDimensions",
+      "ordinal": 1885,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenuContextHelpId",
+      "ordinal": 1886,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenuDefaultItem",
+      "ordinal": 1887,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenuInfo",
+      "ordinal": 1888,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenuItemCount",
+      "ordinal": 1889,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenuItemID",
+      "ordinal": 1890,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenuItemInfoA",
+      "ordinal": 1891,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenuItemInfoW",
+      "ordinal": 1892,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenuItemRect",
+      "ordinal": 1893,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenuState",
+      "ordinal": 1894,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenuStringA",
+      "ordinal": 1895,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMenuStringW",
+      "ordinal": 1896,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMessageA",
+      "ordinal": 1897,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMessageExtraInfo",
+      "ordinal": 1898,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMessagePos",
+      "ordinal": 1899,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMessageTime",
+      "ordinal": 1900,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMessageW",
+      "ordinal": 1901,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMonitorInfoA",
+      "ordinal": 1902,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMonitorInfoW",
+      "ordinal": 1903,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetMouseMovePointsEx",
+      "ordinal": 1904,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNextDlgGroupItem",
+      "ordinal": 1905,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNextDlgTabItem",
+      "ordinal": 1906,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetOpenClipboardWindow",
+      "ordinal": 1907,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetParent",
+      "ordinal": 1908,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPhysicalCursorPos",
+      "ordinal": 1909,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerCursorId",
+      "ordinal": 1910,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerDevice",
+      "ordinal": 1911,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerDeviceCursors",
+      "ordinal": 1912,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerDeviceInputSpace",
+      "ordinal": 1913,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerDeviceOrientation",
+      "ordinal": 1914,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerDeviceProperties",
+      "ordinal": 1915,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerDeviceRects",
+      "ordinal": 1916,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerDevices",
+      "ordinal": 1917,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerFrameArrivalTimes",
+      "ordinal": 1503,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerFrameInfo",
+      "ordinal": 1918,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerFrameInfoHistory",
+      "ordinal": 1919,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerFramePenInfo",
+      "ordinal": 1920,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerFramePenInfoHistory",
+      "ordinal": 1921,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerFrameTimes",
+      "ordinal": 1922,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerFrameTouchInfo",
+      "ordinal": 1923,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerFrameTouchInfoHistory",
+      "ordinal": 1924,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerFrameTouchpadInfo",
+      "ordinal": 2693,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerFrameTouchpadInfoHistory",
+      "ordinal": 2694,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerInfo",
+      "ordinal": 1925,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerInfoHistory",
+      "ordinal": 1926,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerInputTransform",
+      "ordinal": 1927,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerPenInfo",
+      "ordinal": 1928,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerPenInfoHistory",
+      "ordinal": 1929,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerTouchInfo",
+      "ordinal": 1930,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerTouchInfoHistory",
+      "ordinal": 1931,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerTouchpadInfo",
+      "ordinal": 2691,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerTouchpadInfoHistory",
+      "ordinal": 2692,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPointerType",
+      "ordinal": 1932,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPriorityClipboardFormat",
+      "ordinal": 1933,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessDefaultLayout",
+      "ordinal": 1934,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessDpiAwarenessInternal",
+      "ordinal": 1935,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessUIContextInformation",
+      "ordinal": 2521,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProcessWindowStation",
+      "ordinal": 1936,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetProgmanWindow",
+      "ordinal": 1937,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPropA",
+      "ordinal": 1938,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetPropW",
+      "ordinal": 1939,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetQueueStatus",
+      "ordinal": 1940,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetRawInputBuffer",
+      "ordinal": 1941,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetRawInputData",
+      "ordinal": 1942,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetRawInputDeviceInfoA",
+      "ordinal": 1943,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetRawInputDeviceInfoW",
+      "ordinal": 1944,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetRawInputDeviceList",
+      "ordinal": 1945,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetRawPointerDeviceData",
+      "ordinal": 1946,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetReasonTitleFromReasonCode",
+      "ordinal": 1947,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetRegisteredRawInputDevices",
+      "ordinal": 1948,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetScrollBarInfo",
+      "ordinal": 1949,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetScrollInfo",
+      "ordinal": 1950,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetScrollPos",
+      "ordinal": 1951,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetScrollRange",
+      "ordinal": 1952,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSendMessageReceiver",
+      "ordinal": 1953,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetShellChangeNotifyWindow",
+      "ordinal": 1954,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetShellWindow",
+      "ordinal": 1955,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSubMenu",
+      "ordinal": 1956,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSysColor",
+      "ordinal": 1957,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSysColorBrush",
+      "ordinal": 1958,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemDpiForProcess",
+      "ordinal": 1959,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemMenu",
+      "ordinal": 1960,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemMetrics",
+      "ordinal": 1961,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetSystemMetricsForDpi",
+      "ordinal": 1962,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTabbedTextExtentA",
+      "ordinal": 1963,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTabbedTextExtentW",
+      "ordinal": 1964,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTaskmanWindow",
+      "ordinal": 1965,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadDesktop",
+      "ordinal": 1966,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadDpiAwarenessContext",
+      "ordinal": 1967,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetThreadDpiHostingBehavior",
+      "ordinal": 1968,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTitleBarInfo",
+      "ordinal": 1969,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTopLevelWindow",
+      "ordinal": 1970,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTopWindow",
+      "ordinal": 1971,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetTouchInputInfo",
+      "ordinal": 1972,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUnpredictedMessagePos",
+      "ordinal": 1973,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUpdateRect",
+      "ordinal": 1974,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUpdateRgn",
+      "ordinal": 1975,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUpdatedClipboardFormats",
+      "ordinal": 1976,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUserObjectInformationA",
+      "ordinal": 1977,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUserObjectInformationW",
+      "ordinal": 1978,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetUserObjectSecurity",
+      "ordinal": 1979,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWinStationInfo",
+      "ordinal": 1980,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindow",
+      "ordinal": 1981,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowBand",
+      "ordinal": 1982,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowCompositionAttribute",
+      "ordinal": 1983,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowCompositionInfo",
+      "ordinal": 1984,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowContextHelpId",
+      "ordinal": 1985,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowDC",
+      "ordinal": 1986,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowDisplayAffinity",
+      "ordinal": 1987,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowDpiAwarenessContext",
+      "ordinal": 1988,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowDpiHostingBehavior",
+      "ordinal": 1989,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowFeedbackSetting",
+      "ordinal": 1990,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowInfo",
+      "ordinal": 1991,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowLongA",
+      "ordinal": 1992,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowLongPtrA",
+      "ordinal": 1993,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowLongPtrW",
+      "ordinal": 1994,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowLongW",
+      "ordinal": 1995,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowMinimizeRect",
+      "ordinal": 1996,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowModuleFileName",
+      "ordinal": 1997,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowModuleFileNameA",
+      "ordinal": 1998,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowModuleFileNameW",
+      "ordinal": 1999,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowPlacement",
+      "ordinal": 2000,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowProcessHandle",
+      "ordinal": 2003,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowRect",
+      "ordinal": 2004,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowRgn",
+      "ordinal": 2006,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowRgnBox",
+      "ordinal": 2007,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowRgnEx",
+      "ordinal": 2008,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowTextA",
+      "ordinal": 2009,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowTextLengthA",
+      "ordinal": 2011,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowTextLengthW",
+      "ordinal": 2012,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowTextW",
+      "ordinal": 2013,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowThreadProcessId",
+      "ordinal": 2014,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetWindowWord",
+      "ordinal": 2015,
+      "is_forwarder": false
+    },
+    {
+      "name": "GhostWindowFromHungWindow",
+      "ordinal": 2016,
+      "is_forwarder": false
+    },
+    {
+      "name": "GrayStringA",
+      "ordinal": 2017,
+      "is_forwarder": false
+    },
+    {
+      "name": "GrayStringW",
+      "ordinal": 2018,
+      "is_forwarder": false
+    },
+    {
+      "name": "HandleDelegatedInput",
+      "ordinal": 2505,
+      "is_forwarder": false
+    },
+    {
+      "name": "HideCaret",
+      "ordinal": 2019,
+      "is_forwarder": false
+    },
+    {
+      "name": "HiliteMenuItem",
+      "ordinal": 2020,
+      "is_forwarder": false
+    },
+    {
+      "name": "HungWindowFromGhostWindow",
+      "ordinal": 2021,
+      "is_forwarder": false
+    },
+    {
+      "name": "IMPGetIMEA",
+      "ordinal": 2022,
+      "is_forwarder": false
+    },
+    {
+      "name": "IMPGetIMEW",
+      "ordinal": 2023,
+      "is_forwarder": false
+    },
+    {
+      "name": "IMPQueryIMEA",
+      "ordinal": 2024,
+      "is_forwarder": false
+    },
+    {
+      "name": "IMPQueryIMEW",
+      "ordinal": 2025,
+      "is_forwarder": false
+    },
+    {
+      "name": "IMPSetIMEA",
+      "ordinal": 2026,
+      "is_forwarder": false
+    },
+    {
+      "name": "IMPSetIMEW",
+      "ordinal": 2027,
+      "is_forwarder": false
+    },
+    {
+      "name": "ImpersonateDdeClientWindow",
+      "ordinal": 2028,
+      "is_forwarder": false
+    },
+    {
+      "name": "InSendMessage",
+      "ordinal": 2029,
+      "is_forwarder": false
+    },
+    {
+      "name": "InSendMessageEx",
+      "ordinal": 2030,
+      "is_forwarder": false
+    },
+    {
+      "name": "InflateRect",
+      "ordinal": 2031,
+      "is_forwarder": false
+    },
+    {
+      "name": "InheritWindowMonitor",
+      "ordinal": 2032,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitDManipHook",
+      "ordinal": 2033,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeGenericHidInjection",
+      "ordinal": 2034,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeInputDeviceInjection",
+      "ordinal": 2035,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeLpkHooks",
+      "ordinal": 2036,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializePointerDeviceInjection",
+      "ordinal": 2037,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializePointerDeviceInjectionEx",
+      "ordinal": 2038,
+      "is_forwarder": false
+    },
+    {
+      "name": "InitializeTouchInjection",
+      "ordinal": 2039,
+      "is_forwarder": false
+    },
+    {
+      "name": "InjectDeviceInput",
+      "ordinal": 2040,
+      "is_forwarder": false
+    },
+    {
+      "name": "InjectGenericHidInput",
+      "ordinal": 2041,
+      "is_forwarder": false
+    },
+    {
+      "name": "InjectKeyboardInput",
+      "ordinal": 2042,
+      "is_forwarder": false
+    },
+    {
+      "name": "InjectMouseInput",
+      "ordinal": 2043,
+      "is_forwarder": false
+    },
+    {
+      "name": "InjectPointerInput",
+      "ordinal": 2044,
+      "is_forwarder": false
+    },
+    {
+      "name": "InjectSyntheticPointerInput",
+      "ordinal": 2045,
+      "is_forwarder": false
+    },
+    {
+      "name": "InjectTouchInput",
+      "ordinal": 2046,
+      "is_forwarder": false
+    },
+    {
+      "name": "InputSpaceRegionFromPoint",
+      "ordinal": 2047,
+      "is_forwarder": false
+    },
+    {
+      "name": "InsertMenuA",
+      "ordinal": 2048,
+      "is_forwarder": false
+    },
+    {
+      "name": "InsertMenuItemA",
+      "ordinal": 2049,
+      "is_forwarder": false
+    },
+    {
+      "name": "InsertMenuItemW",
+      "ordinal": 2050,
+      "is_forwarder": false
+    },
+    {
+      "name": "InsertMenuW",
+      "ordinal": 2051,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetWindowIcon",
+      "ordinal": 2052,
+      "is_forwarder": false
+    },
+    {
+      "name": "InternalGetWindowText",
+      "ordinal": 2053,
+      "is_forwarder": false
+    },
+    {
+      "name": "IntersectRect",
+      "ordinal": 2054,
+      "is_forwarder": false
+    },
+    {
+      "name": "InvalidateRect",
+      "ordinal": 2055,
+      "is_forwarder": false
+    },
+    {
+      "name": "InvalidateRgn",
+      "ordinal": 2056,
+      "is_forwarder": false
+    },
+    {
+      "name": "InvertRect",
+      "ordinal": 2057,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsCharAlphaA",
+      "ordinal": 2058,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsCharAlphaNumericA",
+      "ordinal": 2059,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsCharAlphaNumericW",
+      "ordinal": 2060,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsCharAlphaW",
+      "ordinal": 2061,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsCharLowerA",
+      "ordinal": 2062,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsCharLowerW",
+      "ordinal": 2063,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsCharUpperA",
+      "ordinal": 2064,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsCharUpperW",
+      "ordinal": 2065,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsChild",
+      "ordinal": 2066,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsClipboardFormatAvailable",
+      "ordinal": 2067,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsDialogMessage",
+      "ordinal": 2068,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsDialogMessageA",
+      "ordinal": 2069,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsDialogMessageW",
+      "ordinal": 2070,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsDlgButtonChecked",
+      "ordinal": 2071,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsGUIThread",
+      "ordinal": 2072,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsHungAppWindow",
+      "ordinal": 2073,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsIconic",
+      "ordinal": 2074,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsImmersiveProcess",
+      "ordinal": 2075,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsInDesktopWindowBand",
+      "ordinal": 2076,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsInterceptWindow",
+      "ordinal": 2676,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsMenu",
+      "ordinal": 2077,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsMouseInPointerEnabled",
+      "ordinal": 2078,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsOneCoreTransformMode",
+      "ordinal": 2080,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsProcessDPIAware",
+      "ordinal": 2081,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsRectEmpty",
+      "ordinal": 2082,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsSETEnabled",
+      "ordinal": 2083,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsServerSideWindow",
+      "ordinal": 2084,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsThreadDesktopComposited",
+      "ordinal": 2085,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsThreadMessageQueueAttached",
+      "ordinal": 2528,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsThreadTSFEventAware",
+      "ordinal": 2086,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsTopLevelWindow",
+      "ordinal": 2087,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsTouchWindow",
+      "ordinal": 2088,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsValidDpiAwarenessContext",
+      "ordinal": 2089,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsWinEventHookInstalled",
+      "ordinal": 2090,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsWindow",
+      "ordinal": 2091,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsWindowArranged",
+      "ordinal": 2092,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsWindowDisplayChangeSuppressed",
+      "ordinal": 2685,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsWindowEnabled",
+      "ordinal": 2093,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsWindowInDestroy",
+      "ordinal": 2094,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsWindowRedirectedForPrint",
+      "ordinal": 2095,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsWindowUnicode",
+      "ordinal": 2096,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsWindowVisible",
+      "ordinal": 2097,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsWow64Message",
+      "ordinal": 2098,
+      "is_forwarder": false
+    },
+    {
+      "name": "IsZoomed",
+      "ordinal": 2099,
+      "is_forwarder": false
+    },
+    {
+      "name": "KillTimer",
+      "ordinal": 2100,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadAcceleratorsA",
+      "ordinal": 2101,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadAcceleratorsW",
+      "ordinal": 2102,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadBitmapA",
+      "ordinal": 2103,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadBitmapW",
+      "ordinal": 2104,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadCursorA",
+      "ordinal": 2105,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadCursorFromFileA",
+      "ordinal": 2106,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadCursorFromFileW",
+      "ordinal": 2107,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadCursorW",
+      "ordinal": 2108,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadIconA",
+      "ordinal": 2109,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadIconW",
+      "ordinal": 2110,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadImageA",
+      "ordinal": 2111,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadImageW",
+      "ordinal": 2112,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadKeyboardLayoutA",
+      "ordinal": 2113,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadKeyboardLayoutEx",
+      "ordinal": 2114,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadKeyboardLayoutW",
+      "ordinal": 2115,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadLocalFonts",
+      "ordinal": 2116,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadMenuA",
+      "ordinal": 2117,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadMenuIndirectA",
+      "ordinal": 2118,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadMenuIndirectW",
+      "ordinal": 2119,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadMenuW",
+      "ordinal": 2120,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadRemoteFonts",
+      "ordinal": 2121,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadStringA",
+      "ordinal": 2122,
+      "is_forwarder": false
+    },
+    {
+      "name": "LoadStringW",
+      "ordinal": 2123,
+      "is_forwarder": false
+    },
+    {
+      "name": "LockSetForegroundWindow",
+      "ordinal": 2124,
+      "is_forwarder": false
+    },
+    {
+      "name": "LockWindowStation",
+      "ordinal": 2125,
+      "is_forwarder": false
+    },
+    {
+      "name": "LockWindowUpdate",
+      "ordinal": 2126,
+      "is_forwarder": false
+    },
+    {
+      "name": "LockWorkStation",
+      "ordinal": 2127,
+      "is_forwarder": false
+    },
+    {
+      "name": "LogicalToPhysicalPoint",
+      "ordinal": 2128,
+      "is_forwarder": false
+    },
+    {
+      "name": "LogicalToPhysicalPointForPerMonitorDPI",
+      "ordinal": 2129,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupIconIdFromDirectory",
+      "ordinal": 2130,
+      "is_forwarder": false
+    },
+    {
+      "name": "LookupIconIdFromDirectoryEx",
+      "ordinal": 2131,
+      "is_forwarder": false
+    },
+    {
+      "name": "MBToWCSEx",
+      "ordinal": 2132,
+      "is_forwarder": false
+    },
+    {
+      "name": "MBToWCSExt",
+      "ordinal": 2133,
+      "is_forwarder": false
+    },
+    {
+      "name": "MB_GetString",
+      "ordinal": 2134,
+      "is_forwarder": false
+    },
+    {
+      "name": "MITGetCursorUpdateHandle",
+      "ordinal": 2135,
+      "is_forwarder": false
+    },
+    {
+      "name": "MITSetLastInputRecipient",
+      "ordinal": 2136,
+      "is_forwarder": false
+    },
+    {
+      "name": "MITSynthesizeTouchInput",
+      "ordinal": 2137,
+      "is_forwarder": false
+    },
+    {
+      "name": "MakeThreadTSFEventAware",
+      "ordinal": 2138,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapDialogRect",
+      "ordinal": 2139,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapPointsByVisualIdentifier",
+      "ordinal": 2140,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapVirtualKeyA",
+      "ordinal": 2141,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapVirtualKeyExA",
+      "ordinal": 2142,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapVirtualKeyExW",
+      "ordinal": 2143,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapVirtualKeyW",
+      "ordinal": 2144,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapVisualRelativePoints",
+      "ordinal": 2145,
+      "is_forwarder": false
+    },
+    {
+      "name": "MapWindowPoints",
+      "ordinal": 2146,
+      "is_forwarder": false
+    },
+    {
+      "name": "MenuItemFromPoint",
+      "ordinal": 2147,
+      "is_forwarder": false
+    },
+    {
+      "name": "MenuWindowProcA",
+      "ordinal": 2148,
+      "is_forwarder": false
+    },
+    {
+      "name": "MenuWindowProcW",
+      "ordinal": 2149,
+      "is_forwarder": false
+    },
+    {
+      "name": "MessageBeep",
+      "ordinal": 2150,
+      "is_forwarder": false
+    },
+    {
+      "name": "MessageBoxA",
+      "ordinal": 2151,
+      "is_forwarder": false
+    },
+    {
+      "name": "MessageBoxExA",
+      "ordinal": 2152,
+      "is_forwarder": false
+    },
+    {
+      "name": "MessageBoxExW",
+      "ordinal": 2153,
+      "is_forwarder": false
+    },
+    {
+      "name": "MessageBoxIndirectA",
+      "ordinal": 2154,
+      "is_forwarder": false
+    },
+    {
+      "name": "MessageBoxIndirectW",
+      "ordinal": 2155,
+      "is_forwarder": false
+    },
+    {
+      "name": "MessageBoxTimeoutA",
+      "ordinal": 2156,
+      "is_forwarder": false
+    },
+    {
+      "name": "MessageBoxTimeoutW",
+      "ordinal": 2157,
+      "is_forwarder": false
+    },
+    {
+      "name": "MessageBoxW",
+      "ordinal": 2158,
+      "is_forwarder": false
+    },
+    {
+      "name": "ModifyMenuA",
+      "ordinal": 2159,
+      "is_forwarder": false
+    },
+    {
+      "name": "ModifyMenuW",
+      "ordinal": 2160,
+      "is_forwarder": false
+    },
+    {
+      "name": "MonitorFromPoint",
+      "ordinal": 2161,
+      "is_forwarder": false
+    },
+    {
+      "name": "MonitorFromRect",
+      "ordinal": 2162,
+      "is_forwarder": false
+    },
+    {
+      "name": "MonitorFromWindow",
+      "ordinal": 2163,
+      "is_forwarder": false
+    },
+    {
+      "name": "MoveWindow",
+      "ordinal": 2164,
+      "is_forwarder": false
+    },
+    {
+      "name": "MsgWaitForMultipleObjects",
+      "ordinal": 2165,
+      "is_forwarder": false
+    },
+    {
+      "name": "MsgWaitForMultipleObjectsEx",
+      "ordinal": 2166,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyOverlayWindow",
+      "ordinal": 2167,
+      "is_forwarder": false
+    },
+    {
+      "name": "NotifyWinEvent",
+      "ordinal": 2168,
+      "is_forwarder": false
+    },
+    {
+      "name": "OemKeyScan",
+      "ordinal": 2169,
+      "is_forwarder": false
+    },
+    {
+      "name": "OemToCharA",
+      "ordinal": 2170,
+      "is_forwarder": false
+    },
+    {
+      "name": "OemToCharBuffA",
+      "ordinal": 2171,
+      "is_forwarder": false
+    },
+    {
+      "name": "OemToCharBuffW",
+      "ordinal": 2172,
+      "is_forwarder": false
+    },
+    {
+      "name": "OemToCharW",
+      "ordinal": 2173,
+      "is_forwarder": false
+    },
+    {
+      "name": "OffsetRect",
+      "ordinal": 2174,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenClipboard",
+      "ordinal": 2175,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenDesktopA",
+      "ordinal": 2176,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenDesktopW",
+      "ordinal": 2177,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenIcon",
+      "ordinal": 2178,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenInputDesktop",
+      "ordinal": 2179,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenThreadDesktop",
+      "ordinal": 2180,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenWindowStationA",
+      "ordinal": 2181,
+      "is_forwarder": false
+    },
+    {
+      "name": "OpenWindowStationW",
+      "ordinal": 2182,
+      "is_forwarder": false
+    },
+    {
+      "name": "PackDDElParam",
+      "ordinal": 2183,
+      "is_forwarder": false
+    },
+    {
+      "name": "PackTouchHitTestingProximityEvaluation",
+      "ordinal": 2184,
+      "is_forwarder": false
+    },
+    {
+      "name": "PaintDesktop",
+      "ordinal": 2185,
+      "is_forwarder": false
+    },
+    {
+      "name": "PaintMenuBar",
+      "ordinal": 2186,
+      "is_forwarder": false
+    },
+    {
+      "name": "PaintMonitor",
+      "ordinal": 2187,
+      "is_forwarder": false
+    },
+    {
+      "name": "PeekMessageA",
+      "ordinal": 2188,
+      "is_forwarder": false
+    },
+    {
+      "name": "PeekMessageW",
+      "ordinal": 2189,
+      "is_forwarder": false
+    },
+    {
+      "name": "PhysicalToLogicalPoint",
+      "ordinal": 2190,
+      "is_forwarder": false
+    },
+    {
+      "name": "PhysicalToLogicalPointForPerMonitorDPI",
+      "ordinal": 2191,
+      "is_forwarder": false
+    },
+    {
+      "name": "PostMessageA",
+      "ordinal": 2192,
+      "is_forwarder": false
+    },
+    {
+      "name": "PostMessageW",
+      "ordinal": 2193,
+      "is_forwarder": false
+    },
+    {
+      "name": "PostQuitMessage",
+      "ordinal": 2194,
+      "is_forwarder": false
+    },
+    {
+      "name": "PostThreadMessageA",
+      "ordinal": 2195,
+      "is_forwarder": false
+    },
+    {
+      "name": "PostThreadMessageW",
+      "ordinal": 2196,
+      "is_forwarder": false
+    },
+    {
+      "name": "PrintWindow",
+      "ordinal": 2197,
+      "is_forwarder": false
+    },
+    {
+      "name": "PrivateExtractIconExA",
+      "ordinal": 2198,
+      "is_forwarder": false
+    },
+    {
+      "name": "PrivateExtractIconExW",
+      "ordinal": 2199,
+      "is_forwarder": false
+    },
+    {
+      "name": "PrivateExtractIconsA",
+      "ordinal": 2200,
+      "is_forwarder": false
+    },
+    {
+      "name": "PrivateExtractIconsW",
+      "ordinal": 2201,
+      "is_forwarder": false
+    },
+    {
+      "name": "PrivateRegisterICSProc",
+      "ordinal": 2202,
+      "is_forwarder": false
+    },
+    {
+      "name": "PtInRect",
+      "ordinal": 2203,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryBSDRWindow",
+      "ordinal": 2204,
+      "is_forwarder": false
+    },
+    {
+      "name": "QueryDisplayConfig",
+      "ordinal": 2205,
+      "is_forwarder": false
+    },
+    {
+      "name": "QuerySendMessage",
+      "ordinal": 2206,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMAddInputObserver",
+      "ordinal": 2207,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMAreSiblingDevices",
+      "ordinal": 2208,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMDeviceIoControl",
+      "ordinal": 2209,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMEnableMonitorMappingForDevice",
+      "ordinal": 2210,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMFreeInputBuffer",
+      "ordinal": 2211,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMGetDevicePreparsedData",
+      "ordinal": 2212,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMGetDevicePreparsedDataLockfree",
+      "ordinal": 2213,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMGetDeviceProperties",
+      "ordinal": 2214,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMGetDevicePropertiesLockfree",
+      "ordinal": 2215,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMGetPhysicalDeviceRect",
+      "ordinal": 2216,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMGetSourceProcessId",
+      "ordinal": 2217,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMObserveNextInput",
+      "ordinal": 2218,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMOnAsyncPnpWorkNotification",
+      "ordinal": 2663,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMOnPnpNotification",
+      "ordinal": 2219,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMOnTimerNotification",
+      "ordinal": 2220,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMQueryDevicePath",
+      "ordinal": 2221,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMReadInput",
+      "ordinal": 2222,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMRegisterForInput",
+      "ordinal": 2223,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMRegisterForInputEx",
+      "ordinal": 2662,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMRemoveInputObserver",
+      "ordinal": 2224,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMSetExtendedDeviceProperty",
+      "ordinal": 2225,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMSetTestModeStatus",
+      "ordinal": 2226,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMUnregisterForInput",
+      "ordinal": 2227,
+      "is_forwarder": false
+    },
+    {
+      "name": "RIMUpdateInputObserverRegistration",
+      "ordinal": 2228,
+      "is_forwarder": false
+    },
+    {
+      "name": "RaiseLowerShellWindow",
+      "ordinal": 2687,
+      "is_forwarder": false
+    },
+    {
+      "name": "RealChildWindowFromPoint",
+      "ordinal": 2229,
+      "is_forwarder": false
+    },
+    {
+      "name": "RealGetWindowClass",
+      "ordinal": 2230,
+      "is_forwarder": false
+    },
+    {
+      "name": "RealGetWindowClassA",
+      "ordinal": 2231,
+      "is_forwarder": false
+    },
+    {
+      "name": "RealGetWindowClassW",
+      "ordinal": 2232,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReasonCodeNeedsBugID",
+      "ordinal": 2233,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReasonCodeNeedsComment",
+      "ordinal": 2234,
+      "is_forwarder": false
+    },
+    {
+      "name": "RecordShutdownReason",
+      "ordinal": 2235,
+      "is_forwarder": false
+    },
+    {
+      "name": "RedrawWindow",
+      "ordinal": 2236,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterBSDRWindow",
+      "ordinal": 2237,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterClassA",
+      "ordinal": 2238,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterClassExA",
+      "ordinal": 2239,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterClassExW",
+      "ordinal": 2240,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterClassW",
+      "ordinal": 2241,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterClipboardFormatA",
+      "ordinal": 2242,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterClipboardFormatW",
+      "ordinal": 2243,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterCloakedNotification",
+      "ordinal": 2682,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterDManipHook",
+      "ordinal": 2244,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterDeviceNotificationA",
+      "ordinal": 2245,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterDeviceNotificationW",
+      "ordinal": 2246,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterErrorReportingDialog",
+      "ordinal": 2247,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterForCustomDockTargets",
+      "ordinal": 2667,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterForTooltipDismissNotification",
+      "ordinal": 2666,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterFrostWindow",
+      "ordinal": 2248,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterGhostWindow",
+      "ordinal": 2249,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterHotKey",
+      "ordinal": 2250,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterLogonProcess",
+      "ordinal": 2251,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterMessagePumpHook",
+      "ordinal": 2252,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterPointerDeviceNotifications",
+      "ordinal": 2253,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterPointerInputTarget",
+      "ordinal": 2254,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterPointerInputTargetEx",
+      "ordinal": 2255,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterPowerSettingNotification",
+      "ordinal": 2256,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterRawInputDevices",
+      "ordinal": 2257,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterServicesProcess",
+      "ordinal": 2258,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterSessionPort",
+      "ordinal": 2259,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterShellHookWindow",
+      "ordinal": 2260,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterSuspendResumeNotification",
+      "ordinal": 2261,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterSystemThread",
+      "ordinal": 2262,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterTasklist",
+      "ordinal": 2263,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterTouchHitTestingWindow",
+      "ordinal": 2264,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterTouchWindow",
+      "ordinal": 2265,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterTouchpadCapableThread",
+      "ordinal": 2688,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterTouchpadCapableWindow",
+      "ordinal": 2689,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterUserApiHook",
+      "ordinal": 2266,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterWindowMessageA",
+      "ordinal": 2267,
+      "is_forwarder": false
+    },
+    {
+      "name": "RegisterWindowMessageW",
+      "ordinal": 2268,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReleaseCapture",
+      "ordinal": 2269,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReleaseDC",
+      "ordinal": 2270,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReleaseDwmHitTestWaiters",
+      "ordinal": 2271,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoveClipboardFormatListener",
+      "ordinal": 2272,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoveInjectionDevice",
+      "ordinal": 2273,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoveMenu",
+      "ordinal": 2274,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemovePropA",
+      "ordinal": 2275,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemovePropW",
+      "ordinal": 2276,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoveThreadTSFEventAwareness",
+      "ordinal": 2277,
+      "is_forwarder": false
+    },
+    {
+      "name": "RemoveVisualIdentifier",
+      "ordinal": 2278,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReplyMessage",
+      "ordinal": 2279,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReportInertia",
+      "ordinal": 2551,
+      "is_forwarder": false
+    },
+    {
+      "name": "ResolveDesktopForWOW",
+      "ordinal": 2280,
+      "is_forwarder": false
+    },
+    {
+      "name": "ReuseDDElParam",
+      "ordinal": 2281,
+      "is_forwarder": false
+    },
+    {
+      "name": "ScreenToClient",
+      "ordinal": 2282,
+      "is_forwarder": false
+    },
+    {
+      "name": "ScrollChildren",
+      "ordinal": 2283,
+      "is_forwarder": false
+    },
+    {
+      "name": "ScrollDC",
+      "ordinal": 2284,
+      "is_forwarder": false
+    },
+    {
+      "name": "ScrollWindow",
+      "ordinal": 2285,
+      "is_forwarder": false
+    },
+    {
+      "name": "ScrollWindowEx",
+      "ordinal": 2286,
+      "is_forwarder": false
+    },
+    {
+      "name": "SendDlgItemMessageA",
+      "ordinal": 2287,
+      "is_forwarder": false
+    },
+    {
+      "name": "SendDlgItemMessageW",
+      "ordinal": 2288,
+      "is_forwarder": false
+    },
+    {
+      "name": "SendIMEMessageExA",
+      "ordinal": 2289,
+      "is_forwarder": false
+    },
+    {
+      "name": "SendIMEMessageExW",
+      "ordinal": 2290,
+      "is_forwarder": false
+    },
+    {
+      "name": "SendInput",
+      "ordinal": 2291,
+      "is_forwarder": false
+    },
+    {
+      "name": "SendMessageA",
+      "ordinal": 2292,
+      "is_forwarder": false
+    },
+    {
+      "name": "SendMessageCallbackA",
+      "ordinal": 2293,
+      "is_forwarder": false
+    },
+    {
+      "name": "SendMessageCallbackW",
+      "ordinal": 2294,
+      "is_forwarder": false
+    },
+    {
+      "name": "SendMessageTimeoutA",
+      "ordinal": 2295,
+      "is_forwarder": false
+    },
+    {
+      "name": "SendMessageTimeoutW",
+      "ordinal": 2296,
+      "is_forwarder": false
+    },
+    {
+      "name": "SendMessageW",
+      "ordinal": 2297,
+      "is_forwarder": false
+    },
+    {
+      "name": "SendNotifyMessageA",
+      "ordinal": 2298,
+      "is_forwarder": false
+    },
+    {
+      "name": "SendNotifyMessageW",
+      "ordinal": 2299,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetActiveWindow",
+      "ordinal": 2300,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetAdditionalForegroundBoostProcesses",
+      "ordinal": 2665,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCapture",
+      "ordinal": 2301,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCaretBlinkTime",
+      "ordinal": 2302,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCaretPos",
+      "ordinal": 2303,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetClassLongA",
+      "ordinal": 2304,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetClassLongPtrA",
+      "ordinal": 2305,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetClassLongPtrW",
+      "ordinal": 2306,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetClassLongW",
+      "ordinal": 2307,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetClassWord",
+      "ordinal": 2308,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetClipboardData",
+      "ordinal": 2309,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetClipboardViewer",
+      "ordinal": 2310,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCoalescableTimer",
+      "ordinal": 2311,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCoreWindow",
+      "ordinal": 2571,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCoveredWindowStates",
+      "ordinal": 2542,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCursor",
+      "ordinal": 2312,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCursorContents",
+      "ordinal": 2313,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetCursorPos",
+      "ordinal": 2314,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDebugErrorLevel",
+      "ordinal": 2315,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDeskWallpaper",
+      "ordinal": 2316,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDesktopColorTransform",
+      "ordinal": 2317,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDialogControlDpiChangeBehavior",
+      "ordinal": 2318,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDialogDpiChangeBehavior",
+      "ordinal": 2319,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDisplayAutoRotationPreferences",
+      "ordinal": 2320,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDisplayConfig",
+      "ordinal": 2321,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDlgItemInt",
+      "ordinal": 2322,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDlgItemTextA",
+      "ordinal": 2323,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDlgItemTextW",
+      "ordinal": 2324,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetDoubleClickTime",
+      "ordinal": 2325,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFeatureReportResponse",
+      "ordinal": 2326,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFocus",
+      "ordinal": 2327,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetForegroundRedirectionForActivationObject",
+      "ordinal": 2328,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetForegroundWindow",
+      "ordinal": 2329,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetFullscreenMagnifierOffsetsDWMUpdated",
+      "ordinal": 2330,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetGestureConfig",
+      "ordinal": 2331,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetInternalWindowPos",
+      "ordinal": 2332,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetKeyboardState",
+      "ordinal": 2333,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetLastErrorEx",
+      "ordinal": 2334,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetLayeredWindowAttributes",
+      "ordinal": 2335,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMagnificationDesktopColorEffect",
+      "ordinal": 2336,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMagnificationDesktopMagnification",
+      "ordinal": 2337,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMagnificationDesktopMagnifierOffsetsDWMUpdated",
+      "ordinal": 2338,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMagnificationDesktopSamplingMode",
+      "ordinal": 2339,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMagnificationLensCtxInformation",
+      "ordinal": 2340,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMaxTouchpadSensitivity",
+      "ordinal": 2806,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMenu",
+      "ordinal": 2341,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMenuContextHelpId",
+      "ordinal": 2342,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMenuDefaultItem",
+      "ordinal": 2343,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMenuInfo",
+      "ordinal": 2344,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMenuItemBitmaps",
+      "ordinal": 2345,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMenuItemInfoA",
+      "ordinal": 2346,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMenuItemInfoW",
+      "ordinal": 2347,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMessageExtraInfo",
+      "ordinal": 2348,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMessageQueue",
+      "ordinal": 2349,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetMirrorRendering",
+      "ordinal": 2350,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetParent",
+      "ordinal": 2351,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetPhysicalCursorPos",
+      "ordinal": 2352,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetPointerDeviceInputSpace",
+      "ordinal": 2353,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProcessDPIAware",
+      "ordinal": 2354,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProcessDefaultLayout",
+      "ordinal": 2355,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProcessDpiAwarenessContext",
+      "ordinal": 2356,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProcessDpiAwarenessInternal",
+      "ordinal": 2357,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProcessLaunchForegroundPolicy",
+      "ordinal": 2358,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProcessRestrictionExemption",
+      "ordinal": 2359,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProcessWindowStation",
+      "ordinal": 2360,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetProgmanWindow",
+      "ordinal": 2361,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetPropA",
+      "ordinal": 2362,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetPropW",
+      "ordinal": 2363,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetRect",
+      "ordinal": 2364,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetRectEmpty",
+      "ordinal": 2365,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetScrollInfo",
+      "ordinal": 2366,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetScrollPos",
+      "ordinal": 2367,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetScrollRange",
+      "ordinal": 2368,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetShellChangeNotifyWindow",
+      "ordinal": 2369,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetShellWindow",
+      "ordinal": 2370,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetShellWindowEx",
+      "ordinal": 2371,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSysColors",
+      "ordinal": 2372,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSysColorsTemp",
+      "ordinal": 2373,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSystemCursor",
+      "ordinal": 2374,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetSystemMenu",
+      "ordinal": 2375,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetTaskmanWindow",
+      "ordinal": 2376,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadCursorCreationScaling",
+      "ordinal": 2079,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadDesktop",
+      "ordinal": 2377,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadDpiAwarenessContext",
+      "ordinal": 2378,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadDpiHostingBehavior",
+      "ordinal": 2379,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetThreadInputBlocked",
+      "ordinal": 2380,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetTimer",
+      "ordinal": 2381,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetUserObjectCapability",
+      "ordinal": 2672,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetUserObjectInformationA",
+      "ordinal": 2382,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetUserObjectInformationW",
+      "ordinal": 2383,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetUserObjectSecurity",
+      "ordinal": 2384,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWinEventHook",
+      "ordinal": 2385,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowBand",
+      "ordinal": 2386,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowCompositionAttribute",
+      "ordinal": 2387,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowCompositionTransition",
+      "ordinal": 2388,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowContextHelpId",
+      "ordinal": 2389,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowDisplayAffinity",
+      "ordinal": 2390,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowFeedbackSetting",
+      "ordinal": 2391,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowLongA",
+      "ordinal": 2392,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowLongPtrA",
+      "ordinal": 2393,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowLongPtrW",
+      "ordinal": 2394,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowLongW",
+      "ordinal": 2395,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowMessageCapability",
+      "ordinal": 2673,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowPlacement",
+      "ordinal": 2396,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowPos",
+      "ordinal": 2397,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowRgn",
+      "ordinal": 2398,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowRgnEx",
+      "ordinal": 2399,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowStationUser",
+      "ordinal": 2400,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowTextA",
+      "ordinal": 2401,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowTextW",
+      "ordinal": 2402,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowWord",
+      "ordinal": 2403,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowsHookA",
+      "ordinal": 2404,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowsHookExA",
+      "ordinal": 2405,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowsHookExAW",
+      "ordinal": 2406,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowsHookExW",
+      "ordinal": 2407,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetWindowsHookW",
+      "ordinal": 2408,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellForegroundBoostProcess",
+      "ordinal": 2674,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellHandwritingDelegateInput",
+      "ordinal": 2800,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellHandwritingHandleDelegatedInput",
+      "ordinal": 2802,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellHandwritingUndelegateInput",
+      "ordinal": 2801,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellMigrateWindow",
+      "ordinal": 2664,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellRegisterHotKey",
+      "ordinal": 2671,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShellSetWindowPos",
+      "ordinal": 2409,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShowCaret",
+      "ordinal": 2410,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShowCursor",
+      "ordinal": 2411,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShowOwnedPopups",
+      "ordinal": 2412,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShowScrollBar",
+      "ordinal": 2413,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShowStartGlass",
+      "ordinal": 2414,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShowSystemCursor",
+      "ordinal": 2415,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShowWindow",
+      "ordinal": 2416,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShowWindowAsync",
+      "ordinal": 2417,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShutdownBlockReasonCreate",
+      "ordinal": 2418,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShutdownBlockReasonDestroy",
+      "ordinal": 2419,
+      "is_forwarder": false
+    },
+    {
+      "name": "ShutdownBlockReasonQuery",
+      "ordinal": 2420,
+      "is_forwarder": false
+    },
+    {
+      "name": "SignalRedirectionStartComplete",
+      "ordinal": 2421,
+      "is_forwarder": false
+    },
+    {
+      "name": "SkipPointerFrameMessages",
+      "ordinal": 2422,
+      "is_forwarder": false
+    },
+    {
+      "name": "SoftModalMessageBox",
+      "ordinal": 2423,
+      "is_forwarder": false
+    },
+    {
+      "name": "SoundSentry",
+      "ordinal": 2424,
+      "is_forwarder": false
+    },
+    {
+      "name": "SubtractRect",
+      "ordinal": 2425,
+      "is_forwarder": false
+    },
+    {
+      "name": "SuppressWindowDisplayChange",
+      "ordinal": 2684,
+      "is_forwarder": false
+    },
+    {
+      "name": "SwapMouseButton",
+      "ordinal": 2426,
+      "is_forwarder": false
+    },
+    {
+      "name": "SwitchDesktop",
+      "ordinal": 2427,
+      "is_forwarder": false
+    },
+    {
+      "name": "SwitchDesktopWithFade",
+      "ordinal": 2428,
+      "is_forwarder": false
+    },
+    {
+      "name": "SwitchToThisWindow",
+      "ordinal": 2429,
+      "is_forwarder": false
+    },
+    {
+      "name": "SystemParametersInfoA",
+      "ordinal": 2430,
+      "is_forwarder": false
+    },
+    {
+      "name": "SystemParametersInfoForDpi",
+      "ordinal": 2431,
+      "is_forwarder": false
+    },
+    {
+      "name": "SystemParametersInfoW",
+      "ordinal": 2432,
+      "is_forwarder": false
+    },
+    {
+      "name": "TabbedTextOutA",
+      "ordinal": 2433,
+      "is_forwarder": false
+    },
+    {
+      "name": "TabbedTextOutW",
+      "ordinal": 2434,
+      "is_forwarder": false
+    },
+    {
+      "name": "TileChildWindows",
+      "ordinal": 2435,
+      "is_forwarder": false
+    },
+    {
+      "name": "TileWindows",
+      "ordinal": 2436,
+      "is_forwarder": false
+    },
+    {
+      "name": "ToAscii",
+      "ordinal": 2437,
+      "is_forwarder": false
+    },
+    {
+      "name": "ToAsciiEx",
+      "ordinal": 2438,
+      "is_forwarder": false
+    },
+    {
+      "name": "ToUnicode",
+      "ordinal": 2439,
+      "is_forwarder": false
+    },
+    {
+      "name": "ToUnicodeEx",
+      "ordinal": 2440,
+      "is_forwarder": false
+    },
+    {
+      "name": "TrackMouseEvent",
+      "ordinal": 2441,
+      "is_forwarder": false
+    },
+    {
+      "name": "TrackPopupMenu",
+      "ordinal": 2442,
+      "is_forwarder": false
+    },
+    {
+      "name": "TrackPopupMenuEx",
+      "ordinal": 2443,
+      "is_forwarder": false
+    },
+    {
+      "name": "TranslateAccelerator",
+      "ordinal": 2444,
+      "is_forwarder": false
+    },
+    {
+      "name": "TranslateAcceleratorA",
+      "ordinal": 2445,
+      "is_forwarder": false
+    },
+    {
+      "name": "TranslateAcceleratorW",
+      "ordinal": 2446,
+      "is_forwarder": false
+    },
+    {
+      "name": "TranslateMDISysAccel",
+      "ordinal": 2447,
+      "is_forwarder": false
+    },
+    {
+      "name": "TranslateMessage",
+      "ordinal": 2448,
+      "is_forwarder": false
+    },
+    {
+      "name": "TranslateMessageEx",
+      "ordinal": 2449,
+      "is_forwarder": false
+    },
+    {
+      "name": "UndelegateInput",
+      "ordinal": 2504,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnhookWinEvent",
+      "ordinal": 2450,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnhookWindowsHook",
+      "ordinal": 2451,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnhookWindowsHookEx",
+      "ordinal": 2452,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnionRect",
+      "ordinal": 2453,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnloadKeyboardLayout",
+      "ordinal": 2454,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnlockWindowStation",
+      "ordinal": 2455,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnpackDDElParam",
+      "ordinal": 2456,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterClassA",
+      "ordinal": 2457,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterClassW",
+      "ordinal": 2458,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterDeviceNotification",
+      "ordinal": 2459,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterHotKey",
+      "ordinal": 2460,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterMessagePumpHook",
+      "ordinal": 2461,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterPointerInputTarget",
+      "ordinal": 2462,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterPointerInputTargetEx",
+      "ordinal": 2463,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterPowerSettingNotification",
+      "ordinal": 2464,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterSessionPort",
+      "ordinal": 2465,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterSuspendResumeNotification",
+      "ordinal": 2466,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterTouchWindow",
+      "ordinal": 2467,
+      "is_forwarder": false
+    },
+    {
+      "name": "UnregisterUserApiHook",
+      "ordinal": 2468,
+      "is_forwarder": false
+    },
+    {
+      "name": "UpdateDefaultDesktopThumbnail",
+      "ordinal": 2469,
+      "is_forwarder": false
+    },
+    {
+      "name": "UpdateLayeredWindow",
+      "ordinal": 2470,
+      "is_forwarder": false
+    },
+    {
+      "name": "UpdateLayeredWindowIndirect",
+      "ordinal": 2471,
+      "is_forwarder": false
+    },
+    {
+      "name": "UpdatePerUserSystemParameters",
+      "ordinal": 2472,
+      "is_forwarder": false
+    },
+    {
+      "name": "UpdateWindow",
+      "ordinal": 2473,
+      "is_forwarder": false
+    },
+    {
+      "name": "UpdateWindowInputSinkHints",
+      "ordinal": 2474,
+      "is_forwarder": false
+    },
+    {
+      "name": "User32InitializeImmEntryTable",
+      "ordinal": 2475,
+      "is_forwarder": false
+    },
+    {
+      "name": "UserClientDllInitialize",
+      "ordinal": 2476,
+      "is_forwarder": false
+    },
+    {
+      "name": "UserHandleGrantAccess",
+      "ordinal": 2477,
+      "is_forwarder": false
+    },
+    {
+      "name": "UserLpkPSMTextOut",
+      "ordinal": 2478,
+      "is_forwarder": false
+    },
+    {
+      "name": "UserLpkTabbedTextOut",
+      "ordinal": 2479,
+      "is_forwarder": false
+    },
+    {
+      "name": "UserRealizePalette",
+      "ordinal": 2480,
+      "is_forwarder": false
+    },
+    {
+      "name": "UserRegisterWowHandlers",
+      "ordinal": 2481,
+      "is_forwarder": false
+    },
+    {
+      "name": "VRipOutput",
+      "ordinal": 2482,
+      "is_forwarder": false
+    },
+    {
+      "name": "VTagOutput",
+      "ordinal": 2483,
+      "is_forwarder": false
+    },
+    {
+      "name": "ValidateRect",
+      "ordinal": 2484,
+      "is_forwarder": false
+    },
+    {
+      "name": "ValidateRgn",
+      "ordinal": 2485,
+      "is_forwarder": false
+    },
+    {
+      "name": "VkKeyScanA",
+      "ordinal": 2486,
+      "is_forwarder": false
+    },
+    {
+      "name": "VkKeyScanExA",
+      "ordinal": 2487,
+      "is_forwarder": false
+    },
+    {
+      "name": "VkKeyScanExW",
+      "ordinal": 2488,
+      "is_forwarder": false
+    },
+    {
+      "name": "VkKeyScanW",
+      "ordinal": 2489,
+      "is_forwarder": false
+    },
+    {
+      "name": "WCSToMBEx",
+      "ordinal": 2490,
+      "is_forwarder": false
+    },
+    {
+      "name": "WINNLSEnableIME",
+      "ordinal": 2491,
+      "is_forwarder": false
+    },
+    {
+      "name": "WINNLSGetEnableStatus",
+      "ordinal": 2492,
+      "is_forwarder": false
+    },
+    {
+      "name": "WINNLSGetIMEHotkey",
+      "ordinal": 2493,
+      "is_forwarder": false
+    },
+    {
+      "name": "WaitForInputIdle",
+      "ordinal": 2494,
+      "is_forwarder": false
+    },
+    {
+      "name": "WaitForRedirectionStartComplete",
+      "ordinal": 2495,
+      "is_forwarder": false
+    },
+    {
+      "name": "WaitMessage",
+      "ordinal": 2496,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHelpA",
+      "ordinal": 2497,
+      "is_forwarder": false
+    },
+    {
+      "name": "WinHelpW",
+      "ordinal": 2498,
+      "is_forwarder": false
+    },
+    {
+      "name": "WindowFromDC",
+      "ordinal": 2499,
+      "is_forwarder": false
+    },
+    {
+      "name": "WindowFromPhysicalPoint",
+      "ordinal": 2500,
+      "is_forwarder": false
+    },
+    {
+      "name": "WindowFromPoint",
+      "ordinal": 2501,
+      "is_forwarder": false
+    },
+    {
+      "name": "_UserTestTokenForInteractive",
+      "ordinal": 2502,
+      "is_forwarder": false
+    },
+    {
+      "name": "gSharedInfo",
+      "ordinal": 2543,
+      "is_forwarder": false
+    },
+    {
+      "name": "gapfnScSendMessage",
+      "ordinal": 2547,
+      "is_forwarder": false
+    },
+    {
+      "name": "keybd_event",
+      "ordinal": 2562,
+      "is_forwarder": false
+    },
+    {
+      "name": "mouse_event",
+      "ordinal": 2577,
+      "is_forwarder": false
+    },
+    {
+      "name": "wsprintfA",
+      "ordinal": 2580,
+      "is_forwarder": false
+    },
+    {
+      "name": "wsprintfW",
+      "ordinal": 2583,
+      "is_forwarder": false
+    },
+    {
+      "name": "wvsprintfA",
+      "ordinal": 2596,
+      "is_forwarder": false
+    },
+    {
+      "name": "wvsprintfW",
+      "ordinal": 2601,
+      "is_forwarder": false
+    }
+  ]
+}

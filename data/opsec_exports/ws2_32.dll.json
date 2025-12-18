@@ -1,0 +1,985 @@
+{
+  "dll": "ws2_32.dll",
+  "exports": [
+    {
+      "name": "FreeAddrInfoEx",
+      "ordinal": 24,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeAddrInfoExW",
+      "ordinal": 25,
+      "is_forwarder": false
+    },
+    {
+      "name": "FreeAddrInfoW",
+      "ordinal": 26,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAddrInfoExA",
+      "ordinal": 27,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAddrInfoExCancel",
+      "ordinal": 28,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAddrInfoExOverlappedResult",
+      "ordinal": 29,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAddrInfoExW",
+      "ordinal": 30,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetAddrInfoW",
+      "ordinal": 31,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetHostNameW",
+      "ordinal": 32,
+      "is_forwarder": false
+    },
+    {
+      "name": "GetNameInfoW",
+      "ordinal": 33,
+      "is_forwarder": false
+    },
+    {
+      "name": "InetNtopW",
+      "ordinal": 34,
+      "is_forwarder": false
+    },
+    {
+      "name": "InetPtonW",
+      "ordinal": 35,
+      "is_forwarder": false
+    },
+    {
+      "name": "mswsock.ProcessSocketNotifications)",
+      "ordinal": 36,
+      "is_forwarder": true
+    },
+    {
+      "name": "SetAddrInfoExA",
+      "ordinal": 37,
+      "is_forwarder": false
+    },
+    {
+      "name": "SetAddrInfoExW",
+      "ordinal": 38,
+      "is_forwarder": false
+    },
+    {
+      "name": "WEP",
+      "ordinal": 500,
+      "is_forwarder": false
+    },
+    {
+      "name": "WPUCompleteOverlappedRequest",
+      "ordinal": 39,
+      "is_forwarder": false
+    },
+    {
+      "name": "WPUGetProviderPathEx",
+      "ordinal": 40,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAAccept",
+      "ordinal": 41,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAAddressToStringA",
+      "ordinal": 42,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAAddressToStringW",
+      "ordinal": 43,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAAdvertiseProvider",
+      "ordinal": 44,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAAsyncGetHostByAddr",
+      "ordinal": 102,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAAsyncGetHostByName",
+      "ordinal": 103,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAAsyncGetProtoByName",
+      "ordinal": 105,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAAsyncGetProtoByNumber",
+      "ordinal": 104,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAAsyncGetServByName",
+      "ordinal": 107,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAAsyncGetServByPort",
+      "ordinal": 106,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAAsyncSelect",
+      "ordinal": 101,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSACancelAsyncRequest",
+      "ordinal": 108,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSACancelBlockingCall",
+      "ordinal": 113,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSACleanup",
+      "ordinal": 116,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSACloseEvent",
+      "ordinal": 45,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAConnect",
+      "ordinal": 46,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAConnectByList",
+      "ordinal": 47,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAConnectByNameA",
+      "ordinal": 48,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAConnectByNameW",
+      "ordinal": 49,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSACreateEvent",
+      "ordinal": 50,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSADuplicateSocketA",
+      "ordinal": 58,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSADuplicateSocketW",
+      "ordinal": 59,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAEnumNameSpaceProvidersA",
+      "ordinal": 60,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAEnumNameSpaceProvidersExA",
+      "ordinal": 61,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAEnumNameSpaceProvidersExW",
+      "ordinal": 62,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAEnumNameSpaceProvidersW",
+      "ordinal": 63,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAEnumNetworkEvents",
+      "ordinal": 64,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAEnumProtocolsA",
+      "ordinal": 65,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAEnumProtocolsW",
+      "ordinal": 66,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAEventSelect",
+      "ordinal": 67,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAGetLastError",
+      "ordinal": 111,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAGetOverlappedResult",
+      "ordinal": 68,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAGetQOSByName",
+      "ordinal": 69,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAGetServiceClassInfoA",
+      "ordinal": 70,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAGetServiceClassInfoW",
+      "ordinal": 71,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAGetServiceClassNameByClassIdA",
+      "ordinal": 72,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAGetServiceClassNameByClassIdW",
+      "ordinal": 73,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAHtonl",
+      "ordinal": 74,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAHtons",
+      "ordinal": 75,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAInstallServiceClassA",
+      "ordinal": 76,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAInstallServiceClassW",
+      "ordinal": 77,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAIoctl",
+      "ordinal": 78,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAIsBlocking",
+      "ordinal": 114,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAJoinLeaf",
+      "ordinal": 79,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSALookupServiceBeginA",
+      "ordinal": 80,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSALookupServiceBeginW",
+      "ordinal": 81,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSALookupServiceEnd",
+      "ordinal": 82,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSALookupServiceNextA",
+      "ordinal": 83,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSALookupServiceNextW",
+      "ordinal": 84,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSANSPIoctl",
+      "ordinal": 85,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSANtohl",
+      "ordinal": 86,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSANtohs",
+      "ordinal": 87,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAPoll",
+      "ordinal": 88,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAProviderCompleteAsyncCall",
+      "ordinal": 89,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAProviderConfigChange",
+      "ordinal": 90,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSARecv",
+      "ordinal": 91,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSARecvDisconnect",
+      "ordinal": 92,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSARecvFrom",
+      "ordinal": 93,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSARemoveServiceClass",
+      "ordinal": 94,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAResetEvent",
+      "ordinal": 95,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSASend",
+      "ordinal": 96,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSASendDisconnect",
+      "ordinal": 97,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSASendMsg",
+      "ordinal": 98,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSASendTo",
+      "ordinal": 99,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSASetBlockingHook",
+      "ordinal": 109,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSASetEvent",
+      "ordinal": 100,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSASetLastError",
+      "ordinal": 112,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSASetServiceA",
+      "ordinal": 117,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSASetServiceW",
+      "ordinal": 118,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSASocketA",
+      "ordinal": 119,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSASocketW",
+      "ordinal": 120,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAStartup",
+      "ordinal": 115,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAStringToAddressA",
+      "ordinal": 121,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAStringToAddressW",
+      "ordinal": 122,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAUnadvertiseProvider",
+      "ordinal": 123,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAUnhookBlockingHook",
+      "ordinal": 110,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSAWaitForMultipleEvents",
+      "ordinal": 124,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSApSetPostRoutine",
+      "ordinal": 125,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCDeinstallProvider",
+      "ordinal": 126,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCDeinstallProvider32",
+      "ordinal": 127,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCDeinstallProviderEx",
+      "ordinal": 128,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCEnableNSProvider",
+      "ordinal": 129,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCEnableNSProvider32",
+      "ordinal": 130,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCEnumNameSpaceProviders32",
+      "ordinal": 131,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCEnumNameSpaceProvidersEx32",
+      "ordinal": 132,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCEnumProtocols",
+      "ordinal": 133,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCEnumProtocols32",
+      "ordinal": 134,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCEnumProtocolsEx",
+      "ordinal": 135,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCGetApplicationCategory",
+      "ordinal": 136,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCGetApplicationCategoryEx",
+      "ordinal": 137,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCGetProviderInfo",
+      "ordinal": 138,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCGetProviderInfo32",
+      "ordinal": 139,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCGetProviderPath",
+      "ordinal": 140,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCGetProviderPath32",
+      "ordinal": 141,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCInstallNameSpace",
+      "ordinal": 142,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCInstallNameSpace32",
+      "ordinal": 143,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCInstallNameSpaceEx",
+      "ordinal": 144,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCInstallNameSpaceEx2",
+      "ordinal": 145,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCInstallNameSpaceEx32",
+      "ordinal": 146,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCInstallProvider",
+      "ordinal": 147,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCInstallProvider64_32",
+      "ordinal": 148,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCInstallProviderAndChains64_32",
+      "ordinal": 149,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCInstallProviderEx",
+      "ordinal": 150,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCSetApplicationCategory",
+      "ordinal": 152,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCSetApplicationCategoryEx",
+      "ordinal": 153,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCSetProviderInfo",
+      "ordinal": 154,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCSetProviderInfo32",
+      "ordinal": 155,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCUnInstallNameSpace",
+      "ordinal": 156,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCUnInstallNameSpace32",
+      "ordinal": 157,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCUnInstallNameSpaceEx2",
+      "ordinal": 158,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCUpdateProvider",
+      "ordinal": 159,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCUpdateProvider32",
+      "ordinal": 160,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCUpdateProviderEx",
+      "ordinal": 161,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCWriteNameSpaceOrder",
+      "ordinal": 162,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCWriteNameSpaceOrder32",
+      "ordinal": 163,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCWriteProviderOrder",
+      "ordinal": 164,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCWriteProviderOrder32",
+      "ordinal": 165,
+      "is_forwarder": false
+    },
+    {
+      "name": "WSCWriteProviderOrderEx",
+      "ordinal": 166,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahCloseApcHelper",
+      "ordinal": 167,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahCloseHandleHelper",
+      "ordinal": 168,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahCloseNotificationHandleHelper",
+      "ordinal": 169,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahCloseSocketHandle",
+      "ordinal": 170,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahCloseThread",
+      "ordinal": 171,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahCompleteRequest",
+      "ordinal": 172,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahCreateHandleContextTable",
+      "ordinal": 173,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahCreateNotificationHandle",
+      "ordinal": 174,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahCreateSocketHandle",
+      "ordinal": 175,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahDestroyHandleContextTable",
+      "ordinal": 176,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahDisableNonIFSHandleSupport",
+      "ordinal": 177,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahEnableNonIFSHandleSupport",
+      "ordinal": 178,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahEnumerateHandleContexts",
+      "ordinal": 179,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahInsertHandleContext",
+      "ordinal": 180,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahNotifyAllProcesses",
+      "ordinal": 181,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahOpenApcHelper",
+      "ordinal": 182,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahOpenCurrentThread",
+      "ordinal": 183,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahOpenHandleHelper",
+      "ordinal": 184,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahOpenNotificationHandleHelper",
+      "ordinal": 185,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahQueueUserApc",
+      "ordinal": 186,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahReferenceContextByHandle",
+      "ordinal": 187,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahRemoveHandleContext",
+      "ordinal": 188,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahWaitForNotification",
+      "ordinal": 189,
+      "is_forwarder": false
+    },
+    {
+      "name": "WahWriteLSPEvent",
+      "ordinal": 190,
+      "is_forwarder": false
+    },
+    {
+      "name": "__WSAFDIsSet",
+      "ordinal": 151,
+      "is_forwarder": false
+    },
+    {
+      "name": "accept",
+      "ordinal": 1,
+      "is_forwarder": false
+    },
+    {
+      "name": "bind",
+      "ordinal": 2,
+      "is_forwarder": false
+    },
+    {
+      "name": "closesocket",
+      "ordinal": 3,
+      "is_forwarder": false
+    },
+    {
+      "name": "connect",
+      "ordinal": 4,
+      "is_forwarder": false
+    },
+    {
+      "name": "freeaddrinfo",
+      "ordinal": 191,
+      "is_forwarder": false
+    },
+    {
+      "name": "getaddrinfo",
+      "ordinal": 192,
+      "is_forwarder": false
+    },
+    {
+      "name": "gethostbyaddr",
+      "ordinal": 51,
+      "is_forwarder": false
+    },
+    {
+      "name": "gethostbyname",
+      "ordinal": 52,
+      "is_forwarder": false
+    },
+    {
+      "name": "gethostname",
+      "ordinal": 57,
+      "is_forwarder": false
+    },
+    {
+      "name": "getnameinfo",
+      "ordinal": 193,
+      "is_forwarder": false
+    },
+    {
+      "name": "getpeername",
+      "ordinal": 5,
+      "is_forwarder": false
+    },
+    {
+      "name": "getprotobyname",
+      "ordinal": 53,
+      "is_forwarder": false
+    },
+    {
+      "name": "getprotobynumber",
+      "ordinal": 54,
+      "is_forwarder": false
+    },
+    {
+      "name": "getservbyname",
+      "ordinal": 55,
+      "is_forwarder": false
+    },
+    {
+      "name": "getservbyport",
+      "ordinal": 56,
+      "is_forwarder": false
+    },
+    {
+      "name": "getsockname",
+      "ordinal": 6,
+      "is_forwarder": false
+    },
+    {
+      "name": "getsockopt",
+      "ordinal": 7,
+      "is_forwarder": false
+    },
+    {
+      "name": "htonl",
+      "ordinal": 8,
+      "is_forwarder": false
+    },
+    {
+      "name": "htons",
+      "ordinal": 9,
+      "is_forwarder": false
+    },
+    {
+      "name": "inet_addr",
+      "ordinal": 11,
+      "is_forwarder": false
+    },
+    {
+      "name": "inet_ntoa",
+      "ordinal": 12,
+      "is_forwarder": false
+    },
+    {
+      "name": "inet_ntop",
+      "ordinal": 194,
+      "is_forwarder": false
+    },
+    {
+      "name": "inet_pton",
+      "ordinal": 195,
+      "is_forwarder": false
+    },
+    {
+      "name": "ioctlsocket",
+      "ordinal": 10,
+      "is_forwarder": false
+    },
+    {
+      "name": "listen",
+      "ordinal": 13,
+      "is_forwarder": false
+    },
+    {
+      "name": "ntohl",
+      "ordinal": 14,
+      "is_forwarder": false
+    },
+    {
+      "name": "ntohs",
+      "ordinal": 15,
+      "is_forwarder": false
+    },
+    {
+      "name": "recv",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "recvfrom",
+      "ordinal": 17,
+      "is_forwarder": false
+    },
+    {
+      "name": "select",
+      "ordinal": 18,
+      "is_forwarder": false
+    },
+    {
+      "name": "send",
+      "ordinal": 19,
+      "is_forwarder": false
+    },
+    {
+      "name": "sendto",
+      "ordinal": 20,
+      "is_forwarder": false
+    },
+    {
+      "name": "setsockopt",
+      "ordinal": 21,
+      "is_forwarder": false
+    },
+    {
+      "name": "shutdown",
+      "ordinal": 22,
+      "is_forwarder": false
+    },
+    {
+      "name": "socket",
+      "ordinal": 23,
+      "is_forwarder": false
+    }
+  ]
+}

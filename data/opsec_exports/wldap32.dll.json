@@ -1,0 +1,1230 @@
+{
+  "dll": "wldap32.dll",
+  "exports": [
+    {
+      "name": "LdapGetLastError",
+      "ordinal": 16,
+      "is_forwarder": false
+    },
+    {
+      "name": "LdapMapErrorToWin32",
+      "ordinal": 18,
+      "is_forwarder": false
+    },
+    {
+      "name": "LdapUTF8ToUnicode",
+      "ordinal": 29,
+      "is_forwarder": false
+    },
+    {
+      "name": "LdapUnicodeToUTF8",
+      "ordinal": 53,
+      "is_forwarder": false
+    },
+    {
+      "name": "ber_alloc_t",
+      "ordinal": 304,
+      "is_forwarder": false
+    },
+    {
+      "name": "ber_bvdup",
+      "ordinal": 303,
+      "is_forwarder": false
+    },
+    {
+      "name": "ber_bvecfree",
+      "ordinal": 302,
+      "is_forwarder": false
+    },
+    {
+      "name": "ber_bvfree",
+      "ordinal": 54,
+      "is_forwarder": false
+    },
+    {
+      "name": "ber_first_element",
+      "ordinal": 307,
+      "is_forwarder": false
+    },
+    {
+      "name": "ber_flatten",
+      "ordinal": 309,
+      "is_forwarder": false
+    },
+    {
+      "name": "ber_free",
+      "ordinal": 301,
+      "is_forwarder": false
+    },
+    {
+      "name": "ber_init",
+      "ordinal": 300,
+      "is_forwarder": false
+    },
+    {
+      "name": "ber_next_element",
+      "ordinal": 308,
+      "is_forwarder": false
+    },
+    {
+      "name": "ber_peek_tag",
+      "ordinal": 306,
+      "is_forwarder": false
+    },
+    {
+      "name": "ber_printf",
+      "ordinal": 310,
+      "is_forwarder": false
+    },
+    {
+      "name": "ber_scanf",
+      "ordinal": 311,
+      "is_forwarder": false
+    },
+    {
+      "name": "ber_skip_tag",
+      "ordinal": 305,
+      "is_forwarder": false
+    },
+    {
+      "name": "cldap_open",
+      "ordinal": 17,
+      "is_forwarder": false
+    },
+    {
+      "name": "cldap_openA",
+      "ordinal": 55,
+      "is_forwarder": false
+    },
+    {
+      "name": "cldap_openW",
+      "ordinal": 28,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_abandon",
+      "ordinal": 10,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_add",
+      "ordinal": 11,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_addA",
+      "ordinal": 56,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_addW",
+      "ordinal": 42,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_add_ext",
+      "ordinal": 57,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_add_extA",
+      "ordinal": 58,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_add_extW",
+      "ordinal": 62,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_add_ext_s",
+      "ordinal": 63,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_add_ext_sA",
+      "ordinal": 64,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_add_ext_sW",
+      "ordinal": 65,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_add_s",
+      "ordinal": 44,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_add_sA",
+      "ordinal": 66,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_add_sW",
+      "ordinal": 69,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_bind",
+      "ordinal": 61,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_bindA",
+      "ordinal": 70,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_bindW",
+      "ordinal": 71,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_bind_s",
+      "ordinal": 45,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_bind_sA",
+      "ordinal": 72,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_bind_sW",
+      "ordinal": 73,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_check_filterA",
+      "ordinal": 230,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_check_filterW",
+      "ordinal": 231,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_cleanup",
+      "ordinal": 202,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_close_extended_op",
+      "ordinal": 74,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_compare",
+      "ordinal": 19,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_compareA",
+      "ordinal": 75,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_compareW",
+      "ordinal": 76,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_compare_ext",
+      "ordinal": 78,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_compare_extA",
+      "ordinal": 80,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_compare_extW",
+      "ordinal": 81,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_compare_ext_s",
+      "ordinal": 83,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_compare_ext_sA",
+      "ordinal": 84,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_compare_ext_sW",
+      "ordinal": 85,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_compare_s",
+      "ordinal": 52,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_compare_sA",
+      "ordinal": 86,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_compare_sW",
+      "ordinal": 87,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_conn_from_msg",
+      "ordinal": 312,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_connect",
+      "ordinal": 88,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_control_free",
+      "ordinal": 89,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_control_freeA",
+      "ordinal": 90,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_control_freeW",
+      "ordinal": 91,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_controls_free",
+      "ordinal": 92,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_controls_freeA",
+      "ordinal": 93,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_controls_freeW",
+      "ordinal": 94,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_count_entries",
+      "ordinal": 36,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_count_references",
+      "ordinal": 95,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_count_values",
+      "ordinal": 37,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_count_valuesA",
+      "ordinal": 96,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_count_valuesW",
+      "ordinal": 97,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_count_values_len",
+      "ordinal": 77,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_create_page_control",
+      "ordinal": 98,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_create_page_controlA",
+      "ordinal": 99,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_create_page_controlW",
+      "ordinal": 100,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_create_sort_control",
+      "ordinal": 101,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_create_sort_controlA",
+      "ordinal": 102,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_create_sort_controlW",
+      "ordinal": 103,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_create_vlv_controlA",
+      "ordinal": 320,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_create_vlv_controlW",
+      "ordinal": 319,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_delete",
+      "ordinal": 20,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_deleteA",
+      "ordinal": 104,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_deleteW",
+      "ordinal": 105,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_delete_ext",
+      "ordinal": 106,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_delete_extA",
+      "ordinal": 107,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_delete_extW",
+      "ordinal": 108,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_delete_ext_s",
+      "ordinal": 109,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_delete_ext_sA",
+      "ordinal": 110,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_delete_ext_sW",
+      "ordinal": 111,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_delete_s",
+      "ordinal": 47,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_delete_sA",
+      "ordinal": 112,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_delete_sW",
+      "ordinal": 113,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_dn2ufn",
+      "ordinal": 31,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_dn2ufnA",
+      "ordinal": 232,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_dn2ufnW",
+      "ordinal": 114,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_encode_sort_controlA",
+      "ordinal": 115,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_encode_sort_controlW",
+      "ordinal": 116,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_err2string",
+      "ordinal": 22,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_err2stringA",
+      "ordinal": 117,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_err2stringW",
+      "ordinal": 118,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_escape_filter_element",
+      "ordinal": 197,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_escape_filter_elementA",
+      "ordinal": 119,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_escape_filter_elementW",
+      "ordinal": 120,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_explode_dn",
+      "ordinal": 39,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_explode_dnA",
+      "ordinal": 121,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_explode_dnW",
+      "ordinal": 122,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_extended_operation",
+      "ordinal": 123,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_extended_operationA",
+      "ordinal": 124,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_extended_operationW",
+      "ordinal": 125,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_extended_operation_sA",
+      "ordinal": 333,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_extended_operation_sW",
+      "ordinal": 332,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_first_attribute",
+      "ordinal": 32,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_first_attributeA",
+      "ordinal": 126,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_first_attributeW",
+      "ordinal": 127,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_first_entry",
+      "ordinal": 26,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_first_reference",
+      "ordinal": 128,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_free_controls",
+      "ordinal": 129,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_free_controlsA",
+      "ordinal": 130,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_free_controlsW",
+      "ordinal": 131,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_dn",
+      "ordinal": 30,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_dnA",
+      "ordinal": 132,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_dnW",
+      "ordinal": 133,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_next_page",
+      "ordinal": 134,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_next_page_s",
+      "ordinal": 135,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_option",
+      "ordinal": 136,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_optionA",
+      "ordinal": 137,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_optionW",
+      "ordinal": 12,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_paged_count",
+      "ordinal": 138,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_values",
+      "ordinal": 34,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_valuesA",
+      "ordinal": 139,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_valuesW",
+      "ordinal": 140,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_values_len",
+      "ordinal": 35,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_values_lenA",
+      "ordinal": 141,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_get_values_lenW",
+      "ordinal": 142,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_init",
+      "ordinal": 143,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_initA",
+      "ordinal": 144,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_initW",
+      "ordinal": 145,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_memfree",
+      "ordinal": 200,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_memfreeA",
+      "ordinal": 146,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_memfreeW",
+      "ordinal": 147,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modify",
+      "ordinal": 23,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modifyA",
+      "ordinal": 148,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modifyW",
+      "ordinal": 149,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modify_ext",
+      "ordinal": 150,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modify_extA",
+      "ordinal": 151,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modify_extW",
+      "ordinal": 152,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modify_ext_s",
+      "ordinal": 153,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modify_ext_sA",
+      "ordinal": 154,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modify_ext_sW",
+      "ordinal": 155,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modify_s",
+      "ordinal": 48,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modify_sA",
+      "ordinal": 156,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modify_sW",
+      "ordinal": 157,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modrdn",
+      "ordinal": 24,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modrdn2",
+      "ordinal": 67,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modrdn2A",
+      "ordinal": 158,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modrdn2W",
+      "ordinal": 159,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modrdn2_s",
+      "ordinal": 68,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modrdn2_sA",
+      "ordinal": 160,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modrdn2_sW",
+      "ordinal": 161,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modrdnA",
+      "ordinal": 162,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modrdnW",
+      "ordinal": 163,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modrdn_s",
+      "ordinal": 49,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modrdn_sA",
+      "ordinal": 164,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_modrdn_sW",
+      "ordinal": 165,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_msgfree",
+      "ordinal": 41,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_next_attribute",
+      "ordinal": 33,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_next_attributeA",
+      "ordinal": 166,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_next_attributeW",
+      "ordinal": 167,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_next_entry",
+      "ordinal": 27,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_next_reference",
+      "ordinal": 168,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_open",
+      "ordinal": 25,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_openA",
+      "ordinal": 169,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_openW",
+      "ordinal": 170,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_extended_resultA",
+      "ordinal": 318,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_extended_resultW",
+      "ordinal": 317,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_page_control",
+      "ordinal": 171,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_page_controlA",
+      "ordinal": 172,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_page_controlW",
+      "ordinal": 173,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_reference",
+      "ordinal": 174,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_referenceA",
+      "ordinal": 175,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_referenceW",
+      "ordinal": 176,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_result",
+      "ordinal": 177,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_resultA",
+      "ordinal": 178,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_resultW",
+      "ordinal": 179,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_sort_control",
+      "ordinal": 180,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_sort_controlA",
+      "ordinal": 181,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_sort_controlW",
+      "ordinal": 182,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_vlv_controlA",
+      "ordinal": 322,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_parse_vlv_controlW",
+      "ordinal": 321,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_perror",
+      "ordinal": 82,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_rename_ext",
+      "ordinal": 183,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_rename_extA",
+      "ordinal": 184,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_rename_extW",
+      "ordinal": 185,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_rename_ext_s",
+      "ordinal": 186,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_rename_ext_sA",
+      "ordinal": 187,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_rename_ext_sW",
+      "ordinal": 188,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_result",
+      "ordinal": 40,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_result2error",
+      "ordinal": 21,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_sasl_bindA",
+      "ordinal": 315,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_sasl_bindW",
+      "ordinal": 313,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_sasl_bind_sA",
+      "ordinal": 316,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_sasl_bind_sW",
+      "ordinal": 314,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search",
+      "ordinal": 43,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_searchA",
+      "ordinal": 189,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_searchW",
+      "ordinal": 190,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_abandon_page",
+      "ordinal": 191,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_ext",
+      "ordinal": 192,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_extA",
+      "ordinal": 193,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_extW",
+      "ordinal": 194,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_ext_s",
+      "ordinal": 195,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_ext_sA",
+      "ordinal": 196,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_ext_sW",
+      "ordinal": 203,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_init_page",
+      "ordinal": 204,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_init_pageA",
+      "ordinal": 205,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_init_pageW",
+      "ordinal": 206,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_s",
+      "ordinal": 50,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_sA",
+      "ordinal": 207,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_sW",
+      "ordinal": 208,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_st",
+      "ordinal": 51,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_stA",
+      "ordinal": 209,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_search_stW",
+      "ordinal": 210,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_set_dbg_flags",
+      "ordinal": 198,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_set_dbg_routine",
+      "ordinal": 199,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_set_option",
+      "ordinal": 211,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_set_optionA",
+      "ordinal": 212,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_set_optionW",
+      "ordinal": 14,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_simple_bind",
+      "ordinal": 59,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_simple_bindA",
+      "ordinal": 213,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_simple_bindW",
+      "ordinal": 214,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_simple_bind_s",
+      "ordinal": 60,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_simple_bind_sA",
+      "ordinal": 215,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_simple_bind_sW",
+      "ordinal": 216,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_sslinit",
+      "ordinal": 217,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_sslinitA",
+      "ordinal": 218,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_sslinitW",
+      "ordinal": 219,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_start_tls_sA",
+      "ordinal": 330,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_start_tls_sW",
+      "ordinal": 329,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_startup",
+      "ordinal": 201,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_stop_tls_s",
+      "ordinal": 331,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_ufn2dn",
+      "ordinal": 220,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_ufn2dnA",
+      "ordinal": 221,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_ufn2dnW",
+      "ordinal": 222,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_unbind",
+      "ordinal": 13,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_unbind_s",
+      "ordinal": 46,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_value_free",
+      "ordinal": 38,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_value_freeA",
+      "ordinal": 223,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_value_freeW",
+      "ordinal": 224,
+      "is_forwarder": false
+    },
+    {
+      "name": "ldap_value_free_len",
+      "ordinal": 79,
+      "is_forwarder": false
+    }
+  ]
+}
