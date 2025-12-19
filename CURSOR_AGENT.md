@@ -28,10 +28,8 @@ c:\bofproject\
 │   ├── unhook-bof/
 │   └── bof_template/
 │       └── beacon.h         ← BOF specifications (Cobalt Strike)
-├── RedLoader/               ← Reference implementation (inspiration only)
-│   └── [Rust-based BOF loader - has flaws, don't copy directly]
 ├── RedBof/                  ← BOF collection (troubleshooting target)
-│   └── [BOFs that RedLoader has trouble executing]
+│   └── [BOFs for testing and troubleshooting]
 └── RedBofAnalizerG/          ← OFF LIMITS (parallel development)
 ```
 
@@ -40,8 +38,7 @@ c:\bofproject\
 - **`RedBofAnalizer/`**: **ALWAYS** your default directory for programming
 - **`src/`**: Contains various BOF repositories for testing - the final tool should run them all
 - **`src/bof_template/beacon.h`**: Cobalt Strike BOF API specifications - **critical reference**
-- **`RedLoader/`**: Can be used as inspiration, but has flaws - **do not copy directly**
-- **`RedBof/`**: BOF collection that RedLoader struggles with - **troubleshooting target**
+- **`RedBof/`**: BOF collection for testing and troubleshooting
 - **`RedBofAnalizerG/`**: **OFF LIMITS** - parallel development project
 
 ### Project Documentation
@@ -90,19 +87,13 @@ The project includes comprehensive planning and specification documents:
 
 This file defines the **official Cobalt Strike BOF interface** - your implementation must match these specifications.
 
-### 3. Learning from RedLoader
+### 3. Implementation Best Practices
 
-**RedLoader** (`RedLoader/`) can provide:
-- Implementation patterns and approaches
-- COFF parsing techniques
-- Memory management strategies
-- Error handling patterns
-
-**However**:
-- RedLoader has known flaws - don't copy bugs
-- RedLoader is a first attempt - improve upon it
-- RedLoader may have architectural issues - design better solutions
-- Use it as **inspiration**, not a template
+When implementing BOF loading and execution:
+- Study COFF parsing techniques from PE/COFF specifications
+- Design robust memory management strategies
+- Implement comprehensive error handling patterns
+- Follow best practices for position-independent code
 
 ### 4. Testing with Real BOFs
 
@@ -119,7 +110,7 @@ This file defines the **official Cobalt Strike BOF interface** - your implementa
     - If a BOF has issues, fix the tool's implementation, not the BOF
 
 **Troubleshooting BOFs** are in `RedBof/`:
-- These BOFs cause issues in RedLoader
+- These BOFs are used for testing and validation
 - Your tool should be able to execute them successfully
 - Use them to identify and fix common BOF loading problems
 
@@ -186,7 +177,7 @@ BOFs are **COFF (Common Object File Format)** object files:
 
 ### Language Choice
 
-**Rust**: Memory safety, good for systems programming (like RedLoader)
+**Rust**: Memory safety, good for systems programming
 
 
 **Recommendation**: Consider what will work best for BOF execution and Windows API integration.
@@ -234,7 +225,7 @@ RedBofAnalizer/
 
 **Problem**: Incorrect relocation calculations cause crashes
 - **Solution**: Carefully implement relocation types (AMD64_REL32, ADDR64, etc.)
-- **Reference**: PE/COFF specification, RedLoader implementation (but fix bugs)
+- **Reference**: PE/COFF specification
 
 ### 2. Symbol Resolution
 
@@ -271,9 +262,8 @@ RedBofAnalizer/
 2. **Understand the goal**: Build a tool that can analyze and execute BOFs (see `PLAN.md` for detailed phases)
 3. **Review beacon.h**: Understand the BOF API requirements
 4. **Check specifications**: Refer to `SPEC.md` for detailed technical requirements
-5. **Examine RedLoader**: Learn from it, but identify flaws to avoid
-6. **Test with real BOFs**: Use BOFs from `src/` and `RedBof/`
-7. **Iterate**: Fix issues as you discover them
+5. **Test with real BOFs**: Use BOFs from `src/` and `RedBof/`
+6. **Iterate**: Fix issues as you discover them
 
 ### When Implementing Features
 
@@ -288,10 +278,9 @@ RedBofAnalizer/
 ### When Troubleshooting
 
 1. **Identify the issue**: What BOF fails? What error occurs?
-2. **Compare with RedLoader**: Does RedLoader have the same issue?
-3. **Check beacon.h**: Are you implementing the API correctly?
-4. **Test incrementally**: Simplify the BOF to isolate the problem
-5. **Fix and verify**: Fix the issue and test with multiple BOFs
+2. **Check beacon.h**: Are you implementing the API correctly?
+3. **Test incrementally**: Simplify the BOF to isolate the problem
+4. **Fix and verify**: Fix the issue and test with multiple BOFs
 
 ---
 
@@ -303,7 +292,6 @@ When referencing files outside `RedBofAnalizer/`, use absolute paths:
 ```
 c:\bofproject\src\bof_template\beacon.h
 c:\bofproject\src\CS-Situational-Awareness-BOF\...
-c:\bofproject\RedLoader\...
 c:\bofproject\RedBof\...
 ```
 
@@ -330,7 +318,7 @@ docs\api.md
 
 1. **Acknowledge**: Confirm understanding
 2. **Plan**: Outline the implementation approach
-3. **Check references**: Review `beacon.h`, RedLoader (for inspiration)
+3. **Check references**: Review `beacon.h` and PE/COFF specifications
 4. **Implement**: Write code in `RedBofAnalizer/`
 5. **Test**: Test with BOFs from `src/` or `RedBof/`
 6. **Document**: Update documentation if needed
@@ -340,10 +328,9 @@ docs\api.md
 1. **Understand**: Get error messages, logs, reproduction steps
 2. **Locate**: Find the problematic code
 3. **Analyze**: Determine root cause
-4. **Compare**: Check if RedLoader has the same issue
-5. **Fix**: Implement the fix
-6. **Test**: Verify with multiple BOFs
-7. **Prevent**: Add test case if applicable
+4. **Fix**: Implement the fix
+5. **Test**: Verify with multiple BOFs
+6. **Prevent**: Add test case if applicable
 
 ### When User Asks to Run BOFs
 
@@ -365,17 +352,14 @@ docs\api.md
 - ✅ Follow the development phases outlined in `PLAN.md`
 - ✅ Implement features according to `SPEC.md` specifications
 - ✅ Test with real BOFs from `src/` and `RedBof/`
-- ✅ Learn from RedLoader but improve upon it
 - ✅ Handle errors gracefully
 - ✅ Document complex code
 - ✅ Test incrementally
 
 ### ❌ DON'T
 
-- ❌ Don't copy RedLoader bugs or flawed patterns
 - ❌ Don't modify files in `RedBofAnalizerG/` (off limits)
 - ❌ **Don't modify example BOF files in `src/bof_template/examples/`** - These are official Cobalt Strike BOF examples and must remain unchanged. The tool should work with these BOFs as-is.
-- ❌ Don't assume RedLoader is correct - verify against `beacon.h`
 - ❌ Don't ignore error cases
 - ❌ Don't hardcode paths - use proper path handling
 - ❌ Don't skip testing with real BOFs
@@ -390,8 +374,7 @@ docs\api.md
 - **`SPEC.md`**: Comprehensive technical specifications for all components
 - **`CURSOR_AGENT.md`**: This file - AI agent guidelines and context
 - **`src/bof_template/beacon.h`**: Official Cobalt Strike BOF API
-- **`RedLoader/`**: Reference implementation (with known issues)
-- **`RedBof/`**: BOFs that need troubleshooting
+- **`RedBof/`**: BOFs for testing and troubleshooting
 - **`src/`**: Test BOF collections
 
 ### External References
@@ -410,11 +393,11 @@ The RedBofAnalizer project is successful when:
 2. ✅ Can load BOFs into memory and resolve symbols
 3. ✅ Can execute BOFs and capture output
 4. ✅ Can run **all** BOFs in `src/` successfully
-5. ✅ Can execute BOFs from `RedBof/` that RedLoader struggles with
+5. ✅ Can execute BOFs from `RedBof/` successfully
 6. ✅ Provides clear error messages when BOFs fail
 7. ✅ Has comprehensive testing framework
 
 ---
 
-**Remember**: This is a tool for analyzing and executing BOFs. Focus on correctness, reliability, and the ability to troubleshoot BOF execution issues. Learn from RedLoader, but build something better.
+**Remember**: This is a tool for analyzing and executing BOFs. Focus on correctness, reliability, and the ability to troubleshoot BOF execution issues.
 

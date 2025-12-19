@@ -177,6 +177,10 @@ The project has successfully completed all critical phases and most advanced fea
   - BOF006: Missing cleanup (handles not closed)
   - BOF007: Unusual section flags
   - BOF008: High entropy sections (packing detection)
+  - BOF009: Undefined symbols and compiler helper functions (stack checks, SEH, CRT helpers)
+  - BOF010: Unexpected / unknown relocation types
+  - BOF011: Loader-unfriendly sections (.bss, .rdata, .pdata) that some loaders may ignore
+  - BOF012: Beacon API import whitelist (flags non-standard Beacon imports)
 - [x] Severity levels (Error, Warning, Info)
 - [x] Location tracking (symbol, section, address)
 - [x] Detailed explanations and fix suggestions

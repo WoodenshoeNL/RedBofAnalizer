@@ -3,7 +3,7 @@
 //! This module implements lint rules for static analysis of BOF files.
 //! Each rule detects potential issues, suspicious patterns, or best practice violations.
 
-use crate::core::models::bof::{BofFile, Import, MachineType};
+use crate::core::models::bof::{BofFile, Import, MachineType, RelocationType};
 use crate::core::models::lint::{LintFinding, Severity, Location};
 
 /// Lint rule codes
@@ -16,6 +16,10 @@ pub mod codes {
     pub const BOF006: &str = "BOF006";
     pub const BOF007: &str = "BOF007";
     pub const BOF008: &str = "BOF008";
+    pub const BOF009: &str = "BOF009";
+    pub const BOF010: &str = "BOF010";
+    pub const BOF011: &str = "BOF011";
+    pub const BOF012: &str = "BOF012";
 }
 
 /// High entropy threshold for detecting packed/encrypted sections
@@ -34,6 +38,10 @@ pub fn run_lints(bof: &BofFile) -> Vec<LintFinding> {
     findings.extend(check_bof006_missing_cleanup(bof));
     findings.extend(check_bof007_unusual_section_flags(bof));
     findings.extend(check_bof008_high_entropy(bof));
+    findings.extend(check_bof009_undefined_symbols(bof));
+    findings.extend(check_bof010_unexpected_relocations(bof));
+    findings.extend(check_bof011_loader_unfriendly_sections(bof));
+    findings.extend(check_bof012_beacon_import_whitelist(bof));
 
     // Sort by severity (errors first, then warnings, then info)
     findings.sort_by(|a, b| {
@@ -728,6 +736,504 @@ fn check_bof008_high_entropy(bof: &BofFile) -> Vec<LintFinding> {
                     NOP sleds, or repetitive instructions. This is unusual for normal compiled code."
                     .to_string(),
                 suggestion: None,
+            });
+        }
+    }
+
+    findings
+}
+
+/// BOF009: Undefined symbols and special helper functions
+///
+/// Mirrors boflint.py behaviour by flagging undefined symbols that are not
+/// normal import thunks, and giving specific diagnostics for common helpers
+/// like stack probes and exception handlers.
+fn check_bof009_undefined_symbols(bof: &BofFile) -> Vec<LintFinding> {
+    let mut findings = Vec::new();
+
+    // Helper lists (based on boflint.py)
+    const STACK_CHECK_FUNCS: &[&str] = &["___chkstk_ms", "__chkstk"];
+    const SECURITY_COOKIE_FUNCS: &[&str] = &["__stack_chk_fail", "__security_init_cookie"];
+    const EXCEPTION_FUNCS: &[&str] = &["__C_specific_handler", "__cxa_begin_catch"];
+    const MEM_FUNCS: &[&str] = &["memset", "memmove", "memcpy"];
+
+    for symbol in &bof.symbols {
+        // Undefined / external symbol
+        if !symbol.is_external {
+            continue;
+        }
+
+        // Skip normal import thunks (__imp_*) – those are handled via `imports`
+        if symbol.name.starts_with("__imp_") {
+            continue;
+        }
+
+        let mut base_name = symbol.name.as_str();
+        // Strip stdcall-style suffixes (e.g., name@8)
+        if let Some((name_only, _)) = base_name.split_once('@') {
+            base_name = name_only;
+        }
+
+        let mut handled = false;
+        let section_name = symbol
+            .section
+            .and_then(|idx| bof.sections.get(idx).map(|s| s.name.clone()));
+
+        // Stack check functions
+        if STACK_CHECK_FUNCS.contains(&base_name) {
+            findings.push(LintFinding {
+                code: codes::BOF009.to_string(),
+                severity: Severity::Error,
+                message: format!(
+                    "Stack check helper '{}' referenced as undefined symbol",
+                    base_name
+                ),
+                location: Location {
+                    symbol: Some(symbol.name.clone()),
+                    section: section_name.clone(),
+                    address: Some(symbol.value),
+                    line: None,
+                },
+                explanation: "This symbol is typically generated when large stack allocations \
+                    or stack protection are enabled. BOFs should avoid compiler-inserted stack \
+                    probes and security cookies because the corresponding runtime support code \
+                    is not available in the Beacon environment."
+                    .to_string(),
+                suggestion: Some(
+                    "Reduce large stack allocations and disable stack protection / security \
+                    cookies for the BOF module."
+                        .to_string(),
+                ),
+            });
+            handled = true;
+        }
+
+        // Security cookie / stack protector helpers
+        if !handled
+            && (SECURITY_COOKIE_FUNCS.contains(&base_name)
+                || base_name.contains("security_check_cookie"))
+        {
+            findings.push(LintFinding {
+                code: codes::BOF009.to_string(),
+                severity: Severity::Error,
+                message: format!(
+                    "Security cookie helper '{}' referenced as undefined symbol",
+                    base_name
+                ),
+                location: Location {
+                    symbol: Some(symbol.name.clone()),
+                    section: section_name.clone(),
+                    address: Some(symbol.value),
+                    line: None,
+                },
+                explanation: "This symbol is used by compiler-inserted security cookie / stack \
+                    protection machinery. BOFs should be compiled with these protections \
+                    disabled, otherwise the runtime support code will be missing at load time."
+                    .to_string(),
+                suggestion: Some(
+                    "Disable security cookies / stack protection for the BOF module."
+                        .to_string(),
+                ),
+            });
+            handled = true;
+        }
+
+        // Exception handling helpers
+        if !handled
+            && (EXCEPTION_FUNCS.contains(&base_name)
+                || base_name.contains("except_handler")
+                || base_name.contains("CxxFrameHandler"))
+        {
+            findings.push(LintFinding {
+                code: codes::BOF009.to_string(),
+                severity: Severity::Warning,
+                message: format!(
+                    "Exception handling helper '{}' referenced as undefined symbol",
+                    base_name
+                ),
+                location: Location {
+                    symbol: Some(symbol.name.clone()),
+                    section: section_name.clone(),
+                    address: Some(symbol.value),
+                    line: None,
+                },
+                explanation: "This symbol is associated with structured exception handling (SEH) \
+                    or C++ exception support. Traditional BOF loaders do not support full \
+                    exception handling, and using it may cause crashes or undefined behaviour."
+                    .to_string(),
+                suggestion: Some(
+                    "Avoid using compiler-level exception handling inside BOFs (disable C++ \
+                    exceptions / SEH for this module)."
+                        .to_string(),
+                ),
+            });
+            handled = true;
+        }
+
+        // Memory helpers like memset/memcpy/memmove
+        if !handled && MEM_FUNCS.contains(&base_name) {
+            findings.push(LintFinding {
+                code: codes::BOF009.to_string(),
+                severity: Severity::Warning,
+                message: format!(
+                    "Standard C runtime function '{}' referenced as undefined symbol",
+                    base_name
+                ),
+                location: Location {
+                    symbol: Some(symbol.name.clone()),
+                    section: section_name.clone(),
+                    address: Some(symbol.value),
+                    line: None,
+                },
+                explanation: "This symbol is a standard C runtime helper. Depending on the \
+                    BOF loader, these helpers may or may not be shimmed automatically. \
+                    Leaving them undefined can cause runtime failures."
+                    .to_string(),
+                suggestion: Some(
+                    "Either link against a runtime that provides these helpers or replace \
+                    them with inline implementations within the BOF."
+                        .to_string(),
+                ),
+            });
+            handled = true;
+        }
+
+        // Check if it's a known Beacon API (these are valid without __imp_ prefix)
+        const BEACON_APIS: &[&str] = &[
+            "BeaconPrintf", "BeaconOutput", "BeaconDownload",
+            "BeaconDataParse", "BeaconDataPtr", "BeaconDataInt", 
+            "BeaconDataShort", "BeaconDataLength", "BeaconDataExtract",
+            "BeaconUseToken", "BeaconRevertToken", "BeaconIsAdmin",
+            "BeaconGetSpawnTo", "BeaconSpawnTemporaryProcess", 
+            "BeaconInjectProcess", "BeaconInjectTemporaryProcess", 
+            "BeaconCleanupProcess",
+            "BeaconFormatAlloc", "BeaconFormatReset", "BeaconFormatFree",
+            "BeaconFormatAppend", "BeaconFormatPrintf", "BeaconFormatToString",
+            "BeaconFormatInt", "BeaconFormatShort", "BeaconFormatLength",
+            "BeaconVirtualAlloc", "BeaconVirtualAllocEx", "BeaconVirtualFree",
+            "BeaconVirtualProtect", "BeaconVirtualProtectEx",
+            "toWideChar",
+            "BeaconInformation", "BeaconGetSyscallInformation",
+            "BeaconAddValue", "BeaconGetValue", "BeaconRemoveValue",
+            "BeaconGetIntValue", "BeaconGetShortValue", "BeaconGetCharValue",
+            "BeaconGetPtrValue", "BeaconGetSizeValue", "BeaconGetDataValue",
+            "BeaconDataStoreAlloc", "BeaconDataStoreReset", "BeaconDataStoreFree",
+            "BeaconDataStoreAdd", "BeaconDataStoreGet", "BeaconDataStoreRemove",
+            "BeaconDataStoreSize", "BeaconDataStoreGetItem",
+            "BeaconDataStoreProtectItem", "BeaconDataStoreUnprotectItem",
+            "BeaconDataStoreMaxEntries",
+            "BeaconGetCustomUserData", "BeaconGetUserData",
+            "BeaconGetThreadContext", "BeaconSetThreadContext", "BeaconResumeThread",
+            "BeaconOpenProcess", "BeaconOpenThread", "BeaconCloseHandle",
+            "BeaconUnmapViewOfFile", "BeaconVirtualQuery", "BeaconDuplicateHandle",
+            "BeaconReadProcessMemory", "BeaconWriteProcessMemory",
+            "BeaconDisableBeaconGate", "BeaconEnableBeaconGate",
+            "BeaconDisableBeaconGateMasking", "BeaconEnableBeaconGateMasking",
+        ];
+        
+        if !handled && BEACON_APIS.contains(&base_name) {
+            // Beacon APIs are valid as external symbols without __imp_ prefix
+            // They are resolved by the loader at runtime
+            handled = true;
+        }
+
+        // Generic undefined symbol
+        if !handled {
+            findings.push(LintFinding {
+                code: codes::BOF009.to_string(),
+                severity: Severity::Error,
+                message: format!("Undefined symbol '{}'", base_name),
+                location: Location {
+                    symbol: Some(symbol.name.clone()),
+                    section: section_name.clone(),
+                    address: Some(symbol.value),
+                    line: None,
+                },
+                explanation: "This symbol is referenced but not defined in any section and is \
+                    not recognised as a normal import thunk. The BOF is likely missing a \
+                    dependency or was linked incorrectly."
+                    .to_string(),
+                suggestion: Some(
+                    "Ensure all external references are either imported via __imp_ symbols or \
+                    defined within the BOF object file."
+                        .to_string(),
+                ),
+            });
+        }
+    }
+
+    findings
+}
+
+/// BOF010: Unexpected / unknown relocation types
+///
+/// Flags relocations whose type could not be mapped to a known AMD64/x86
+/// relocation kind. This mirrors boflint.py's warnings about unexpected
+/// relocation types.
+fn check_bof010_unexpected_relocations(bof: &BofFile) -> Vec<LintFinding> {
+    let mut findings = Vec::new();
+
+    let mut unknown_count = 0usize;
+    let mut first_unknown: Option<&crate::core::models::bof::Relocation> = None;
+
+    for reloc in &bof.relocations {
+        if let RelocationType::Unknown(_raw) = reloc.relocation_type {
+            unknown_count += 1;
+            if first_unknown.is_none() {
+                first_unknown = Some(reloc);
+            }
+        }
+    }
+
+    if unknown_count == 0 {
+        return findings;
+    }
+
+    let (section_name, raw_type) = if let Some(reloc) = first_unknown {
+        let section_name = bof
+            .sections
+            .get(reloc.section_index)
+            .map(|s| s.name.clone());
+        let raw_type = match reloc.relocation_type {
+            RelocationType::Unknown(v) => v,
+            _ => 0,
+        };
+        (section_name, raw_type)
+    } else {
+        (None, 0u16)
+    };
+
+    findings.push(LintFinding {
+        code: codes::BOF010.to_string(),
+        severity: Severity::Warning,
+        message: format!(
+            "Found {} relocation(s) with unknown or unexpected relocation type",
+            unknown_count
+        ),
+        location: Location {
+            symbol: None,
+            section: section_name,
+            address: None,
+            line: None,
+        },
+        explanation: format!(
+            "One or more relocation entries could not be mapped to a known AMD64/x86 relocation \
+            kind. This may indicate non-standard relocation types that some loaders do not \
+            support. First unknown relocation raw type value: 0x{:04X}.",
+            raw_type
+        ),
+        suggestion: Some(
+            "Review the toolchain and linker flags used to build the BOF. Prefer standard \
+            relocation types (REL32/ADDR32/ADDR64) for maximum loader compatibility."
+                .to_string(),
+        ),
+    });
+
+    findings
+}
+
+/// BOF011: Loader-unfriendly sections (.bss / .rdata / .pdata)
+///
+/// Mirrors boflint.py's section warnings by flagging BOFs that rely on
+/// initialised .rdata or non-empty .bss / .pdata sections, which are not
+/// supported by all BOF loaders.
+fn check_bof011_loader_unfriendly_sections(bof: &BofFile) -> Vec<LintFinding> {
+    let mut findings = Vec::new();
+
+    for section in &bof.sections {
+        match section.name.as_str() {
+            ".bss" => {
+                if section.raw_size > 0 || section.virtual_size > 0 {
+                    findings.push(LintFinding {
+                        code: codes::BOF011.to_string(),
+                        severity: Severity::Warning,
+                        message: "Section '.bss' contains data – not all loaders support \
+                            uninitialised data sections in BOFs"
+                            .to_string(),
+                        location: Location {
+                            symbol: None,
+                            section: Some(section.name.clone()),
+                            address: None,
+                            line: None,
+                        },
+                        explanation: "Some BOF loaders assume that BOFs only contain code and \
+                            a small amount of initialised data. Relying on a non-empty .bss \
+                            section for uninitialised globals may break in environments that \
+                            do not allocate or zero this section."
+                            .to_string(),
+                        suggestion: Some(
+                            "Prefer heap allocations or explicit stack variables instead of \
+                            relying on .bss for BOFs, or verify that your target loader \
+                            supports .bss."
+                                .to_string(),
+                        ),
+                    });
+                }
+            }
+            ".rdata" => {
+                if section.raw_size > 0 {
+                    findings.push(LintFinding {
+                        code: codes::BOF011.to_string(),
+                        severity: Severity::Warning,
+                        message: "Section '.rdata' contains read-only data – not all loaders \
+                            support dedicated read-only sections in BOFs"
+                            .to_string(),
+                        location: Location {
+                            symbol: None,
+                            section: Some(section.name.clone()),
+                            address: None,
+                            line: None,
+                        },
+                        explanation: "Read-only data in a dedicated .rdata section is common \
+                            for normal PE files, but some BOF loaders only map the .text/.data \
+                            segments and may ignore .rdata entirely."
+                            .to_string(),
+                        suggestion: Some(
+                            "Consider moving constant data into .data or into code \
+                            (e.g., encoded literals) if you need to support loaders that \
+                            do not handle .rdata."
+                                .to_string(),
+                        ),
+                    });
+                }
+            }
+            ".pdata" => {
+                if section.raw_size > 0 {
+                    findings.push(LintFinding {
+                        code: codes::BOF011.to_string(),
+                        severity: Severity::Warning,
+                        message: "Section '.pdata' is present – this usually indicates \
+                            exception handling metadata, which many BOF loaders do not support"
+                            .to_string(),
+                        location: Location {
+                            symbol: None,
+                            section: Some(section.name.clone()),
+                            address: None,
+                            line: None,
+                        },
+                        explanation: ".pdata typically contains unwind / exception handling \
+                            metadata. Many BOF loaders do not register or honour this data, \
+                            so relying on structured exception handling may cause crashes."
+                            .to_string(),
+                        suggestion: Some(
+                            "Avoid C++ exceptions and compiler-generated SEH in BOFs, or \
+                            verify that your target loader supports .pdata."
+                                .to_string(),
+                        ),
+                    });
+                }
+            }
+            _ => {}
+        }
+    }
+
+    findings
+}
+
+/// BOF012: Beacon API import whitelist
+///
+/// Mirrors boflint.py's behaviour by enforcing a whitelist of recognised
+/// Beacon/loader APIs for imports classified as coming from the \"Beacon\"
+/// library.
+fn check_bof012_beacon_import_whitelist(bof: &BofFile) -> Vec<LintFinding> {
+    let mut findings = Vec::new();
+
+    // Union of known implant function sets from boflint.py
+    const BEACON_ALLOWED_FUNCS: &[&str] = &[
+        // CS-style
+        "BeaconDataParse",
+        "BeaconDataPtr",
+        "BeaconDataInt",
+        "BeaconDataShort",
+        "BeaconDataLength",
+        "BeaconDataExtract",
+        "BeaconFormatAlloc",
+        "BeaconFormatReset",
+        "BeaconFormatAppend",
+        "BeaconFormatPrintf",
+        "BeaconFormatToString",
+        "BeaconFormatFree",
+        "BeaconFormatInt",
+        "BeaconOutput",
+        "BeaconPrintf",
+        "BeaconUseToken",
+        "BeaconRevertToken",
+        "BeaconIsAdmin",
+        "BeaconGetSpawnTo",
+        "BeaconInjectProcess",
+        "BeaconInjectTemporaryProcess",
+        "BeaconSpawnTemporaryProcess",
+        "BeaconCleanupProcess",
+        "toWideChar",
+        "BeaconInformation",
+        "BeaconAddValue",
+        "BeaconGetValue",
+        "BeaconRemoveValue",
+        "BeaconDataStoreGetItem",
+        "BeaconDataStoreProtectItem",
+        "BeaconDataStoreUnprotectItem",
+        "BeaconDataStoreMaxEntries",
+        "BeaconGetCustomUserData",
+        "BeaconGetSyscallInformation",
+        "BeaconVirtualAlloc",
+        "BeaconVirtualAllocEx",
+        "BeaconVirtualProtect",
+        "BeaconVirtualProtectEx",
+        "BeaconVirtualFree",
+        "BeaconGetThreadContext",
+        "BeaconSetThreadContext",
+        "BeaconResumeThread",
+        "BeaconOpenProcess",
+        "BeaconOpenThread",
+        "BeaconCloseHandle",
+        "BeaconUnmapViewOfFile",
+        "BeaconVirtualQuery",
+        "BeaconDuplicateHandle",
+        "BeaconReadProcessMemory",
+        "BeaconWriteProcessMemory",
+        "BeaconDisableBeaconGate",
+        "BeaconEnableBeaconGate",
+        // Common OS imports that boflint treats specially
+        "GetProcAddress",
+        "GetModuleHandleA",
+        "GetModuleHandleW",
+        "LoadLibraryA",
+        "LoadLibraryW",
+        "FreeLibrary",
+        // OC2 additions
+        "BeaconThrow",
+    ];
+
+    for import in &bof.imports {
+        if import.library != "Beacon" {
+            continue;
+        }
+
+        if !BEACON_ALLOWED_FUNCS.contains(&import.function.as_str()) {
+            findings.push(LintFinding {
+                code: codes::BOF012.to_string(),
+                severity: Severity::Error,
+                message: format!(
+                    "Imported symbol '{}' is not a recognised Beacon/loader API",
+                    import.function
+                ),
+                location: Location {
+                    symbol: Some(import.symbol_name.clone()),
+                    section: None,
+                    address: None,
+                    line: None,
+                },
+                explanation: "This import is classified as coming from the \"Beacon\" library \
+                    but is not in the known list of Beacon/loader APIs. This usually indicates \
+                    that a regular Win32 or CRT function was misclassified as Beacon API or \
+                    that the import name is incorrect."
+                    .to_string(),
+                suggestion: Some(
+                    "Verify that the import name matches a real Beacon API, or adjust the \
+                    build so normal Win32/CRT functions are imported from their proper DLLs \
+                    (e.g., KERNEL32, msvcrt)."
+                        .to_string(),
+                ),
             });
         }
     }

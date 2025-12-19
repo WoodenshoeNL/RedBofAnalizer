@@ -206,7 +206,19 @@ Comprehensive documentation is available in the `docs/` directory:
 
 **Phase 2 (Analysis)**: 🟡 **~40% Complete**
 - Static analysis engine: ✅ Basic implementation
-- Linting system: ❌ Not started
+- Linting system: ✅ Complete (12 rules: BOF001-BOF012)
+  - BOF001: BeaconDataExtract without BeaconDataParse
+  - BOF002: Missing entry point
+  - BOF003: Invalid entry point signature
+  - BOF004: Suspicious API patterns
+  - BOF005: Direct syscall detection
+  - BOF006: Missing cleanup (handles not closed)
+  - BOF007: Unusual section flags
+  - BOF008: High entropy sections (packing detection)
+  - **BOF009**: Undefined symbols (stack checks, exception handlers, CRT functions) ✨ NEW
+  - **BOF010**: Unexpected relocation types ✨ NEW
+  - **BOF011**: Loader-unfriendly sections (.bss, .rdata, .pdata) ✨ NEW
+  - **BOF012**: Beacon API import whitelist enforcement ✨ NEW
 - Disassembly support: ❌ Not started
 
 **Phase 3 (Execution Enhancement)**: ✅ **~90% Complete**

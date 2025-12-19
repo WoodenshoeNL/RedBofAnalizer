@@ -185,7 +185,11 @@ fn convert_relocation_type(reloc: &object::Relocation, obj: &object::File) -> Re
     match arch {
         Architecture::X86_64 => convert_amd64_relocation(kind, size),
         Architecture::I386 => convert_i386_relocation(kind, size),
-        _ => RelocationType::Unknown(0),
+        _ => {
+            // Preserve raw type if we can infer it, otherwise 0
+            let raw = get_raw_relocation_type(reloc);
+            RelocationType::Unknown(raw)
+        }
     }
 }
 

@@ -120,6 +120,10 @@ pub struct RedBofApp {
     last_resolved_imports: std::collections::HashMap<String, u64>,
     /// Base address where BOF code was loaded during last execution
     last_code_base_address: Option<u64>,
+    /// Thread ID of the currently executing BOF (for cancellation)
+    execution_thread_id: Option<u32>,
+    /// Recently opened BOF files (max 10, most recent first)
+    recent_bofs: Vec<PathBuf>,
 }
 
 impl RedBofApp {
@@ -161,6 +165,26 @@ impl RedBofApp {
                 .filter(|p| p.exists() && p.is_dir())
         } else {
             None
+        };
+        
+        // Load persisted recent BOF files
+        let recent_bofs = if let Some(storage) = cc.storage {
+            let key = format!("{}.recent_bofs", eframe::APP_KEY);
+            if let Some(paths_json) = storage.get_string(&key) {
+                if let Ok(paths) = serde_json::from_str::<Vec<String>>(&paths_json) {
+                    paths.into_iter()
+                        .map(PathBuf::from)
+                        .filter(|p| p.exists() && p.is_file())
+                        .take(10)
+                        .collect()
+                } else {
+                    Vec::new()
+                }
+            } else {
+                Vec::new()
+            }
+        } else {
+            Vec::new()
         };
         
         Self {
@@ -214,6 +238,8 @@ impl RedBofApp {
             disasm_highlight_address: None,
             last_resolved_imports: std::collections::HashMap::new(),
             last_code_base_address: None,
+            execution_thread_id: None,
+            recent_bofs,
         }
     }
     
@@ -244,8 +270,33 @@ impl RedBofApp {
         });
     }
 
+    /// Add a BOF file to the recent list and save to persistent storage
+    fn add_to_recent_bofs(&mut self, path: PathBuf, ctx: &egui::Context) {
+        // Remove the path if it already exists (to move it to the front)
+        self.recent_bofs.retain(|p| p != &path);
+        
+        // Add to the front
+        self.recent_bofs.insert(0, path);
+        
+        // Keep only the 10 most recent
+        if self.recent_bofs.len() > 10 {
+            self.recent_bofs.truncate(10);
+        }
+        
+        // Save to persistent storage
+        let paths: Vec<String> = self.recent_bofs.iter()
+            .map(|p| p.to_string_lossy().to_string())
+            .collect();
+        if let Ok(paths_json) = serde_json::to_string(&paths) {
+            ctx.data_mut(|d| {
+                let key = format!("{}.recent_bofs", eframe::APP_KEY);
+                d.insert_persisted(egui::Id::new(&key), paths_json);
+            });
+        }
+    }
+
     /// Process async messages
-    fn process_messages(&mut self) {
+    fn process_messages(&mut self, ctx: &egui::Context) {
         while let Ok(msg) = self.message_rx.try_recv() {
             match msg {
                 AppMessage::BofLoaded(bof) => {
@@ -257,6 +308,10 @@ impl RedBofApp {
                         "Loaded: {}",
                         self.file_path.as_ref().map(|p| p.display().to_string()).unwrap_or_default()
                     );
+                    // Add to recent BOFs if we have a file path
+                    if let Some(path) = &self.file_path {
+                        self.add_to_recent_bofs(path.clone(), ctx);
+                    }
                     // Trigger analysis
                     self.run_analysis();
                 }
@@ -277,6 +332,7 @@ impl RedBofApp {
                 }
                 AppMessage::ExecutionComplete(result) => {
                     self.is_executing = false;
+                    self.execution_thread_id = None; // Clear thread ID when execution completes
                     
                     // Store resolved imports for display in Imports tab
                     self.last_resolved_imports = result.resolved_imports.clone();
@@ -340,6 +396,7 @@ impl RedBofApp {
                 AppMessage::Error(err) => {
                     self.is_loading = false;
                     self.is_executing = false;
+                    self.execution_thread_id = None; // Clear thread ID on error
                     self.status_message = format!("Error: {}", err);
                 }
             }
@@ -428,6 +485,26 @@ impl RedBofApp {
                         self.open_file();
                         ui.close_menu();
                     }
+                    ui.separator();
+                    // Recent BOFs submenu
+                    ui.menu_button("Recent BOFs", |ui| {
+                        if self.recent_bofs.is_empty() {
+                            ui.label("No recent BOFs");
+                        } else {
+                            // Clone the paths to avoid borrowing issues
+                            let recent_paths: Vec<PathBuf> = self.recent_bofs.clone();
+                            for path in recent_paths {
+                                let display_name = path.file_name()
+                                    .and_then(|n| n.to_str())
+                                    .map(|s| s.to_string())
+                                    .unwrap_or_else(|| path.display().to_string());
+                                if ui.button(&display_name).clicked() {
+                                    self.load_bof(path);
+                                    ui.close_menu();
+                                }
+                            }
+                        }
+                    });
                     ui.separator();
                     if ui.button("Reload").clicked() {
                         if let Some(path) = self.file_path.clone() {
@@ -2615,6 +2692,9 @@ impl RedBofApp {
                 if self.is_executing {
                     ui.spinner();
                     ui.label(RichText::new("Executing...").color(Colors::YELLOW_WARNING));
+                    if ui.button(RichText::new("Cancel").color(Colors::RED_LIGHT)).clicked() {
+                        self.cancel_execution();
+                    }
                 }
                 
                 ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
@@ -2785,7 +2865,22 @@ impl RedBofApp {
             let entry_point_name = self.selected_entry_point.clone();
             let emulate_beacon_info = self.execution_emulate_beacon_info;
             
-            thread::spawn(move || {
+            // Create a channel to receive the thread ID
+            let (thread_id_tx, thread_id_rx) = mpsc::channel();
+            
+            let _handle = thread::spawn(move || {
+                #[cfg(windows)]
+                let thread_id = unsafe {
+                    use windows::Win32::System::Threading::{GetCurrentThread, GetThreadId};
+                    let thread_handle = GetCurrentThread();
+                    GetThreadId(thread_handle)
+                };
+                #[cfg(not(windows))]
+                let thread_id = 0u32; // Not used on non-Windows
+                
+                // Send thread ID back immediately
+                let _ = thread_id_tx.send(thread_id);
+                
                 // Use catch_unwind to handle any panics in the execution
                 let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
                     executor::execute_with_entry_point(
@@ -2819,8 +2914,52 @@ impl RedBofApp {
                     }
                 }
             });
+            
+            // Store thread ID (wait briefly to receive it)
+            if let Ok(thread_id) = thread_id_rx.recv_timeout(Duration::from_millis(100)) {
+                #[cfg(windows)]
+                {
+                    self.execution_thread_id = Some(thread_id);
+                }
+            }
         }
     }
+    
+    /// Cancel the currently running BOF execution
+    fn cancel_execution(&mut self) {
+        if !self.is_executing {
+            return;
+        }
+        
+        #[cfg(windows)]
+        {
+            if let Some(thread_id) = self.execution_thread_id.take() {
+                unsafe {
+                    use windows::Win32::System::Threading::{OpenThread, TerminateThread, THREAD_TERMINATE};
+                    use windows::Win32::Foundation::CloseHandle;
+                    
+                    if let Ok(thread_handle) = OpenThread(THREAD_TERMINATE, false, thread_id) {
+                        let _ = TerminateThread(thread_handle, 1);
+                        let _ = CloseHandle(thread_handle);
+                        
+                        self.execution_output.push("--- Execution cancelled by user ---".into());
+                        self.status_message = "Execution cancelled".into();
+                        self.is_executing = false;
+                        
+                        // Send a cancellation result message
+                        let _ = self.message_tx.send(AppMessage::Error("BOF execution was cancelled".to_string()));
+                    }
+                }
+            }
+        }
+        
+        #[cfg(not(windows))]
+        {
+            // On non-Windows platforms, we can't easily terminate threads
+            self.execution_output.push("--- Cancellation not supported on this platform ---".into());
+        }
+    }
+    
     /// Validate a YARA rule
     fn validate_rule(&mut self, rule_name: &str) {
         #[cfg(feature = "yara")]
@@ -3125,11 +3264,20 @@ impl eframe::App for RedBofApp {
             .map(|p| p.to_string_lossy().to_string())
             .unwrap_or_default();
         storage.set_string(&key_folder, folder_str);
+        
+        // Save recent BOF files
+        let recent_paths: Vec<String> = self.recent_bofs.iter()
+            .map(|p| p.to_string_lossy().to_string())
+            .collect();
+        if let Ok(recent_json) = serde_json::to_string(&recent_paths) {
+            let key_recent = format!("{}.recent_bofs", eframe::APP_KEY);
+            storage.set_string(&key_recent, recent_json);
+        }
     }
     
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         // Process async messages
-        self.process_messages();
+        self.process_messages(ctx);
         
         // Handle dropped files
         ctx.input(|i| {

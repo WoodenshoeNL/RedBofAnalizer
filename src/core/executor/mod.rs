@@ -342,13 +342,8 @@ pub fn execute_with_entry_point(
                 }
             } else {
                 // Try to resolve as a Beacon API or Win32 API directly by name
-                // Some symbols may be referenced differently
-                let fake_import = Import {
-                    library: String::new(),
-                    function: symbol.name.clone(),
-                    symbol_name: symbol.name.clone(),
-                };
-                if let Ok(func_addr) = resolver.resolve(&fake_import) {
+                // Some symbols may be referenced differently (e.g., Beacon APIs without __imp_ prefix)
+                if let Ok(func_addr) = resolver.resolve_symbol_by_name(&symbol.name) {
                     // Track resolved import for reporting
                     resolved_imports.insert(symbol.name.clone(), func_addr as u64);
                     
@@ -420,6 +415,45 @@ pub fn execute_with_entry_point(
     }
     let _iat_guard = iat_memory;
     
+    // Pre-execution validation: Check for unresolved symbols referenced by relocations
+    let mut unresolved_in_relocations = std::collections::HashSet::new();
+    for reloc in &bof.relocations {
+        if let crate::core::models::bof::RelocationTarget::Symbol(sym_idx) = &reloc.target {
+            if !resolved_symbols.contains_key(&(*sym_idx as usize)) {
+                if let Some(sym) = bof.symbols.iter().find(|s| s.coff_index == *sym_idx as usize) {
+                    unresolved_in_relocations.insert((*sym_idx, sym.name.clone()));
+                }
+            }
+        }
+    }
+    
+    if !unresolved_in_relocations.is_empty() {
+        let mut error_msg = format!("\n[BOF] PRE-EXECUTION VALIDATION FAILED: {} unresolved symbol(s) referenced by relocations:\n", unresolved_in_relocations.len());
+        for (sym_idx, sym_name) in unresolved_in_relocations.iter() {
+            error_msg.push_str(&format!("  - Symbol '{}' (coff_idx: {})\n", sym_name, sym_idx));
+            
+            // Check if it's a known pattern and provide suggestions
+            if sym_name.contains("$") {
+                let parts: Vec<&str> = sym_name.split('$').collect();
+                if parts.len() >= 2 {
+                    let lib = parts[0];
+                    let func = parts[1].split('@').next().unwrap_or(parts[1]);
+                    error_msg.push_str(&format!("    → Looks like: {}${}()\n", lib, func));
+                    error_msg.push_str(&format!("    → Add to beacon.h: WINBASEAPI ... WINAPI {}${}();\n", lib, func));
+                }
+            } else if !sym_name.starts_with("__imp_") {
+                error_msg.push_str(&format!("    → Add to beacon.h: extern void __cdecl {}();\n", sym_name));
+            }
+        }
+        error_msg.push_str("\nThis BOF will likely crash if executed. Fix the missing declarations and recompile.\n");
+        error_msg.push_str("Check the Lints tab for BOF009 errors with detailed suggestions.\n");
+        
+        if is_debug_mode() {
+            eprintln!("{}", error_msg);
+        }
+        log::error!("{}", error_msg);
+    }
+    
     // Apply relocations (if any)
     if !bof.relocations.is_empty() {
         if is_debug_mode() {
@@ -436,6 +470,7 @@ pub fn execute_with_entry_point(
             &section_mappings,
             &resolved_symbols,
             memory.base() as usize,
+            Some(&bof.symbols),
         )?;
         
         if is_debug_mode() {

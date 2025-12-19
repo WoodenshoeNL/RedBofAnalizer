@@ -12,9 +12,11 @@ pub fn apply_relocations(
     section_mappings: &[SectionMapping],
     resolved_symbols: &HashMap<usize, usize>,
     base_address: usize,
+    bof_symbols: Option<&[crate::core::models::bof::Symbol]>,
 ) -> Result<()> {
     let mut applied = 0;
     let mut skipped = 0;
+    let mut unresolved_symbols = std::collections::HashSet::new();
     let debug = super::is_debug_mode();
     
     // Debug: print ALL relocations in internal_printf (0x86-0x1F4)
@@ -39,10 +41,26 @@ pub fn apply_relocations(
             section_mappings,
             resolved_symbols,
             base_address,
+            bof_symbols,
         ) {
             Ok(_) => applied += 1,
             Err(e) => {
-                log::warn!("Failed to apply relocation {}: {}", i, e);
+                // Extract symbol information for better error reporting
+                if let crate::core::models::bof::RelocationTarget::Symbol(sym_idx) = &reloc.target {
+                    if let Some(symbols) = bof_symbols {
+                        if let Some(sym) = symbols.iter().find(|s| s.coff_index == *sym_idx as usize) {
+                            unresolved_symbols.insert((*sym_idx, sym.name.clone()));
+                            log::warn!("Failed to apply relocation {} at section[{}] offset 0x{:x}: {} (symbol: '{}', coff_idx: {})", 
+                                i, reloc.section_index, reloc.virtual_address, e, sym.name, sym_idx);
+                        } else {
+                            log::warn!("Failed to apply relocation {}: {} (symbol index: {})", i, e, sym_idx);
+                        }
+                    } else {
+                        log::warn!("Failed to apply relocation {}: {} (symbol index: {})", i, e, sym_idx);
+                    }
+                } else {
+                    log::warn!("Failed to apply relocation {}: {}", i, e);
+                }
                 skipped += 1;
             }
         }
@@ -51,6 +69,28 @@ pub fn apply_relocations(
     if debug {
         eprintln!("[BOF] Applied {} relocations, skipped {}", applied, skipped);
     }
+    
+    // If we have unresolved symbols, provide a helpful error message
+    if !unresolved_symbols.is_empty() {
+        let mut error_msg = format!("\n[BOF] ERROR: {} unresolved symbol(s) referenced by relocations:\n", unresolved_symbols.len());
+        for (sym_idx, sym_name) in unresolved_symbols.iter() {
+            error_msg.push_str(&format!("  - Symbol {} (coff_idx: {}): '{}'\n", sym_name, sym_idx, sym_name));
+        }
+        error_msg.push_str("\nThis usually means:\n");
+        error_msg.push_str("  1. Missing function declarations in beacon.h\n");
+        error_msg.push_str("  2. Functions not properly declared with WINBASEAPI/DECLSPEC_IMPORT\n");
+        error_msg.push_str("  3. Missing import symbols (__imp_*)\n");
+        error_msg.push_str("\nCheck the Lints tab for BOF009 errors with detailed suggestions.\n");
+        
+        if skipped > 0 && applied == 0 {
+            // All relocations failed - this is critical
+            return Err(anyhow::anyhow!("{}", error_msg));
+        } else {
+            // Some relocations failed - warn but continue
+            log::warn!("{}", error_msg);
+        }
+    }
+    
     Ok(())
 }
 
@@ -61,14 +101,27 @@ fn apply_relocation(
     section_mappings: &[SectionMapping],
     resolved_symbols: &HashMap<usize, usize>,
     base_address: usize,
+    bof_symbols: Option<&[crate::core::models::bof::Symbol]>,
 ) -> Result<()> {
     use crate::core::models::bof::RelocationTarget;
     
     // Get the target address based on relocation target type
     let target_addr = match &reloc.target {
         RelocationTarget::Symbol(sym_idx) => {
-            *resolved_symbols.get(&(*sym_idx as usize))
-                .ok_or_else(|| anyhow::anyhow!("Symbol {} not resolved", sym_idx))?
+            let sym_idx_usize = *sym_idx as usize;
+            *resolved_symbols.get(&sym_idx_usize)
+                .ok_or_else(|| {
+                    // Try to get symbol name for better error message
+                    let sym_name = if let Some(symbols) = bof_symbols {
+                        symbols.iter()
+                            .find(|s| s.coff_index == sym_idx_usize)
+                            .map(|s| s.name.clone())
+                            .unwrap_or_else(|| format!("Symbol({})", sym_idx))
+                    } else {
+                        format!("Symbol({})", sym_idx)
+                    };
+                    anyhow::anyhow!("Symbol '{}' (coff_idx: {}) not resolved - this symbol is referenced by a relocation but was not found in imports or defined in the BOF", sym_name, sym_idx)
+                })?
         }
         RelocationTarget::Section(sec_idx) => {
             // For section relocations, target is the section base address

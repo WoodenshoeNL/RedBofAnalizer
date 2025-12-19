@@ -50,7 +50,7 @@ impl SymbolResolver {
             return Ok(addr);
         }
         
-        let addr = if import.library == "Beacon" {
+        let addr = if import.library == "Beacon" || (import.library.is_empty() && self.is_beacon_api(&import.function)) {
             // Beacon API - get from our table
             self.beacon_apis.get(&import.function)
                 .copied()
@@ -99,6 +99,37 @@ impl SymbolResolver {
     /// Set Beacon API function address
     pub fn set_beacon_api(&mut self, name: &str, addr: usize) {
         self.beacon_apis.insert(name.to_string(), addr);
+    }
+    
+    /// Check if a symbol name is a known Beacon API
+    pub fn is_beacon_api(&self, name: &str) -> bool {
+        self.beacon_apis.contains_key(name)
+    }
+    
+    /// Resolve a symbol by name (for direct symbol resolution, not via Import)
+    pub fn resolve_symbol_by_name(&mut self, symbol_name: &str) -> Result<usize> {
+        // First check if it's a Beacon API
+        if let Some(&addr) = self.beacon_apis.get(symbol_name) {
+            return Ok(addr);
+        }
+        
+        // Otherwise, try to resolve as Windows API
+        // For symbols like KERNEL32$GetProcessHeap, parse the library and function
+        if let Some(dollar_pos) = symbol_name.find('$') {
+            let library = &symbol_name[..dollar_pos];
+            let function = &symbol_name[dollar_pos + 1..];
+            // Remove @ suffix if present (stdcall decoration)
+            let function = function.split('@').next().unwrap_or(function);
+            
+            self.resolve_windows_api(library, function)
+        } else {
+            // Try as a direct function name (might be in kernel32 by default)
+            self.resolve_windows_api("KERNEL32", symbol_name)
+                .or_else(|_| {
+                    // Try other common libraries
+                    self.resolve_windows_api("NTDLL", symbol_name)
+                })
+        }
     }
 }
 

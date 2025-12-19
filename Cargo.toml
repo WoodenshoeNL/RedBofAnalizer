@@ -75,6 +75,10 @@ windows = { version = "0.58", features = [
 default = ["yara"]
 yara = ["dep:yara"]
 
+[[example]]
+name = "lint_example"
+path = "examples/lint_example.rs"
+
 [dev-dependencies]
 # Testing utilities
 tempfile = "3.0"
