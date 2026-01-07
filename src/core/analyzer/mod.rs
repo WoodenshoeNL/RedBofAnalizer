@@ -364,10 +364,10 @@ fn build_dependencies(imports: &[crate::core::models::bof::Import]) -> Dependenc
 }
 
 /// Assess risk level based on BOF characteristics
+/// 
+/// This provides a basic risk assessment. For more comprehensive analysis,
+/// use the OpSec analysis features which provide detailed scoring and categorization.
 fn assess_risk_level(bof: &BofFile) -> RiskLevel {
-    // Basic risk assessment
-    // TODO: Enhance in Phase 2.1.4
-    
     // Check for suspicious imports
     let has_process_ops = bof.imports.iter().any(|imp| {
         imp.function.contains("Process") || 

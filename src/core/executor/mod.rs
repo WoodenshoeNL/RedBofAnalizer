@@ -144,7 +144,12 @@ pub fn execute_with_entry_point(
     
     // Allocate memory
     let memory = MemoryRegion::allocate(total_size)
-        .context("Failed to allocate memory for BOF")?;
+        .with_context(|| format!(
+            "Failed to allocate {} bytes of memory for BOF. This may indicate:\n\
+             - Insufficient system memory\n\
+             - Memory allocation failure",
+            total_size
+        ))?;
     
     // Load sections
     let section_mappings = load_sections(bof, &memory)
@@ -504,7 +509,20 @@ pub fn execute_with_entry_point(
         // Use specified entry point name
         bof.symbols.iter()
             .find(|s| s.name == ep_name && s.section.is_some() && !s.is_external)
-            .ok_or_else(|| anyhow::anyhow!("Entry point '{}' not found", ep_name))?
+            .ok_or_else(|| {
+                let available: Vec<String> = bof.symbols.iter()
+                    .filter(|s| s.section.is_some() && !s.is_external)
+                    .map(|s| s.name.clone())
+                    .take(5)
+                    .collect();
+                anyhow::anyhow!(
+                    "Entry point '{}' not found in BOF.\n\
+                     Available symbols: {}\n\
+                     BOFs typically use 'go' as the entry point name.",
+                    ep_name,
+                    if available.is_empty() { "none".to_string() } else { available.join(", ") }
+                )
+            })?
     } else {
         // Use default entry point (go) or fallback to first available function
         bof.entry_point.as_ref()
@@ -536,7 +554,11 @@ pub fn execute_with_entry_point(
                 }
                 None
             })
-            .ok_or_else(|| anyhow::anyhow!("No entry point found"))?
+            .ok_or_else(|| anyhow::anyhow!(
+                "No entry point found in BOF.\n\
+                 BOFs must have a 'go' function as the entry point.\n\
+                 Check if the BOF was compiled correctly and includes the entry point function."
+            ))?
     };
     
     log::info!("Entry point '{}' found with value 0x{:x}, section {:?}", 

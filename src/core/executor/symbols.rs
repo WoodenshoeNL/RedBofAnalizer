@@ -54,7 +54,11 @@ impl SymbolResolver {
             // Beacon API - get from our table
             self.beacon_apis.get(&import.function)
                 .copied()
-                .ok_or_else(|| anyhow::anyhow!("Unknown Beacon API: {}", import.function))?
+                .ok_or_else(|| anyhow::anyhow!(
+                    "Unknown Beacon API: '{}'. This API is not supported by the emulator. \
+                     Check if the API name is correct or if this is a newer Beacon API that needs to be added.",
+                    import.function
+                ))?
         } else {
             // Windows API - resolve via LoadLibrary/GetProcAddress
             self.resolve_windows_api(&import.library, &import.function)?
@@ -77,7 +81,13 @@ impl SymbolResolver {
             
             unsafe {
                 let module = LoadLibraryA(PCSTR::from_raw(dll_cstr.as_ptr() as *const u8))
-                    .context(format!("Failed to load library: {}", dll_name))?;
+                    .with_context(|| format!(
+                        "Failed to load library '{}'. This may indicate:\n\
+                         - The DLL is not available on this system\n\
+                         - The DLL name is incorrect\n\
+                         - Missing system dependencies",
+                        dll_name
+                    ))?;
                 
                 self.library_cache.insert(library.to_string(), module);
                 module
@@ -90,7 +100,13 @@ impl SymbolResolver {
         
         unsafe {
             let addr = GetProcAddress(module, PCSTR::from_raw(func_cstr.as_ptr() as *const u8))
-                .ok_or_else(|| anyhow::anyhow!("Function not found: {}", function))?;
+                .ok_or_else(|| anyhow::anyhow!(
+                    "Function '{}' not found in library '{}'. This may indicate:\n\
+                     - The function doesn't exist in this version of the DLL\n\
+                     - The DLL name is incorrect\n\
+                     - The function name is misspelled",
+                    function, library
+                ))?;
             
             Ok(addr as usize)
         }

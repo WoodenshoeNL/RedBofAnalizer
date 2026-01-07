@@ -72,7 +72,12 @@ pub fn validate_arguments(signature: &[ArgumentType], arg_str: &str) -> Result<(
     for (i, (sig_type, part)) in signature.iter().zip(parts.iter()).enumerate() {
         // Allow empty strings: "z:" or "Z:" (type prefix + colon with no value)
         if part.len() < 2 || !part.contains(':') {
-            anyhow::bail!("Invalid argument format at position {}: {}", i + 1, part);
+            anyhow::bail!(
+                "Invalid argument format at position {}: '{}'\n\
+                 Expected format: <type>:<value> (e.g., 'z:hello', 'i:123', 's:456')\n\
+                 Valid types: z (string), Z (wide string), i (int32), s (int16), b (binary hex)",
+                i + 1, part
+            );
         }
         
         let (arg_type_char, _) = part.split_at(1);
@@ -332,7 +337,12 @@ pub fn parse_arguments(arg_str: &str) -> Result<Vec<u8>> {
             }
             ('z', *part)
         } else if part.len() < 2 {
-            anyhow::bail!("Invalid argument format: {}", part);
+            anyhow::bail!(
+                "Invalid argument format: '{}'\n\
+                 Expected format: <type>:<value> (e.g., 'z:hello', 'i:123', 's:456')\n\
+                 Valid types: z (string), Z (wide string), i (int32), s (int16), b (binary hex)",
+                part
+            );
         } else {
             // Parse type:value format
             if part.chars().nth(1) != Some(':') {
@@ -411,7 +421,11 @@ pub fn parse_arguments(arg_str: &str) -> Result<Vec<u8>> {
                 }
             }
             _ => {
-                anyhow::bail!("Unknown argument type '{}' in argument: {}", arg_type_char, part);
+                anyhow::bail!(
+                    "Unknown argument type '{}' in argument: '{}'\n\
+                     Valid types: z (string), Z (wide string), i (int32), s (int16), b (binary hex)",
+                    arg_type_char, part
+                );
             }
         }
     }

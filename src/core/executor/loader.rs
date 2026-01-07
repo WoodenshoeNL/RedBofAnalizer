@@ -30,7 +30,11 @@ impl MemoryRegion {
             );
             
             if ptr.is_null() {
-                anyhow::bail!("VirtualAlloc returned null");
+                anyhow::bail!(
+                    "VirtualAlloc returned null when trying to allocate {} bytes.\n\
+                     This usually indicates insufficient system memory or memory allocation failure.",
+                    aligned_size
+                );
             }
             
             Ok(MemoryRegion {
@@ -70,7 +74,11 @@ impl MemoryRegion {
     /// Write data at offset
     pub fn write_at(&self, offset: usize, data: &[u8]) -> Result<()> {
         if offset + data.len() > self.size {
-            anyhow::bail!("Write out of bounds");
+            anyhow::bail!(
+                "Attempted to write {} bytes at offset {} but memory region size is only {} bytes.\n\
+                 This indicates a BOF parsing or memory mapping error.",
+                data.len(), offset, self.size
+            );
         }
         unsafe {
             let dst = self.base.as_ptr().add(offset);

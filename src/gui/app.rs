@@ -77,6 +77,8 @@ pub struct RedBofApp {
     selected_section: Option<String>,
     /// Selected entry point name (None means use default)
     selected_entry_point: Option<String>,
+    /// Show about dialog
+    show_about: bool,
     /// Enhanced OpSec analysis result
     opsec_analysis: Option<crate::core::analyzer::opsec::EnhancedOpsecAnalysis>,
     /// Compatibility analysis result
@@ -212,6 +214,7 @@ impl RedBofApp {
             show_disassembly: false,
             selected_section: None,
             selected_entry_point: None,
+            show_about: false,
             opsec_analysis: None,
             compatibility_analysis: None,
             calling_convention_analysis: None,
@@ -379,7 +382,17 @@ impl RedBofApp {
                     ));
                     
                     if let Some(err) = &result.error {
-                        self.execution_output.push(format!("Error: {}", err));
+                        // Provide user-friendly error messages for execution
+                        let user_message = if err.contains("timeout") || err.contains("exceeded") {
+                            format!("Execution timeout: {}", err)
+                        } else if err.contains("crashed") || err.contains("panicked") {
+                            format!("BOF execution crashed: {}", err)
+                        } else if err.contains("ACCESS VIOLATION") || err.contains("access violation") {
+                            "BOF caused an access violation (memory error). Check the BOF code for memory safety issues.".to_string()
+                        } else {
+                            format!("Execution error: {}", err)
+                        };
+                        self.execution_output.push(user_message);
                     }
                     
                     self.execution_output.push(String::new()); // Empty line
@@ -397,7 +410,19 @@ impl RedBofApp {
                     self.is_loading = false;
                     self.is_executing = false;
                     self.execution_thread_id = None; // Clear thread ID on error
-                    self.status_message = format!("Error: {}", err);
+                    // Provide user-friendly error messages
+                    let user_message = if err.contains("not found") || err.contains("No such file") {
+                        format!("File not found: {}", err)
+                    } else if err.contains("parse") || err.contains("COFF") || err.contains("Failed to parse") {
+                        "Failed to parse BOF file. The file may be corrupted or not a valid COFF object file.".to_string()
+                    } else if err.contains("entry point") || err.contains("go") {
+                        "BOF is missing the required 'go' entry point function.".to_string()
+                    } else if err.contains("architecture") || err.contains("machine type") {
+                        "BOF architecture is not compatible with this build.".to_string()
+                    } else {
+                        format!("Error: {}", err)
+                    };
+                    self.status_message = user_message;
                 }
             }
         }
@@ -529,7 +554,7 @@ impl RedBofApp {
                 
                 ui.menu_button("Help", |ui| {
                     if ui.button("About").clicked() {
-                        // TODO: Show about dialog
+                        self.show_about = true;
                         ui.close_menu();
                     }
                 });
@@ -3290,6 +3315,37 @@ impl eframe::App for RedBofApp {
         
         // Render menu bar
         self.render_menu_bar(ctx);
+        
+        // Render about dialog
+        if self.show_about {
+            egui::Window::new("About RedBofAnalizer")
+                .collapsible(false)
+                .resizable(false)
+                .default_size([400.0, 300.0])
+                .show(ctx, |ui| {
+                    ui.vertical_centered(|ui| {
+                        ui.heading("RedBofAnalizer");
+                        ui.label(RichText::new(format!("Version {}", env!("CARGO_PKG_VERSION"))).size(14.0));
+                        ui.add_space(10.0);
+                        ui.separator();
+                        ui.add_space(10.0);
+                        ui.label("A comprehensive Beacon Object File (BOF) analyzer and execution tool");
+                        ui.add_space(5.0);
+                        ui.label("Written in Rust");
+                        ui.add_space(10.0);
+                        ui.separator();
+                        ui.add_space(10.0);
+                        ui.label(RichText::new("License: GPL-3.0").small());
+                        ui.label(RichText::new("See LICENSE file for details").small());
+                        ui.add_space(10.0);
+                        ui.separator();
+                        ui.add_space(10.0);
+                        if ui.button("Close").clicked() {
+                            self.show_about = false;
+                        }
+                    });
+                });
+        }
         
         // Render hex preview window if a section is selected
         if let Some(section_name) = &self.hex_preview_section {
