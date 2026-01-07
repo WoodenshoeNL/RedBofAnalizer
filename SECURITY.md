@@ -19,7 +19,7 @@ We take security vulnerabilities seriously. If you discover a security vulnerabi
 
 Instead, please report them via one of the following methods:
 
-1. **Email**: Send details to [security email address] (if available)
+1. **Email**: Send details to info@red-cell.nl
 2. **GitHub Security Advisory**: Use GitHub's private vulnerability reporting feature
 3. **Private Issue**: Create a private security issue (if you have maintainer access)
 
@@ -171,7 +171,7 @@ We appreciate the security research community's efforts to help keep RedBofAnali
 
 For security-related questions or concerns:
 
-- **Security Issues**: Use the reporting process above
+- **Security Issues**: Email info@red-cell.nl or use the reporting process above
 - **General Questions**: Open a GitHub issue
 - **Documentation**: See `docs/` directory
 
