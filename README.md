@@ -353,7 +353,7 @@ Contributions are welcome! Please see the development plan in `PLAN.md` for area
 
 ## License
 
-MIT License - see LICENSE file for details.
+GPL-3.0 License - see LICENSE file for details.
 
 ## Acknowledgments
 

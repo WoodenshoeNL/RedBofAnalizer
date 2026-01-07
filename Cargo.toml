@@ -3,7 +3,7 @@ name = "redbofanalyzer"
 version = "0.1.0"
 edition = "2021"
 description = "A comprehensive Beacon Object File (BOF) analyzer and execution tool"
-license = "MIT"
+license = "GPL-3.0"
 authors = ["RedBofAnalizer Contributors"]
 
 [dependencies]
