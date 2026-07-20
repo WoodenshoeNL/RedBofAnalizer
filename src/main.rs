@@ -7,6 +7,7 @@ use log::info;
 use std::path::PathBuf;
 
 mod cli;
+#[cfg(windows)]
 mod gui;
 mod core;
 
@@ -155,8 +156,15 @@ fn main() -> anyhow::Result<()> {
         info!("Launching GUI mode");
         // Set debug mode globally for executor
         core::executor::set_debug_mode(args.debug);
-        gui::run()?;
-        return Ok(());
+        #[cfg(windows)]
+        {
+            gui::run()?;
+            return Ok(());
+        }
+        #[cfg(not(windows))]
+        {
+            anyhow::bail!("GUI mode is only supported on Windows. Use --cli with a command (analyze, validate, etc.).");
+        }
     }
     
     // CLI mode: require a command if --cli is explicitly set

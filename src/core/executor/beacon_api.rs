@@ -1,4 +1,5 @@
 //! Beacon API emulation
+#![cfg(windows)]
 
 use std::sync::{Mutex, OnceLock};
 use std::collections::HashMap;

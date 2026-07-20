@@ -5,6 +5,7 @@
 
 pub mod core;
 pub mod cli;
+#[cfg(windows)]
 pub mod gui;
 
 // Re-export commonly used types

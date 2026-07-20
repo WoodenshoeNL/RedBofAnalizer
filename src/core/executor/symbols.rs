@@ -1,4 +1,5 @@
 //! Symbol resolution for BOF execution
+#![cfg(windows)]
 
 use crate::core::models::bof::Import;
 use anyhow::{Result, Context};

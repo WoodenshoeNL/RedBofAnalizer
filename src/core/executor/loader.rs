@@ -1,4 +1,5 @@
 //! Memory loader for BOF files
+#![cfg(windows)]
 
 use crate::core::models::bof::BofFile;
 use anyhow::{Result, Context};

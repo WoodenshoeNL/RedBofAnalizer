@@ -1,13 +1,22 @@
 //! BOF execution module
+//!
+//! On Windows: full in-process BOF execution (memory loader, symbol resolution,
+//! Beacon API emulation, exception handling).
+//! On non-Windows: only the argument parser, relocations, sandbox, tracer, and
+//! printf submodules are available. The execute/test functions return an error.
 
-pub mod loader;
-pub mod symbols;
-pub mod beacon_api;
 pub mod arguments;
 pub mod relocations;
 pub mod sandbox;
 pub mod tracer;
 pub mod printf;
+
+#[cfg(windows)]
+pub mod loader;
+#[cfg(windows)]
+pub mod symbols;
+#[cfg(windows)]
+pub mod beacon_api;
 
 use std::sync::atomic::{AtomicBool, Ordering};
 
@@ -24,16 +33,36 @@ pub fn is_debug_mode() -> bool {
     DEBUG_MODE.load(Ordering::SeqCst)
 }
 
+#[cfg(windows)]
 use crate::core::models::bof::{BofFile, Import, MachineType};
+#[cfg(windows)]
 use crate::core::models::report::{ExecutionResult, OutputMessage, OutputType};
+#[cfg(windows)]
 use crate::core::parser;
+#[cfg(windows)]
 use anyhow::{Result, Context};
+#[cfg(windows)]
 use std::time::{Duration, Instant};
+#[cfg(windows)]
 use loader::{MemoryRegion, load_sections};
+#[cfg(windows)]
 use symbols::SymbolResolver;
+#[cfg(windows)]
 use beacon_api::{BeaconApi, global_output, clear_global_output};
+#[cfg(windows)]
 use sandbox::init_sandbox;
+#[cfg(windows)]
 use tracer::{init_tracer, get_api_calls, clear_tracer};
+
+// Non-Windows: minimal imports for the stub functions below
+#[cfg(not(windows))]
+use crate::core::models::bof::BofFile;
+#[cfg(not(windows))]
+use crate::core::models::report::ExecutionResult;
+#[cfg(not(windows))]
+use anyhow::Result;
+#[cfg(not(windows))]
+use std::time::Duration;
 
 #[cfg(windows)]
 use windows::Win32::System::Diagnostics::Debug::FlushInstructionCache;
@@ -70,6 +99,7 @@ unsafe extern "system" fn exception_handler(exception_info: *mut EXCEPTION_POINT
 }
 
 /// Execute a BOF
+#[cfg(windows)]
 pub fn execute(
     bof: &BofFile,
     args: &[u8],
@@ -81,7 +111,21 @@ pub fn execute(
     execute_with_entry_point(bof, args, sandbox, trace, timeout, None, emulate_beacon_info)
 }
 
+/// Execute a BOF (non-Windows stub)
+#[cfg(not(windows))]
+pub fn execute(
+    _bof: &BofFile,
+    _args: &[u8],
+    _sandbox: bool,
+    _trace: bool,
+    _timeout: Duration,
+    _emulate_beacon_info: bool,
+) -> Result<ExecutionResult> {
+    anyhow::bail!("BOF execution is only supported on Windows. Use a Windows loader (RedLoader, COFFLoader) on the target VM instead.")
+}
+
 /// Execute a BOF with a specific entry point
+#[cfg(windows)]
 pub fn execute_with_entry_point(
     bof: &BofFile,
     args: &[u8],
@@ -709,12 +753,19 @@ pub fn execute_with_entry_point(
 }
 
 /// Test a BOF (execute without arguments)
+#[cfg(windows)]
 pub fn test_bof(path: &std::path::PathBuf, _continue_on_error: bool) -> Result<ExecutionResult> {
     // Load and parse BOF
     let bof = parser::load_bof(path)?;
     
     // Execute without arguments
     execute(&bof, &[], false, false, Duration::from_secs(30), false)
+}
+
+/// Test a BOF (non-Windows stub)
+#[cfg(not(windows))]
+pub fn test_bof(_path: &std::path::PathBuf, _continue_on_error: bool) -> Result<ExecutionResult> {
+    anyhow::bail!("BOF execution is only supported on Windows. Use a Windows loader (RedLoader, COFFLoader) on the target VM instead.")
 }
 
 

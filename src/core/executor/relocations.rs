@@ -1,4 +1,5 @@
-//! Relocation application for BOF execution
+//! Relocation processing for BOF execution
+#![cfg(windows)]
 
 use crate::core::models::bof::{Relocation, RelocationType};
 use crate::core::executor::loader::{MemoryRegion, SectionMapping};
