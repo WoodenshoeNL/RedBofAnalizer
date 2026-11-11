@@ -12,6 +12,7 @@ mod yara_tests {
         let result = yara::analyze_with_yara(
             &create_test_bof(),
             &[],
+            true, // use default rules
         );
         
         assert!(result.is_ok(), "YARA analysis should succeed");
@@ -45,7 +46,7 @@ mod yara_tests {
         };
         bof.sections.push(beacon_section);
         
-        let result = yara::analyze_with_yara(&bof, &[]);
+        let result = yara::analyze_with_yara(&bof, &[], true);
         assert!(result.is_ok(), "YARA analysis should succeed");
         
         let analysis = result.unwrap();
@@ -113,7 +114,7 @@ mod yara_tests {
             entry_point: None,
         };
 
-        let result = yara::analyze_with_yara(&bof, &[]);
+        let result = yara::analyze_with_yara(&bof, &[], true);
         assert!(result.is_ok(), "YARA analysis should succeed even without feature");
         
         let analysis = result.unwrap();

@@ -115,6 +115,7 @@ fn test_execute_simple_bof() {
             false, // sandbox
             false, // trace
             Duration::from_secs(30),
+            false, // emulate_beacon_info
         );
         
         match result {

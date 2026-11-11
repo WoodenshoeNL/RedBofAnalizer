@@ -127,6 +127,7 @@ fn test_batch_execute_simple_bofs() {
                         false, // sandbox
                         false, // trace
                         Duration::from_secs(5), // Short timeout for batch testing
+                        false, // emulate_beacon_info
                     ) {
                         Ok(exec_result) => {
                             executed += 1;

@@ -20,7 +20,7 @@ fn main() -> anyhow::Result<()> {
     println!("Analyzing BOF: {}\n", bof_path);
     
     // Load and parse BOF
-    let bof = core::parser::load_bof(bof_path)?;
+    let bof = core::parser::load_bof(&std::path::PathBuf::from(bof_path))?;
     
     // Run all lints
     let lint_findings = core::analyzer::linter::run_lints(&bof);

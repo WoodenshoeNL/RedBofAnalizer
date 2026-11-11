@@ -32,6 +32,7 @@ fn test_executor_timeout() {
             false, // sandbox
             false, // trace
             Duration::from_millis(1), // Very short timeout
+            false, // emulate_beacon_info
         );
         
         // Should complete (timeout checking happens after execution)
@@ -74,6 +75,7 @@ fn test_executor_sandbox_mode() {
             true, // sandbox
             false, // trace
             Duration::from_secs(30),
+            false, // emulate_beacon_info
         );
         
         // Should complete (sandbox mode may restrict some operations)
@@ -116,6 +118,7 @@ fn test_executor_trace_mode() {
             false, // sandbox
             true,  // trace
             Duration::from_secs(30),
+            false, // emulate_beacon_info
         );
         
         match result {
@@ -163,6 +166,7 @@ fn test_executor_with_arguments() {
             false, // sandbox
             false, // trace
             Duration::from_secs(30),
+            false, // emulate_beacon_info
         );
         
         match result {

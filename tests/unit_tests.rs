@@ -1,4 +1,10 @@
 //! Unit tests for core components
+//!
+//! Everything here exercises the Beacon API implementations, which are
+//! Windows-gated in the library (`#[cfg(windows)]`), so this whole target
+//! only builds on Windows. Cross-platform coverage lives in parser_tests,
+//! pe_tests, analyzer_tests, cli_tests and integration_tests.
+#![cfg(windows)]
 
 mod common;
 
@@ -127,6 +133,13 @@ fn test_argument_format_parsing() {
         assert_eq!(short_val, 123, "Should parse short correctly");
     }
 }
+
+// The executor's symbol/Beacon-API machinery is Windows-gated
+// (`#[cfg(windows)]`); these tests exercise it directly and therefore only
+// build on Windows. Argument-packing tests below are platform-independent.
+#[cfg(windows)]
+mod windows_executor_tests {
+use super::*;
 
 #[test]
 fn test_symbol_resolution_windows_api() {
@@ -265,3 +278,5 @@ fn test_beacon_data_extract() {
     }
 }
 
+
+} // windows_executor_tests
