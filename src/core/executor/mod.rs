@@ -7,6 +7,8 @@
 
 pub mod arguments;
 pub mod capture;
+#[cfg(windows)]
+pub mod pe_exec;
 pub mod relocations;
 pub mod sandbox;
 pub mod task;
@@ -76,10 +78,10 @@ use windows::Win32::System::Diagnostics::Debug::{AddVectoredExceptionHandler, Re
 use windows::Win32::Foundation::EXCEPTION_ACCESS_VIOLATION;
 
 #[cfg(windows)]
-static mut CRASH_INFO: Option<(u64, u64)> = None; // (crash_address, instruction_pointer)
+pub(crate) static mut CRASH_INFO: Option<(u64, u64)> = None; // (crash_address, instruction_pointer)
 
 #[cfg(windows)]
-unsafe extern "system" fn exception_handler(exception_info: *mut EXCEPTION_POINTERS) -> i32 {
+pub(crate) unsafe extern "system" fn exception_handler(exception_info: *mut EXCEPTION_POINTERS) -> i32 {
     const EXCEPTION_CONTINUE_SEARCH: i32 = 0;
     
     if let Some(info) = exception_info.as_ref() {
@@ -324,101 +326,10 @@ pub fn execute_async(
     anyhow::bail!("BOF execution is only supported on Windows. Use a Windows loader (RedLoader, COFFLoader) on the target VM instead.")
 }
 
-/// Execute a BOF with a specific entry point
+/// Register every Beacon API implementation on the resolver (shared by
+/// the COFF path and the BOF-PE mapper).
 #[cfg(windows)]
-pub fn execute_with_entry_point(
-    bof: &BofFile,
-    args: &[u8],
-    sandbox: bool,
-    trace: bool,
-    timeout: Duration,
-    entry_point_name: Option<&str>,
-    emulate_beacon_info: bool,
-) -> Result<ExecutionResult> {
-    let start = Instant::now();
-    clear_global_output();
-    clear_tracer();
-    
-    // ---------------------------------------------------------------------
-    // Architecture compatibility check
-    // ---------------------------------------------------------------------
-    //
-    // BOF code runs directly inside this process, so the BOF machine type
-    // must match the process architecture. If it does not, we refuse to
-    // execute and return a clear error instead of crashing.
-    #[cfg(target_pointer_width = "64")]
-    let process_arch_bits: u32 = 64;
-    #[cfg(target_pointer_width = "32")]
-    let process_arch_bits: u32 = 32;
-
-    let bof_arch_bits: u32 = match bof.header.machine {
-        MachineType::X64 => 64,
-        MachineType::X86 => 32,
-        MachineType::Unknown(val) => {
-            return Err(anyhow::anyhow!(
-                "Cannot execute BOF with unknown or unsupported architecture (machine = 0x{:04X})",
-                val
-            ));
-        }
-    };
-
-    if bof_arch_bits != process_arch_bits {
-        let bof_arch_str = if bof_arch_bits == 64 { "x64" } else { "x86" };
-        let proc_arch_str = if process_arch_bits == 64 { "x64" } else { "x86" };
-
-        return Err(anyhow::anyhow!(
-            "BOF architecture is not compatible with this redbofanalyzer build.\n\
-             - BOF architecture: {}\n\
-             - Process/tool architecture: {}\n\
-             This build can only execute BOFs that match the process architecture.\n\
-             Use a 32-bit build to execute x86 BOFs, or a 64-bit build to execute x64 BOFs.",
-            bof_arch_str,
-            proc_arch_str
-        ));
-    }
-    
-    // Initialize sandbox and tracer
-    init_sandbox(sandbox);
-    init_tracer(trace);
-    
-    // Calculate total memory needed
-    let total_size: usize = bof.sections.iter()
-        .map(|s| loader::align_to_page(s.raw_size as usize))
-        .sum();
-    
-    // Allocate memory
-    let memory = MemoryRegion::allocate(total_size)
-        .with_context(|| format!(
-            "Failed to allocate {} bytes of memory for BOF. This may indicate:\n\
-             - Insufficient system memory\n\
-             - Memory allocation failure",
-            total_size
-        ))?;
-    
-    // Load sections
-    let section_mappings = load_sections(bof, &memory)
-        .context("Failed to load sections")?;
-
-    // Initialize BeaconInformation and syscall information emulation (if enabled)
-    #[cfg(windows)]
-    crate::core::executor::beacon_api::initialize_beacon_information_emulation(
-        memory.base(),
-        total_size,
-        &section_mappings,
-        emulate_beacon_info,
-    );
-    #[cfg(windows)]
-    crate::core::executor::beacon_api::set_syscall_os_emulation_enabled(emulate_beacon_info);
-    #[cfg(windows)]
-    crate::core::executor::beacon_api::set_syscall_trace_enabled(trace);
-    
-    // Resolve symbols
-    let mut resolver = SymbolResolver::new();
-    
-    // Register Beacon API functions
-    let _beacon_api = BeaconApi::new();
-    // Note: Function pointer casts are safe, but the functions themselves will be called from unsafe code
-    
+pub(crate) fn register_all_beacon_apis(resolver: &mut SymbolResolver) {
     // Output APIs
     resolver.set_beacon_api("BeaconPrintf", BeaconApi::beacon_printf as usize);
     resolver.set_beacon_api("BeaconOutput", BeaconApi::beacon_output as usize);
@@ -519,6 +430,144 @@ pub fn execute_with_entry_point(
     resolver.set_beacon_api("BeaconEnableBeaconGate", BeaconApi::beacon_enable_beacon_gate as usize);
     resolver.set_beacon_api("BeaconDisableBeaconGateMasking", BeaconApi::beacon_disable_beacon_gate_masking as usize);
     resolver.set_beacon_api("BeaconEnableBeaconGateMasking", BeaconApi::beacon_enable_beacon_gate_masking as usize);
+}
+
+/// Execute a BOF with a specific entry point
+#[cfg(windows)]
+pub fn execute_with_entry_point(
+    bof: &BofFile,
+    args: &[u8],
+    sandbox: bool,
+    trace: bool,
+    timeout: Duration,
+    entry_point_name: Option<&str>,
+    emulate_beacon_info: bool,
+) -> Result<ExecutionResult> {
+    let start = Instant::now();
+    clear_global_output();
+    clear_tracer();
+    
+    // ---------------------------------------------------------------------
+    // Architecture compatibility check
+    // ---------------------------------------------------------------------
+    //
+    // BOF code runs directly inside this process, so the BOF machine type
+    // must match the process architecture. If it does not, we refuse to
+    // execute and return a clear error instead of crashing.
+    #[cfg(target_pointer_width = "64")]
+    let process_arch_bits: u32 = 64;
+    #[cfg(target_pointer_width = "32")]
+    let process_arch_bits: u32 = 32;
+
+    let bof_arch_bits: u32 = match bof.header.machine {
+        MachineType::X64 => 64,
+        MachineType::X86 => 32,
+        MachineType::Unknown(val) => {
+            return Err(anyhow::anyhow!(
+                "Cannot execute BOF with unknown or unsupported architecture (machine = 0x{:04X})",
+                val
+            ));
+        }
+    };
+
+    if bof_arch_bits != process_arch_bits {
+        let bof_arch_str = if bof_arch_bits == 64 { "x64" } else { "x86" };
+        let proc_arch_str = if process_arch_bits == 64 { "x64" } else { "x86" };
+
+        return Err(anyhow::anyhow!(
+            "BOF architecture is not compatible with this redbofanalyzer build.\n\
+             - BOF architecture: {}\n\
+             - Process/tool architecture: {}\n\
+             This build can only execute BOFs that match the process architecture.\n\
+             Use a 32-bit build to execute x86 BOFs, or a 64-bit build to execute x64 BOFs.",
+            bof_arch_str,
+            proc_arch_str
+        ));
+    }
+    
+    // Initialize sandbox and tracer
+    init_sandbox(sandbox);
+    init_tracer(trace);
+    
+    // BOF-PE images take a separate manual-mapping path: headers, sections
+    // and IAT live at their RVAs and imports bind through the PE import
+    // tables, so the flat COFF section copy below does not apply.
+    #[cfg(windows)]
+    {
+        if let Ok(bytes) = std::fs::read(&bof.path) {
+            if crate::core::parser::pe::is_pe_image(&bytes) {
+                let mut pe_resolver = SymbolResolver::new();
+                register_all_beacon_apis(&mut pe_resolver);
+                let entry_name = entry_point_name.unwrap_or("go").to_string();
+                let code_base =
+                    crate::core::executor::pe_exec::execute_pe(&bytes, args, &pe_resolver, &entry_name)?;
+                let execution_time = start.elapsed();
+                let output_entries = global_output().get_entries();
+                let output: Vec<OutputMessage> = output_entries
+                    .iter()
+                    .map(|entry| OutputMessage {
+                        timestamp: chrono::Utc::now().to_rfc3339(),
+                        message_type: match entry.callback_type {
+                            0x00 => OutputType::Output,
+                            0x0d => OutputType::Error,
+                            _ => OutputType::Custom,
+                        },
+                        content: String::from_utf8_lossy(&entry.data).to_string(),
+                    })
+                    .collect();
+                return Ok(ExecutionResult {
+                    success: true,
+                    output,
+                    execution_time,
+                    error: None,
+                    api_calls: get_api_calls(),
+                    resolved_imports: Default::default(),
+                    code_base_address: Some(code_base as u64),
+                });
+            }
+        }
+    }
+    
+    // Calculate total memory needed
+    let total_size: usize = bof.sections.iter()
+        .map(|s| loader::align_to_page(s.raw_size as usize))
+        .sum();
+    
+    // Allocate memory
+    let memory = MemoryRegion::allocate(total_size)
+        .with_context(|| format!(
+            "Failed to allocate {} bytes of memory for BOF. This may indicate:\n\
+             - Insufficient system memory\n\
+             - Memory allocation failure",
+            total_size
+        ))?;
+    
+    // Load sections
+    let section_mappings = load_sections(bof, &memory)
+        .context("Failed to load sections")?;
+
+    // Initialize BeaconInformation and syscall information emulation (if enabled)
+    #[cfg(windows)]
+    crate::core::executor::beacon_api::initialize_beacon_information_emulation(
+        memory.base(),
+        total_size,
+        &section_mappings,
+        emulate_beacon_info,
+    );
+    #[cfg(windows)]
+    crate::core::executor::beacon_api::set_syscall_os_emulation_enabled(emulate_beacon_info);
+    #[cfg(windows)]
+    crate::core::executor::beacon_api::set_syscall_trace_enabled(trace);
+    
+    // Resolve symbols
+    let mut resolver = SymbolResolver::new();
+    
+    // Register Beacon API functions
+    let _beacon_api = BeaconApi::new();
+    // Note: Function pointer casts are safe, but the functions themselves will be called from unsafe code
+    
+    register_all_beacon_apis(&mut resolver);
+    
     
     // Resolve all symbols and build symbol map
     // Key: COFF symbol table index, Value: resolved address

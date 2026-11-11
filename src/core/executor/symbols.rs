@@ -114,6 +114,12 @@ impl SymbolResolver {
     }
     
     /// Set Beacon API function address
+    /// The registered Beacon API table (name -> function pointer), used to
+    /// bind `beacon.dll` imports when mapping BOF-PE images.
+    pub fn beacon_api_table(&self) -> &std::collections::HashMap<String, usize> {
+        &self.beacon_apis
+    }
+
     pub fn set_beacon_api(&mut self, name: &str, addr: usize) {
         self.beacon_apis.insert(name.to_string(), addr);
     }

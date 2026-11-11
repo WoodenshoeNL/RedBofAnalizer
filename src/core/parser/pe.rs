@@ -433,6 +433,13 @@ impl<'a> PeBof<'a> {
     }
 
     /// RVA of a named export.
+    /// Whether any relocation uses a type we cannot apply (not DIR64/Absolute).
+    pub fn has_unsupported_relocs(&self) -> bool {
+        self.relocs
+            .iter()
+            .any(|r| matches!(r.kind, PeRelocKind::Unsupported(_)))
+    }
+
     pub fn export_rva(&self, name: &str) -> Option<u32> {
         self.exports
             .iter()
