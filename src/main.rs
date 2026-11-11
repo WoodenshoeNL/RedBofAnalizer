@@ -1,5 +1,5 @@
 //! RedBofAnalizer - Main entry point
-//! 
+//!
 //! Supports both CLI and GUI modes with a shared core library.
 
 use clap::{Parser, Subcommand};
@@ -7,9 +7,9 @@ use log::info;
 use std::path::PathBuf;
 
 mod cli;
+mod core;
 #[cfg(windows)]
 mod gui;
-mod core;
 
 /// RedBofAnalizer - BOF Analyzer and Execution Tool
 #[derive(Parser)]
@@ -107,8 +107,45 @@ enum Command {
         is_async: bool,
         /// With --async: signal the stop event after N seconds (a
         /// well-behaved BOF observes it and returns promptly)
-        #[arg(long, requires = "is_async")]
+        #[arg(long, requires = "async")]
         async_timeout: Option<u64>,
+    },
+    /// Run a BOF through an OC2 Stage1 (.s1.py) wrapper: extracts the typed
+    /// argument spec, packs argv exactly like OC2, finds the BOF next to
+    /// the script (PE or COFF) and executes it
+    S1 {
+        /// The .s1.py wrapper script
+        script: PathBuf,
+        /// Show the extracted spec (command, format string, args) and exit
+        #[arg(long)]
+        list: bool,
+        /// Provide an uploaded file for a get_file_by_name element (NAME=PATH)
+        #[arg(long = "file", value_name = "NAME=PATH")]
+        files: Vec<String>,
+        /// Use the x86 variant of the BOF
+        #[arg(long)]
+        x86: bool,
+        /// Run in sandbox mode
+        #[arg(long)]
+        sandbox: bool,
+        /// Verbose API logging
+        #[arg(long)]
+        trace: bool,
+        /// Execution timeout in seconds
+        #[arg(long, default_value = "30")]
+        timeout: u64,
+        /// Run asynchronously (per-task output sink, OC2 stop-event contract)
+        #[arg(long, name = "async")]
+        is_async: bool,
+        /// With --async: signal the stop event after N seconds
+        #[arg(long, requires = "async")]
+        async_timeout: Option<u64>,
+        /// Parse and pack only: print the packed argument buffer and exit
+        /// (also the automatic behavior on non-Windows builds)
+        #[arg(long)]
+        pack_only: bool,
+        /// Arguments for the s1.py argument parser
+        args: Vec<String>,
     },
     /// Test all BOFs in directory
     Test {
@@ -149,16 +186,14 @@ fn main() -> anyhow::Result<()> {
             .init();
     } else {
         // Use RUST_LOG if set, otherwise default to Info
-        env_logger::Builder::from_env(
-            env_logger::Env::default().default_filter_or("info")
-        ).init();
+        env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info")).init();
     }
 
     info!("RedBofAnalizer v{}", env!("CARGO_PKG_VERSION"));
 
     // Determine mode: CLI if --cli flag is set or a command is provided, otherwise GUI (default)
     let use_cli = args.cli || args.command.is_some();
-    
+
     if !use_cli {
         // GUI mode (default)
         info!("Launching GUI mode");
@@ -174,7 +209,7 @@ fn main() -> anyhow::Result<()> {
             anyhow::bail!("GUI mode is only supported on Windows. Use --cli with a command (analyze, validate, etc.).");
         }
     }
-    
+
     // CLI mode: require a command if --cli is explicitly set
     if args.cli && args.command.is_none() {
         eprintln!("Error: --cli flag requires a command to execute");
@@ -190,7 +225,7 @@ fn main() -> anyhow::Result<()> {
         eprintln!("For more information, try 'redbofanalyzer --cli --help'");
         std::process::exit(1);
     }
-    
+
     // Set debug mode for CLI commands
     core::executor::set_debug_mode(args.debug);
 
@@ -213,7 +248,7 @@ fn main() -> anyhow::Result<()> {
             // Enhanced OpSec and compatibility analysis are always performed when security is enabled
             // or when explicitly requested
             let enhanced_analysis = security || opsec || compatibility || calling_convention;
-            
+
             // Convert YARA rule paths to YaraRuleSource and validate they exist
             use crate::core::analyzer::YaraRuleSource;
             let yara_rules_count = yara_rules.len();
@@ -230,14 +265,17 @@ fn main() -> anyhow::Result<()> {
                     log::info!("Loading YARA rule file: {:?}", path);
                     yara_rule_sources.push(YaraRuleSource::File(path.clone()));
                 } else {
-                    eprintln!("Warning: YARA rule path is neither a file nor directory: {:?}", path);
+                    eprintln!(
+                        "Warning: YARA rule path is neither a file nor directory: {:?}",
+                        path
+                    );
                 }
             }
-            
+
             if yara_rule_sources.is_empty() && yara_rules_count > 0 {
                 eprintln!("Warning: No valid YARA rule paths found. Using default rules only.");
             }
-            
+
             cli::commands::analyze(
                 file,
                 security,
@@ -261,7 +299,42 @@ fn main() -> anyhow::Result<()> {
             is_async,
             async_timeout,
         } => {
-            cli::commands::execute(file, exec_args, sandbox, trace, timeout, is_async, async_timeout)?;
+            cli::commands::execute(
+                file,
+                exec_args,
+                sandbox,
+                trace,
+                timeout,
+                is_async,
+                async_timeout,
+            )?;
+        }
+        Command::S1 {
+            script,
+            list,
+            files,
+            x86,
+            sandbox,
+            trace,
+            timeout,
+            is_async,
+            async_timeout,
+            pack_only,
+            args,
+        } => {
+            cli::commands::s1(
+                script,
+                list,
+                files,
+                x86,
+                sandbox,
+                trace,
+                timeout,
+                is_async,
+                async_timeout,
+                pack_only,
+                args,
+            )?;
         }
         Command::Test {
             directory,
@@ -279,4 +352,3 @@ fn main() -> anyhow::Result<()> {
 
     Ok(())
 }
-

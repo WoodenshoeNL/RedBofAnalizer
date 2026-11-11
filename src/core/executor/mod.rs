@@ -5,22 +5,23 @@
 //! On non-Windows: only the argument parser, relocations, sandbox, tracer, and
 //! printf submodules are available. The execute/test functions return an error.
 
+pub mod argspec;
 pub mod arguments;
 pub mod capture;
 #[cfg(windows)]
 pub mod pe_exec;
+pub mod printf;
 pub mod relocations;
 pub mod sandbox;
 pub mod task;
 pub mod tracer;
-pub mod printf;
 
+#[cfg(windows)]
+pub mod beacon_api;
 #[cfg(windows)]
 pub mod loader;
 #[cfg(windows)]
 pub mod symbols;
-#[cfg(windows)]
-pub mod beacon_api;
 
 use std::sync::atomic::{AtomicBool, Ordering};
 
@@ -44,19 +45,19 @@ use crate::core::models::report::{ExecutionResult, OutputMessage, OutputType};
 #[cfg(windows)]
 use crate::core::parser;
 #[cfg(windows)]
-use anyhow::{Result, Context};
+use anyhow::{Context, Result};
 #[cfg(windows)]
-use std::time::{Duration, Instant};
+use beacon_api::{clear_global_output, global_output, BeaconApi};
 #[cfg(windows)]
-use loader::{MemoryRegion, load_sections};
-#[cfg(windows)]
-use symbols::SymbolResolver;
-#[cfg(windows)]
-use beacon_api::{BeaconApi, global_output, clear_global_output};
+use loader::{load_sections, MemoryRegion};
 #[cfg(windows)]
 use sandbox::init_sandbox;
 #[cfg(windows)]
-use tracer::{init_tracer, get_api_calls, clear_tracer};
+use std::time::{Duration, Instant};
+#[cfg(windows)]
+use symbols::SymbolResolver;
+#[cfg(windows)]
+use tracer::{clear_tracer, get_api_calls, init_tracer};
 
 // Non-Windows: minimal imports for the stub functions below
 #[cfg(not(windows))]
@@ -69,21 +70,25 @@ use anyhow::Result;
 use std::time::Duration;
 
 #[cfg(windows)]
+use windows::Win32::Foundation::EXCEPTION_ACCESS_VIOLATION;
+#[cfg(windows)]
 use windows::Win32::System::Diagnostics::Debug::FlushInstructionCache;
 #[cfg(windows)]
+use windows::Win32::System::Diagnostics::Debug::{
+    AddVectoredExceptionHandler, RemoveVectoredExceptionHandler, EXCEPTION_POINTERS,
+};
+#[cfg(windows)]
 use windows::Win32::System::Threading::GetCurrentProcess;
-#[cfg(windows)]
-use windows::Win32::System::Diagnostics::Debug::{AddVectoredExceptionHandler, RemoveVectoredExceptionHandler, EXCEPTION_POINTERS};
-#[cfg(windows)]
-use windows::Win32::Foundation::EXCEPTION_ACCESS_VIOLATION;
 
 #[cfg(windows)]
 pub(crate) static mut CRASH_INFO: Option<(u64, u64)> = None; // (crash_address, instruction_pointer)
 
 #[cfg(windows)]
-pub(crate) unsafe extern "system" fn exception_handler(exception_info: *mut EXCEPTION_POINTERS) -> i32 {
+pub(crate) unsafe extern "system" fn exception_handler(
+    exception_info: *mut EXCEPTION_POINTERS,
+) -> i32 {
     const EXCEPTION_CONTINUE_SEARCH: i32 = 0;
-    
+
     if let Some(info) = exception_info.as_ref() {
         if let Some(record) = info.ExceptionRecord.as_ref() {
             if record.ExceptionCode == EXCEPTION_ACCESS_VIOLATION {
@@ -94,8 +99,10 @@ pub(crate) unsafe extern "system" fn exception_handler(exception_info: *mut EXCE
                 };
                 let instruction_addr = record.ExceptionAddress as u64;
                 CRASH_INFO = Some((access_addr, instruction_addr));
-                eprintln!("[BOF] ACCESS VIOLATION at instruction 0x{:x}, accessing address 0x{:x}", 
-                    instruction_addr, access_addr);
+                eprintln!(
+                    "[BOF] ACCESS VIOLATION at instruction 0x{:x}, accessing address 0x{:x}",
+                    instruction_addr, access_addr
+                );
             }
         }
     }
@@ -112,7 +119,15 @@ pub fn execute(
     timeout: Duration,
     emulate_beacon_info: bool,
 ) -> Result<ExecutionResult> {
-    execute_with_entry_point(bof, args, sandbox, trace, timeout, None, emulate_beacon_info)
+    execute_with_entry_point(
+        bof,
+        args,
+        sandbox,
+        trace,
+        timeout,
+        None,
+        emulate_beacon_info,
+    )
 }
 
 /// Execute a BOF (non-Windows stub)
@@ -209,9 +224,7 @@ pub fn execute_async(
 
         let elapsed = start.elapsed();
         if !stop_signaled {
-            let should_stop = async_timeout
-                .map(|t| elapsed >= t)
-                .unwrap_or(false)
+            let should_stop = async_timeout.map(|t| elapsed >= t).unwrap_or(false)
                 || (timeout.as_secs() > 0 && elapsed >= timeout);
             if should_stop {
                 let reason = async_timeout
@@ -336,7 +349,10 @@ pub(crate) fn register_all_beacon_apis(resolver: &mut SymbolResolver) {
     resolver.set_beacon_api("BeaconDownload", BeaconApi::beacon_download as usize);
 
     // Async contract APIs (OC2 style)
-    resolver.set_beacon_api("BeaconGetStopJobEvent", BeaconApi::beacon_get_stop_job_event as usize);
+    resolver.set_beacon_api(
+        "BeaconGetStopJobEvent",
+        BeaconApi::beacon_get_stop_job_event as usize,
+    );
     resolver.set_beacon_api("BeaconWakeup", BeaconApi::beacon_wakeup as usize);
 
     // Data parsing APIs
@@ -346,90 +362,222 @@ pub(crate) fn register_all_beacon_apis(resolver: &mut SymbolResolver) {
     resolver.set_beacon_api("BeaconDataShort", BeaconApi::beacon_data_short as usize);
     resolver.set_beacon_api("BeaconDataLength", BeaconApi::beacon_data_length as usize);
     resolver.set_beacon_api("BeaconDataExtract", BeaconApi::beacon_data_extract as usize);
-    
+
     // Token APIs
     resolver.set_beacon_api("BeaconUseToken", BeaconApi::beacon_use_token as usize);
     resolver.set_beacon_api("BeaconRevertToken", BeaconApi::beacon_revert_token as usize);
     resolver.set_beacon_api("BeaconIsAdmin", BeaconApi::beacon_is_admin as usize);
-    
+
     // Process APIs
     resolver.set_beacon_api("BeaconGetSpawnTo", BeaconApi::beacon_get_spawn_to as usize);
-    resolver.set_beacon_api("BeaconSpawnTemporaryProcess", BeaconApi::beacon_spawn_temporary_process as usize);
-    resolver.set_beacon_api("BeaconInjectProcess", BeaconApi::beacon_inject_process as usize);
-    resolver.set_beacon_api("BeaconInjectTemporaryProcess", BeaconApi::beacon_inject_temporary_process as usize);
-    resolver.set_beacon_api("BeaconCleanupProcess", BeaconApi::beacon_cleanup_process as usize);
-    
+    resolver.set_beacon_api(
+        "BeaconSpawnTemporaryProcess",
+        BeaconApi::beacon_spawn_temporary_process as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconInjectProcess",
+        BeaconApi::beacon_inject_process as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconInjectTemporaryProcess",
+        BeaconApi::beacon_inject_temporary_process as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconCleanupProcess",
+        BeaconApi::beacon_cleanup_process as usize,
+    );
+
     // Format APIs
     resolver.set_beacon_api("BeaconFormatAlloc", BeaconApi::beacon_format_alloc as usize);
     resolver.set_beacon_api("BeaconFormatReset", BeaconApi::beacon_format_reset as usize);
     resolver.set_beacon_api("BeaconFormatFree", BeaconApi::beacon_format_free as usize);
-    resolver.set_beacon_api("BeaconFormatAppend", BeaconApi::beacon_format_append as usize);
-    resolver.set_beacon_api("BeaconFormatPrintf", BeaconApi::beacon_format_printf as usize);
-    resolver.set_beacon_api("BeaconFormatToString", BeaconApi::beacon_format_to_string as usize);
+    resolver.set_beacon_api(
+        "BeaconFormatAppend",
+        BeaconApi::beacon_format_append as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconFormatPrintf",
+        BeaconApi::beacon_format_printf as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconFormatToString",
+        BeaconApi::beacon_format_to_string as usize,
+    );
     resolver.set_beacon_api("BeaconFormatInt", BeaconApi::beacon_format_int as usize);
     resolver.set_beacon_api("BeaconFormatShort", BeaconApi::beacon_format_short as usize);
-    resolver.set_beacon_api("BeaconFormatLength", BeaconApi::beacon_format_length as usize);
-    
+    resolver.set_beacon_api(
+        "BeaconFormatLength",
+        BeaconApi::beacon_format_length as usize,
+    );
+
     // Memory APIs
-    resolver.set_beacon_api("BeaconVirtualAlloc", BeaconApi::beacon_virtual_alloc as usize);
-    resolver.set_beacon_api("BeaconVirtualAllocEx", BeaconApi::beacon_virtual_alloc_ex as usize);
+    resolver.set_beacon_api(
+        "BeaconVirtualAlloc",
+        BeaconApi::beacon_virtual_alloc as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconVirtualAllocEx",
+        BeaconApi::beacon_virtual_alloc_ex as usize,
+    );
     resolver.set_beacon_api("BeaconVirtualFree", BeaconApi::beacon_virtual_free as usize);
-    resolver.set_beacon_api("BeaconVirtualProtect", BeaconApi::beacon_virtual_protect as usize);
-    resolver.set_beacon_api("BeaconVirtualProtectEx", BeaconApi::beacon_virtual_protect_ex as usize);
-    
+    resolver.set_beacon_api(
+        "BeaconVirtualProtect",
+        BeaconApi::beacon_virtual_protect as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconVirtualProtectEx",
+        BeaconApi::beacon_virtual_protect_ex as usize,
+    );
+
     // Utility APIs
     resolver.set_beacon_api("toWideChar", BeaconApi::to_wide_char as usize);
-    
+
     // Information APIs
     resolver.set_beacon_api("BeaconInformation", BeaconApi::beacon_information as usize);
-    resolver.set_beacon_api("BeaconGetSyscallInformation", BeaconApi::beacon_get_syscall_information as usize);
-    
+    resolver.set_beacon_api(
+        "BeaconGetSyscallInformation",
+        BeaconApi::beacon_get_syscall_information as usize,
+    );
+
     // Key/Value Store APIs
     resolver.set_beacon_api("BeaconAddValue", BeaconApi::beacon_add_value as usize);
     resolver.set_beacon_api("BeaconGetValue", BeaconApi::beacon_get_value as usize);
     resolver.set_beacon_api("BeaconRemoveValue", BeaconApi::beacon_remove_value as usize);
-    resolver.set_beacon_api("BeaconGetIntValue", BeaconApi::beacon_get_int_value as usize);
-    resolver.set_beacon_api("BeaconGetShortValue", BeaconApi::beacon_get_short_value as usize);
-    resolver.set_beacon_api("BeaconGetCharValue", BeaconApi::beacon_get_char_value as usize);
-    resolver.set_beacon_api("BeaconGetPtrValue", BeaconApi::beacon_get_ptr_value as usize);
-    resolver.set_beacon_api("BeaconGetSizeValue", BeaconApi::beacon_get_size_value as usize);
-    resolver.set_beacon_api("BeaconGetDataValue", BeaconApi::beacon_get_data_value as usize);
-    
+    resolver.set_beacon_api(
+        "BeaconGetIntValue",
+        BeaconApi::beacon_get_int_value as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconGetShortValue",
+        BeaconApi::beacon_get_short_value as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconGetCharValue",
+        BeaconApi::beacon_get_char_value as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconGetPtrValue",
+        BeaconApi::beacon_get_ptr_value as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconGetSizeValue",
+        BeaconApi::beacon_get_size_value as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconGetDataValue",
+        BeaconApi::beacon_get_data_value as usize,
+    );
+
     // Data Store APIs
-    resolver.set_beacon_api("BeaconDataStoreAlloc", BeaconApi::beacon_data_store_alloc as usize);
-    resolver.set_beacon_api("BeaconDataStoreReset", BeaconApi::beacon_data_store_reset as usize);
-    resolver.set_beacon_api("BeaconDataStoreFree", BeaconApi::beacon_data_store_free as usize);
-    resolver.set_beacon_api("BeaconDataStoreAdd", BeaconApi::beacon_data_store_add as usize);
-    resolver.set_beacon_api("BeaconDataStoreGet", BeaconApi::beacon_data_store_get as usize);
-    resolver.set_beacon_api("BeaconDataStoreRemove", BeaconApi::beacon_data_store_remove as usize);
-    resolver.set_beacon_api("BeaconDataStoreSize", BeaconApi::beacon_data_store_size as usize);
-    resolver.set_beacon_api("BeaconDataStoreGetItem", BeaconApi::beacon_data_store_get_item as usize);
-    resolver.set_beacon_api("BeaconDataStoreProtectItem", BeaconApi::beacon_data_store_protect_item as usize);
-    resolver.set_beacon_api("BeaconDataStoreUnprotectItem", BeaconApi::beacon_data_store_unprotect_item as usize);
-    resolver.set_beacon_api("BeaconDataStoreMaxEntries", BeaconApi::beacon_data_store_max_entries as usize);
-    
+    resolver.set_beacon_api(
+        "BeaconDataStoreAlloc",
+        BeaconApi::beacon_data_store_alloc as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconDataStoreReset",
+        BeaconApi::beacon_data_store_reset as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconDataStoreFree",
+        BeaconApi::beacon_data_store_free as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconDataStoreAdd",
+        BeaconApi::beacon_data_store_add as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconDataStoreGet",
+        BeaconApi::beacon_data_store_get as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconDataStoreRemove",
+        BeaconApi::beacon_data_store_remove as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconDataStoreSize",
+        BeaconApi::beacon_data_store_size as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconDataStoreGetItem",
+        BeaconApi::beacon_data_store_get_item as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconDataStoreProtectItem",
+        BeaconApi::beacon_data_store_protect_item as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconDataStoreUnprotectItem",
+        BeaconApi::beacon_data_store_unprotect_item as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconDataStoreMaxEntries",
+        BeaconApi::beacon_data_store_max_entries as usize,
+    );
+
     // User Data APIs
-    resolver.set_beacon_api("BeaconGetCustomUserData", BeaconApi::beacon_get_custom_user_data as usize);
-    resolver.set_beacon_api("BeaconGetUserData", BeaconApi::beacon_get_user_data as usize);
-    
+    resolver.set_beacon_api(
+        "BeaconGetCustomUserData",
+        BeaconApi::beacon_get_custom_user_data as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconGetUserData",
+        BeaconApi::beacon_get_user_data as usize,
+    );
+
     // Thread/Process APIs
-    resolver.set_beacon_api("BeaconGetThreadContext", BeaconApi::beacon_get_thread_context as usize);
-    resolver.set_beacon_api("BeaconSetThreadContext", BeaconApi::beacon_set_thread_context as usize);
-    resolver.set_beacon_api("BeaconResumeThread", BeaconApi::beacon_resume_thread as usize);
+    resolver.set_beacon_api(
+        "BeaconGetThreadContext",
+        BeaconApi::beacon_get_thread_context as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconSetThreadContext",
+        BeaconApi::beacon_set_thread_context as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconResumeThread",
+        BeaconApi::beacon_resume_thread as usize,
+    );
     resolver.set_beacon_api("BeaconOpenProcess", BeaconApi::beacon_open_process as usize);
     resolver.set_beacon_api("BeaconOpenThread", BeaconApi::beacon_open_thread as usize);
     resolver.set_beacon_api("BeaconCloseHandle", BeaconApi::beacon_close_handle as usize);
-    resolver.set_beacon_api("BeaconUnmapViewOfFile", BeaconApi::beacon_unmap_view_of_file as usize);
-    resolver.set_beacon_api("BeaconVirtualQuery", BeaconApi::beacon_virtual_query as usize);
-    resolver.set_beacon_api("BeaconDuplicateHandle", BeaconApi::beacon_duplicate_handle as usize);
-    resolver.set_beacon_api("BeaconReadProcessMemory", BeaconApi::beacon_read_process_memory as usize);
-    resolver.set_beacon_api("BeaconWriteProcessMemory", BeaconApi::beacon_write_process_memory as usize);
-    
+    resolver.set_beacon_api(
+        "BeaconUnmapViewOfFile",
+        BeaconApi::beacon_unmap_view_of_file as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconVirtualQuery",
+        BeaconApi::beacon_virtual_query as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconDuplicateHandle",
+        BeaconApi::beacon_duplicate_handle as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconReadProcessMemory",
+        BeaconApi::beacon_read_process_memory as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconWriteProcessMemory",
+        BeaconApi::beacon_write_process_memory as usize,
+    );
+
     // Beacon Gate APIs
-    resolver.set_beacon_api("BeaconDisableBeaconGate", BeaconApi::beacon_disable_beacon_gate as usize);
-    resolver.set_beacon_api("BeaconEnableBeaconGate", BeaconApi::beacon_enable_beacon_gate as usize);
-    resolver.set_beacon_api("BeaconDisableBeaconGateMasking", BeaconApi::beacon_disable_beacon_gate_masking as usize);
-    resolver.set_beacon_api("BeaconEnableBeaconGateMasking", BeaconApi::beacon_enable_beacon_gate_masking as usize);
+    resolver.set_beacon_api(
+        "BeaconDisableBeaconGate",
+        BeaconApi::beacon_disable_beacon_gate as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconEnableBeaconGate",
+        BeaconApi::beacon_enable_beacon_gate as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconDisableBeaconGateMasking",
+        BeaconApi::beacon_disable_beacon_gate_masking as usize,
+    );
+    resolver.set_beacon_api(
+        "BeaconEnableBeaconGateMasking",
+        BeaconApi::beacon_enable_beacon_gate_masking as usize,
+    );
 }
 
 /// Execute a BOF with a specific entry point
@@ -446,7 +594,7 @@ pub fn execute_with_entry_point(
     let start = Instant::now();
     clear_global_output();
     clear_tracer();
-    
+
     // ---------------------------------------------------------------------
     // Architecture compatibility check
     // ---------------------------------------------------------------------
@@ -472,7 +620,11 @@ pub fn execute_with_entry_point(
 
     if bof_arch_bits != process_arch_bits {
         let bof_arch_str = if bof_arch_bits == 64 { "x64" } else { "x86" };
-        let proc_arch_str = if process_arch_bits == 64 { "x64" } else { "x86" };
+        let proc_arch_str = if process_arch_bits == 64 {
+            "x64"
+        } else {
+            "x86"
+        };
 
         return Err(anyhow::anyhow!(
             "BOF architecture is not compatible with this redbofanalyzer build.\n\
@@ -484,11 +636,11 @@ pub fn execute_with_entry_point(
             proc_arch_str
         ));
     }
-    
+
     // Initialize sandbox and tracer
     init_sandbox(sandbox);
     init_tracer(trace);
-    
+
     // BOF-PE images take a separate manual-mapping path: headers, sections
     // and IAT live at their RVAs and imports bind through the PE import
     // tables, so the flat COFF section copy below does not apply.
@@ -499,8 +651,12 @@ pub fn execute_with_entry_point(
                 let mut pe_resolver = SymbolResolver::new();
                 register_all_beacon_apis(&mut pe_resolver);
                 let entry_name = entry_point_name.unwrap_or("go").to_string();
-                let code_base =
-                    crate::core::executor::pe_exec::execute_pe(&bytes, args, &pe_resolver, &entry_name)?;
+                let code_base = crate::core::executor::pe_exec::execute_pe(
+                    &bytes,
+                    args,
+                    &pe_resolver,
+                    &entry_name,
+                )?;
                 let execution_time = start.elapsed();
                 let output_entries = global_output().get_entries();
                 let output: Vec<OutputMessage> = output_entries
@@ -527,24 +683,26 @@ pub fn execute_with_entry_point(
             }
         }
     }
-    
+
     // Calculate total memory needed
-    let total_size: usize = bof.sections.iter()
+    let total_size: usize = bof
+        .sections
+        .iter()
         .map(|s| loader::align_to_page(s.raw_size as usize))
         .sum();
-    
+
     // Allocate memory
-    let memory = MemoryRegion::allocate(total_size)
-        .with_context(|| format!(
+    let memory = MemoryRegion::allocate(total_size).with_context(|| {
+        format!(
             "Failed to allocate {} bytes of memory for BOF. This may indicate:\n\
              - Insufficient system memory\n\
              - Memory allocation failure",
             total_size
-        ))?;
-    
+        )
+    })?;
+
     // Load sections
-    let section_mappings = load_sections(bof, &memory)
-        .context("Failed to load sections")?;
+    let section_mappings = load_sections(bof, &memory).context("Failed to load sections")?;
 
     // Initialize BeaconInformation and syscall information emulation (if enabled)
     #[cfg(windows)]
@@ -558,53 +716,59 @@ pub fn execute_with_entry_point(
     crate::core::executor::beacon_api::set_syscall_os_emulation_enabled(emulate_beacon_info);
     #[cfg(windows)]
     crate::core::executor::beacon_api::set_syscall_trace_enabled(trace);
-    
+
     // Resolve symbols
     let mut resolver = SymbolResolver::new();
-    
+
     // Register Beacon API functions
     let _beacon_api = BeaconApi::new();
     // Note: Function pointer casts are safe, but the functions themselves will be called from unsafe code
-    
+
     register_all_beacon_apis(&mut resolver);
-    
-    
+
     // Resolve all symbols and build symbol map
     // Key: COFF symbol table index, Value: resolved address
-    let mut resolved_symbols: std::collections::HashMap<usize, usize> = std::collections::HashMap::new();
-    
+    let mut resolved_symbols: std::collections::HashMap<usize, usize> =
+        std::collections::HashMap::new();
+
     // Track resolved import addresses for reporting (symbol_name -> function address)
-    let mut resolved_imports: std::collections::HashMap<String, u64> = std::collections::HashMap::new();
-    
+    let mut resolved_imports: std::collections::HashMap<String, u64> =
+        std::collections::HashMap::new();
+
     // For __imp_ symbols, we need to store the function address in memory
     // and use the memory address as the symbol value (indirect addressing)
     // Allocate space for import address table (IAT)
     let import_count = bof.imports.len();
     let iat_size = import_count * std::mem::size_of::<usize>();
     let iat_memory = if iat_size > 0 {
-        Some(loader::MemoryRegion::allocate(iat_size)
-            .context("Failed to allocate IAT memory")?)
+        Some(loader::MemoryRegion::allocate(iat_size).context("Failed to allocate IAT memory")?)
     } else {
         None
     };
-    
+
     // Track which IAT slot we're using
     let mut iat_index = 0usize;
-    
+
     if is_debug_mode() {
-        eprintln!("[BOF] Resolving {} symbols (IAT size: {} bytes for {} imports)...", 
-            bof.symbols.len(), iat_size, import_count);
+        eprintln!(
+            "[BOF] Resolving {} symbols (IAT size: {} bytes for {} imports)...",
+            bof.symbols.len(),
+            iat_size,
+            import_count
+        );
     }
-    
+
     // Build a map of symbol names to their imports for quick lookup
-    let import_map: std::collections::HashMap<String, &Import> = bof.imports.iter()
+    let import_map: std::collections::HashMap<String, &Import> = bof
+        .imports
+        .iter()
         .map(|imp| (imp.symbol_name.clone(), imp))
         .collect();
-    
+
     // Resolve all symbols by their COFF symbol table index
     for symbol in &bof.symbols {
         let coff_idx = symbol.coff_index;
-        
+
         if symbol.is_external {
             // External symbol - look up in imports and resolve
             if let Some(import) = import_map.get(&symbol.name) {
@@ -612,28 +776,32 @@ pub fn execute_with_entry_point(
                     Ok(func_addr) => {
                         // Track resolved import for reporting
                         resolved_imports.insert(symbol.name.clone(), func_addr as u64);
-                        
+
                         // For __imp_ symbols, we need indirect addressing:
                         // Store the function address in the IAT and return the IAT slot address
                         if symbol.name.starts_with("__imp_") {
                             if let Some(ref iat) = iat_memory {
                                 let iat_slot_offset = iat_index * std::mem::size_of::<usize>();
                                 let iat_slot_addr = iat.base() as usize + iat_slot_offset;
-                                
+
                                 // Write the function address to the IAT slot
                                 let addr_bytes = (func_addr as u64).to_le_bytes();
                                 iat.write_at(iat_slot_offset, &addr_bytes)?;
-                                
+
                                 log::debug!("Resolved import '{}' (coff_idx={}): func=0x{:x} -> IAT[{}]=0x{:x}",
                                     symbol.name, coff_idx, func_addr, iat_index, iat_slot_addr);
-                                
+
                                 resolved_symbols.insert(coff_idx, iat_slot_addr);
                                 iat_index += 1;
                             }
                         } else {
                             // Direct symbol - use function address directly
-                            log::debug!("Resolved external symbol '{}' (coff_idx={}) -> 0x{:x}",
-                                symbol.name, coff_idx, func_addr);
+                            log::debug!(
+                                "Resolved external symbol '{}' (coff_idx={}) -> 0x{:x}",
+                                symbol.name,
+                                coff_idx,
+                                func_addr
+                            );
                             resolved_symbols.insert(coff_idx, func_addr);
                         }
                     }
@@ -648,29 +816,36 @@ pub fn execute_with_entry_point(
                 if let Ok(func_addr) = resolver.resolve_symbol_by_name(&symbol.name) {
                     // Track resolved import for reporting
                     resolved_imports.insert(symbol.name.clone(), func_addr as u64);
-                    
+
                     if symbol.name.starts_with("__imp_") {
                         if let Some(ref iat) = iat_memory {
                             let iat_slot_offset = iat_index * std::mem::size_of::<usize>();
                             let iat_slot_addr = iat.base() as usize + iat_slot_offset;
-                            
+
                             let addr_bytes = (func_addr as u64).to_le_bytes();
                             iat.write_at(iat_slot_offset, &addr_bytes)?;
-                            
+
                             log::debug!("Resolved import '{}' (coff_idx={}) via fallback: func=0x{:x} -> IAT[{}]=0x{:x}",
                                 symbol.name, coff_idx, func_addr, iat_index, iat_slot_addr);
-                            
+
                             resolved_symbols.insert(coff_idx, iat_slot_addr);
                             iat_index += 1;
                         }
                     } else {
-                        log::debug!("Resolved external symbol '{}' (coff_idx={}) via fallback -> 0x{:x}",
-                            symbol.name, coff_idx, func_addr);
+                        log::debug!(
+                            "Resolved external symbol '{}' (coff_idx={}) via fallback -> 0x{:x}",
+                            symbol.name,
+                            coff_idx,
+                            func_addr
+                        );
                         resolved_symbols.insert(coff_idx, func_addr);
                     }
                 } else {
-                    log::warn!("Unresolved external symbol '{}' (coff_idx={}) - not in imports",
-                        symbol.name, coff_idx);
+                    log::warn!(
+                        "Unresolved external symbol '{}' (coff_idx={}) - not in imports",
+                        symbol.name,
+                        coff_idx
+                    );
                 }
             }
         } else {
@@ -680,20 +855,34 @@ pub fn execute_with_entry_point(
                 // and match our section_mappings array indexing
                 if let Some(section_mapping) = section_mappings.get(section_idx) {
                     let addr = section_mapping.virtual_address + symbol.value as usize;
-                    log::debug!("Resolved internal symbol '{}' (coff_idx={}) in section {} ({}) at 0x{:x}",
-                        symbol.name, coff_idx, section_idx, section_mapping.name, addr);
+                    log::debug!(
+                        "Resolved internal symbol '{}' (coff_idx={}) in section {} ({}) at 0x{:x}",
+                        symbol.name,
+                        coff_idx,
+                        section_idx,
+                        section_mapping.name,
+                        addr
+                    );
                     resolved_symbols.insert(coff_idx, addr);
                 } else {
-                    log::warn!("Internal symbol '{}' references section {} but only {} sections exist",
-                        symbol.name, section_idx, section_mappings.len());
+                    log::warn!(
+                        "Internal symbol '{}' references section {} but only {} sections exist",
+                        symbol.name,
+                        section_idx,
+                        section_mappings.len()
+                    );
                 }
             }
         }
     }
-    
+
     if is_debug_mode() {
-        eprintln!("[BOF] Resolved {} symbols (used {} IAT slots)", resolved_symbols.len(), iat_index);
-        
+        eprintln!(
+            "[BOF] Resolved {} symbols (used {} IAT slots)",
+            resolved_symbols.len(),
+            iat_index
+        );
+
         // Print resolved symbols for debugging
         for (coff_idx, addr) in resolved_symbols.iter() {
             // Find the symbol name
@@ -701,10 +890,14 @@ pub fn execute_with_entry_point(
                 eprintln!("[BOF]   Symbol {}: {} -> 0x{:x}", coff_idx, sym.name, addr);
             }
         }
-        
+
         // Keep reference to IAT to prevent it from being dropped during execution
         if let Some(ref iat) = iat_memory {
-            eprintln!("[BOF] IAT at 0x{:x}, dumping first {} slots:", iat.base() as usize, iat_index.min(5));
+            eprintln!(
+                "[BOF] IAT at 0x{:x}, dumping first {} slots:",
+                iat.base() as usize,
+                iat_index.min(5)
+            );
             for i in 0..iat_index.min(5) {
                 let slot_offset = i * 8;
                 let slot_addr = iat.base() as usize + slot_offset;
@@ -716,24 +909,31 @@ pub fn execute_with_entry_point(
         }
     }
     let _iat_guard = iat_memory;
-    
+
     // Pre-execution validation: Check for unresolved symbols referenced by relocations
     let mut unresolved_in_relocations = std::collections::HashSet::new();
     for reloc in &bof.relocations {
         if let crate::core::models::bof::RelocationTarget::Symbol(sym_idx) = &reloc.target {
             if !resolved_symbols.contains_key(&(*sym_idx as usize)) {
-                if let Some(sym) = bof.symbols.iter().find(|s| s.coff_index == *sym_idx as usize) {
+                if let Some(sym) = bof
+                    .symbols
+                    .iter()
+                    .find(|s| s.coff_index == *sym_idx as usize)
+                {
                     unresolved_in_relocations.insert((*sym_idx, sym.name.clone()));
                 }
             }
         }
     }
-    
+
     if !unresolved_in_relocations.is_empty() {
         let mut error_msg = format!("\n[BOF] PRE-EXECUTION VALIDATION FAILED: {} unresolved symbol(s) referenced by relocations:\n", unresolved_in_relocations.len());
         for (sym_idx, sym_name) in unresolved_in_relocations.iter() {
-            error_msg.push_str(&format!("  - Symbol '{}' (coff_idx: {})\n", sym_name, sym_idx));
-            
+            error_msg.push_str(&format!(
+                "  - Symbol '{}' (coff_idx: {})\n",
+                sym_name, sym_idx
+            ));
+
             // Check if it's a known pattern and provide suggestions
             if sym_name.contains("$") {
                 let parts: Vec<&str> = sym_name.split('$').collect();
@@ -741,29 +941,40 @@ pub fn execute_with_entry_point(
                     let lib = parts[0];
                     let func = parts[1].split('@').next().unwrap_or(parts[1]);
                     error_msg.push_str(&format!("    → Looks like: {}${}()\n", lib, func));
-                    error_msg.push_str(&format!("    → Add to beacon.h: WINBASEAPI ... WINAPI {}${}();\n", lib, func));
+                    error_msg.push_str(&format!(
+                        "    → Add to beacon.h: WINBASEAPI ... WINAPI {}${}();\n",
+                        lib, func
+                    ));
                 }
             } else if !sym_name.starts_with("__imp_") {
-                error_msg.push_str(&format!("    → Add to beacon.h: extern void __cdecl {}();\n", sym_name));
+                error_msg.push_str(&format!(
+                    "    → Add to beacon.h: extern void __cdecl {}();\n",
+                    sym_name
+                ));
             }
         }
         error_msg.push_str("\nThis BOF will likely crash if executed. Fix the missing declarations and recompile.\n");
         error_msg.push_str("Check the Lints tab for BOF009 errors with detailed suggestions.\n");
-        
+
         if is_debug_mode() {
             eprintln!("{}", error_msg);
         }
         log::error!("{}", error_msg);
     }
-    
+
     // Apply relocations (if any)
     if !bof.relocations.is_empty() {
         if is_debug_mode() {
-            eprintln!("[BOF] Applying {} relocations across {} section mappings", 
-                bof.relocations.len(), section_mappings.len());
+            eprintln!(
+                "[BOF] Applying {} relocations across {} section mappings",
+                bof.relocations.len(),
+                section_mappings.len()
+            );
             for (i, mapping) in section_mappings.iter().enumerate() {
-                eprintln!("[BOF]   Section {}: {} at 0x{:x} (offset 0x{:x}, size {})", 
-                    i, mapping.name, mapping.virtual_address, mapping.offset, mapping.size);
+                eprintln!(
+                    "[BOF]   Section {}: {} at 0x{:x} (offset 0x{:x}, size {})",
+                    i, mapping.name, mapping.virtual_address, mapping.offset, mapping.size
+                );
             }
         }
         relocations::apply_relocations(
@@ -774,10 +985,10 @@ pub fn execute_with_entry_point(
             memory.base() as usize,
             Some(&bof.symbols),
         )?;
-        
+
         if is_debug_mode() {
             eprintln!("[BOF] Relocations applied successfully");
-            
+
             // Dump bytes in internal_printf (0x86-0x1F4) to see the code
             unsafe {
                 let area = memory.base().add(0x180);
@@ -788,11 +999,15 @@ pub fn execute_with_entry_point(
                 eprintln!("[BOF] Bytes at 0x180-0x1B0: {:02x?}", bytes);
             }
         }
-        
+
         // Flush instruction cache after modifying code
         #[cfg(windows)]
         unsafe {
-            let _ = FlushInstructionCache(GetCurrentProcess(), Some(memory.base() as *const _), total_size);
+            let _ = FlushInstructionCache(
+                GetCurrentProcess(),
+                Some(memory.base() as *const _),
+                total_size,
+            );
             if is_debug_mode() {
                 eprintln!("[BOF] Instruction cache flushed");
             }
@@ -800,14 +1015,17 @@ pub fn execute_with_entry_point(
     } else if is_debug_mode() {
         eprintln!("[BOF] No relocations to apply");
     }
-    
+
     // Find entry point
     let entry_point = if let Some(ep_name) = entry_point_name {
         // Use specified entry point name
-        bof.symbols.iter()
+        bof.symbols
+            .iter()
             .find(|s| s.name == ep_name && s.section.is_some() && !s.is_external)
             .ok_or_else(|| {
-                let available: Vec<String> = bof.symbols.iter()
+                let available: Vec<String> = bof
+                    .symbols
+                    .iter()
                     .filter(|s| s.section.is_some() && !s.is_external)
                     .map(|s| s.name.clone())
                     .take(5)
@@ -817,12 +1035,17 @@ pub fn execute_with_entry_point(
                      Available symbols: {}\n\
                      BOFs typically use 'go' as the entry point name.",
                     ep_name,
-                    if available.is_empty() { "none".to_string() } else { available.join(", ") }
+                    if available.is_empty() {
+                        "none".to_string()
+                    } else {
+                        available.join(", ")
+                    }
                 )
             })?
     } else {
         // Use default entry point (go) or fallback to first available function
-        bof.entry_point.as_ref()
+        bof.entry_point
+            .as_ref()
             .or_else(|| {
                 // Fallback: find any symbol in an executable section
                 // Use the same logic as find_potential_entry_points but just get the first one
@@ -832,16 +1055,18 @@ pub fn execute_with_entry_point(
                             if let Some(section) = bof.sections.get(section_idx) {
                                 let is_executable = (section.characteristics & 0x20000000) != 0;
                                 let is_code = (section.characteristics & 0x00000020) != 0;
-                                let is_text_section = section.name == ".text" || section.name.starts_with(".text");
-                                
+                                let is_text_section =
+                                    section.name == ".text" || section.name.starts_with(".text");
+
                                 if is_executable || is_code || is_text_section {
                                     let name = &symbol.name;
-                                    if !name.starts_with('$') 
+                                    if !name.starts_with('$')
                                         && !name.starts_with('.')
                                         && name != "main"
                                         && !name.starts_with("__")
                                         && !name.contains("$unwind$")
-                                        && !name.contains("$pdata$") {
+                                        && !name.contains("$pdata$")
+                                    {
                                         return Some(symbol);
                                     }
                                 }
@@ -851,75 +1076,104 @@ pub fn execute_with_entry_point(
                 }
                 None
             })
-            .ok_or_else(|| anyhow::anyhow!(
-                "No entry point found in BOF.\n\
+            .ok_or_else(|| {
+                anyhow::anyhow!(
+                    "No entry point found in BOF.\n\
                  BOFs must have a 'go' function as the entry point.\n\
                  Check if the BOF was compiled correctly and includes the entry point function."
-            ))?
+                )
+            })?
     };
-    
-    log::info!("Entry point '{}' found with value 0x{:x}, section {:?}", 
-        entry_point.name, entry_point.value, entry_point.section);
-    
+
+    log::info!(
+        "Entry point '{}' found with value 0x{:x}, section {:?}",
+        entry_point.name,
+        entry_point.value,
+        entry_point.section
+    );
+
     // Find the section containing the entry point
     let entry_section = if let Some(section_idx) = entry_point.section {
-        section_mappings.get(section_idx)
+        section_mappings
+            .get(section_idx)
             .ok_or_else(|| anyhow::anyhow!("Entry point section {} not found", section_idx))?
     } else {
         // Fallback to .text if no section specified
-        section_mappings.iter()
+        section_mappings
+            .iter()
             .find(|m| m.name == ".text")
             .ok_or_else(|| anyhow::anyhow!("No .text section found"))?
     };
-    
+
     let entry_addr = entry_section.virtual_address + entry_point.value as usize;
-    
+
     if is_debug_mode() {
-        eprintln!("[BOF] Entry point in section '{}' at 0x{:x}", entry_section.name, entry_addr);
+        eprintln!(
+            "[BOF] Entry point in section '{}' at 0x{:x}",
+            entry_section.name, entry_addr
+        );
     }
-    
-    log::info!("Calling entry point at 0x{:x} (section {} base 0x{:x} + offset 0x{:x})", 
-        entry_addr, entry_section.name, entry_section.virtual_address, entry_point.value);
+
+    log::info!(
+        "Calling entry point at 0x{:x} (section {} base 0x{:x} + offset 0x{:x})",
+        entry_addr,
+        entry_section.name,
+        entry_section.virtual_address,
+        entry_point.value
+    );
     log::info!("Args: {} bytes at {:p}", args.len(), args.as_ptr());
-    
+
     if is_debug_mode() {
         if args.is_empty() {
             eprintln!("[BOF] No arguments provided to entry point");
         } else {
-            eprintln!("[BOF] Passing {} bytes of argument data to entry point", args.len());
-            eprintln!("[BOF] Argument buffer preview (first 64 bytes): {}", 
-                args.iter().take(64).map(|b| format!("{:02x}", b)).collect::<Vec<_>>().join(" "));
+            eprintln!(
+                "[BOF] Passing {} bytes of argument data to entry point",
+                args.len()
+            );
+            eprintln!(
+                "[BOF] Argument buffer preview (first 64 bytes): {}",
+                args.iter()
+                    .take(64)
+                    .map(|b| format!("{:02x}", b))
+                    .collect::<Vec<_>>()
+                    .join(" ")
+            );
         }
     }
-    
+
     // Verify the entry point is within our allocated memory
     let memory_base = memory.base() as usize;
     let memory_end = memory_base + total_size;
     if entry_addr < memory_base || entry_addr >= memory_end {
-        anyhow::bail!("Entry point 0x{:x} is outside allocated memory region 0x{:x}-0x{:x}", 
-            entry_addr, memory_base, memory_end);
+        anyhow::bail!(
+            "Entry point 0x{:x} is outside allocated memory region 0x{:x}-0x{:x}",
+            entry_addr,
+            memory_base,
+            memory_end
+        );
     }
-    
+
     // Call entry point
     // Signature: void go(char* args, int len)
     type GoFunc = unsafe extern "C" fn(*const u8, i32);
     let go_func: GoFunc = unsafe { std::mem::transmute(entry_addr) };
-    
+
     // Execute (timeout is checked after execution completes)
     // Note: Actual timeout termination would require more complex threading,
     // so we check execution time against timeout limit instead
     let execution_start = Instant::now();
-    
+
     // For BOFs, pass null pointer when no args, otherwise a valid pointer
     let (args_ptr, args_len) = if args.is_empty() {
         (std::ptr::null(), 0i32)
     } else {
         (args.as_ptr(), args.len() as i32)
     };
-    
+
     if is_debug_mode() {
         eprintln!("[BOF] Executing at 0x{:x}...", entry_addr);
-        
+
         // Dump first 32 bytes at entry point for debugging
         unsafe {
             let code_ptr = entry_addr as *const u8;
@@ -929,23 +1183,21 @@ pub fn execute_with_entry_point(
             }
             eprintln!("[BOF] Entry point bytes: {:02x?}", bytes);
         }
-        
+
         eprintln!("[BOF] Calling go({:p}, {})", args_ptr, args_len);
     }
-    
+
     // Install exception handler to catch access violations
     #[cfg(windows)]
     let exception_handler_handle = unsafe {
         CRASH_INFO = None;
         AddVectoredExceptionHandler(1, Some(exception_handler))
     };
-    
-    let execution_result = std::panic::catch_unwind(|| {
-        unsafe {
-            go_func(args_ptr, args_len);
-        }
+
+    let execution_result = std::panic::catch_unwind(|| unsafe {
+        go_func(args_ptr, args_len);
     });
-    
+
     // Remove exception handler
     #[cfg(windows)]
     unsafe {
@@ -954,24 +1206,31 @@ pub fn execute_with_entry_point(
         }
         // Always show crash details - this is important diagnostic info
         if let Some((access_addr, instr_addr)) = CRASH_INFO {
-            eprintln!("[BOF] Crash details - Instruction: 0x{:x}, Access: 0x{:x}", instr_addr, access_addr);
+            eprintln!(
+                "[BOF] Crash details - Instruction: 0x{:x}, Access: 0x{:x}",
+                instr_addr, access_addr
+            );
             let code_base = memory.base() as u64;
             if instr_addr >= code_base && instr_addr < code_base + total_size as u64 {
-                eprintln!("[BOF]   Crash at code offset: 0x{:x}", instr_addr - code_base);
+                eprintln!(
+                    "[BOF]   Crash at code offset: 0x{:x}",
+                    instr_addr - code_base
+                );
             }
         }
     }
     let execution_duration = execution_start.elapsed();
-    
+
     // Check if execution exceeded timeout
     let timed_out = timeout.as_secs() > 0 && execution_duration > timeout;
-    
+
     let execution_time = start.elapsed();
-    
+
     // Collect output
     let output_entries = global_output().get_entries();
-    let output: Vec<OutputMessage> = output_entries.iter().map(|entry| {
-        OutputMessage {
+    let output: Vec<OutputMessage> = output_entries
+        .iter()
+        .map(|entry| OutputMessage {
             timestamp: chrono::Utc::now().to_rfc3339(),
             message_type: match entry.callback_type {
                 0x00 => OutputType::Output,
@@ -979,12 +1238,12 @@ pub fn execute_with_entry_point(
                 _ => OutputType::Custom,
             },
             content: String::from_utf8_lossy(&entry.data).to_string(),
-        }
-    }).collect();
-    
+        })
+        .collect();
+
     // Collect API calls if tracing was enabled
     let api_calls = get_api_calls();
-    
+
     let (success, error) = if timed_out {
         (false, Some("BOF execution exceeded timeout".to_string()))
     } else {
@@ -993,7 +1252,7 @@ pub fn execute_with_entry_point(
             Err(_) => (false, Some("BOF execution panicked".to_string())),
         }
     };
-    
+
     Ok(ExecutionResult {
         success,
         output,
@@ -1010,7 +1269,7 @@ pub fn execute_with_entry_point(
 pub fn test_bof(path: &std::path::PathBuf, _continue_on_error: bool) -> Result<ExecutionResult> {
     // Load and parse BOF
     let bof = parser::load_bof(path)?;
-    
+
     // Execute without arguments
     execute(&bof, &[], false, false, Duration::from_secs(30), false)
 }
@@ -1020,5 +1279,3 @@ pub fn test_bof(path: &std::path::PathBuf, _continue_on_error: bool) -> Result<E
 pub fn test_bof(_path: &std::path::PathBuf, _continue_on_error: bool) -> Result<ExecutionResult> {
     anyhow::bail!("BOF execution is only supported on Windows. Use a Windows loader (RedLoader, COFFLoader) on the target VM instead.")
 }
-
-
