@@ -350,6 +350,7 @@ pub fn analyze_with_yara(
             matches: Vec::new(),
             stats: YaraStats::default(),
             engine_available: false,
+            compilation_errors: None,
         })
     }
 }

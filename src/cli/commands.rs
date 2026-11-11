@@ -161,6 +161,8 @@ pub fn execute(
     sandbox: bool,
     trace: bool,
     timeout: u64,
+    is_async: bool,
+    async_timeout: Option<u64>,
 ) -> Result<()> {
     info!("Executing BOF file: {:?}", file);
 
@@ -176,14 +178,37 @@ pub fn execute(
     };
 
     // Execute BOF
-    let result = core::executor::execute(
-        &bof,
-        &packed_args,
-        sandbox,
-        trace,
-        std::time::Duration::from_secs(timeout),
-        false, // CLI: use zeroed BeaconInformation by default
-    )?;
+    let result = if is_async {
+        println!("\n--- Live Output (async) ---");
+        core::executor::execute_async(
+            &bof,
+            &packed_args,
+            sandbox,
+            trace,
+            std::time::Duration::from_secs(timeout),
+            false, // CLI: use zeroed BeaconInformation by default
+            async_timeout.map(std::time::Duration::from_secs),
+            Some(&mut |entry: &core::executor::capture::OutputEntry| {
+                let kind = match entry.callback_type {
+                    0x00 => "output",
+                    0x0d => "error",
+                    _ => "custom",
+                };
+                print!("[{}] {}", kind, String::from_utf8_lossy(&entry.data));
+                use std::io::Write;
+                let _ = std::io::stdout().flush();
+            }),
+        )?
+    } else {
+        core::executor::execute(
+            &bof,
+            &packed_args,
+            sandbox,
+            trace,
+            std::time::Duration::from_secs(timeout),
+            false, // CLI: use zeroed BeaconInformation by default
+        )?
+    };
 
     // Display results
     println!("\n=== Execution Results ===");

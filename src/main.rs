@@ -101,6 +101,14 @@ enum Command {
         /// Execution timeout in seconds
         #[arg(long, default_value = "30")]
         timeout: u64,
+        /// Run asynchronously: worker thread with a private output sink and
+        /// an OC2 stop-event contract (BeaconGetStopJobEvent/BeaconWakeup)
+        #[arg(long, name = "async")]
+        is_async: bool,
+        /// With --async: signal the stop event after N seconds (a
+        /// well-behaved BOF observes it and returns promptly)
+        #[arg(long, requires = "is_async")]
+        async_timeout: Option<u64>,
     },
     /// Test all BOFs in directory
     Test {
@@ -250,8 +258,10 @@ fn main() -> anyhow::Result<()> {
             sandbox,
             trace,
             timeout,
+            is_async,
+            async_timeout,
         } => {
-            cli::commands::execute(file, exec_args, sandbox, trace, timeout)?;
+            cli::commands::execute(file, exec_args, sandbox, trace, timeout, is_async, async_timeout)?;
         }
         Command::Test {
             directory,

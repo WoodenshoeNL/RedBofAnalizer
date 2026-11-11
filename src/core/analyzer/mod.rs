@@ -34,7 +34,11 @@ pub use stack_analysis::analyze_stack_usage;
 #[allow(unused_imports)] // Exported for external use
 pub use yara::{analyze_with_yara, YaraRuleSource, create_default_bof_rules, save_default_rules_to_file};
 #[allow(unused_imports)] // Exported for external use
+#[cfg(feature = "yara")]
 pub use yara_rules::{RuleManager, RuleInfo, RuleMetrics, extract_rule_info_from_rules};
+#[cfg(not(feature = "yara"))]
+#[allow(unused_imports)]
+pub use yara_rules::{RuleManager, RuleInfo, RuleMetrics};
 // Note: detect_argument_signature and ArgumentSignature are used internally but not exported
 // pub use signatures::{detect_argument_signature, ArgumentSignature};
 

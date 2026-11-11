@@ -6,8 +6,10 @@
 //! printf submodules are available. The execute/test functions return an error.
 
 pub mod arguments;
+pub mod capture;
 pub mod relocations;
 pub mod sandbox;
+pub mod task;
 pub mod tracer;
 pub mod printf;
 
@@ -124,6 +126,204 @@ pub fn execute(
     anyhow::bail!("BOF execution is only supported on Windows. Use a Windows loader (RedLoader, COFFLoader) on the target VM instead.")
 }
 
+/// How long to keep waiting after signaling the stop event before giving up
+/// on an async task (matches RedLoader's verified contract).
+const ASYNC_STOP_GRACE: Duration = Duration::from_secs(10);
+
+/// Drain/poll interval while an async task runs.
+const ASYNC_POLL_INTERVAL: Duration = Duration::from_millis(50);
+
+/// Execute a BOF asynchronously: worker thread + per-task output sink +
+/// OC2 stop-event contract.
+///
+/// - While the BOF runs, output entries are drained every 50 ms; each is
+///   passed to `on_output` (if given) for live streaming, and all are
+///   included in the final [`ExecutionResult`].
+/// - If `async_timeout` elapses (or the overall `timeout` does), the stop
+///   event is signaled — a well-behaved BOF sees it through
+///   `BeaconGetStopJobEvent()` and returns promptly.
+/// - A BOF that ignores the stop event gets [`ASYNC_STOP_GRACE`] (10 s),
+///   after which the loader *detaches*: the result reports failure with a
+///   "detached" error and the worker thread is left running (it cannot be
+///   safely killed).
+#[cfg(windows)]
+pub fn execute_async(
+    bof: &BofFile,
+    args: &[u8],
+    sandbox: bool,
+    trace: bool,
+    timeout: Duration,
+    emulate_beacon_info: bool,
+    async_timeout: Option<Duration>,
+    mut on_output: Option<&mut dyn FnMut(&crate::core::executor::capture::OutputEntry)>,
+) -> Result<ExecutionResult> {
+    use crate::core::executor::capture::OutputEntry;
+    use std::sync::{Arc, Mutex};
+
+    let start = Instant::now();
+    clear_global_output();
+    clear_tracer();
+
+    let bof_owned = bof.clone();
+    let args_owned = args.to_vec();
+    let inner_result: Arc<Mutex<Option<ExecutionResult>>> = Arc::new(Mutex::new(None));
+
+    let result_slot = Arc::clone(&inner_result);
+    let job = crate::core::executor::task::spawn_task(move |_ctx| {
+        let r = execute_with_entry_point(
+            &bof_owned,
+            &args_owned,
+            sandbox,
+            trace,
+            timeout,
+            None,
+            emulate_beacon_info,
+        );
+        match r {
+            Ok(res) => {
+                *result_slot.lock().unwrap() = Some(res);
+                Ok(())
+            }
+            Err(e) => Err(format!("{e:#}")),
+        }
+    });
+
+    let mut all_output: Vec<OutputEntry> = Vec::new();
+    let mut stop_signaled = false;
+    let mut stop_deadline: Option<Instant> = None;
+
+    loop {
+        // Drain whatever the BOF produced since the last poll.
+        for entry in job.drain_output() {
+            if let Some(cb) = on_output.as_deref_mut() {
+                cb(&entry);
+            }
+            all_output.push(entry);
+        }
+
+        if !job.is_running() {
+            break;
+        }
+
+        let elapsed = start.elapsed();
+        if !stop_signaled {
+            let should_stop = async_timeout
+                .map(|t| elapsed >= t)
+                .unwrap_or(false)
+                || (timeout.as_secs() > 0 && elapsed >= timeout);
+            if should_stop {
+                let reason = async_timeout
+                    .filter(|t| elapsed >= *t)
+                    .map(|t| format!("async timeout ({:.1?})", t))
+                    .unwrap_or_else(|| format!("overall timeout ({:.1?})", timeout));
+                eprintln!("[async] {reason}: signaling stop event");
+                job.stop();
+                stop_signaled = true;
+                stop_deadline = Some(Instant::now() + ASYNC_STOP_GRACE);
+            }
+        } else if let Some(deadline) = stop_deadline {
+            if Instant::now() >= deadline {
+                eprintln!(
+                    "[async] BOF ignored the stop event for {}s; detaching (thread left running)",
+                    ASYNC_STOP_GRACE.as_secs()
+                );
+                let execution_time = start.elapsed();
+                return Ok(ExecutionResult {
+                    success: false,
+                    output: messages_from_entries(&all_output),
+                    execution_time,
+                    error: Some(format!(
+                        "BOF ignored the stop event; loader detached after {}s grace",
+                        ASYNC_STOP_GRACE.as_secs()
+                    )),
+                    api_calls: get_api_calls(),
+                    resolved_imports: Default::default(),
+                    code_base_address: None,
+                });
+            }
+        }
+
+        std::thread::sleep(ASYNC_POLL_INTERVAL);
+    }
+
+    // Final drain + join.
+    for entry in job.drain_output() {
+        if let Some(cb) = on_output.as_deref_mut() {
+            cb(&entry);
+        }
+        all_output.push(entry);
+    }
+    let join = job.join();
+
+    let execution_time = start.elapsed();
+    let inner = inner_result.lock().unwrap().take();
+    let api_calls = get_api_calls();
+
+    match (join, inner) {
+        (Ok(()), Some(inner)) => {
+            // The inner run captured nothing in `.output` (writes went to
+            // the task sink), so rebuild output from the drained entries.
+            Ok(ExecutionResult {
+                output: messages_from_entries(&all_output),
+                api_calls,
+                ..inner
+            })
+        }
+        (Err(msg), _) => Ok(ExecutionResult {
+            success: false,
+            output: messages_from_entries(&all_output),
+            execution_time,
+            error: Some(msg),
+            api_calls,
+            resolved_imports: Default::default(),
+            code_base_address: None,
+        }),
+        (Ok(()), None) => Ok(ExecutionResult {
+            success: false,
+            output: messages_from_entries(&all_output),
+            execution_time,
+            error: Some("async task finished without a result".to_string()),
+            api_calls,
+            resolved_imports: Default::default(),
+            code_base_address: None,
+        }),
+    }
+}
+
+/// Convert captured output entries into report messages.
+#[cfg(windows)]
+fn messages_from_entries(
+    entries: &[crate::core::executor::capture::OutputEntry],
+) -> Vec<OutputMessage> {
+    entries
+        .iter()
+        .map(|entry| OutputMessage {
+            timestamp: chrono::Utc::now().to_rfc3339(),
+            message_type: match entry.callback_type {
+                0x00 => OutputType::Output,
+                0x0d => OutputType::Error,
+                _ => OutputType::Custom,
+            },
+            content: String::from_utf8_lossy(&entry.data).to_string(),
+        })
+        .collect()
+}
+
+/// Execute a BOF asynchronously (non-Windows stub)
+#[cfg(not(windows))]
+pub fn execute_async(
+    _bof: &BofFile,
+    _args: &[u8],
+    _sandbox: bool,
+    _trace: bool,
+    _timeout: Duration,
+    _emulate_beacon_info: bool,
+    _async_timeout: Option<Duration>,
+    _on_output: Option<&mut dyn FnMut(&crate::core::executor::capture::OutputEntry)>,
+) -> Result<ExecutionResult> {
+    anyhow::bail!("BOF execution is only supported on Windows. Use a Windows loader (RedLoader, COFFLoader) on the target VM instead.")
+}
+
 /// Execute a BOF with a specific entry point
 #[cfg(windows)]
 pub fn execute_with_entry_point(
@@ -223,7 +423,11 @@ pub fn execute_with_entry_point(
     resolver.set_beacon_api("BeaconPrintf", BeaconApi::beacon_printf as usize);
     resolver.set_beacon_api("BeaconOutput", BeaconApi::beacon_output as usize);
     resolver.set_beacon_api("BeaconDownload", BeaconApi::beacon_download as usize);
-    
+
+    // Async contract APIs (OC2 style)
+    resolver.set_beacon_api("BeaconGetStopJobEvent", BeaconApi::beacon_get_stop_job_event as usize);
+    resolver.set_beacon_api("BeaconWakeup", BeaconApi::beacon_wakeup as usize);
+
     // Data parsing APIs
     resolver.set_beacon_api("BeaconDataParse", BeaconApi::beacon_data_parse as usize);
     resolver.set_beacon_api("BeaconDataPtr", BeaconApi::beacon_data_ptr as usize);

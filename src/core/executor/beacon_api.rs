@@ -19,56 +19,12 @@ use windows::Win32::System::LibraryLoader::{GetProcAddress, LoadLibraryA};
 #[cfg(windows)]
 use windows::core::PCSTR;
 
-/// Output capture for Beacon API calls
-pub struct OutputCapture {
-    entries: Mutex<Vec<OutputEntry>>,
-}
+/// Output capture for Beacon API calls (cross-platform, see `capture.rs`;
+/// re-exported here for existing callers).
+pub use crate::core::executor::capture::{OutputCapture, OutputEntry};
 
-/// Output entry
-#[derive(Debug, Clone)]
-pub struct OutputEntry {
-    pub callback_type: u32,
-    pub data: Vec<u8>,
-}
-
-impl OutputCapture {
-    /// Create new output capture
-    pub fn new() -> Self {
-        Self {
-            entries: Mutex::new(Vec::new()),
-        }
-    }
-    
-    /// Add output entry
-    pub fn add(&self, callback_type: u32, data: Vec<u8>) {
-        if let Ok(mut entries) = self.entries.lock() {
-            entries.push(OutputEntry {
-                callback_type,
-                data,
-            });
-        }
-    }
-    
-    /// Get all entries
-    pub fn get_entries(&self) -> Vec<OutputEntry> {
-        self.entries.lock()
-            .map(|e| e.clone())
-            .unwrap_or_default()
-    }
-    
-    /// Clear entries
-    pub fn clear(&self) {
-        if let Ok(mut entries) = self.entries.lock() {
-            entries.clear();
-        }
-    }
-}
-
-impl Default for OutputCapture {
-    fn default() -> Self {
-        Self::new()
-    }
-}
+/// Route one output entry to the bound task sink or the global capture.
+use crate::core::executor::capture::push_output;
 
 /// Data parser structure (matches Cobalt Strike's datap)
 #[repr(C)]
@@ -245,7 +201,7 @@ impl BeaconApi {
             // Format the string using variadic arguments
             let output = format_printf_string(fmt_str, &parts, &args, specifier_count);
             
-            GLOBAL_OUTPUT.add(callback_type as u32, output.into_bytes());
+            push_output(callback_type as u32, output.into_bytes());
         }
     }
 }
@@ -366,7 +322,7 @@ impl BeaconApi {
     ) {
         if !data.is_null() && length > 0 {
             let data_vec = std::slice::from_raw_parts(data, length).to_vec();
-            GLOBAL_OUTPUT.add(callback_type as u32, data_vec);
+            push_output(callback_type as u32, data_vec);
         }
     }
     
@@ -2097,7 +2053,7 @@ impl BeaconApi {
         // In a real implementation, this would download the file
         // For now, we just log it
         if let Ok(fname) = CStr::from_ptr(filename).to_str() {
-            GLOBAL_OUTPUT.add(
+            push_output(
                 0x1000, // CALLBACK_CUSTOM
                 format!("[DOWNLOAD] {} ({} bytes)\n", fname, length).into_bytes(),
             );
@@ -3387,17 +3343,35 @@ impl BeaconApi {
     }
 }
 
-/// Global output capture
-static GLOBAL_OUTPUT: OutputCapture = OutputCapture {
-    entries: Mutex::new(Vec::new()),
-};
+/// Global output capture lives in `capture.rs` (cross-platform); keep the
+/// accessors here so existing callers compile unchanged.
+pub use crate::core::executor::capture::{clear_global_output, global_output};
 
-/// Get global output capture
-pub fn global_output() -> &'static OutputCapture {
-    &GLOBAL_OUTPUT
-}
+// ---------------------------------------------------------------------------
+// Async contract APIs (OC2 style), ported from RedLoader
+// ---------------------------------------------------------------------------
 
-/// Clear global output
-pub fn clear_global_output() {
-    GLOBAL_OUTPUT.clear();
+impl BeaconApi {
+    /// `BeaconGetStopJobEvent()` — returns the async task's stop event
+    /// handle, or NULL when called outside an async context.
+    ///
+    /// A well-behaved async BOF waits on this handle (e.g.
+    /// `WaitForSingleObject`) in its work loop and returns promptly when
+    /// the operator signals stop. Sync BOFs see NULL and may treat that as
+    /// "no cancellation possible".
+    pub unsafe extern "C" fn beacon_get_stop_job_event() -> *mut core::ffi::c_void {
+        match crate::core::executor::task::current_task() {
+            Some(ctx) => ctx.stop_event_handle() as *mut core::ffi::c_void,
+            None => std::ptr::null_mut(),
+        }
+    }
+
+    /// `BeaconWakeup()` — the BOF asks the operator to flush/wake.
+    /// Recorded on the current task; returns TRUE (BOOL).
+    pub unsafe extern "C" fn beacon_wakeup() -> i32 {
+        if let Some(ctx) = crate::core::executor::task::current_task() {
+            ctx.mark_wakeup();
+        }
+        1
+    }
 }
