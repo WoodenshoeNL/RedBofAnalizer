@@ -164,7 +164,8 @@ impl<'a> PeBof<'a> {
         if lf < 0x40 || lf + 24 > data.len() || &data[lf..lf + 4] != b"PE\0\0" {
             anyhow::bail!("bad e_lfanew or missing PE signature");
         }
-        let machine = u16_at(data, lf + 4).unwrap();
+        let machine =
+            u16_at(data, lf + 4).ok_or_else(|| anyhow::anyhow!("truncated COFF header"))?;
         if machine != 0x8664 {
             anyhow::bail!(
                 "unsupported machine 0x{:04x} (only x64 BOF-PE is supported; \
@@ -172,38 +173,66 @@ impl<'a> PeBof<'a> {
                 machine
             );
         }
-        let num_sections = u16_at(data, lf + 6).unwrap();
+        let num_sections =
+            u16_at(data, lf + 6).ok_or_else(|| anyhow::anyhow!("truncated COFF header"))?;
         if num_sections > MAX_SECTIONS {
             anyhow::bail!("implausible section count");
         }
-        let optsz = u16_at(data, lf + 20).unwrap() as usize;
+        let optsz =
+            u16_at(data, lf + 20).ok_or_else(|| anyhow::anyhow!("truncated COFF header"))? as usize;
         if optsz < 112 {
             anyhow::bail!("optional header too small");
         }
         let oh = lf + 24;
-        let magic = u16_at(data, oh).unwrap();
+        // The whole optional header (through the data directories that
+        // NumberOfRvaAndSizes claims) must be present in the file before any
+        // field below is read -- hostile/truncated captures must yield an
+        // error, never a panic.
+        if oh + 108 + 2 > data.len() {
+            anyhow::bail!(
+                "optional header truncated: file ends at 0x{:x}, header starts at 0x{:x}",
+                data.len(),
+                oh
+            );
+        }
+        let magic = u16_at(data, oh).ok_or_else(|| anyhow::anyhow!("truncated optional header"))?;
         if magic != 0x20b {
             anyhow::bail!(
                 "unsupported optional header magic 0x{:x} (only PE32+)",
                 magic
             );
         }
-        let entry_rva = u32_at(data, oh + 16).unwrap();
-        let image_base = u64_at(data, oh + 24).unwrap();
-        let size_of_image = u32_at(data, oh + 56).unwrap() as usize;
-        let size_of_headers = u32_at(data, oh + 60).unwrap() as usize;
+        let entry_rva =
+            u32_at(data, oh + 16).ok_or_else(|| anyhow::anyhow!("truncated optional header"))?;
+        let image_base =
+            u64_at(data, oh + 24).ok_or_else(|| anyhow::anyhow!("truncated optional header"))?;
+        let size_of_image = u32_at(data, oh + 56)
+            .ok_or_else(|| anyhow::anyhow!("truncated optional header"))?
+            as usize;
+        let size_of_headers = u32_at(data, oh + 60)
+            .ok_or_else(|| anyhow::anyhow!("truncated optional header"))?
+            as usize;
         if size_of_image == 0 || size_of_image > MAX_IMAGE_SIZE {
             anyhow::bail!("implausible SizeOfImage");
         }
         if size_of_headers == 0 || size_of_headers > data.len() {
             anyhow::bail!("implausible SizeOfHeaders");
         }
-        let nrva = u32_at(data, oh + 108).unwrap().min(16) as usize;
+        let nrva = u32_at(data, oh + 108)
+            .ok_or_else(|| anyhow::anyhow!("truncated optional header"))?
+            .min(16) as usize;
+        if oh + 112 + nrva * 8 > data.len() {
+            anyhow::bail!(
+                "data directories truncated: header claims {} entries, file ends at 0x{:x}",
+                nrva,
+                data.len()
+            );
+        }
         let dd = oh + 112;
         let dir = |i: usize| -> Option<(u32, u32)> {
             if i < nrva {
-                let rva = u32_at(data, dd + i * 8).unwrap();
-                let size = u32_at(data, dd + i * 8 + 4).unwrap();
+                let rva = u32_at(data, dd + i * 8)?;
+                let size = u32_at(data, dd + i * 8 + 4)?;
                 if rva != 0 && size != 0 {
                     return Some((rva, size));
                 }

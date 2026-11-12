@@ -110,3 +110,61 @@ fn load_bof_dispatches_on_magic() {
     assert_eq!(bof.header.machine, MachineType::X64);
     assert!(bof.entry_point.is_some());
 }
+
+#[test]
+fn truncated_optional_header_is_err_not_panic() {
+    // Valid MZ + e_lfanew + PE sig + machine, but the file ends right after
+    // the COFF header while SizeOfOptionalHeader claims 0xF0 bytes.
+    let b = truncated_header(0x58);
+    let r = std::panic::catch_unwind(|| pe::PeBof::parse(&b));
+    assert!(
+        matches!(r, Ok(Err(_))),
+        "parse must return Err, not panic (file len {})",
+        b.len()
+    );
+}
+
+#[test]
+fn truncated_mid_optional_header_is_err_not_panic() {
+    // File ends inside the optional header (after AddressOfEntryPoint).
+    let b = truncated_header(0x58 + 40);
+    let r = std::panic::catch_unwind(|| pe::PeBof::parse(&b));
+    assert!(matches!(r, Ok(Err(_))), "parse must return Err, not panic");
+}
+
+#[test]
+fn truncated_data_directories_is_err_not_panic() {
+    // File ends inside the data-directory array (optional header present,
+    // NumberOfRvaAndSizes claims entries that are not in the file).
+    let b = truncated_header(0x58 + 112 + 8);
+    let r = std::panic::catch_unwind(|| pe::PeBof::parse(&b));
+    assert!(matches!(r, Ok(Err(_))), "parse must return Err, not panic");
+}
+
+/// Craft a truncated PE: full MZ/DOS stub + e_lfanew=0x40 + PE\0\0 +
+/// x64 machine + SizeOfOptionalHeader=0xF0, file cut to `len` bytes.
+fn truncated_header(len: usize) -> Vec<u8> {
+    let mut b = vec![0u8; len];
+    if len < 2 {
+        return b;
+    }
+    b[0] = b'M';
+    b[1] = b'Z';
+    if len >= 0x40 {
+        b[0x3c..0x40].copy_from_slice(&0x40u32.to_le_bytes());
+    }
+    if len >= 0x46 {
+        b[0x40..0x44].copy_from_slice(b"PE\0\0");
+        b[0x44..0x46].copy_from_slice(&0x8664u16.to_le_bytes()); // machine
+    }
+    if len >= 0x5a {
+        b[0x54..0x56].copy_from_slice(&0xF0u16.to_le_bytes()); // optsz claim
+                                                               // PE32+ magic so parse proceeds past the magic check
+        b[0x58..0x5a].copy_from_slice(&0x020bu16.to_le_bytes());
+    }
+    if len >= 0x58 + 110 {
+        // NumberOfRvaAndSizes at oh+108 claims the maximum 16 entries
+        b[0x58 + 108..0x58 + 112].copy_from_slice(&16u32.to_le_bytes());
+    }
+    b
+}
