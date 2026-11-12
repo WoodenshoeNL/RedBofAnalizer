@@ -103,7 +103,7 @@ enum Command {
         timeout: u64,
         /// Run asynchronously: worker thread with a private output sink and
         /// an OC2 stop-event contract (BeaconGetStopJobEvent/BeaconWakeup)
-        #[arg(long, name = "async")]
+        #[arg(long = "async", name = "async")]
         is_async: bool,
         /// With --async: signal the stop event after N seconds (a
         /// well-behaved BOF observes it and returns promptly)
@@ -135,7 +135,7 @@ enum Command {
         #[arg(long, default_value = "30")]
         timeout: u64,
         /// Run asynchronously (per-task output sink, OC2 stop-event contract)
-        #[arg(long, name = "async")]
+        #[arg(long = "async", name = "async")]
         is_async: bool,
         /// With --async: signal the stop event after N seconds
         #[arg(long, requires = "async")]
