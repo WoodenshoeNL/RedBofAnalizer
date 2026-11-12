@@ -193,7 +193,12 @@ impl TaskContext {
 
     /// Take all output entries accumulated so far.
     pub fn drain_output(&self) -> Vec<OutputEntry> {
-        self.sink.lock().expect("output sink mutex poisoned").take()
+        // Poisoned sink mutex must not panic here: this can be reached from
+        // extern "C" BOF callback context where a panic is UB.
+        self.sink
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner())
+            .take()
     }
 
     /// Elapsed time since the task started.
@@ -252,7 +257,7 @@ pub struct AsyncJob {
 ///
 /// `body` is the stand-in for the (Windows-only) loader call; it receives
 /// the task context so it can poll for stop.
-pub fn spawn_task<F>(body: F) -> AsyncJob
+pub fn spawn_task<F>(body: F) -> Result<AsyncJob, String>
 where
     F: FnOnce(&TaskContext) -> Result<(), String> + Send + 'static,
 {
@@ -274,25 +279,31 @@ where
         .spawn(move || {
             bind_output_sink(Arc::clone(t_ctx.sink()));
             CURRENT_TASK.with(|c| *c.borrow_mut() = Some(Arc::clone(&t_ctx)));
-            let result = body(&t_ctx);
+            // A panic inside the BOF must surface as a Failed task, not as a
+            // thread that dies mid-state (which reads as "still Running").
+            let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| body(&t_ctx)));
             CURRENT_TASK.with(|c| *c.borrow_mut() = None);
             unbind_output_sink();
             match result {
-                Ok(()) => t_state.store(state_code(TaskState::Finished), Ordering::SeqCst),
-                Err(msg) => {
+                Ok(Ok(())) => t_state.store(state_code(TaskState::Finished), Ordering::SeqCst),
+                Ok(Err(msg)) => {
                     let _ = t_error.set(msg);
+                    t_state.store(state_code(TaskState::Failed), Ordering::SeqCst);
+                }
+                Err(_) => {
+                    let _ = t_error.set("task body panicked".to_string());
                     t_state.store(state_code(TaskState::Failed), Ordering::SeqCst);
                 }
             }
         })
-        .expect("failed to spawn task thread");
+        .map_err(|e| format!("failed to spawn task thread: {e}"))?;
 
-    AsyncJob {
+    Ok(AsyncJob {
         ctx,
         state,
         error,
         thread: Mutex::new(Some(thread)),
-    }
+    })
 }
 
 impl AsyncJob {
@@ -337,8 +348,23 @@ impl AsyncJob {
 
     /// Block until the task finishes; returns `Err(message)` on failure.
     pub fn join(self) -> Result<(), String> {
-        if let Some(t) = self.thread.lock().unwrap().take() {
-            let _ = t.join();
+        let join_failed = if let Some(t) = self
+            .thread
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner())
+            .take()
+        {
+            t.join().is_err()
+        } else {
+            false
+        };
+        if join_failed {
+            // The thread died outside the catch_unwind guard (sink binding
+            // or state store): force Failed instead of reporting a stale
+            // Running state forever.
+            let _ = self.error.set("task thread panicked".to_string());
+            self.state
+                .store(state_code(TaskState::Failed), Ordering::SeqCst);
         }
         match self.state() {
             TaskState::Failed => Err(self
@@ -379,12 +405,34 @@ mod tests {
     }
 
     #[test]
+    fn panicking_task_body_reports_failure() {
+        // The task body panics: join() must surface Err (not a stale
+        // Running state that would spin the async poll loop forever).
+        let job = spawn_task(|_ctx| {
+            panic!("BOF exploded");
+        })
+        .unwrap();
+        let ctx = Arc::clone(job.context());
+        let joined = job.join();
+        assert!(
+            matches!(&joined, Err(msg) if msg.contains("panicked")),
+            "expected panic to surface as Failed, got {:?}",
+            joined
+        );
+        // Sink must still be drainable and the thread-local unbound.
+        assert_eq!(drain_text(ctx.sink()), "");
+        let later = spawn_task(|_ctx| Ok(())).unwrap();
+        assert_eq!(later.join(), Ok(()));
+    }
+
+    #[test]
     fn task_writes_go_to_sink_not_global() {
         clear_global_output();
         let job = spawn_task(|_ctx| {
             push_output(0x00, b"from-task".to_vec());
             Ok(())
-        });
+        })
+        .unwrap();
         let ctx = Arc::clone(job.context());
         assert_eq!(job.join(), Ok(()));
         assert_eq!(drain_text(ctx.sink()), "from-task");
@@ -398,13 +446,15 @@ mod tests {
                 push_output(0x00, format!("A{}", i).into_bytes());
             }
             Ok(())
-        });
+        })
+        .unwrap();
         let b = spawn_task(|_ctx| {
             for i in 0..50 {
                 push_output(0x00, format!("B{}", i).into_bytes());
             }
             Ok(())
-        });
+        })
+        .unwrap();
         let a_ctx = Arc::clone(a.context());
         let b_ctx = Arc::clone(b.context());
         a.join().unwrap();
@@ -436,7 +486,8 @@ mod tests {
             assert!(current_task().is_some());
             assert_ne!(ctx.stop_event_handle(), 0);
             Ok(())
-        });
+        })
+        .unwrap();
         job.join().unwrap();
         assert!(current_task().is_none());
     }
@@ -452,7 +503,8 @@ mod tests {
                 std::thread::sleep(Duration::from_millis(5));
             }
             Ok(())
-        });
+        })
+        .unwrap();
         assert_eq!(job.state(), TaskState::Running);
         job.stop();
         assert_eq!(
@@ -463,7 +515,7 @@ mod tests {
 
     #[test]
     fn failure_propagates() {
-        let job = spawn_task(|_ctx| Err("boom".into()));
+        let job = spawn_task(|_ctx| Err("boom".into())).unwrap();
         assert_eq!(
             job.wait_timeout(Duration::from_secs(5)),
             Some(TaskState::Failed)
@@ -477,7 +529,8 @@ mod tests {
             assert!(!ctx.wakeup_requested());
             ctx.mark_wakeup();
             Ok(())
-        });
+        })
+        .unwrap();
         let ctx = Arc::clone(job.context());
         job.join().unwrap();
         assert!(ctx.wakeup_requested());

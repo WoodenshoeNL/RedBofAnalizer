@@ -203,7 +203,8 @@ pub fn execute_async(
             }
             Err(e) => Err(format!("{e:#}")),
         }
-    });
+    })
+    .map_err(|e| anyhow::anyhow!(e))?;
 
     let mut all_output: Vec<OutputEntry> = Vec::new();
     let mut stop_signaled = false;

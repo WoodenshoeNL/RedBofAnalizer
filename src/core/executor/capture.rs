@@ -114,8 +114,11 @@ pub fn unbind_output_sink() {
 pub fn push_output(callback_type: u32, data: Vec<u8>) {
     BOUND_SINK.with(|s| {
         if let Some(sink) = s.borrow().as_ref() {
+            // Never panic in extern "C" BOF callback context: a poisoned
+            // sink (a BOF thread panicked while holding it) still receives
+            // output via into_inner recovery.
             sink.lock()
-                .expect("output sink mutex poisoned")
+                .unwrap_or_else(|poisoned| poisoned.into_inner())
                 .add(callback_type, data);
         } else {
             GLOBAL_OUTPUT.add(callback_type, data);
