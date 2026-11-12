@@ -646,17 +646,69 @@ pub fn execute_with_entry_point(
     // tables, so the flat COFF section copy below does not apply.
     #[cfg(windows)]
     {
-        if let Ok(bytes) = std::fs::read(&bof.path) {
-            if crate::core::parser::pe::is_pe_image(&bytes) {
+        let bytes = std::fs::read(&bof.path)
+            .with_context(|| format!("cannot read BOF image {}", bof.path.display()))?;
+        if crate::core::parser::pe::is_pe_image(&bytes) {
+            {
                 let mut pe_resolver = SymbolResolver::new();
                 register_all_beacon_apis(&mut pe_resolver);
                 let entry_name = entry_point_name.unwrap_or("go").to_string();
-                let code_base = crate::core::executor::pe_exec::execute_pe(
-                    &bytes,
-                    args,
-                    &pe_resolver,
-                    &entry_name,
-                )?;
+                // Same crash containment as the COFF path: vectored handler
+                // around the go() call, and a panic inside BOF-PE code is
+                // reported as a failed result instead of taking the process.
+                #[cfg(windows)]
+                let pe_exception_handler = unsafe {
+                    CRASH_INFO = None;
+                    AddVectoredExceptionHandler(1, Some(exception_handler))
+                };
+                let pe_run = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+                    crate::core::executor::pe_exec::execute_pe(
+                        &bytes,
+                        args,
+                        &pe_resolver,
+                        &entry_name,
+                    )
+                }));
+                #[cfg(windows)]
+                unsafe {
+                    if !pe_exception_handler.is_null() {
+                        RemoveVectoredExceptionHandler(pe_exception_handler);
+                    }
+                    if let Some((access_addr, instr_addr)) = CRASH_INFO {
+                        eprintln!(
+                            "[BOF-PE] Crash details - Instruction: 0x{:x}, Access: 0x{:x}",
+                            instr_addr, access_addr
+                        );
+                    }
+                }
+                let code_base = match pe_run {
+                    Ok(Ok(base)) => base,
+                    Ok(Err(e)) => return Err(e),
+                    Err(_) => {
+                        let execution_time = start.elapsed();
+                        return Ok(ExecutionResult {
+                            success: false,
+                            output: global_output()
+                                .get_entries()
+                                .iter()
+                                .map(|entry| OutputMessage {
+                                    timestamp: chrono::Utc::now().to_rfc3339(),
+                                    message_type: match entry.callback_type {
+                                        0x00 => OutputType::Output,
+                                        0x0d => OutputType::Error,
+                                        _ => OutputType::Custom,
+                                    },
+                                    content: String::from_utf8_lossy(&entry.data).to_string(),
+                                })
+                                .collect(),
+                            execution_time,
+                            error: Some("BOF-PE execution panicked".to_string()),
+                            api_calls: get_api_calls(),
+                            resolved_imports: Default::default(),
+                            code_base_address: None,
+                        });
+                    }
+                };
                 let execution_time = start.elapsed();
                 let output_entries = global_output().get_entries();
                 let output: Vec<OutputMessage> = output_entries

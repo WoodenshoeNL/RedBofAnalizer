@@ -19,6 +19,23 @@ use std::collections::HashMap;
 
 use anyhow::{anyhow, Context, Result};
 
+/// Bounds-checked pointer to 8 writable bytes at `rva` inside the mapped
+/// image. Parse rejects out-of-image RVAs already (see pe.rs); this is the
+/// write-time belt-and-braces so no future parser regression can turn into
+/// an out-of-allocation write.
+#[inline]
+fn slot_ptr(base: usize, size_of_image: usize, rva: u32) -> Result<*mut u64> {
+    if rva as usize + 8 <= size_of_image {
+        Ok((base + rva as usize) as *mut u64)
+    } else {
+        Err(anyhow!(
+            "rva 0x{:x} outside image (size 0x{:x})",
+            rva,
+            size_of_image
+        ))
+    }
+}
+
 use crate::core::executor::symbols::SymbolResolver;
 use crate::core::parser::pe::{ImportTarget, PeBof, PeRelocKind};
 
@@ -110,7 +127,7 @@ pub fn execute_pe(
                 match r.kind {
                     PeRelocKind::Absolute => {}
                     PeRelocKind::Dir64 => {
-                        let at = (base + r.rva as usize) as *mut u64;
+                        let at = slot_ptr(base, pe.size_of_image, r.rva)?;
                         let cur = std::ptr::read_unaligned(at);
                         std::ptr::write_unaligned(at, cur.wrapping_add(delta));
                     }
@@ -181,10 +198,13 @@ pub fn execute_pe(
                 };
                 // Patch both ILT and IAT slots (they alias unless bound
                 // imports split them); harmless when equal.
-                std::ptr::write_unaligned((base + slot.ilt_rva as usize) as *mut u64, addr as u64);
+                std::ptr::write_unaligned(
+                    slot_ptr(base, pe.size_of_image, slot.ilt_rva)?,
+                    addr as u64,
+                );
                 if slot.iat_rva != slot.ilt_rva {
                     std::ptr::write_unaligned(
-                        (base + slot.iat_rva as usize) as *mut u64,
+                        slot_ptr(base, pe.size_of_image, slot.iat_rva)?,
                         addr as u64,
                     );
                 }
@@ -210,6 +230,13 @@ pub fn execute_pe(
         } else {
             (args.as_ptr(), args.len() as i32)
         };
+        if entry_rva as usize >= pe.size_of_image {
+            return Err(anyhow!(
+                "entry RVA 0x{:x} outside image (size 0x{:x})",
+                entry_rva,
+                pe.size_of_image
+            ));
+        }
         let entry_addr = base + entry_rva as usize;
         log::debug!("calling BOF-PE export '{}' at 0x{:x}", entry, entry_addr);
         let go: unsafe extern "C" fn(*const u8, i32) = std::mem::transmute(entry_addr);
