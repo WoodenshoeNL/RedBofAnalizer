@@ -250,6 +250,65 @@ redbofanalyzer execute path/to/bof.o --args "z:test_string i:123"
 redbofanalyzer execute path/to/bof.o --sandbox --timeout 10
 ```
 
+#### Async execution (`--async`)
+
+Runs the BOF on a worker thread with a **per-task output sink** (streams
+partial output while the BOF runs; concurrent tasks never mix output) and
+a **stop event** surfaced through the OC2 async contract:
+
+```bash
+# Stream output while the BOF runs
+redbofanalyzer execute mybof.o --async --args "z:mytag i:30"
+
+# Cap the run: signals the stop event after N seconds; a well-behaved
+# BOF sees it via BeaconGetStopJobEvent() and returns promptly
+redbofanalyzer execute mybof.o --async --async-timeout 5 --args "z:mytag i:120"
+```
+
+Inside the BOF, `BeaconGetStopJobEvent()` returns a real Windows event
+handle in async mode (NULL in sync mode — BOFs can detect their context),
+and `BeaconWakeup()` is recorded and reported back. A panicking BOF is
+contained: it surfaces as a Failed task, never a wedged or crashed host.
+
+#### BOF-PE loading (PE-format BOFs)
+
+`execute` auto-detects the file format: a PE32+ image (DLL with a `go`
+export, as shipped by e.g. chryzsh/company-portal-lpe `bofs/pe/`) is
+mapped manually — sections, DIR64 base relocations, and imports from
+`beacon.dll` (bound to the internal Beacon table), KERNEL32 and msvcrt.
+No `DllMain`/CRT initialization is performed; entry is `go`. Async mode
+works the same as for COFF (`--async --async-timeout`).
+
+Truncated or hostile images (bad header lengths, relocations/imports/
+exports pointing outside SizeOfImage) are rejected at parse time with
+exact contextual errors — before any memory is mapped.
+
+#### OC2 Stage1 wrappers (`s1`)
+
+Drive a BOF through its OC2 Stage1 wrapper (`*.s1.py`): parses the
+script's `_encode_arguments_bof` spec, packs argv exactly like OC2
+(including inverted flags, defaults, and uploaded files), and locates
+`<base_binary_name>.x64.o` next to the script (PE or COFF):
+
+```bash
+# Show the extracted spec (command, format string, args)
+redbofanalyzer s1 intune_race_bof.s1.py --list
+
+# Pack only (print the byte buffer, no execution)
+redbofanalyzer s1 --pack-only --file payload_dll=payload.dll intune_race_bof.s1.py
+
+# Execute (wrapper flags go straight after the script; '--' optional)
+redbofanalyzer s1 --file payload_dll=payload.dll --async --async-timeout 5 intune_race_bof.s1.py --timeout 300
+```
+
+Subcommand options (`--pack-only`, `--file`, `--async`, ...) go **before**
+the script path; everything after the script is passed to the wrapper's
+own argument parser.
+
+`--file` element names are validated against the wrapper's declared
+`get_file_by_name` elements upfront, and arguments without a default
+that are not supplied fail loudly instead of silently packing zero.
+
 #### Launch GUI
 
 ```bash
