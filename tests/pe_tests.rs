@@ -168,3 +168,59 @@ fn truncated_header(len: usize) -> Vec<u8> {
     }
     b
 }
+
+#[test]
+fn hostile_reloc_page_rva_rejected() {
+    // tpe.x64.o with the first .reloc block's PageRVA patched to point far
+    // outside the image: must Err, never parse into an out-of-image write.
+    let mut b = std::fs::read("tests/fixtures/pe/tpe.x64.o").unwrap();
+    let off = 0x3600; // first reloc block (dir RVA 0xc000 -> file 0x3600)
+    b[off..off + 4].copy_from_slice(&0x7fff_0000u32.to_le_bytes());
+    let r = std::panic::catch_unwind(|| pe::PeBof::parse(&b));
+    assert!(
+        matches!(r, Ok(Err(_))),
+        "hostile reloc PageRVA must be rejected"
+    );
+}
+
+#[test]
+fn hostile_reloc_entry_rva_rejected() {
+    // Entry offset (low 12 bits) pushing the fixed-up RVA past SizeOfImage.
+    let mut b = std::fs::read("tests/fixtures/pe/tpe.x64.o").unwrap();
+    let off = 0x3600; // first reloc block: page near the image end...
+    b[off..off + 4].copy_from_slice(&0x0000_CFFFu32.to_le_bytes());
+    let off = 0x3608; // ...so entry offset 0xFFF pushes the RVA past SizeOfImage
+    let w = u16::from_le_bytes([b[off], b[off + 1]]);
+    b[off..off + 2].copy_from_slice(&((w & 0xF000) | 0x0FFF).to_le_bytes());
+    let r = std::panic::catch_unwind(|| pe::PeBof::parse(&b));
+    assert!(
+        matches!(r, Ok(Err(_))),
+        "reloc entry past image end must be rejected"
+    );
+}
+
+#[test]
+fn hostile_import_thunk_rva_rejected() {
+    // Patch the first descriptor's ILT (OFT) RVA to outside the image.
+    let mut b = std::fs::read("tests/fixtures/pe/tpe.x64.o").unwrap();
+    let off = 0x2c00; // first import descriptor (dir file offset)
+    b[off..off + 4].copy_from_slice(&0xF000_0000u32.to_le_bytes());
+    let r = std::panic::catch_unwind(|| pe::PeBof::parse(&b));
+    assert!(
+        matches!(r, Ok(Err(_))),
+        "import thunk RVA outside image must be rejected"
+    );
+}
+
+#[test]
+fn hostile_export_rva_rejected() {
+    // Patch the first export address-table entry (go = 0x13b0) to 0x7fffffff.
+    let mut b = std::fs::read("tests/fixtures/pe/tpe.x64.o").unwrap();
+    let off = 0x2a28; // export address table (dir RVA 0x8028 -> file 0x2a28)
+    b[off..off + 4].copy_from_slice(&0x7fff_ffffu32.to_le_bytes());
+    let r = std::panic::catch_unwind(|| pe::PeBof::parse(&b));
+    assert!(
+        matches!(r, Ok(Err(_))),
+        "export RVA outside image must be rejected"
+    );
+}

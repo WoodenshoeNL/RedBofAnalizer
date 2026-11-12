@@ -294,8 +294,7 @@ impl<'a> PeBof<'a> {
     fn rva_to_file_off(&self, rva: u32) -> Option<usize> {
         for s in &self.sections {
             let va = s.virtual_address;
-            let span = s.virtual_size.max(s.raw_size);
-            if rva >= va && rva.wrapping_sub(va) < span {
+            if rva >= va && rva.wrapping_sub(va) < s.raw_size {
                 let off = s.raw_offset.checked_add(rva - va)? as usize;
                 if off < self.data.len() {
                     return Some(off);
@@ -347,6 +346,14 @@ impl<'a> PeBof<'a> {
             )
             .ok_or_else(|| anyhow!("export name not valid utf-8"))?
             .to_string();
+            if func_rva as usize >= self.size_of_image {
+                anyhow::bail!(
+                    "export '{}' RVA 0x{:x} outside image (SizeOfImage 0x{:x})",
+                    name,
+                    func_rva,
+                    self.size_of_image
+                );
+            }
             exports.push((name, func_rva));
         }
         Ok(exports)
@@ -380,6 +387,10 @@ impl<'a> PeBof<'a> {
             .ok_or_else(|| anyhow!("import dll name not utf-8"))?
             .to_string();
             let lookup = if oft != 0 { oft } else { thrunk };
+            if lookup as usize + 8 > self.size_of_image || thrunk as usize + 8 > self.size_of_image
+            {
+                anyhow::bail!("import thunk table RVA outside image");
+            }
             let lookup_o = self
                 .rva_to_file_off(lookup)
                 .ok_or_else(|| anyhow!("import lookup table outside image"))?;
@@ -413,9 +424,17 @@ impl<'a> PeBof<'a> {
                         .to_string();
                     ImportTarget::Name(name)
                 };
+                let ilt_rva = lookup
+                    .checked_add(i * 8)
+                    .filter(|r| (*r + 8) as usize <= self.size_of_image)
+                    .ok_or_else(|| anyhow!("import thunks outside image"))?;
+                let iat_slot = iat_rva
+                    .checked_add(i * 8)
+                    .filter(|r| (*r + 8) as usize <= self.size_of_image)
+                    .ok_or_else(|| anyhow!("import thunks outside image"))?;
                 slots.push(PeImportSlot {
-                    ilt_rva: lookup + i * 8,
-                    iat_rva: iat_rva + i * 8,
+                    ilt_rva,
+                    iat_rva: iat_slot,
                     target,
                 });
                 i += 1;
@@ -442,6 +461,13 @@ impl<'a> PeBof<'a> {
             if bsize < 8 || bsize > remaining || o + bsize > self.data.len() {
                 anyhow::bail!("malformed base relocation block");
             }
+            if block as usize >= self.size_of_image {
+                anyhow::bail!(
+                    "reloc block page RVA 0x{:x} outside image (SizeOfImage 0x{:x})",
+                    block,
+                    self.size_of_image
+                );
+            }
             let n = (bsize - 8) / 2;
             for j in 0..n {
                 let w = u16_at(self.data, o + 8 + j * 2).unwrap();
@@ -450,10 +476,17 @@ impl<'a> PeBof<'a> {
                     10 => PeRelocKind::Dir64,
                     t => PeRelocKind::Unsupported(t),
                 };
-                out.push(PeReloc {
-                    rva: block + (w & 0xFFF) as u32,
-                    kind,
-                });
+                let rva = block
+                    .checked_add((w & 0xFFF) as u32)
+                    .filter(|r| *r as usize + 8 <= self.size_of_image)
+                    .ok_or_else(|| {
+                        anyhow!(
+                            "reloc entry RVA outside image (block 0x{:x} + 0x{:x})",
+                            block,
+                            w & 0xFFF
+                        )
+                    })?;
+                out.push(PeReloc { rva, kind });
             }
             o += bsize;
             remaining -= bsize;
