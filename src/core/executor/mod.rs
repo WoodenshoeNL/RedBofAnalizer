@@ -269,6 +269,15 @@ pub fn execute_async(
         }
         all_output.push(entry);
     }
+    // Output written by threads the BOF spawned itself (unbound) went to
+    // the GLOBAL capture; drain it too so async results are not silently
+    // missing that output.
+    for entry in crate::core::executor::capture::global_output().take() {
+        if let Some(cb) = on_output.as_deref_mut() {
+            cb(&entry);
+        }
+        all_output.push(entry);
+    }
     let join = job.join();
 
     let execution_time = start.elapsed();

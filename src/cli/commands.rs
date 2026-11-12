@@ -179,6 +179,19 @@ pub fn analyze(
 }
 
 /// Execute a BOF file
+/// Live output callback shared by the execute and s1 commands: labels each
+/// entry by callback type and flushes so async output streams promptly.
+fn print_live_entry(entry: &core::executor::capture::OutputEntry) {
+    let kind = match entry.callback_type {
+        0x00 => "output",
+        0x0d => "error",
+        _ => "custom",
+    };
+    print!("[{}] {}", kind, String::from_utf8_lossy(&entry.data));
+    use std::io::Write;
+    let _ = std::io::stdout().flush();
+}
+
 pub fn execute(
     file: PathBuf,
     args: Option<String>,
@@ -212,16 +225,7 @@ pub fn execute(
             std::time::Duration::from_secs(timeout),
             false, // CLI: use zeroed BeaconInformation by default
             async_timeout.map(std::time::Duration::from_secs),
-            Some(&mut |entry: &core::executor::capture::OutputEntry| {
-                let kind = match entry.callback_type {
-                    0x00 => "output",
-                    0x0d => "error",
-                    _ => "custom",
-                };
-                print!("[{}] {}", kind, String::from_utf8_lossy(&entry.data));
-                use std::io::Write;
-                let _ = std::io::stdout().flush();
-            }),
+            Some(&mut print_live_entry),
         )?
     } else {
         core::executor::execute(
@@ -435,6 +439,20 @@ pub fn s1(
     for binding in &files {
         match binding.split_once('=') {
             Some((name, path)) => {
+                // Typo'd element names must fail upfront with the valid
+                // names listed, not deep in packing as a confusing
+                // MissingFile.
+                if !spec.file_elements.iter().any(|el| el == name) {
+                    anyhow::bail!(
+                        "unknown upload element '{}' (wrapper declares: {})",
+                        name,
+                        if spec.file_elements.is_empty() {
+                            "<none>".to_string()
+                        } else {
+                            spec.file_elements.join(", ")
+                        }
+                    );
+                }
                 let bytes = std::fs::read(path)
                     .with_context(|| format!("cannot read upload '{}' at {}", name, path))?;
                 file_map.insert(name.to_string(), bytes);
@@ -498,16 +516,7 @@ pub fn s1(
             std::time::Duration::from_secs(timeout),
             false,
             async_timeout.map(std::time::Duration::from_secs),
-            Some(&mut |entry: &core::executor::capture::OutputEntry| {
-                let kind = match entry.callback_type {
-                    0x00 => "output",
-                    0x0d => "error",
-                    _ => "custom",
-                };
-                print!("[{}] {}", kind, String::from_utf8_lossy(&entry.data));
-                use std::io::Write;
-                let _ = std::io::stdout().flush();
-            }),
+            Some(&mut print_live_entry),
         )?
     } else {
         core::executor::execute(

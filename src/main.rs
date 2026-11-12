@@ -144,7 +144,9 @@ enum Command {
         /// (also the automatic behavior on non-Windows builds)
         #[arg(long)]
         pack_only: bool,
-        /// Arguments for the s1.py argument parser
+        /// Arguments for the s1.py argument parser (everything after the
+        /// script; `--` optional since values are taken verbatim)
+        #[arg(trailing_var_arg = true, allow_hyphen_values = true)]
         args: Vec<String>,
     },
     /// Test all BOFs in directory
