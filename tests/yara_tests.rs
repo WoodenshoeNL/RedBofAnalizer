@@ -107,11 +107,18 @@ mod yara_tests {
 
         let bof = BofFile {
             path: PathBuf::from("test.o"),
-            machine: 0x8664,
+            header: redbofanalyzer::core::models::bof::CoffHeader {
+                machine: redbofanalyzer::core::models::bof::MachineType::X64,
+                number_of_sections: 0,
+                timestamp: 0,
+                number_of_symbols: 0,
+                characteristics: 0,
+            },
             sections: vec![],
             symbols: vec![],
-            imports: vec![],
+            relocations: vec![],
             entry_point: None,
+            imports: vec![],
         };
 
         let result = yara::analyze_with_yara(&bof, &[], true);
