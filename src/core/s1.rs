@@ -55,6 +55,10 @@ pub enum S1Error {
     },
     #[error("missing uploaded file for element '{0}' (pass --file {0}=<path>)")]
     MissingFile(String),
+    /// Encode references an argument that has no default and was not
+    /// supplied (previously silently packed as 0/"").
+    #[error("missing required argument '{0}' (no default declared)")]
+    MissingArgument(String),
     #[error("too many positional arguments")]
     TooManyPositional,
 }
@@ -98,8 +102,9 @@ pub enum EncodeSource {
     /// Value comes from a parser argument (`args.<name>`); bool flags pack
     /// as 1/0 ints.
     Arg(String),
-    /// `1 if args.<flag> else 0` (or reversed).
-    FlagAsInt(String),
+    /// `1 if args.<flag> else 0`, or the inverted `0 if args.<flag> else 1`
+    /// (inverted=true packs !flag).
+    FlagAsInt { name: String, inverted: bool },
     /// Uploaded file content for a `get_file_by_name("<element>")` element.
     File(String),
     /// Literal value.
@@ -149,7 +154,7 @@ impl S1Spec {
         for (ty, source) in &encode {
             let _ = ty;
             match source {
-                EncodeSource::Arg(name) | EncodeSource::FlagAsInt(name) => {
+                EncodeSource::Arg(name) | EncodeSource::FlagAsInt { name, .. } => {
                     if !args.iter().any(|a| &a.name == name) {
                         return Err(S1Error::UnknownArgument(name.clone()));
                     }
@@ -243,20 +248,35 @@ impl S1Spec {
         for (ty, source) in &self.encode {
             let value = match source {
                 EncodeSource::Arg(name) => {
-                    let lit = values.get(name);
+                    // Absent bool (store_true) flags legitimately read as
+                    // False; any other absent argument without a default is
+                    // an error -- silently packing 0/"" builds a wrong BOF
+                    // buffer that fails (or worse, runs) on the target.
+                    let lit = match values.get(name) {
+                        Some(l) => Some(l.clone()),
+                        None if self
+                            .args
+                            .iter()
+                            .any(|a| a.name == *name && a.kind == S1ArgKind::Bool) =>
+                        {
+                            Some(S1Literal::Bool(false))
+                        }
+                        None => None,
+                    }
+                    .ok_or_else(|| S1Error::MissingArgument(name.clone()))?;
+                    let lit = &lit;
                     match ty {
                         ArgType::Int | ArgType::Short => {
                             let n = match lit {
-                                Some(S1Literal::Int(n)) => *n,
-                                Some(S1Literal::Bool(b)) => *b as i64,
-                                Some(S1Literal::Str(s)) => {
+                                S1Literal::Int(n) => *n,
+                                S1Literal::Bool(b) => *b as i64,
+                                S1Literal::Str(s) => {
                                     s.parse::<i64>().map_err(|_| S1Error::TypeConversion {
                                         name: name.clone(),
                                         expected: "int",
                                         got: s.clone(),
                                     })?
                                 }
-                                None => 0,
                             };
                             if *ty == ArgType::Short {
                                 ArgValue::Short(n as i16)
@@ -265,25 +285,26 @@ impl S1Spec {
                             }
                         }
                         ArgType::Str => ArgValue::Str(match lit {
-                            Some(S1Literal::Str(s)) => s.clone(),
-                            Some(S1Literal::Int(n)) => n.to_string(),
-                            Some(S1Literal::Bool(b)) => b.to_string(),
-                            None => String::new(),
+                            S1Literal::Str(s) => s.clone(),
+                            S1Literal::Int(n) => n.to_string(),
+                            S1Literal::Bool(b) => b.to_string(),
                         }),
                         ArgType::WStr => ArgValue::WStr(match lit {
-                            Some(S1Literal::Str(s)) => s.clone(),
-                            Some(S1Literal::Int(n)) => n.to_string(),
-                            Some(S1Literal::Bool(b)) => b.to_string(),
-                            None => String::new(),
+                            S1Literal::Str(s) => s.clone(),
+                            S1Literal::Int(n) => n.to_string(),
+                            S1Literal::Bool(b) => b.to_string(),
                         }),
                         ArgType::Buffer => ArgValue::Buffer(match lit {
-                            Some(S1Literal::Str(s)) => s.clone().into_bytes(),
+                            S1Literal::Str(s) => s.clone().into_bytes(),
                             _ => Vec::new(),
                         }),
                     }
                 }
-                EncodeSource::FlagAsInt(name) => {
+                EncodeSource::FlagAsInt { name, inverted } => {
                     let b = matches!(values.get(name), Some(S1Literal::Bool(true)));
+                    // An absent store_true flag reads as False; inverted
+                    // expressions then take the `else` branch (pack 1).
+                    let b = if *inverted { !b } else { b };
                     if *ty == ArgType::Short {
                         ArgValue::Short(b as i16)
                     } else {
@@ -374,19 +395,47 @@ fn parse_init(src: &str) -> Result<(String, String, Option<String>), S1Error> {
         if parts.is_empty() {
             continue;
         }
-        if command.is_none() {
-            if let Some(s) = parse_str_literal(&parts[0]) {
-                command = Some(s);
+        // A wrapper may legally repeat the SAME init (factory helpers);
+        // two DIFFERENT literal inits means multiple BaseBOFTask classes,
+        // whose command/binary would silently merge into a wrong BOF.
+        let call_cmd = parse_str_literal(&parts[0]);
+        if let Some(c) = &call_cmd {
+            if let Some(prev) = &command {
+                if prev != c {
+                    return Err(S1Error::UnsupportedExpression(format!(
+                        "multiple BaseBOFTask classes with conflicting commands                          ('{}' vs '{}'); the analyzer refuses to guess",
+                        prev, c
+                    )));
+                }
             }
+            command = Some(c.clone());
         }
         for kv in &parts[1..] {
             if let Some((_, v)) = kv.split_once("base_binary_name=") {
-                if base_binary_name.is_none() {
-                    base_binary_name = parse_str_literal(v.trim());
+                let parsed = parse_str_literal(v.trim());
+                if let Some(n) = &parsed {
+                    if let Some(prev) = &base_binary_name {
+                        if prev != n {
+                            return Err(S1Error::UnsupportedExpression(format!(
+                                "conflicting base_binary_name ('{}' vs '{}')",
+                                prev, n
+                            )));
+                        }
+                    }
+                    base_binary_name = Some(n.clone());
                 }
             } else if let Some((_, v)) = kv.split_once("base_binary_path=") {
-                if base_binary_path.is_none() {
-                    base_binary_path = parse_str_literal(v.trim());
+                let parsed = parse_str_literal(v.trim());
+                if let Some(n) = &parsed {
+                    if let Some(prev) = &base_binary_path {
+                        if prev != n {
+                            return Err(S1Error::UnsupportedExpression(format!(
+                                "conflicting base_binary_path ('{}' vs '{}')",
+                                prev, n
+                            )));
+                        }
+                    }
+                    base_binary_path = Some(n.clone());
                 }
             }
         }
@@ -601,7 +650,14 @@ fn parse_encode_list(src: &str) -> Result<Vec<(ArgType, EncodeSource)>, S1Error>
     let fn_idx = src
         .find("def _encode_arguments_bof")
         .ok_or(S1Error::NoEncodeList)?;
-    let body = &src[fn_idx..];
+    // Bound the scan to the method body: a "return [" in a LATER method or
+    // class would otherwise be merged into this one's encode list.
+    let body_src = &src[fn_idx..];
+    let body_end = body_src
+        .find("\ndef ")
+        .or_else(|| body_src.find("\nclass "))
+        .unwrap_or(body_src.len());
+    let body = &body_src[..body_end];
     let ret_idx = body.find("return [").ok_or(S1Error::NoEncodeList)?;
     let open = fn_idx + ret_idx + "return [".len();
     // Balanced scan for the closing ']'
@@ -691,12 +747,19 @@ fn map_expression(expr: &str) -> Result<EncodeSource, S1Error> {
     // "1 if args.flag else 0" / "0 if args.flag else 1"
     if expr.starts_with("1 if ") {
         if let Some(name) = extract_args_name(&expr["1 if ".len()..]) {
-            return Ok(EncodeSource::FlagAsInt(name));
+            return Ok(EncodeSource::FlagAsInt {
+                name,
+                inverted: false,
+            });
         }
     }
     if expr.starts_with("0 if ") {
         if let Some(name) = extract_args_name(&expr["0 if ".len()..]) {
-            return Ok(EncodeSource::FlagAsInt(name));
+            // "0 if args.x else 1": packs 1 when the flag is ABSENT.
+            return Ok(EncodeSource::FlagAsInt {
+                name,
+                inverted: true,
+            });
         }
     }
     // args.name / self.args.name
@@ -766,6 +829,112 @@ mod tests {
         PathBuf::from(env!("CARGO_MANIFEST_DIR"))
             .join("tests/fixtures/s1")
             .join(name)
+    }
+
+    const INVERTED_WRAPPER: &str = r#"
+from bof import *
+
+class ApitestBOF(BaseBOFTask):
+    def __init__(self):
+        super().__init__("apitest", base_binary_name="apitest")
+        self.parser.add_argument("--num", type=int, default=0)
+        self.parser.add_argument("--quiet", action="store_true")
+
+    def _encode_arguments_bof(self, args):
+        return [
+            (BOFArgumentEncoding.INT, args.num),
+            (BOFArgumentEncoding.INT, 0 if args.quiet else 1),
+        ]
+"#;
+
+    #[test]
+    fn inverted_flag_packs_one_when_absent() {
+        let spec = S1Spec::from_source(INVERTED_WRAPPER).unwrap();
+        // absent --quiet => "0 if quiet else 1" evaluates the else branch: 1
+        let buf = spec.pack_arguments(&[], &Default::default()).unwrap();
+        // byte 0..4: num (default 0); byte 4..8: inverted flag -> else branch = 1
+        assert_eq!(&buf[4..8], &1i32.to_le_bytes());
+        // supplied --quiet => 0
+        let buf = spec
+            .pack_arguments(&["--quiet".to_string()], &Default::default())
+            .unwrap();
+        assert_eq!(&buf[4..8], &0i32.to_le_bytes());
+    }
+
+    #[test]
+    fn non_inverted_flag_packs_zero_when_absent() {
+        let spec = S1Spec::from_source(
+            INVERTED_WRAPPER
+                .replace("0 if args.quiet else 1", "1 if args.quiet else 0")
+                .as_str(),
+        )
+        .unwrap();
+        let buf = spec.pack_arguments(&[], &Default::default()).unwrap();
+        assert_eq!(&buf[4..8], &0i32.to_le_bytes());
+        let buf = spec
+            .pack_arguments(&["--quiet".to_string()], &Default::default())
+            .unwrap();
+        assert_eq!(&buf[4..8], &1i32.to_le_bytes());
+    }
+
+    #[test]
+    fn missing_required_arg_is_error() {
+        // encode references args.token which is declared WITHOUT a default
+        let spec = S1Spec::from_source(
+            INVERTED_WRAPPER
+                .replace("args.num", "args.token")
+                .replace("\"--num\", type=int, default=0", "\"--token\", type=int")
+                .as_str(),
+        )
+        .unwrap();
+        let err = spec.pack_arguments(&[], &Default::default()).unwrap_err();
+        assert!(
+            matches!(&err, S1Error::MissingArgument(name) if name == "token"),
+            "{err:?}"
+        );
+    }
+
+    #[test]
+    fn conflicting_multi_class_init_is_error() {
+        let src = r#"
+from bof import *
+
+class ABOF(BaseBOFTask):
+    def __init__(self):
+        super().__init__("cmda", base_binary_name="binA")
+
+class BBOF(BaseBOFTask):
+    def __init__(self):
+        super().__init__("cmdb", base_binary_name="binB")
+
+    def _encode_arguments_bof(self, args):
+        return [(BOFArgumentEncoding.INT, 1)]
+"#;
+        let err = S1Spec::from_source(src).unwrap_err();
+        assert!(
+            err.to_string().contains("conflicting"),
+            "expected conflict error, got {err}"
+        );
+    }
+
+    #[test]
+    fn encode_scan_does_not_leak_into_later_method() {
+        let src = r#"
+from bof import *
+
+class ABOF(BaseBOFTask):
+    def __init__(self):
+        super().__init__("cmda", base_binary_name="binA")
+        self.parser.add_argument("--num", type=int, default=0)
+
+    def _encode_arguments_bof(self, args):
+        return [(BOFArgumentEncoding.INT, args.num)]
+
+    def _helper(self, args):
+        return [(BOFArgumentEncoding.INT, 0)]
+"#;
+        let spec = S1Spec::from_source(src).unwrap();
+        assert_eq!(spec.encode.len(), 1);
     }
 
     #[test]
